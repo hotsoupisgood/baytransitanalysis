@@ -1,0 +1,146 @@
+# plan/hostility.txt -- hostility word list for the A1 lexicon pass
+# (plan/ANALYSIS-transit.md 3, first bullet: "a hostility word-list rate").
+# Seeded 2026-09-23 for the T1 pilot. Read by analysis/a1_sentiment.py.
+#
+# WHAT THIS IS AND IS NOT. VADER scores valence: "terrible traffic" and "I am
+# terrified for my children" both come out strongly negative, and neither is
+# hostile. This list is the second channel -- speech aimed AT someone: contempt,
+# accusation, insult, threat. It is deliberately narrow. A negative VADER score
+# with a zero hostility rate is the ordinary case (an unhappy resident); the two
+# together are the case worth a human read.
+#
+# Format (same reader as plan/frames.yaml, analysis/a0_terms.load_frames): a
+# category is a top-level `key:` line followed by `- term` lines; '#' comments;
+# terms match whole-word, case-insensitive, optional 's, and a space in a term
+# matches whitespace or a hyphen.
+#
+# LIMITS, stated so the rate is not over-read:
+#   * Single words cannot see sarcasm, tone of voice, or a civil sentence with
+#     a hostile point ("I would ask the board to explain its priorities").
+#   * Civic meetings are procedurally polite. Expect a low rate and a long tail
+#     of zeros; report it as a floor on hostility, never as its level.
+#   * Terms that did not occur in the pilot stay in the list, marked "0 hits",
+#     so the next corpus reports them rather than losing them silently.
+#   * This is a SEED list, not a validated instrument. The paid Claude pass
+#     (0-4 hostility, meanness-scale anchored) is what would calibrate it.
+#
+# READ 2026-09-23, T1 pilot. The first draft fired 13 times and 11 of the 13
+# were wrong (analysis/a1_sentiment.py KWIC). The terms that produced them are
+# now in `ambiguous_*` categories: they are still counted and still reported,
+# but they do NOT enter the headline hostility rate. The evidence, verbatim:
+#   entitled   3 dais hits, ALL land-use ("the units that have already been
+#              entitled", "a report entitled ..."). This is the technical
+#              vocabulary of the corpus, not contempt.
+#   lie        1 dais hit, the verb ("where the tenant protection should lie").
+#   accountable 2 public hits, both the ordinary civic register and one of them
+#              quoting a grand jury ("failed to hold VTA staff accountable").
+#   lawsuit    2 public hits, both DESCRIBING third-party litigation
+#              ("they have eight active lawsuits"), neither a threat.
+#   don't care 1 public hit, not aimed at anyone ("I don't care whether I'm
+#              travelling in Europe").
+# After the split, 2 of 173 public turns and 0 of 621 dais turns are hostile.
+
+accusation:
+  - lying
+  - lied
+  - liar
+  - dishonest
+  - corrupt
+  - corruption
+  - bribe                 # 0 hits
+  - bought and paid for   # 0 hits
+  - cover-up              # 0 hits
+  - rigged                # 0 hits
+  - fraud
+  - scam
+  - sham
+  - conflict of interest
+  - backroom              # 0 hits
+  - rubber stamp
+  - sellout               # 0 hits
+
+contempt:
+  - ridiculous
+  - absurd
+  - nonsense
+  - joke
+  - laughable             # 0 hits
+  - pathetic              # 0 hits
+  - insulting
+  - insult
+  - disgraceful           # 0 hits
+  - disgrace
+  - shame on you          # 0 hits
+  - shameful
+  - embarrassment
+  - embarrassing
+  - incompetent
+  - incompetence          # 0 hits
+  - clueless              # 0 hits
+  - arrogant
+  - arrogance             # 0 hits
+  - condescending         # 0 hits
+  - cynical maneuver
+
+bad_faith:
+  - you people            # 0 hits
+  - ignoring us
+  - ignored us
+  - not listening
+  - won't listen
+  - will not listen
+  - contempt
+  - disrespect
+  - disrespectful
+  - betrayal              # 0 hits
+  - betrayed              # 0 hits
+  - broken promise
+  - lip service           # 0 hits
+
+threat_pressure:
+  - recall you            # 0 hits
+  - vote you out          # 0 hits
+  - resign
+  - step down             # 0 hits
+  - see you in court      # 0 hits
+
+slur_dismissal:
+  # Labels used to dismiss a group rather than argue with it. Both directions:
+  # the anti-housing and the pro-housing registers each have theirs.
+  - nimby
+  - nimbys
+  - greedy
+  - greed
+  - developers pocket     # 0 hits
+  - outsiders             # 0 hits
+  - carpetbagger          # 0 hits
+  - elitist               # 0 hits
+
+# ---------------------------------------------------------------------------
+# AMBIGUOUS. Counted and reported, but NOT in the hostility rate: every one of
+# these fired on something that was not hostility in the pilot (see the READ
+# note at the top). They stay because the same word IS hostile in other mouths
+# -- "you lied to us" is not "where the line should lie" -- and a list that
+# silently dropped them would hide the failure mode from the next corpus.
+# analysis/a1_sentiment.py keys on the `ambiguous_` prefix.
+
+ambiguous_legal:
+  # Descriptive in a civic meeting far more often than threatening.
+  - sue
+  - lawsuit
+  - litigation
+  - legal action
+  - accountable
+  - held accountable
+
+ambiguous_technical:
+  # Land-use and procedural vocabulary that collides with hostility words.
+  - entitled              # "units already entitled", "a report entitled ..."
+  - lie                   # "where the protection should lie"
+
+ambiguous_dismissal:
+  - yimby                 # usually self-description, not a slur
+  - don't care
+  - do not care
+  - doesn't care
+  - does not care

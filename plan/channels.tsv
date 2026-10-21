@@ -1,0 +1,75 @@
+# speaker<TAB>channel-tab URL. One row per channel tab; a speaker may have several.
+# Read by plan/crawl_metadata.sh. Lines starting with # are ignored.
+#
+# Confirmed by Puck on WhatsApp, 2026-09-17:
+#  - hasanabi: main channel, /videos tab (edited clips, not the /streams VODs).
+#  - tucker: @TuckerCarlson (UCGttrUON87gWfU6dMWm1fcA), the official post-Fox
+#    channel. Episodes are mostly 60-120+ min; with --max-min 90 expect thin months.
+#  - benshapiro: dropped from the corpus.
+hasanabi	https://www.youtube.com/@hasanabi/videos
+tucker	https://www.youtube.com/@TuckerCarlson/videos
+#
+# Meeting sources (2026-09-21, PROPOSAL-transit.md, T1 pilot). Columns 3-4:
+# kind (show|meeting) and a title regex that marks a REGULAR meeting; rows
+# without column 3 are kind=show. crawl_metadata.sh skips kind=meeting rows;
+# pipeline/discover.py --meetings reads them (YouTube /streams tab via
+# yt-dlp --flat-playlist; Granicus ViewPublisher listing via pipeline/granicus.py).
+# T0 (plan/T0-RESULTS.md): San José, BART and San Rafael publish full meetings
+# on /streams only. Oakland: Granicus view_id=2, captions.vtt + agenda index.
+sanjose	https://www.youtube.com/channel/UCeDiMzJEUbPgaruDcXnD4Cg/streams	meeting	^[A-Z]{3}\.? \d{1,2}, +\d{4} \| +City Council$
+sanrafael	https://www.youtube.com/channel/UCaQDlHi5fD6sByZUw5FOg9A/streams	meeting	^City Council Meeting \d\d/\d\d/\d{4}
+bart	https://www.youtube.com/channel/UCXJOE7qbFm8mr_6ZywmzLkQ/streams	meeting	^Board of Directors Regular Meeting
+oakland	https://oakland.granicus.com/ViewPublisher.php?view_id=2	meeting	^\*?\s*Concurrent Meeting of the Oakland Redevelopment Successor Agency (?:and the|/) City Council
+#
+# T2 full run (2026-09-22, plan/sources_bayarea.md, PROPOSAL 2.1): every located
+# body. URL = the tab / listing where the full meetings were seen; the regex was
+# written from the saved listing pass (output/t2/discovery/) and marks REGULAR
+# meetings only. Sunnyvale moved to /streams (T0). Bodies whose archive is not
+# located (Redwood City, Pleasanton, Livermore, Vallejo, Windsor, Novato, Sonoma
+# County BoS, Caltrain; AC Transit / MTC current video; Berkeley council and
+# Marin BoS view_ids; SFMTA view_id) are NOT here -- see plan/T2-PLAN.md.
+sunnyvale	https://www.youtube.com/channel/UCvTBGgHGeTlrJaabIsRZvVw/streams	meeting	^City Council Meeting - 
+santarosa	https://www.youtube.com/channel/UChF7Zl4VNfZFm-IUdtX6B_A/streams	meeting	^(?:City of Santa Rosa )?City Council \d
+healdsburg	https://www.youtube.com/channel/UCh-6ckyCBDkEsyWyDmh-5_g/streams	meeting	City Council Meeting$
+rohnertpark	https://www.youtube.com/channel/UClhzWns7HpJFj592c5NqZwg/streams	meeting	^Rohnert Park City Council Meeting,? 
+paloalto	https://www.youtube.com/channel/UC-j1sS-c6up6UvSzDNOHhHw/streams	meeting	^City Council Meeting - 
+cupertino	https://www.youtube.com/channel/UChTGNMh9Ti6cCi6gMCxhBTg/videos	meeting	^Cupertino City Council Meeting - 
+sanmateo	https://www.youtube.com/channel/UCtQV2ZVAgoV6smi6kWfQU8A/streams	meeting	^City Council - Regular Meeting 
+dalycity	https://www.youtube.com/channel/UC6wJ6DZOo9J1ds3k1yBbZtg/streams	meeting	^City of Daly City (?!.*Special).*Council.*Meeting - 
+concord	https://www.youtube.com/channel/UCFQKREXWugU-5Ev5aUj6a7g/streams	meeting	^City Council Regular Session 
+milpitas	https://www.youtube.com/channel/UCTS_MyZvQc_c3T4-vSXKM8Q/streams	meeting	^Milpitas City Council (?:(?:Special and )?Regular Meeting|Meeting) 
+losaltos	https://www.youtube.com/channel/UCwu5vgJsrSVhGX1p8aKvjjw/streams	meeting	^Los Altos City Council Meeting \d
+petaluma	https://www.youtube.com/channel/UCW4N-TOX2F_U08sNVEc4Tag/streams	meeting	^City Council Meeting - \d
+cotati	https://www.youtube.com/channel/UC23Rt-GKyF3PxIbJ7tznUKQ/videos	meeting	City Council Meeting$
+vta	https://www.youtube.com/channel/UCxjccaB5ITaq5EhsPRby9xg/streams	meeting	^VTA Board of Directors\s+Meeting 
+# SF, relocated 2026-10-18. The old `sanfrancisco` row (view_id=2, regex
+# `^Board of Supervisors`) stopped at 2024-12-11 and was marked unlocated in
+# plan/T2-PLAN.md §6; it is REPLACED by view_id=10 below. Nothing is superseded
+# in the state DB (no video row ever came from view 2); its stale
+# `sanfrancisco:granicus:sanfrancisco:2` sources row is left in place, unused.
+# The September discoverer probed view ids 1-40 only, which is why both SF
+# bodies were missed. View 10 also carries the Land Use and Transportation
+# Committee and the other BoS committees -- NOT registered (ask Puck).
+sanfrancisco	https://sanfrancisco.granicus.com/ViewPublisher.php?view_id=10	meeting	^(?:BOS )?Board of Supervisors Regular Meeting$
+# SFMTA board, view_id=55 on the same SFGovTV site: the regular board meeting
+# is listed with the bare body name ("Municipal Transportation Agency", 378 of
+# 409 clips); SPECIAL / RESCHEDULED / JOINT / Workshop / Town Hall / Parking
+# Authority prefixes and suffixes are all irregular and excluded by the anchors.
+sfmta	https://sanfrancisco.granicus.com/ViewPublisher.php?view_id=55	meeting	^Municipal Transportation Agency$
+mountainview	https://mountainview.granicus.com/ViewPublisher.php?view_id=2	meeting	^City Council
+fremont	https://fremont.granicus.com/ViewPublisher.php?view_id=1	meeting	^(?:CCMeeting|Council ?Meeting)
+santaclara	https://santaclara.granicus.com/ViewPublisher.php?view_id=1	meeting	^City Council and Authorities Concurrent
+alameda	https://alameda.granicus.com/ViewPublisher.php?view_id=2	meeting	^(?:Regular )?City Council
+richmond	https://richmond.granicus.com/ViewPublisher.php?view_id=2	meeting	^Council Meeting - 
+hayward	https://hayward.granicus.com/ViewPublisher.php?view_id=1	meeting	^City Council on 
+sanleandro	https://sanleandro.granicus.com/ViewPublisher.php?view_id=2	meeting	^City Council on 
+walnutcreek	https://walnutcreek.granicus.com/ViewPublisher.php?view_id=2	meeting	^City Council Meeting
+sausalito	https://sausalito.granicus.com/ViewPublisher.php?view_id=2	meeting	^City Council\b(?! Special)
+napa	https://napa.granicus.com/ViewPublisher.php?view_id=2	meeting	^Board of Supervisors on 
+samtrans	https://samtrans.granicus.com/ViewPublisher.php?view_id=1	meeting	^SamTrans Board of Directors(?! - Special)
+# Located by the 2026-09-22 search probe (scripts/probe_sources.py --youtube): official channels
+# with current full meetings. Tab confirmed by the listing pass that followed.
+pleasanton	https://www.youtube.com/channel/UCvWADqeCDCFnqP50bLvYccg/streams	meeting	City Council (?:Adjourned )?Regular Meeting$
+livermore	https://www.youtube.com/channel/UC-LUOVHsFv3zZo1I1n0J5lA/streams	meeting	^\d{4}-\d{2}-\d{2} City Council Meeting$
+vallejo	https://www.youtube.com/channel/UC6jR-uhpD99znuuMZuCfRDg/streams	meeting	^(?:Vallejo )?City Council Regular Meeting - 
+# actransit	https://www.youtube.com/channel/UCGoNwpocELlj6DjUtWeRXjQ/videos	meeting	^Board of Directors (?:Regular )?Meeting - 	# 2026-09-22: the official channel has ONE board meeting (Dec 2023); current video is Legistar/InSite. Unlocated.

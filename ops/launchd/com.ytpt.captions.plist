@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Template for the caption trickle worker (plan/T2-PLAN.md 3a; added 2026-09-22
+  after the first T2 caption run was 429'd at 17 requests in 31 min).
+  ops/launchd/install_workers.sh fills __REPO__, __PYTHON__, __LOGDIR__ and __PATH__.
+
+  ONE meeting an hour, randomised 60-70 min (captions.py LOOP_MIN_GAP/LOOP_MAX_GAP),
+  with a hard cap of LOOP_DAILY_CAP = 18 requests per rolling 24 h: slowed from
+  8-12 min on 2026-09-24 after a SECOND 429, at 5 requests in 41 min (T2-PLAN 3h).
+  Both limits are read from the `worker_requests` table, so a KeepAlive restart
+  cannot skip them. Change them without editing this file: CAPTIONS_MIN_GAP_S /
+  CAPTIONS_MAX_GAP_S / CAPTIONS_DAILY_CAP in .env.
+  On a bot check / 429 the worker writes a 24 h row in
+  `backoffs`, notifies Puck and exits 0 (in --loop mode), so KeepAlive
+  (SuccessfulExit=false) leaves it DOWN and a hand restart inside those 24 h asks
+  YouTube nothing either. A crash (non-zero exit) is still restarted after
+  ThrottleInterval.
+  Pause / resume, like the other workers (docs/OPENCLAW_SETUP.md 7):
+    launchctl bootout   gui/$(id -u)/com.ytpt.captions
+    launchctl kickstart -k gui/$(id -u)/com.ytpt.captions
+  Backoff left: `.venv/bin/python pipeline/captions.py --backoff-status`.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ytpt.captions</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__PYTHON__</string>
+    <string>__REPO__/pipeline/captions.py</string>
+    <string>--loop</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>__PATH__</string></dict>
+  <key>WorkingDirectory</key><string>__REPO__</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><dict><key>SuccessfulExit</key><false/></dict>
+  <key>ThrottleInterval</key><integer>600</integer>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>__LOGDIR__/captions.log</string>
+  <key>StandardErrorPath</key><string>__LOGDIR__/captions.log</string>
+</dict>
+</plist>

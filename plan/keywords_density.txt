@@ -1,0 +1,364 @@
+# Keywords for the DENSITY family (housing supply, upzoning, land use) in Bay
+# Area council / county / transit-board meetings. PROPOSAL-transit.md 1 and 4.
+# Draft 2026-09-20 for T0 (plan/T0-TESTPLAN.md test 2).
+#
+# Format (pipeline/segment.py load_keywords): one term per line, '#' comments,
+# case-insensitive, whole-word, optional plural. Multi-word terms match across
+# whitespace or a hyphen.
+#   @family <name>   -- every term below the line belongs to this family
+#   ? term           -- CONDITIONAL: counted in a 60-s window only when that
+#                       window also has an unconditional hit from the same
+#                       family. This is how the ambiguous bare words are kept
+#                       without letting them fire alone.
+# This file is stage 1 of two: it is deliberately over-inclusive at threshold
+# 0.5 and the Claude classifier (scripts/classify_windows.py) decides
+# about_density / mention_only / no on the candidate windows.
+@family density
+#
+# State housing law and the housing element cycle
+housing element
+rhna
+regional housing needs
+regional housing need allocation
+hcd
+department of housing and community development
+prohousing
+pro-housing
+builder's remedy
+builders remedy
+builder remedy
+sb 9
+sb9
+sb 35
+sb35
+sb 79
+sb79
+sb 330
+sb330
+sb 423
+ab 2011
+ab 2097
+ab 1033
+ab 1287
+housing accountability act
+by-right
+by right
+ministerial approval
+ministerial review
+objective standards
+objective design standards
+streamlined approval
+#
+# Zoning and density mechanisms
+upzoning
+upzone
+upzoned
+rezoning
+rezone
+rezoned
+zoning change
+zoning amendment
+zoning code
+zoning ordinance
+? zoning
+density bonus
+density
+units per acre
+dwelling units per acre
+du/ac
+height limit
+height limits
+building height
+story limit
+floor area ratio
+setback
+setbacks
+lot split
+lot splits
+minimum lot size
+single-family zoning
+single family zoning
+single-family
+single family
+r-1
+r1 zoning
+multifamily
+multi-family
+multi family
+missing middle
+mixed-use
+mixed use
+duplex
+duplexes
+triplex
+fourplex
+townhome
+townhomes
+townhouse
+townhouses
+condominium
+condominiums
+high-rise
+high rise
+apartment building
+apartment complex
+apartments
+? apartment
+? units
+accessory dwelling
+accessory dwelling unit
+adu
+adus
+junior adu
+jadu
+granny flat
+granny unit
+in-law unit
+#
+# Parking as a density instrument (bare "parking" is enforcement, garages and
+# tickets most of the time -- conditional; multi-word forms are unconditional)
+parking minimum
+parking minimums
+parking requirement
+parking requirements
+parking mandate
+parking mandates
+parking ratio
+parking reduction
+parking reform
+unbundled parking
+? parking
+#
+# Affordability and production
+affordable housing
+affordability
+inclusionary
+inclusionary housing
+inclusionary zoning
+below market rate
+below-market-rate
+bmr
+deed-restricted
+deed restricted
+market-rate
+market rate housing
+housing production
+housing supply
+housing crisis
+housing shortage
+housing development
+housing project
+housing proposal
+housing trust fund
+housing bond
+housing overlay
+housing opportunity
+housing plan
+housing policy
+housing goals
+housing needs
+housing units
+new housing
+more housing
+housing
+homes
+#
+# Planning instruments (co-occur with a housing term before they count)
+? general plan
+? specific plan
+? area plan
+? land use
+? entitlement
+? entitlements
+? planning commission
+? environmental review
+? ceqa
+#
+# Displacement, tenants and the opposition frames (PROPOSAL 1: counted as
+# collocates, not asserted). "traffic" and "character" only count next to a
+# housing term.
+displacement
+displaced
+gentrification
+gentrify
+rent control
+rent stabilization
+rent stabilisation
+just cause
+tenant protection
+tenant protections
+eviction
+evictions
+nimby
+nimbys
+nimbyism
+yimby
+yimbys
+neighborhood character
+neighbourhood character
+community character
+local control
+? traffic
+? overcrowding
+? shadows
+? property values
+#
+# --- Density vocabulary expansion (2026-10-18, approved by Puck) -------------
+# plan/RECALL-CHECK.md: the density family's screen misses on both reference
+# arms were vocabulary, not spelling -- every one sat at 0.0 hits/100w on the
+# locate track. Read from the three missed-window lists
+# (output/validation/recall/missed_windows.md, recall_yt/missed_windows.md,
+# codebook_v2/missed_v2_120.md): San Leandro's development-feasibility / cap-
+# rate / prevailing-wage deliberation and vacancy-tax item, Richmond's parkland
+# dedication fee and housing authority budget, San Leandro's rent-program
+# staffing, Los Altos's below-market-rate lottery tiers and local-control
+# resolution, Milpitas's BMR homeownership lottery. Frequencies in the comments
+# are 60-s windows (>= 10 words) over the 293 caption / ASR tracks on disk
+# (59,089 windows): a housing-specific term under ~0.15 % is unconditional; a
+# word that is housing only in context (feasibility, developer, tenant,
+# lottery's cousins) is CONDITIONAL and counts beside an unconditional hit.
+#
+# Development economics and feasibility (3077 1:01-1:29, 3105 4:19)
+cap rate                   # 0.029 %
+cap rates
+capitalization rate
+development feasibility
+financial feasibility      # 0.027 %
+real estate development    # 0.020 %
+residential development    # 0.107 %
+residential developments
+residential project        # 0.056 %
+residential projects
+residential units          # 0.083 %
+residential property       # 0.029 %
+residential properties
+housing market             # 0.068 %
+pro forma
+proforma
+? feasibility              # 0.33 %: feasibility studies of everything
+? feasible
+? construction cost        # 0.14 %
+? construction costs
+? cost of construction
+? prevailing wage          # 0.063 %: every public-works contract
+? developer                # 1.6 %
+? developers
+? development              # 6.0 %: economic development, every CIP item
+? developments
+? residential              # 1.7 %
+? subdivision              # 0.20 %
+? subdivisions
+#
+# Fees tied to building housing (6010 3:40-3:41)
+parkland dedication        # 0.007 %
+park dedication
+quimby                     # Quimby Act park fees, 0.010 %
+? impact fee
+? impact fees
+? in-lieu fee
+? in lieu fee
+#
+# Vacancy taxes and the state law around them (3077 2:02-2:07)
+vacancy tax                # 0.034 %
+vacant property tax
+vacant home tax
+vacant homes tax
+empty homes tax
+ellis act
+#
+# Affordable-housing allocation: who gets a below-market unit (Los Altos
+# 0:26-0:51, Milpitas 2:46-2:50). The codebook labels this about_density
+# ("affordable housing production, inclusionary requirements, below-market-rate
+# units") but nothing here named it.
+below market               # 0.059 %; "below market rate" above misses "below-market unit"
+affordable unit            # 0.13 %
+affordable units
+area median income         # 0.036 %
+very low income            # 0.049 %
+very low-income
+extremely low income
+moderate income            # 0.078 %
+moderate-income
+income-restricted
+income restricted
+income qualified
+income-qualified
+income tier
+income tiers
+vli                        # "VLI" as spoken: very low income
+local preference           # 0.030 %
+lottery                    # 0.047 %: BMR lotteries; speaker-order lotteries are the classifier's to drop
+housing lottery
+bmr lottery
+homeownership              # 0.022 %
+home ownership             # 0.056 %
+homeownership program
+home ownership program
+first-time homebuyer
+first time homebuyer
+first-time home buyer
+first time home buyer
+down payment assistance    # 0.022 %
+section 8                  # 0.061 %
+housing choice voucher     # 0.025 %
+housing voucher
+housing vouchers
+? ami                      # 0.091 %; also a name
+? low income               # 0.38 %: services, utilities discounts
+? low-income
+? affordable               # 1.7 %: affordable anything
+? tier one                 # 0.073 %: tiered fees and water rates too
+? tier two
+#
+# Public and supportive housing (6010 0:15 housing authority budget; 3105
+# 3:14 interim-to-permanent). Rule 2 of the codebook: building or zoning
+# housing counts, services do not -- the classifier draws that line.
+housing authority          # 0.32 %
+public housing             # 0.024 %
+supportive housing         # 0.15 %
+permanent supportive housing
+interim housing            # 0.11 %
+transitional housing       # 0.030 %
+? hud                      # 0.17 %
+? operating subsidy
+#
+# Tenant protections, completing the block above (3105 0:23, 3:02-3:09)
+costa hawkins
+costa-hawkins
+ab 1482
+tenant protection act
+rent registry              # 0.13 %
+rent board                 # 0.034 %
+rent program               # 0.076 %
+rent ordinance
+rent protection
+rent protections
+renter protection          # 0.044 %
+renter protections
+rent cap                   # 0.051 %
+rental housing             # 0.14 %
+rental units               # 0.042 %
+mobile home ordinance
+mobilehome
+mobile home park           # 0.13 %
+mobile home parks
+? mobile home              # 0.26 %
+? rent increase            # 0.15 %
+? rent increases
+? tenant                   # 1.1 %
+? tenants
+? renter                   # 0.35 %
+? renters
+? landlord                 # 0.53 %
+? landlords
+? rental                   # 0.84 %
+? rentals
+#
+# Local control over housing (Los Altos 3:36-4:14: a ballot measure and a
+# Cal Cities resolution on "final local authority over housing and land use")
+? home rule                # 0.010 %
+#
+# ASR variants: none here. Auto-caption misspellings of the screen's own
+# terms (yimi -> yimby, reszoning -> rezoning, wrership -> ridership, fairgate
+# -> fare gate ...) live in plan/keywords_aliases_auto.txt, applied only on
+# captions='auto' tracks (pipeline/segment.py apply_aliases).

@@ -1,0 +1,2274 @@
+{
+"keywords": {
+"density": [
+{
+"term": "housing element",
+"conditional": false
+},
+{
+"term": "rhna",
+"conditional": false
+},
+{
+"term": "regional housing needs",
+"conditional": false
+},
+{
+"term": "regional housing need allocation",
+"conditional": false
+},
+{
+"term": "hcd",
+"conditional": false
+},
+{
+"term": "department of housing and community development",
+"conditional": false
+},
+{
+"term": "prohousing",
+"conditional": false
+},
+{
+"term": "pro-housing",
+"conditional": false
+},
+{
+"term": "builder's remedy",
+"conditional": false
+},
+{
+"term": "builders remedy",
+"conditional": false
+},
+{
+"term": "builder remedy",
+"conditional": false
+},
+{
+"term": "sb 9",
+"conditional": false
+},
+{
+"term": "sb9",
+"conditional": false
+},
+{
+"term": "sb 35",
+"conditional": false
+},
+{
+"term": "sb35",
+"conditional": false
+},
+{
+"term": "sb 79",
+"conditional": false
+},
+{
+"term": "sb79",
+"conditional": false
+},
+{
+"term": "sb 330",
+"conditional": false
+},
+{
+"term": "sb330",
+"conditional": false
+},
+{
+"term": "sb 423",
+"conditional": false
+},
+{
+"term": "ab 2011",
+"conditional": false
+},
+{
+"term": "ab 2097",
+"conditional": false
+},
+{
+"term": "ab 1033",
+"conditional": false
+},
+{
+"term": "ab 1287",
+"conditional": false
+},
+{
+"term": "housing accountability act",
+"conditional": false
+},
+{
+"term": "by-right",
+"conditional": false
+},
+{
+"term": "by right",
+"conditional": false
+},
+{
+"term": "ministerial approval",
+"conditional": false
+},
+{
+"term": "ministerial review",
+"conditional": false
+},
+{
+"term": "objective standards",
+"conditional": false
+},
+{
+"term": "objective design standards",
+"conditional": false
+},
+{
+"term": "streamlined approval",
+"conditional": false
+},
+{
+"term": "upzoning",
+"conditional": false
+},
+{
+"term": "upzone",
+"conditional": false
+},
+{
+"term": "upzoned",
+"conditional": false
+},
+{
+"term": "rezoning",
+"conditional": false
+},
+{
+"term": "rezone",
+"conditional": false
+},
+{
+"term": "rezoned",
+"conditional": false
+},
+{
+"term": "zoning change",
+"conditional": false
+},
+{
+"term": "zoning amendment",
+"conditional": false
+},
+{
+"term": "zoning code",
+"conditional": false
+},
+{
+"term": "zoning ordinance",
+"conditional": false
+},
+{
+"term": "zoning",
+"conditional": true
+},
+{
+"term": "density bonus",
+"conditional": false
+},
+{
+"term": "density",
+"conditional": false
+},
+{
+"term": "units per acre",
+"conditional": false
+},
+{
+"term": "dwelling units per acre",
+"conditional": false
+},
+{
+"term": "du/ac",
+"conditional": false
+},
+{
+"term": "height limit",
+"conditional": false
+},
+{
+"term": "height limits",
+"conditional": false
+},
+{
+"term": "building height",
+"conditional": false
+},
+{
+"term": "story limit",
+"conditional": false
+},
+{
+"term": "floor area ratio",
+"conditional": false
+},
+{
+"term": "setback",
+"conditional": false
+},
+{
+"term": "setbacks",
+"conditional": false
+},
+{
+"term": "lot split",
+"conditional": false
+},
+{
+"term": "lot splits",
+"conditional": false
+},
+{
+"term": "minimum lot size",
+"conditional": false
+},
+{
+"term": "single-family zoning",
+"conditional": false
+},
+{
+"term": "single family zoning",
+"conditional": false
+},
+{
+"term": "single-family",
+"conditional": false
+},
+{
+"term": "single family",
+"conditional": false
+},
+{
+"term": "r-1",
+"conditional": false
+},
+{
+"term": "r1 zoning",
+"conditional": false
+},
+{
+"term": "multifamily",
+"conditional": false
+},
+{
+"term": "multi-family",
+"conditional": false
+},
+{
+"term": "multi family",
+"conditional": false
+},
+{
+"term": "missing middle",
+"conditional": false
+},
+{
+"term": "mixed-use",
+"conditional": false
+},
+{
+"term": "mixed use",
+"conditional": false
+},
+{
+"term": "duplex",
+"conditional": false
+},
+{
+"term": "duplexes",
+"conditional": false
+},
+{
+"term": "triplex",
+"conditional": false
+},
+{
+"term": "fourplex",
+"conditional": false
+},
+{
+"term": "townhome",
+"conditional": false
+},
+{
+"term": "townhomes",
+"conditional": false
+},
+{
+"term": "townhouse",
+"conditional": false
+},
+{
+"term": "townhouses",
+"conditional": false
+},
+{
+"term": "condominium",
+"conditional": false
+},
+{
+"term": "condominiums",
+"conditional": false
+},
+{
+"term": "high-rise",
+"conditional": false
+},
+{
+"term": "high rise",
+"conditional": false
+},
+{
+"term": "apartment building",
+"conditional": false
+},
+{
+"term": "apartment complex",
+"conditional": false
+},
+{
+"term": "apartments",
+"conditional": false
+},
+{
+"term": "apartment",
+"conditional": true
+},
+{
+"term": "units",
+"conditional": true
+},
+{
+"term": "accessory dwelling",
+"conditional": false
+},
+{
+"term": "accessory dwelling unit",
+"conditional": false
+},
+{
+"term": "adu",
+"conditional": false
+},
+{
+"term": "adus",
+"conditional": false
+},
+{
+"term": "junior adu",
+"conditional": false
+},
+{
+"term": "jadu",
+"conditional": false
+},
+{
+"term": "granny flat",
+"conditional": false
+},
+{
+"term": "granny unit",
+"conditional": false
+},
+{
+"term": "in-law unit",
+"conditional": false
+},
+{
+"term": "parking minimum",
+"conditional": false
+},
+{
+"term": "parking minimums",
+"conditional": false
+},
+{
+"term": "parking requirement",
+"conditional": false
+},
+{
+"term": "parking requirements",
+"conditional": false
+},
+{
+"term": "parking mandate",
+"conditional": false
+},
+{
+"term": "parking mandates",
+"conditional": false
+},
+{
+"term": "parking ratio",
+"conditional": false
+},
+{
+"term": "parking reduction",
+"conditional": false
+},
+{
+"term": "parking reform",
+"conditional": false
+},
+{
+"term": "unbundled parking",
+"conditional": false
+},
+{
+"term": "parking",
+"conditional": true
+},
+{
+"term": "affordable housing",
+"conditional": false
+},
+{
+"term": "affordability",
+"conditional": false
+},
+{
+"term": "inclusionary",
+"conditional": false
+},
+{
+"term": "inclusionary housing",
+"conditional": false
+},
+{
+"term": "inclusionary zoning",
+"conditional": false
+},
+{
+"term": "below market rate",
+"conditional": false
+},
+{
+"term": "below-market-rate",
+"conditional": false
+},
+{
+"term": "bmr",
+"conditional": false
+},
+{
+"term": "deed-restricted",
+"conditional": false
+},
+{
+"term": "deed restricted",
+"conditional": false
+},
+{
+"term": "market-rate",
+"conditional": false
+},
+{
+"term": "market rate housing",
+"conditional": false
+},
+{
+"term": "housing production",
+"conditional": false
+},
+{
+"term": "housing supply",
+"conditional": false
+},
+{
+"term": "housing crisis",
+"conditional": false
+},
+{
+"term": "housing shortage",
+"conditional": false
+},
+{
+"term": "housing development",
+"conditional": false
+},
+{
+"term": "housing project",
+"conditional": false
+},
+{
+"term": "housing proposal",
+"conditional": false
+},
+{
+"term": "housing trust fund",
+"conditional": false
+},
+{
+"term": "housing bond",
+"conditional": false
+},
+{
+"term": "housing overlay",
+"conditional": false
+},
+{
+"term": "housing opportunity",
+"conditional": false
+},
+{
+"term": "housing plan",
+"conditional": false
+},
+{
+"term": "housing policy",
+"conditional": false
+},
+{
+"term": "housing goals",
+"conditional": false
+},
+{
+"term": "housing needs",
+"conditional": false
+},
+{
+"term": "housing units",
+"conditional": false
+},
+{
+"term": "new housing",
+"conditional": false
+},
+{
+"term": "more housing",
+"conditional": false
+},
+{
+"term": "housing",
+"conditional": false
+},
+{
+"term": "homes",
+"conditional": false
+},
+{
+"term": "general plan",
+"conditional": true
+},
+{
+"term": "specific plan",
+"conditional": true
+},
+{
+"term": "area plan",
+"conditional": true
+},
+{
+"term": "land use",
+"conditional": true
+},
+{
+"term": "entitlement",
+"conditional": true
+},
+{
+"term": "entitlements",
+"conditional": true
+},
+{
+"term": "planning commission",
+"conditional": true
+},
+{
+"term": "environmental review",
+"conditional": true
+},
+{
+"term": "ceqa",
+"conditional": true
+},
+{
+"term": "displacement",
+"conditional": false
+},
+{
+"term": "displaced",
+"conditional": false
+},
+{
+"term": "gentrification",
+"conditional": false
+},
+{
+"term": "gentrify",
+"conditional": false
+},
+{
+"term": "rent control",
+"conditional": false
+},
+{
+"term": "rent stabilization",
+"conditional": false
+},
+{
+"term": "rent stabilisation",
+"conditional": false
+},
+{
+"term": "just cause",
+"conditional": false
+},
+{
+"term": "tenant protection",
+"conditional": false
+},
+{
+"term": "tenant protections",
+"conditional": false
+},
+{
+"term": "eviction",
+"conditional": false
+},
+{
+"term": "evictions",
+"conditional": false
+},
+{
+"term": "nimby",
+"conditional": false
+},
+{
+"term": "nimbys",
+"conditional": false
+},
+{
+"term": "nimbyism",
+"conditional": false
+},
+{
+"term": "yimby",
+"conditional": false
+},
+{
+"term": "yimbys",
+"conditional": false
+},
+{
+"term": "neighborhood character",
+"conditional": false
+},
+{
+"term": "neighbourhood character",
+"conditional": false
+},
+{
+"term": "community character",
+"conditional": false
+},
+{
+"term": "local control",
+"conditional": false
+},
+{
+"term": "traffic",
+"conditional": true
+},
+{
+"term": "overcrowding",
+"conditional": true
+},
+{
+"term": "shadows",
+"conditional": true
+},
+{
+"term": "property values",
+"conditional": true
+},
+{
+"term": "cap rate",
+"conditional": false
+},
+{
+"term": "cap rates",
+"conditional": false
+},
+{
+"term": "capitalization rate",
+"conditional": false
+},
+{
+"term": "development feasibility",
+"conditional": false
+},
+{
+"term": "financial feasibility",
+"conditional": false
+},
+{
+"term": "real estate development",
+"conditional": false
+},
+{
+"term": "residential development",
+"conditional": false
+},
+{
+"term": "residential developments",
+"conditional": false
+},
+{
+"term": "residential project",
+"conditional": false
+},
+{
+"term": "residential projects",
+"conditional": false
+},
+{
+"term": "residential units",
+"conditional": false
+},
+{
+"term": "residential property",
+"conditional": false
+},
+{
+"term": "residential properties",
+"conditional": false
+},
+{
+"term": "housing market",
+"conditional": false
+},
+{
+"term": "pro forma",
+"conditional": false
+},
+{
+"term": "proforma",
+"conditional": false
+},
+{
+"term": "feasibility",
+"conditional": true
+},
+{
+"term": "feasible",
+"conditional": true
+},
+{
+"term": "construction cost",
+"conditional": true
+},
+{
+"term": "construction costs",
+"conditional": true
+},
+{
+"term": "cost of construction",
+"conditional": true
+},
+{
+"term": "prevailing wage",
+"conditional": true
+},
+{
+"term": "developer",
+"conditional": true
+},
+{
+"term": "developers",
+"conditional": true
+},
+{
+"term": "development",
+"conditional": true
+},
+{
+"term": "developments",
+"conditional": true
+},
+{
+"term": "residential",
+"conditional": true
+},
+{
+"term": "subdivision",
+"conditional": true
+},
+{
+"term": "subdivisions",
+"conditional": true
+},
+{
+"term": "parkland dedication",
+"conditional": false
+},
+{
+"term": "park dedication",
+"conditional": false
+},
+{
+"term": "quimby",
+"conditional": false
+},
+{
+"term": "impact fee",
+"conditional": true
+},
+{
+"term": "impact fees",
+"conditional": true
+},
+{
+"term": "in-lieu fee",
+"conditional": true
+},
+{
+"term": "in lieu fee",
+"conditional": true
+},
+{
+"term": "vacancy tax",
+"conditional": false
+},
+{
+"term": "vacant property tax",
+"conditional": false
+},
+{
+"term": "vacant home tax",
+"conditional": false
+},
+{
+"term": "vacant homes tax",
+"conditional": false
+},
+{
+"term": "empty homes tax",
+"conditional": false
+},
+{
+"term": "ellis act",
+"conditional": false
+},
+{
+"term": "below market",
+"conditional": false
+},
+{
+"term": "affordable unit",
+"conditional": false
+},
+{
+"term": "affordable units",
+"conditional": false
+},
+{
+"term": "area median income",
+"conditional": false
+},
+{
+"term": "very low income",
+"conditional": false
+},
+{
+"term": "very low-income",
+"conditional": false
+},
+{
+"term": "extremely low income",
+"conditional": false
+},
+{
+"term": "moderate income",
+"conditional": false
+},
+{
+"term": "moderate-income",
+"conditional": false
+},
+{
+"term": "income-restricted",
+"conditional": false
+},
+{
+"term": "income restricted",
+"conditional": false
+},
+{
+"term": "income qualified",
+"conditional": false
+},
+{
+"term": "income-qualified",
+"conditional": false
+},
+{
+"term": "income tier",
+"conditional": false
+},
+{
+"term": "income tiers",
+"conditional": false
+},
+{
+"term": "vli",
+"conditional": false
+},
+{
+"term": "local preference",
+"conditional": false
+},
+{
+"term": "lottery",
+"conditional": false
+},
+{
+"term": "housing lottery",
+"conditional": false
+},
+{
+"term": "bmr lottery",
+"conditional": false
+},
+{
+"term": "homeownership",
+"conditional": false
+},
+{
+"term": "home ownership",
+"conditional": false
+},
+{
+"term": "homeownership program",
+"conditional": false
+},
+{
+"term": "home ownership program",
+"conditional": false
+},
+{
+"term": "first-time homebuyer",
+"conditional": false
+},
+{
+"term": "first time homebuyer",
+"conditional": false
+},
+{
+"term": "first-time home buyer",
+"conditional": false
+},
+{
+"term": "first time home buyer",
+"conditional": false
+},
+{
+"term": "down payment assistance",
+"conditional": false
+},
+{
+"term": "section 8",
+"conditional": false
+},
+{
+"term": "housing choice voucher",
+"conditional": false
+},
+{
+"term": "housing voucher",
+"conditional": false
+},
+{
+"term": "housing vouchers",
+"conditional": false
+},
+{
+"term": "ami",
+"conditional": true
+},
+{
+"term": "low income",
+"conditional": true
+},
+{
+"term": "low-income",
+"conditional": true
+},
+{
+"term": "affordable",
+"conditional": true
+},
+{
+"term": "tier one",
+"conditional": true
+},
+{
+"term": "tier two",
+"conditional": true
+},
+{
+"term": "housing authority",
+"conditional": false
+},
+{
+"term": "public housing",
+"conditional": false
+},
+{
+"term": "supportive housing",
+"conditional": false
+},
+{
+"term": "permanent supportive housing",
+"conditional": false
+},
+{
+"term": "interim housing",
+"conditional": false
+},
+{
+"term": "transitional housing",
+"conditional": false
+},
+{
+"term": "hud",
+"conditional": true
+},
+{
+"term": "operating subsidy",
+"conditional": true
+},
+{
+"term": "costa hawkins",
+"conditional": false
+},
+{
+"term": "costa-hawkins",
+"conditional": false
+},
+{
+"term": "ab 1482",
+"conditional": false
+},
+{
+"term": "tenant protection act",
+"conditional": false
+},
+{
+"term": "rent registry",
+"conditional": false
+},
+{
+"term": "rent board",
+"conditional": false
+},
+{
+"term": "rent program",
+"conditional": false
+},
+{
+"term": "rent ordinance",
+"conditional": false
+},
+{
+"term": "rent protection",
+"conditional": false
+},
+{
+"term": "rent protections",
+"conditional": false
+},
+{
+"term": "renter protection",
+"conditional": false
+},
+{
+"term": "renter protections",
+"conditional": false
+},
+{
+"term": "rent cap",
+"conditional": false
+},
+{
+"term": "rental housing",
+"conditional": false
+},
+{
+"term": "rental units",
+"conditional": false
+},
+{
+"term": "mobile home ordinance",
+"conditional": false
+},
+{
+"term": "mobilehome",
+"conditional": false
+},
+{
+"term": "mobile home park",
+"conditional": false
+},
+{
+"term": "mobile home parks",
+"conditional": false
+},
+{
+"term": "mobile home",
+"conditional": true
+},
+{
+"term": "rent increase",
+"conditional": true
+},
+{
+"term": "rent increases",
+"conditional": true
+},
+{
+"term": "tenant",
+"conditional": true
+},
+{
+"term": "tenants",
+"conditional": true
+},
+{
+"term": "renter",
+"conditional": true
+},
+{
+"term": "renters",
+"conditional": true
+},
+{
+"term": "landlord",
+"conditional": true
+},
+{
+"term": "landlords",
+"conditional": true
+},
+{
+"term": "rental",
+"conditional": true
+},
+{
+"term": "rentals",
+"conditional": true
+},
+{
+"term": "home rule",
+"conditional": true
+}
+],
+"transit": [
+{
+"term": "bart",
+"conditional": false
+},
+{
+"term": "bay area rapid transit",
+"conditional": false
+},
+{
+"term": "caltrain",
+"conditional": false
+},
+{
+"term": "smart train",
+"conditional": false
+},
+{
+"term": "sonoma-marin",
+"conditional": false
+},
+{
+"term": "sonoma marin",
+"conditional": false
+},
+{
+"term": "sonoma marin area rail",
+"conditional": false
+},
+{
+"term": "area rail transit",
+"conditional": false
+},
+{
+"term": "snowoma marin",
+"conditional": false
+},
+{
+"term": "smart",
+"conditional": true
+},
+{
+"term": "vta",
+"conditional": false
+},
+{
+"term": "valley transportation authority",
+"conditional": false
+},
+{
+"term": "muni",
+"conditional": false
+},
+{
+"term": "sfmta",
+"conditional": false
+},
+{
+"term": "ac transit",
+"conditional": false
+},
+{
+"term": "actransit",
+"conditional": false
+},
+{
+"term": "samtrans",
+"conditional": false
+},
+{
+"term": "golden gate transit",
+"conditional": false
+},
+{
+"term": "golden gate ferry",
+"conditional": false
+},
+{
+"term": "marin transit",
+"conditional": false
+},
+{
+"term": "sonoma county transit",
+"conditional": false
+},
+{
+"term": "citybus",
+"conditional": false
+},
+{
+"term": "city bus",
+"conditional": false
+},
+{
+"term": "tri delta",
+"conditional": false
+},
+{
+"term": "county connection",
+"conditional": false
+},
+{
+"term": "wheels bus",
+"conditional": false
+},
+{
+"term": "mtc",
+"conditional": false
+},
+{
+"term": "metropolitan transportation commission",
+"conditional": false
+},
+{
+"term": "abag",
+"conditional": false
+},
+{
+"term": "capitol corridor",
+"conditional": false
+},
+{
+"term": "amtrak",
+"conditional": false
+},
+{
+"term": "ace train",
+"conditional": false
+},
+{
+"term": "altamont corridor",
+"conditional": false
+},
+{
+"term": "high-speed rail",
+"conditional": false
+},
+{
+"term": "high speed rail",
+"conditional": false
+},
+{
+"term": "hsr",
+"conditional": false
+},
+{
+"term": "link21",
+"conditional": false
+},
+{
+"term": "link 21",
+"conditional": false
+},
+{
+"term": "rail",
+"conditional": false
+},
+{
+"term": "light rail",
+"conditional": false
+},
+{
+"term": "commuter rail",
+"conditional": false
+},
+{
+"term": "passenger rail",
+"conditional": false
+},
+{
+"term": "rail station",
+"conditional": false
+},
+{
+"term": "rail service",
+"conditional": false
+},
+{
+"term": "rail line",
+"conditional": false
+},
+{
+"term": "rail corridor",
+"conditional": false
+},
+{
+"term": "railroad",
+"conditional": false
+},
+{
+"term": "train",
+"conditional": true
+},
+{
+"term": "trains",
+"conditional": true
+},
+{
+"term": "freight",
+"conditional": true
+},
+{
+"term": "grade crossing",
+"conditional": false
+},
+{
+"term": "grade separation",
+"conditional": false
+},
+{
+"term": "grade separations",
+"conditional": false
+},
+{
+"term": "quiet zone",
+"conditional": false
+},
+{
+"term": "train horn",
+"conditional": false
+},
+{
+"term": "level crossing",
+"conditional": false
+},
+{
+"term": "diridon",
+"conditional": false
+},
+{
+"term": "diridon station",
+"conditional": false
+},
+{
+"term": "berryessa",
+"conditional": false
+},
+{
+"term": "transbay",
+"conditional": false
+},
+{
+"term": "salesforce transit center",
+"conditional": false
+},
+{
+"term": "bus lane",
+"conditional": false
+},
+{
+"term": "bus lanes",
+"conditional": false
+},
+{
+"term": "bus rapid transit",
+"conditional": false
+},
+{
+"term": "brt",
+"conditional": false
+},
+{
+"term": "bus route",
+"conditional": false
+},
+{
+"term": "bus routes",
+"conditional": false
+},
+{
+"term": "bus stop",
+"conditional": false
+},
+{
+"term": "bus stops",
+"conditional": false
+},
+{
+"term": "bus service",
+"conditional": false
+},
+{
+"term": "bus line",
+"conditional": false
+},
+{
+"term": "express bus",
+"conditional": false
+},
+{
+"term": "rapid bus",
+"conditional": false
+},
+{
+"term": "paratransit",
+"conditional": false
+},
+{
+"term": "microtransit",
+"conditional": false
+},
+{
+"term": "shuttle",
+"conditional": false
+},
+{
+"term": "shuttles",
+"conditional": false
+},
+{
+"term": "bus",
+"conditional": true
+},
+{
+"term": "service cut",
+"conditional": false
+},
+{
+"term": "service cuts",
+"conditional": false
+},
+{
+"term": "service reduction",
+"conditional": false
+},
+{
+"term": "service reductions",
+"conditional": false
+},
+{
+"term": "service change",
+"conditional": false
+},
+{
+"term": "service changes",
+"conditional": false
+},
+{
+"term": "headway",
+"conditional": false
+},
+{
+"term": "headways",
+"conditional": false
+},
+{
+"term": "frequency",
+"conditional": false
+},
+{
+"term": "frequent service",
+"conditional": false
+},
+{
+"term": "ridership",
+"conditional": false
+},
+{
+"term": "fare",
+"conditional": false
+},
+{
+"term": "fares",
+"conditional": false
+},
+{
+"term": "fare gate",
+"conditional": false
+},
+{
+"term": "fare gates",
+"conditional": false
+},
+{
+"term": "fare evasion",
+"conditional": false
+},
+{
+"term": "clipper",
+"conditional": false
+},
+{
+"term": "clipper card",
+"conditional": false
+},
+{
+"term": "transit",
+"conditional": false
+},
+{
+"term": "public transit",
+"conditional": false
+},
+{
+"term": "public transportation",
+"conditional": false
+},
+{
+"term": "mass transit",
+"conditional": false
+},
+{
+"term": "transit agency",
+"conditional": false
+},
+{
+"term": "transit agencies",
+"conditional": false
+},
+{
+"term": "transit funding",
+"conditional": false
+},
+{
+"term": "transit operations",
+"conditional": false
+},
+{
+"term": "transit center",
+"conditional": false
+},
+{
+"term": "transit hub",
+"conditional": false
+},
+{
+"term": "transit village",
+"conditional": false
+},
+{
+"term": "transit pass",
+"conditional": false
+},
+{
+"term": "transit oriented",
+"conditional": false
+},
+{
+"term": "transit-oriented",
+"conditional": false
+},
+{
+"term": "tod",
+"conditional": false
+},
+{
+"term": "station area",
+"conditional": false
+},
+{
+"term": "station area plan",
+"conditional": false
+},
+{
+"term": "bike lane",
+"conditional": false
+},
+{
+"term": "bike lanes",
+"conditional": false
+},
+{
+"term": "bikeway",
+"conditional": false
+},
+{
+"term": "bikeways",
+"conditional": false
+},
+{
+"term": "bike path",
+"conditional": false
+},
+{
+"term": "bike paths",
+"conditional": false
+},
+{
+"term": "bike network",
+"conditional": false
+},
+{
+"term": "protected bike",
+"conditional": false
+},
+{
+"term": "cycle track",
+"conditional": false
+},
+{
+"term": "class iv",
+"conditional": false
+},
+{
+"term": "class 4 bikeway",
+"conditional": false
+},
+{
+"term": "multi-use path",
+"conditional": false
+},
+{
+"term": "multiuse path",
+"conditional": false
+},
+{
+"term": "multi-use pathway",
+"conditional": false
+},
+{
+"term": "road diet",
+"conditional": false
+},
+{
+"term": "lane reduction",
+"conditional": false
+},
+{
+"term": "lane reductions",
+"conditional": false
+},
+{
+"term": "lane removal",
+"conditional": false
+},
+{
+"term": "complete streets",
+"conditional": false
+},
+{
+"term": "complete street",
+"conditional": false
+},
+{
+"term": "vision zero",
+"conditional": false
+},
+{
+"term": "traffic calming",
+"conditional": false
+},
+{
+"term": "pedestrian safety",
+"conditional": false
+},
+{
+"term": "pedestrian improvements",
+"conditional": false
+},
+{
+"term": "crosswalk",
+"conditional": false
+},
+{
+"term": "crosswalks",
+"conditional": false
+},
+{
+"term": "bicycle",
+"conditional": true
+},
+{
+"term": "bicycles",
+"conditional": true
+},
+{
+"term": "bike",
+"conditional": true
+},
+{
+"term": "cyclist",
+"conditional": true
+},
+{
+"term": "cyclists",
+"conditional": true
+},
+{
+"term": "pedestrian",
+"conditional": true
+},
+{
+"term": "pedestrians",
+"conditional": true
+},
+{
+"term": "vmt",
+"conditional": false
+},
+{
+"term": "vehicle miles traveled",
+"conditional": false
+},
+{
+"term": "vehicle miles travelled",
+"conditional": false
+},
+{
+"term": "mode share",
+"conditional": false
+},
+{
+"term": "mode shift",
+"conditional": false
+},
+{
+"term": "transportation demand management",
+"conditional": false
+},
+{
+"term": "tdm",
+"conditional": false
+},
+{
+"term": "active transportation",
+"conditional": true
+},
+{
+"term": "congestion",
+"conditional": true
+},
+{
+"term": "mobility",
+"conditional": true
+},
+{
+"term": "regional measure",
+"conditional": false
+},
+{
+"term": "sb 125",
+"conditional": false
+},
+{
+"term": "transit fiscal cliff",
+"conditional": false
+},
+{
+"term": "fiscal cliff",
+"conditional": false
+},
+{
+"term": "lurchburg",
+"conditional": false
+},
+{
+"term": "bay trail",
+"conditional": false
+},
+{
+"term": "shoreline trail",
+"conditional": false
+},
+{
+"term": "multi-use trail",
+"conditional": false
+},
+{
+"term": "multiuse trail",
+"conditional": false
+},
+{
+"term": "greenway",
+"conditional": false
+},
+{
+"term": "trail",
+"conditional": true
+},
+{
+"term": "trails",
+"conditional": true
+},
+{
+"term": "bike share",
+"conditional": false
+},
+{
+"term": "bikeshare",
+"conditional": false
+},
+{
+"term": "e-bike",
+"conditional": false
+},
+{
+"term": "e-bikes",
+"conditional": false
+},
+{
+"term": "ebike",
+"conditional": false
+},
+{
+"term": "ebikes",
+"conditional": false
+},
+{
+"term": "electric bike",
+"conditional": false
+},
+{
+"term": "electric bikes",
+"conditional": false
+},
+{
+"term": "bike library",
+"conditional": false
+},
+{
+"term": "lending library",
+"conditional": true
+},
+{
+"term": "bike rack",
+"conditional": true
+},
+{
+"term": "bike racks",
+"conditional": true
+},
+{
+"term": "bike parking",
+"conditional": true
+},
+{
+"term": "protected bikeway",
+"conditional": false
+},
+{
+"term": "protected bikeways",
+"conditional": false
+},
+{
+"term": "biking",
+"conditional": false
+},
+{
+"term": "bicycling",
+"conditional": false
+},
+{
+"term": "bike infrastructure",
+"conditional": false
+},
+{
+"term": "biking infrastructure",
+"conditional": false
+},
+{
+"term": "bicycle infrastructure",
+"conditional": false
+},
+{
+"term": "bike plan",
+"conditional": false
+},
+{
+"term": "bicycle plan",
+"conditional": false
+},
+{
+"term": "bike boulevard",
+"conditional": false
+},
+{
+"term": "bicycle boulevard",
+"conditional": false
+},
+{
+"term": "active transportation plan",
+"conditional": false
+},
+{
+"term": "pedestrian plan",
+"conditional": true
+},
+{
+"term": "safe routes to school",
+"conditional": false
+},
+{
+"term": "safe routes",
+"conditional": true
+},
+{
+"term": "walking and biking",
+"conditional": false
+},
+{
+"term": "biking and walking",
+"conditional": false
+},
+{
+"term": "bike and pedestrian",
+"conditional": false
+},
+{
+"term": "bicycle and pedestrian",
+"conditional": false
+},
+{
+"term": "pedestrian and bicycle",
+"conditional": false
+},
+{
+"term": "bike ped",
+"conditional": false
+},
+{
+"term": "pedestrian bridge",
+"conditional": false
+},
+{
+"term": "pedestrian bridges",
+"conditional": false
+},
+{
+"term": "micromobility",
+"conditional": false
+},
+{
+"term": "e-scooter",
+"conditional": false
+},
+{
+"term": "e-scooters",
+"conditional": false
+},
+{
+"term": "scooter",
+"conditional": true
+},
+{
+"term": "scooters",
+"conditional": true
+},
+{
+"term": "clean mobility",
+"conditional": false
+},
+{
+"term": "bus shelter",
+"conditional": false
+},
+{
+"term": "bus shelters",
+"conditional": false
+},
+{
+"term": "bus rider",
+"conditional": false
+},
+{
+"term": "bus riders",
+"conditional": false
+},
+{
+"term": "bus passenger",
+"conditional": false
+},
+{
+"term": "bus passengers",
+"conditional": false
+},
+{
+"term": "transit rider",
+"conditional": false
+},
+{
+"term": "transit riders",
+"conditional": false
+}
+]
+},
+"frames": {
+"traffic_parking": [
+"traffic",
+"parking",
+"cars",
+"congestion",
+"commute",
+"speeding",
+"gridlock",
+"cut-through",
+"parking spaces",
+"parking garage",
+"parking lot"
+],
+"neighborhood_character": [
+"neighborhood",
+"neighborhood character",
+"community character",
+"single-family",
+"single family",
+"privacy",
+"height",
+"stories",
+"four-story",
+"five-story",
+"three-story",
+"shadows",
+"views",
+"quality of life",
+"transitional scale",
+"out of scale",
+"compatible",
+"compatibility"
+],
+"safety_crime": [
+"safety",
+"safe",
+"unsafe",
+"crime",
+"police",
+"security",
+"homeless",
+"homelessness",
+"drugs",
+"fear",
+"dangerous",
+"assault",
+"harassment",
+"enforcement"
+],
+"environment_ceqa_fire": [
+"ceqa",
+"environmental review",
+"environmental impact",
+"environmental",
+"environment",
+"wildfire",
+"fire hazard",
+"fire risk",
+"fire danger",
+"evacuation",
+"trees",
+"open space",
+"climate",
+"greenhouse",
+"emissions",
+"sustainability",
+"flooding",
+"sea level"
+],
+"affordability_displacement": [
+"affordable",
+"affordability",
+"affordable housing",
+"displacement",
+"displaced",
+"gentrification",
+"rent",
+"rents",
+"renters",
+"tenants",
+"eviction",
+"low-income",
+"working families",
+"cost of living",
+"ami",
+"below market rate"
+],
+"property_values": [
+"property value",
+"property values",
+"home values",
+"homeowner",
+"homeowners",
+"property tax",
+"property taxes",
+"resale"
+],
+"process_notification": [
+"process",
+"notice",
+"notification",
+"notified",
+"outreach",
+"transparency",
+"public input",
+"community input",
+"community engagement",
+"heard",
+"rushed",
+"comment period",
+"public hearing",
+"appeal"
+],
+"fiscal": [
+"cost",
+"costs",
+"budget",
+"fiscal",
+"deficit",
+"revenue",
+"fees",
+"impact fees",
+"taxpayer",
+"taxpayers",
+"funding",
+"subsidy",
+"subsidies",
+"bond",
+"general fund",
+"grant",
+"grants"
+],
+"state_mandate": [
+"state law",
+"state mandate",
+"state mandates",
+"sacramento",
+"mandate",
+"mandates",
+"hcd",
+"housing element",
+"rhna",
+"builder's remedy",
+"builders remedy",
+"local control",
+"sb 9",
+"sb 79",
+"sb 35",
+"sb 330",
+"ab 2011",
+"state requirement",
+"state requirements"
+],
+"yimby_pro_housing": [
+"yimby",
+"nimby",
+"housing crisis",
+"housing shortage",
+"more housing",
+"new homes",
+"new housing",
+"build more",
+"supply",
+"housing supply",
+"housing production",
+"all income levels",
+"density"
+],
+"transit_service": [
+"fare",
+"fares",
+"service cut",
+"service cuts",
+"service reduction",
+"headway",
+"headways",
+"frequency",
+"reliability",
+"reliable",
+"on time",
+"on-time performance",
+"delay",
+"delays",
+"ridership",
+"riders",
+"schedule",
+"schedules",
+"transit service",
+"train service",
+"rail service",
+"bus service",
+"revenue service",
+"service disruption",
+"service disruptions",
+"service running",
+"service plan",
+"service hours",
+"level of service",
+"shuttle",
+"fiscal cliff"
+],
+"transit_safety": [
+"fare evasion",
+"fare gate",
+"fare gates",
+"ambassadors",
+"crisis intervention",
+"bart police",
+"transit police",
+"cleanliness",
+"clean",
+"dirty",
+"cameras",
+"elevator",
+"elevators",
+"escalator",
+"escalators",
+"lighting",
+"station safety"
+]
+}
+}

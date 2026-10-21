@@ -1,0 +1,75 @@
+# Keywords for the SMART (Sonoma-Marin Area Rail Transit) topic in North Bay
+# city-council / board-of-supervisors meetings.
+# One term per line; '#' starts a comment. Matching is case-insensitive and
+# whole-word (a trailing 's or s is allowed, so "train" also hits "trains" but
+# not "training"). Multi-word terms match across any whitespace or a hyphen.
+# Draft 2026-09-20 from Puck's list; checked against six 2026 meetings
+# (San Rafael 09/08, 05/04, 03/16; Healdsburg 09/08; Petaluma 04/20;
+# Santa Rosa 07/28) -- ~187k caption words. Notes below say what each risky
+# term actually did in those six. Use with --threshold 0.8 (see report): SMART
+# shows up as 1-5 min liaison reports and asides, not 20-40 min agenda items,
+# so the Coaster default 1.5 finds almost nothing.
+#
+# The agency name
+smart train
+sonoma-marin
+sonoma marin area rail
+sonoma marin
+# RISKY in theory: "smart" alone (smart growth, smart meters, "that's smart").
+# In practice: 41 of 41 bare "smart" hits in the six meetings were the agency.
+# Speakers say "SMART", not "SMART train", so the bare word carries the topic.
+# Keep it; revisit if a city with a "smart meter"/"smart city" item shows up.
+smart
+# Compound forms speakers actually use (each also counts the bare "smart"):
+smart station
+smart board
+smart path
+smart pathway
+# Rail generally
+rail
+railroad
+train
+commuter rail
+freight
+nwp
+northwestern pacific
+# RISKY: "train" as a verb -- fired 3x in San Rafael 05/04 ("we train them,
+# and then they leave"), each in an otherwise empty window: harmless at
+# threshold 0.8. "freight" fired 3x in Petaluma for road freight traffic, not
+# rail -- also harmless alone. "rail" was clean (8/8 rail stations / rail).
+# Stations / extension
+larkspur
+windsor extension
+healdsburg
+cloverdale
+novato
+petaluma north
+# Place names: "healdsburg" scored 0 in Healdsburg's own meeting because the
+# auto captions write "Hillsburg" / "Heelsburg"; "novato" 0 everywhere;
+# "cloverdale" 3 hits, 1 about the rail extension. So the feared flood of
+# place-name hits did not happen; they only help when the ASR spells them right.
+# Pathway / crossings / horns (0 hits in the six meetings; kept for corridor
+# cities with crossing / horn items -- Novato, Petaluma, Santa Rosa, Windsor)
+multi-use path
+multiuse path
+quiet zone
+grade crossing
+train horn
+# Funding -- DISABLED 2026-09-20. "measure q" fired 3x (Santa Rosa's own
+# general sales tax) and "measure i" 1x (Petaluma's county sales-tax share):
+# 4 of 4 hits were not SMART. Every jurisdiction reuses these letters. Re-enable
+# (remove the '#') when a SMART sales-tax renewal is actually on a ballot.
+# measure q
+# measure i
+sales tax renewal
+# Connections
+golden gate transit
+ferry connection
+ferry
+# ASR variants seen in YouTube auto captions of North Bay meetings (2026-09-20):
+# "Sonoma" came out as "Snowoma"; "Larkspur" as "Lurchburg"; "ridership" as
+# "wrership"/"writership" (not a keyword). "area rail transit" survives however
+# the county names are mangled.
+area rail transit
+snowoma marin
+lurchburg

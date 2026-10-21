@@ -1,0 +1,60 @@
+# Laptop side (analysis + downloader + supervisor tooling). Deliberately small:
+# stdlib or one of these, so it runs anywhere without a GPU.
+numpy>=1.24
+pandas>=2.0
+
+# Pipeline (laptop).
+#   [default]   pulls yt-dlp-ejs, the solver scripts for YouTube's JavaScript
+#               challenges. It ALSO needs a JS runtime on PATH: deno >= 2.3
+#               (brew install deno), or node >= 22 with --js-runtimes node.
+#               Plain `yt-dlp` without the extra degrades to 403s on YouTube.
+#   [curl-cffi] browser impersonation; without it every run logs "no impersonate
+#               target is available" (seen in all of output/run*.log).
+# 2026.8.19 is the release checked on 2026-09-17. YouTube breaks old versions;
+# upgrade (`.venv/bin/pip install -U "yt-dlp[default,curl-cffi]"`) before
+# blaming the network.
+yt-dlp[default,curl-cffi]>=2026.8.19
+
+# LLM scoring scripts (legacy/meanness_analysis.py, legacy/stance_analysis.py). The 1.x SDK
+# removed the old `output_format` kwarg from messages.create; see docs/MODELS.md.
+anthropic>=1.0
+
+# Columnar engine for the analysis DB. SQLite covers search; DuckDB is for fast
+# aggregation and querying from R. No longer optional: plan/ANALYSIS-transit.md
+# 6 makes "parquet + DuckDB" the deliverable format for every analysis phase, so
+# analysis/a0_export.py needs both (pyarrow is what pandas writes parquet with).
+duckdb>=1.0
+pyarrow>=15.0
+
+# NOT HERE ON PURPOSE: torch, whisperx, pyannote, faster-whisper.
+# Those install on the rented GPU pod, pinned from plan/gpu-freeze.txt, which is
+# generated in Phase 0 from a pod that actually worked. WhisperX 3.8.x requires
+# Python >=3.10,<3.14, torch ~=2.8 and pyannote-audio >=4 (so the diarization
+# model is pyannote/speaker-diarization-community-1). An unpinned install is the
+# single biggest time sink in the GPU setup.
+matplotlib>=3.8   # static PNG for analysis/freq_trends.py (WhatsApp, papers)
+
+# Phase A1 lexicon pass (plan/ANALYSIS-transit.md 3, first bullet). Pure Python
+# plus a 7,506-entry lexicon: no model download, no network at run time, $0 per
+# run -- which is the point. It is the free pass that decides whether the paid
+# Claude pass is worth asking for. Named in the plan, so pinned here.
+vaderSentiment>=3.3.2
+
+# OPTIONAL, NOT INSTALLED HERE: speaker embeddings on the Mac for
+# scripts/host_enroll.py (host enrolment prototype, 2026-09-20). Tested on
+# Python 3.13 / arm64 in a scratch venv (~1 GB on disk, ~250 MB download);
+# `pip install --dry-run` against this venv resolves with no conflicts, but the
+# note above still applies -- keep torch out of .venv unless Puck adopts it:
+#   python3.13 -m venv ~/.local/share/ytpt/venv-embed
+#   ~/.local/share/ytpt/venv-embed/bin/pip install pyannote.audio==4.0.7 torch==2.8.0 torchaudio==2.8.0 huggingface-hub==0.36.2
+# (the torchcodec wheel it pulls does not load against torch 2.8 on macOS;
+# host_enroll.py decodes with ffmpeg instead, so nothing depends on it.)
+
+# Name-redaction pass (pipeline/redact.py; DECISIONS #15, SHOWCASE.md 3): regex
+# cues plus spaCy PERSON entities. The small English model is pinned as a wheel
+# URL so `pip install -r requirements.txt` fetches it (no `spacy download`
+# step); the model version must match the spaCy minor (3.8.x <-> 3.8.0).
+# Installed 2026-10-17 into .venv: spacy 3.8.16, en_core_web_sm 3.8.0. ~50 MB,
+# CPU only, nothing touches the network at run time.
+spacy>=3.8,<3.9
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

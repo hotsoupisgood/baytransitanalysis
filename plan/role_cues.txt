@@ -1,0 +1,282 @@
+# plan/role_cues.txt -- phrase cues for scripts/role_label.py (T0 test 6,
+# PROPOSAL-transit.md 3(g)). Edit freely; the script re-reads it every run.
+#
+# Format: `[section]` headers, one cue per line, `#` comments. A cue is a
+# case-insensitive regular expression matched on whole words (a run of spaces
+# matches any whitespace). Plain phrases are fine; the few that need it use
+# regex syntax.
+#
+# Sections and what they mean to the labeller:
+#   floor    said by whoever runs the floor (mayor / president / clerk) -> dais
+#   timer    floor phrases that only occur DURING public comment ("that's your
+#            time", "you have three minutes", "you've been unmuted") -> dais for the
+#            speaker, and structural: if no opener has been seen, a timer cue
+#            means the clip started inside public comment, so a region is
+#            opened retroactively from the clip start (or from the last closer)
+#   vote     motions, seconds, roll calls                              -> dais
+#   staff    staff-report and presenter phrasing                       -> dais
+#   intro    job titles, counted only in the first 15 s of a cluster's
+#            speech AND in self-introduction form ("I'm ...", "my name is
+#            ...", "<Name>, Housing Specialist"); "thank you, general
+#            manager" is someone being addressed                       -> dais
+#   address  how a dais member or staff addresses the chair            -> dais (weak)
+#   public   how a public-comment speaker introduces or positions      -> public
+#            themselves
+#   opener   phrases that OPEN a public-comment stretch (structural cue:
+#            clusters inside the stretch that speak once for <= 3.5 min are
+#            public). The speaker who actually opened a region gets floor credit.
+#   closer   phrases that CLOSE that stretch. Same credit rule.
+#
+# Weights per section are in role_label.py (WEIGHTS); the cue text is here so
+# the vocabulary can be extended from new bodies without touching code.
+# Cues were collected on 2026-09-21 from the b13 clips that are NOT in
+# output/t0/roles/truth_10.json (BART 9FM5406YagE_e1, San Jose EqZPNTTUr8A_e3,
+# Sunnyvale mpbBPvyGNMo_e2, San Rafael iyh8o9tJgVI_e1), then trimmed after the
+# first scoring run (see T0-RESULTS test 6: titles moved to [intro], generic
+# forms of address dropped, bare "public comment" dropped as an opener).
+
+[floor]
+next up is
+followed by
+next we have
+thank you,? next
+please state your name
+state your name
+speaker cards?
+when i call your name
+come (down )?to the podium
+come on down
+form a line at the podium
+raise your (digital )?hand
+press star (six|nine|6|9)
+star (six|nine|6|9) to (unmute|raise)
+i see no hands
+no hands raised
+i see no public comment
+we have no (public )?(speakers|comment|comments)
+there (is|are) no (public )?(speakers|comment|comments)
+that was (my |the )?last (public comment|speaker|speaker card)
+no further (speakers|comment|comments)
+no more (speakers|comment|comments)
+seeing no (one|further|other|more|additional)
+seeing none
+we('ll| will) (now )?(go ahead and )?(take|open|hear|move to|go to) (the )?public comment
+open (up )?(the )?public comment
+public comment (period )?is (now )?(open|closed)
+close (the )?public (comment|hearing)
+public hearing is (now )?(open|closed)
+open the public hearing
+close the open time
+open time for public expression
+do we have (any )?public comment
+any (further |other |more )?public comment
+call the (rest of the )?speakers
+call on members of (the )?public
+members of the public wishing to
+wishing to speak
+turn it over to
+i'll turn it over
+i'll turn it back
+we('ll| will) (now )?hear from
+we('ll| will) go ahead and
+we are now on (item|the)
+we're now on(to)? (item|the)
+moving on to
+back to (the )?(council|board|dais)
+bring it back to
+return to the (council|board)
+come back to the (council|board)
+i'll now turn
+please (take|call) (a |the )?roll
+i don't see any (other )?hands
+does anyone else
+anyone else (in the chambers|online|wishing)
+let the record show
+this closes this (agenda )?item
+we('ll| will) (take|go to) (a|our) (short |brief |\d+-minute )?(recess|break)
+call this meeting to order
+go ahead,? (sir|ma'am)
+the floor is yours
+
+# Only phrases that never occur outside a public-comment stretch belong here
+# ("next up is" / "followed by" do NOT: mayors call councilmembers that way).
+[timer]
+that's your time
+that was your time
+that is your time
+your time is up
+time is up
+next speaker
+the next speaker
+you have (two|three|five|one|2|3|5|1) minutes?
+you'll have (two|three|five|one|2|3|5|1) minutes?
+you will have (two|three|five|one|2|3|5|1) minutes?
+(two|three|five) minutes? to (speak|address)
+you've been unmuted
+you have been unmuted
+please unmute yourself
+(we have|our) next speaker
+also calling
+moving on to virtual speakers
+that was (my |the |our )?last (public comment|public speaker|speaker card)
+
+[vote]
+roll call
+call the roll
+i('ll| will)? ?second
+second(ed)? (the|that) motion
+i('ll| will)? ?move (the|that|to|approval|adoption|staff)
+motion to (approve|adopt|accept|continue)
+move approval
+so moved
+we have a motion
+motion (passes|carries|fails)
+the motion (passes|carries|fails)
+all (those )?in favou?r
+any (opposed|abstentions)
+\baye\b
+ayes have it
+unanimous(ly)?
+(the )?item (passes|carries)
+(i'll|i will) be supporting (this|the) motion
+with a motion by
+
+[staff]
+staff report
+staff('s)? recommend(s|ation|ed)?
+recommended action
+the recommendation (is|before you)
+next slide
+this concludes
+concludes (our|my|the|staff's) (presentation|report)
+that concludes
+(item|matter|project) before you
+we (recommend|are recommending)
+as staff
+on behalf of staff
+staff (recommends|is recommending|prepared|has prepared|will be available)
+our (department|team) (has|have|is|will|would|recommends)
+i('ll| will) (go|walk) (you )?through (the|this|a) (presentation|slides|report)
+brief presentation
+i'm joined (in the box )?by
+we('ll| will) be available
+if council adopts
+council direction
+
+[intro]
+(deputy |assistant |associate |acting )?(city|general|county) manager
+city attorney
+city clerk
+(deputy|assistant|associate|executive) director
+director of (planning|public works|transportation|transit|finance|community|housing|human resources|the)
+agm of
+chief (of|financial|operating|executive)
+(housing|planning|transportation|senior|principal|associate) (specialist|planner|analyst|engineer|manager|officer)
+(program|project|division|department) manager
+(specialist|analyst|planner|coordinator|manager|engineer|supervisor|inspector) (with|for|in|at) (the )?(city|county|district|department|bart|agency)
+from (the )?(city|county)('s)? (department|office|planning|public works|housing)
+on behalf of (city|county|district) staff
+
+[address]
+thank you,? (madam |mr\.? |vice )?(mayor|chair|president)(?![^.]{0,20}(?:\band\b|members))
+(madam|mr\.?) (mayor|chair|president|city manager)
+through the chair
+(my )?colleagues
+fellow (board members|directors|councilmembers|council members|members)
+i have a question for (the|staff)
+question for staff
+thank you for the (presentation|report)
+thank(s| you) to (our )?staff
+i('d| would) like to thank staff
+(as|for) (the )?(mayor|chair|president),? i
+my district
+in my district
+i('ll| will) be supporting
+i look forward to (supporting|voting)
+my (vote|motion)
+this council
+our council
+
+[public]
+my name is
+(i'm|i am) [A-Z][a-z]+ [A-Z][a-z]+,? (and )?i
+(i'm|i am) a (resident|homeowner|renter|tenant|constituent|member|citizen|native|parent|teacher|cyclist|rider|commuter|business owner|small business|student|nurse|senior|licensed|retired)
+(long-?time|lifelong|proud) resident
+resident of
+i (have )?live(d)? (in|on|at|near|here|across|next)
+i've lived
+i have lived
+we live (in|on|at|near)
+(my|our) (neighborhood|neighbourhood|backyard|street|block|family lives)
+on behalf of (the |our )?(residents|neighbors|neighbours|members|association|coalition|union|families|tenants|riders|community|students|board of directors|school district|district)
+speaking on behalf of
+i'm here (to|tonight|today|because|on behalf)
+i am here (to|tonight|today|because|on behalf)
+i'm (speaking|calling|commenting) (to|on|tonight|today|about|in)
+i (respectfully )?(urge|ask|implore|encourage|beg) (you|the council|the board|council|the mayor|the city)
+i('m| am) asking (you|the council|the board|council)
+please (approve|reject|deny|do not|don't|support|oppose|vote|reconsider|listen)
+(i|we) (strongly )?(support|oppose|object to) (this|the|item|these)
+i('m| am) (opposed|in favou?r|in support)
+thank you for (taking|hearing|allowing|the opportunity|your time|your consideration|letting|having)
+thank you for (taking )?my (testimony|comments?|time)
+for the record
+as a (resident|homeowner|renter|tenant|parent|mother|father|teacher|nurse|cyclist|rider|commuter|business owner|voter|taxpayer|senior|student|longtime)
+i('ve| have) been a resident
+i moved (here|to)
+(concerned|local) (citizen|resident|cyclist|rider|parent)
+thanks for having me
+regular board fan
+i wrote you (a letter|some letters)
+i sent (an email|a letter)
+i've ridden
+i've been riding
+i commuted
+appreciate your (time|consideration)
+
+[opener]
+we('ll| will) (now )?(go ahead and )?(take|open|hear|move to|go to|start with|begin) (the )?(rest of )?public comment
+(open|opening) (up )?(the )?public (comment|hearing)
+public (comment|hearing) (period )?is (now )?open
+open time for public expression
+we have (\d+|one|two|three|four|five|six|seven|eight|nine|ten|several|a few|a number of|some) (public )?(speakers|speaker cards|commenters|cards)
+first speaker
+i have (\d+|one|two|three|four|five|a|a few|several) speaker cards?
+speaker cards? (in the room|for this item|on this item)
+call the (rest of the )?speakers
+call on members of (the )?public
+(members of the public|those|anyone) wishing to (speak|comment|provide)
+please (come|step) (down |up )?to the podium
+(take|hear|go to|open) (the )?public comment on
+now (take|hear|go to) public comment
+i will take public comment
+(we'll|we will|let's) (now )?take public comment
+which is our public comment
+public comment on (this|the) item
+are there any members of the public
+any members of the public (who|that|wishing)
+(do|did) you want to say a few words
+do we have (any )?public comment
+we do have (\d+|one|two|three|four|five|six|seven|eight|nine|ten|several|a few|some) (public )?(speakers|comments|commenters|cards)
+
+[closer]
+close (the )?public (comment|hearing)
+closing (the )?public (comment|hearing)
+public (comment|hearing) (period )?is (now )?closed
+close the open time
+(that was|that's|that is) (my |the |our )?last (public comment|public speaker|speaker|speaker card|comment)
+no (further|more|other|additional) (speakers|speaker cards|public comment|comments|hands|callers)
+i see no (hands|public comment|other|further)
+i am seeing no other
+i'm not seeing any (other |more )?public comment
+not seeing any (other |more )?public comment
+we have no (public )?(speakers|comment|comments)
+there (is|are) no (public )?(speakers|comment|comments)
+seeing no (one|further|other|more|additional)
+seeing none
+(back|return|come back) to (the )?(council|board|dais|committee)
+bring it back
+no public comment
+that concludes public comment
+this closes this (agenda )?item
+we('ll| will) (now )?(go|move) (on )?to item

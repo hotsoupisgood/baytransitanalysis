@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methods and instruments — thtrans, an exploratory analysis of who talks about density and transit at Bay Area public meetings</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<main>
+  <p class="nav"><a href="index.html">Dashboard</a> · <a href="#flow">How the data was made (flowchart)</a> · Methods</p>
+  <h1>Methods and instruments</h1>
+  <!-- Banner rule (owner, 2026-10-18 21:18, docs/STYLE.md): no cream warning box. The
+       word itself stays, as plain prose, on the page where the limitations live --
+       analysis/test_pipeline.py §33 checks that it is still here. -->
+  <p class="sub" id="banner"><b>EXPLORATORY</b> — loading the stamp…</p>
+  <p class="sub">The four LLM instruments this study runs on, quoted in full, with their hashes, the model behind each one, what was measured about them, and what is wrong with those measurements. Every block on this page is read out of the repo at build time by <code>export/export_methods.py</code> — none of it is typed here — and a test recomputes each block's hash from the source so the page cannot drift from the instrument.</p>
+  <!-- TLDR rule (owner, 2026-10-18 21:16, docs/STYLE.md): vague, result-pointing, no
+       numbers at all. This page is where the detail belongs, so the TLDR only says what
+       is here and where to start. -->
+  <ul class="heads">
+    <li>I ran this study on a handful of LLM instruments, and this page quotes each of them in full, with the model that ran it.</li>
+    <li>Each quote is followed by what was measured about it and what is wrong with that measurement, because an instrument agreeing with itself is not the same as it being right.</li>
+    <li>Nothing here is typed by hand: every block is read out of the repo at build time, so the page cannot drift from the instrument that produced the numbers.</li>
+    <li>The limitations list below is the part to read before any number on the dashboard.</li>
+    <li>The results these instruments produced are on the <a href="index.html">dashboard</a>.</li>
+  </ul>
+  <p class="toc" id="toc"></p>
+
+  <!-- The flowchart (owner, 2026-10-19: "can you make a flowchart for the dashboard in
+       the methods for what we did exactly"), following the vertical D3 flow of the
+       reference he gave: a column of boxes with a status key, dashed boxes where
+       something was decided, and a detail pane that fills in on click. Every box, badge,
+       count and dollar figure is read from data/flow.json, which export/export_flow.py
+       builds from this repo's own exported JSON and the project's spend ledger -- nothing
+       below is typed into this file. This replaces the old separate flow.html; there is
+       one flowchart on the site and it is here. -->
+  <h2 id="flow">1. What we did, step by step</h2>
+  <p class="sub" id="flow-lede">Loading…</p>
+  <p class="sub" id="flow-meta"></p>
+  <div class="key" id="flow-key"></div>
+  <div class="wrap">
+    <div class="panel"><svg id="flow-svg"></svg></div>
+    <div class="panel detail" id="flow-detail"><h3>Click a step</h3><p>What that step decided, and the files that do it, appear here.</p></div>
+  </div>
+  <p class="note" id="flow-money"></p>
+
+  <h2 id="pipeline">2. The pipeline in one paragraph</h2>
+  <div id="s-pipeline"></div>
+
+  <h2 id="locate">3. Locate: the episode classifier</h2>
+  <div id="s-locate"></div>
+
+  <h2 id="stance">4. Stance: the per-turn codebook</h2>
+  <div id="s-stance"></div>
+
+  <h2 id="speakers">5. Speaker labels: YIMBY / NIMBY</h2>
+  <div id="s-speakers"></div>
+
+  <!-- Added 2026-10-19 (owner): the statistical work behind the role results, as short
+       entries complementing the dashboard's bullets rather than restating their tables.
+       Every number in it is substituted by export_methods.py from the runs' artefacts. -->
+  <h2 id="models">6. The models behind the role results</h2>
+  <div id="s-models"></div>
+
+  <h2 id="limitations">7. Limitations</h2>
+  <div id="s-limitations"></div>
+
+  <h2 id="versions">8. Every instrument version</h2>
+  <div id="s-versions"></div>
+
+  <p class="foot" id="foot"></p>
+</main>
+<div class="tip" id="tip"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const esc = t => String(t ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const f2 = d3.format(".2f"), f3 = d3.format(".3f"), fi = d3.format(",d");
+const pct = v => v == null ? "—" : f2(v);
+const ci = a => Array.isArray(a) && a.length === 2 ? `${f3(a[0])}–${f3(a[1])}` : "";
+
+// ── 1. the flowchart ────────────────────────────────────────────────────────
+// A vertical column of boxes, one per stage, in the order they ran: the pattern
+// of the D3 flow the owner gave as a reference (2026-10-19). Boxes carry their
+// own state colour, a badge, the one line that says what was decided there and
+// up to four numbers; a dashed box is a decision rather than a step; clicking
+// one fills the pane beside it. Nothing here is a literal -- every string and
+// every number comes out of data/flow.json, which export/export_flow.py builds
+// from data/bodies.json, data/methods.json, data/panels.json and the project's
+// own spend ledger.
+//
+// Prefix for the file links in the detail pane: the source on GitHub, at the
+// repository this site is published from. These links resolve once the repo is
+// pushed; until then they 404, which is why nothing on the page depends on them.
+const REPO = "https://github.com/hotsoupisgood/baytransitanalysis/blob/main/";
+const tip = d3.select("#tip");
+const showTip = (ev, html) => tip.style("display", "block").html(html)
+  .style("left", (ev.clientX + 12) + "px").style("top", (ev.clientY + 12) + "px");
+const hideTip = () => tip.style("display", "none");
+const fileLink = p => {
+  const path = p.replace(/\s.*$/, "");
+  return REPO ? `<a href="${esc(REPO + path)}" target="_blank" rel="noopener">${esc(p)}</a>`
+              : `<a href="#" onclick="return false" title="repo not public yet: ${esc(path)}">${esc(p)}</a>`;
+};
+const STATE_VAR = {done: "--ok", active: "--accent", prelim: "--warn",
+                   pending: "--pending", pilot: "--pilot", decision: "--warn",
+                   gate: "--warn"};
+const STATE_WORD = {done: "done", active: "still running", prelim: "preliminary / open",
+                    pending: "not started", pilot: "pilot only"};
+
+function wrapText(sel, str, width, maxLines = 2) {
+  const words = String(str || "").split(/\s+/);
+  let line = [], lines = [];
+  const probe = sel.text(null);
+  for (const w of words) {
+    line.push(w);
+    probe.text(line.join(" "));
+    if (probe.node().getComputedTextLength() > width) { line.pop(); lines.push(line.join(" ")); line = [w]; }
+  }
+  if (line.length) lines.push(line.join(" "));
+  probe.text(null);
+  lines.slice(0, maxLines).forEach((l, i) => probe.append("tspan")
+    .attr("x", probe.attr("x")).attr("dy", i ? "1.25em" : 0)
+    .text(i === maxLines - 1 && lines.length > maxLines ? l + " …" : l));
+  return Math.min(lines.length, maxLines);
+}
+
+d3.json("data/flow.json").then(F => {
+  d3.select("#flow-lede").text(F.lede);
+  d3.select("#flow-meta").text(F.meta_line);
+  d3.select("#flow-money").text(F.money_note);
+  d3.select("#flow-key").html(F.key.map(k =>
+    `<span style="--c:var(${STATE_VAR[k.state] || "--pending"})">${esc(k.label)}</span>`).join(""));
+
+  const boxes = F.boxes;
+  const W = 720, X = 24, BW = 648, GAP = 26;
+  let y = 16;
+  boxes.forEach(b => { b.h = b.nums ? 142 : 104; b.top = y; b.bottom = y + b.h; b.cx = X + BW / 2; y = b.bottom + GAP; });
+  const H = y + 4;
+  // The chart scales to whatever the panel gives it rather than overflowing:
+  // the viewBox is the drawing's own coordinate space, the element is fluid.
+  const svg = d3.select("#flow-svg").attr("viewBox", [0, 0, W, H])
+    .attr("width", "100%").attr("preserveAspectRatio", "xMidYMin meet")
+    .style("height", "auto").style("max-width", W + "px")
+    .attr("role", "list").attr("aria-label", "The nine stages of the pipeline");
+  svg.append("defs").html(`<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>`);
+  const pane = d3.select("#flow-detail");
+
+  function select(b) {
+    svg.selectAll(".node").classed("selected", n => n.id === b.id)
+      .attr("aria-selected", n => n.id === b.id ? "true" : "false");
+    pane.html(`<h3>${b.n}. ${esc(b.title)}</h3>${b.detail}
+      <div class="badge-row">
+        <span class="pill" style="border-color:var(${STATE_VAR[b.decision ? "decision" : b.state]});color:var(${STATE_VAR[b.decision ? "decision" : b.state]})">${esc(b.badge)}</span>
+        <span class="pill">${esc(STATE_WORD[b.state] || b.state)}</span>
+        ${b.decision ? `<span class="pill">a decision</span>` : ""}
+        ${b.gate ? `<span class="pill">▸ human gate</span>` : ""}
+      </div>
+      <p style="margin:0">Files${REPO ? "" : " (repo not public yet; links activate when the repo is)"}:</p>
+      <ul class="files">${(b.docs || []).map(f => `<li>${fileLink(f)}</li>`).join("")}</ul>`);
+  }
+
+  boxes.forEach(b => {
+    const g = svg.append("g").datum(b)
+      .attr("class", `node ${b.state}${b.decision ? " decision" : ""}${b.gate ? " gate" : ""}`)
+      .attr("role", "listitem").attr("tabindex", 0)
+      .attr("aria-label", `${b.n}. ${b.title}. ${b.badge}`)
+      .style("cursor", "pointer")
+      .on("click", (ev, d) => select(d))
+      .on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(d); } });
+    g.append("rect").attr("class", "box").attr("x", X).attr("y", b.top)
+      .attr("width", BW).attr("height", b.h).attr("rx", 10);
+    g.append("text").attr("class", "num").attr("x", X + 16).attr("y", b.top + 24).text(b.n);
+    g.append("text").attr("class", "title").attr("x", X + 40).attr("y", b.top + 24)
+      .text((b.decision ? "◆ " : b.gate ? "▸ " : "") + b.title);
+    g.append("text").attr("class", "badge").attr("x", X + BW - 14).attr("y", b.top + 22)
+      .attr("text-anchor", "end")
+      .style("fill", `var(${STATE_VAR[b.decision ? "decision" : b.state]})`).text(b.badge);
+    wrapText(g.append("text").attr("class", "desc").attr("x", X + 40).attr("y", b.top + 46),
+             b.line, BW - 56, 3);
+    if (b.nums) {
+      const x0 = X + 40, yb = b.bottom - 34, step = (BW - 80) / Math.max(b.nums.length, 1);
+      b.nums.forEach(([l, v], i) => {
+        g.append("text").attr("class", "big").attr("x", x0 + i * step).attr("y", yb).text(v);
+        g.append("text").attr("class", "lbl").attr("x", x0 + i * step).attr("y", yb + 14).text(l);
+      });
+    }
+    g.on("mousemove", (ev, d) => showTip(ev, `<b>${esc(d.title)}</b> · ${esc(d.badge)}`))
+     .on("mouseleave", hideTip);
+  });
+
+  // Straight arrows down the column, plus the one loop: a failed transcript goes
+  // back to be cut and transcribed again rather than being loaded.
+  boxes.slice(0, -1).forEach((a, i) => {
+    const b = boxes[i + 1];
+    svg.append("path").attr("class", "edge" + (b.gate ? " gate" : ""))
+      .attr("marker-end", "url(#arrow)").attr("d", `M${a.cx},${a.bottom} L${b.cx},${b.top - 1}`);
+    if (b.gate) svg.append("text").attr("class", "elabel gate")
+      .attr("x", a.cx + 10).attr("y", a.bottom + GAP / 2 + 4)
+      .text(b.id === "gpu" ? "owner approves each batch before it bills"
+            : b.id === "stance" ? "κ ≥ 0.6 human-coding gate: not passed" : "");
+  });
+  const qa = boxes.find(b => b.id === "qa"), gpu = boxes.find(b => b.id === "gpu");
+  if (qa && gpu) {
+    svg.append("path").attr("class", "edge").attr("marker-end", "url(#arrow)")
+      .attr("d", `M${X + BW},${qa.top + qa.h / 2} L${X + BW + 16},${qa.top + qa.h / 2} `
+                 + `L${X + BW + 16},${gpu.top + gpu.h / 2} L${X + BW + 1},${gpu.top + gpu.h / 2}`);
+    svg.append("text").attr("class", "elabel").attr("x", X + BW - 150)
+      .attr("y", qa.top - 6).text("a FAIL goes back to be cut again");
+  }
+
+  select(boxes[0]);
+  window.__flow = {boxes, select};
+}).catch(err => {
+  d3.select("#flow-lede").html(`Could not load <code>data/flow.json</code>: ${esc(err.message)}. Run <code>cd ~/ytpt &amp;&amp; .venv/bin/python ~/ytpt-site/export/export_flow.py</code>.`);
+  console.error(err);
+});
+
+// A collapsible verbatim block. The point of the hash line is that a reader can
+// run sha256 over the source file and get the same string -- the page is quoting,
+// not paraphrasing.
+const verbatim = (label, b, extra = "") => `
+  <details>
+    <summary>${label} — ${fi(b.chars)} characters, ${fi(b.lines)} lines${extra ? " · " + extra : ""}</summary>
+    <div style="padding:8px 14px 0"><span class="hash">sha256 ${esc(b.sha256)}${b.source ? " · " + esc(b.source) : ""}</span></div>
+    <pre class="verbatim">${esc(b.text)}</pre>
+  </details>`;
+
+d3.json("data/methods.json").then(M => {
+  const expl = esc(M.exploratory).replace(/^EXPLORATORY — /, "");
+  d3.select("#banner").html(`<b>EXPLORATORY</b> — this is an exploratory analysis: ${expl.charAt(0).toLowerCase() + expl.slice(1)}`);
+  d3.select("#toc").html([["flow","What we did"],["pipeline","Pipeline"],["locate","Locate classifier"],
+    ["stance","Stance codebook"],["speakers","Speaker labels"],["models","Models"],
+    ["limitations","Limitations"],["versions","Versions"]]
+    .map(([id,t],i) => `<a href="#${id}">${i+1}. ${t}</a>`).join(" · "));
+
+  // ── 1. pipeline ────────────────────────────────────────────────────────
+  const P = M.pipeline;
+  d3.select("#s-pipeline").html(`
+    <p>${esc(P.paragraph)}</p>
+    <div class="panel"><div id="chart"><pre class="verbatim" id="chart-src">${esc(P.mermaid.text)}</pre></div></div>
+    <p class="note">The production chart above is the one in the repo's <code>README.md</code> — only nodes that exist and run today, each with its script and its pinned instrument version. <span class="hash">sha256 ${esc(P.mermaid.sha256)}</span></p>`);
+
+  // ── 2. locate ──────────────────────────────────────────────────────────
+  const L = M.locate, R = L.recall;
+  const famLabel = {any: "any about_*", transit: "transit", density: "density"};
+  const refs = R.references;
+  let recallRows = "";
+  for (const fam of ["any", "transit", "density"]) {
+    const rows = R.rows.filter(r => r.family === fam);
+    if (!rows.length) continue;
+    recallRows += `<tr class="fam-head"><td colspan="6">${esc(famLabel[fam] || fam)}</td></tr>`;
+    recallRows += rows.map(r => `<tr class="${r.best ? "best" : ""}">
+        <td>${esc(r.arm_label)}${r.best ? ' <span class="pill on">best arm</span>' : ""}</td>
+        <td class="num">${pct(r.v1_ref.recall)}</td>
+        <td class="num">${pct(r.adj_ref.recall)}<br><span class="note">${ci(r.adj_ref.recall_ci)}</span></td>
+        <td class="num">${pct(r.v1_ref.precision)}</td>
+        <td class="num">${pct(r.adj_ref.precision)}<br><span class="note">${ci(r.adj_ref.precision_ci)}</span></td>
+        <td class="num">${fi(r.about_min_v1_ref)} → ${fi(r.about_min_adj_ref)}</td>
+      </tr>`).join("");
+  }
+  d3.select("#s-locate").html(`
+    <p>A keyword screen over a cheap full-length text track proposes candidate windows; this instrument makes the screening decision on each one — <code>about_density</code>, <code>about_transit</code>, <code>about_both</code>, <code>mention_only</code> or <code>no</code> — and adjacent "about" windows merge into an episode. It is the step that decides what gets transcribed, so its recall is the study's main measurement risk.</p>
+    <dl class="kv">
+      <dt>Model</dt><dd><code>${esc(L.model)}</code></dd>
+      <dt>Call shape</dt><dd>${esc(L.model_note)}</dd>
+      <dt>Screen</dt><dd>${L.screen.window_s}-s windows, ${L.screen.threshold_hits_per_100w} keyword hits per 100 words, 3-window smoothing; candidates cut at ${L.screen.max_run_s}&nbsp;s, padded ±${L.screen.pad_s}&nbsp;s, merged across gaps under ${L.screen.merge_gap_s}&nbsp;s</dd>
+      <dt>Window note</dt><dd>${esc(L.window_note)}</dd>
+    </dl>
+    <h3>The three codebooks, verbatim</h3>
+    <p class="note">These are the exact system blocks <code>pipeline/classify.py</code> sends. Changing one character changes the version string, and rows read under two versions are never pooled.</p>
+    ${L.codebooks.map(c => `
+      <div style="margin:12px 0">
+        ${verbatim(`Codebook <b>${esc(c.name)}</b> &nbsp;<code>${esc(c.version)}</code>`, c,
+                   `~${fi(c.est_tokens)} tokens${c.is_default ? " · <b>default in code</b>" : ""}`)}
+        <p class="note" style="margin:4px 2px 0">${esc(c.note)}</p>
+      </div>`).join("")}
+    <p class="note">The whole difference between v2.1 and v2 is this one sentence at the top of the transit definition — <code>classify.py</code> asserts every other byte is identical:</p>
+    <div class="panel"><pre class="verbatim" style="border:none;background:none;padding:0">${esc(L.v21_delta.text)}</pre></div>
+
+    <h3>Recall and precision</h3>
+    <p>Measured by transcribing whole meetings on the GPU, labelling <em>every</em> 60-s window with the codebook and no keyword screen, and asking what fraction of the "about" minutes the pipeline actually located. Each row is <b>one arm scored on the same family under both references</b>, so the pairs are like-for-like; the two references are described below the table.</p>
+    <div class="panel"><table>
+      <thead><tr>
+        <th>arm</th>
+        <th class="num" colspan="1">recall<br><span class="note">v1 ref</span></th>
+        <th class="num">recall<br><span class="note">adjudicated ref</span></th>
+        <th class="num">precision<br><span class="note">v1 ref</span></th>
+        <th class="num">precision<br><span class="note">adjudicated ref</span></th>
+        <th class="num">about-min<br><span class="note">v1 → adj</span></th>
+      </tr></thead>
+      <tbody>${recallRows}</tbody>
+    </table></div>
+    <dl class="kv">${refs.map(r => `<dt>${esc(r.name)}</dt><dd>${esc(r.detail)}</dd>`).join("")}</dl>
+    <div class="caveat crit"><b>The circularity, stated plainly</b>${esc(R.circularity)}</div>
+    <p class="note"><b>Power.</b> ${esc(R.power)}</p>
+    ${R.local_asr_arm ? `
+      <h3>A separate arm: the v1 pipeline's own recall on the Mac-ASR route</h3>
+      <div class="panel"><table>
+        <thead><tr><th>family</th><th class="num">about-min</th><th class="num">located-min</th><th class="num">recall</th><th class="num">95% CI</th><th class="num">screen alone</th></tr></thead>
+        <tbody>${Object.entries(R.local_asr_arm.families).map(([f, v]) => `<tr>
+          <td>${esc(f)}</td><td class="num">${fi(v.about_min)}</td><td class="num">${fi(v.located_min)}</td>
+          <td class="num"><b>${pct(v.recall)}</b></td><td class="num">${ci(v.recall_ci)}</td><td class="num">${pct(v.screen_recall)}</td></tr>`).join("")}</tbody>
+      </table></div>
+      <p class="note">${esc(R.local_asr_arm.note)}</p>` : ""}`);
+
+  // ── 3. stance ──────────────────────────────────────────────────────────
+  const S = M.stance, rep = S.replicates;
+  d3.select("#s-stance").html(`
+    <p>Every transcript turn of at least five words inside a located episode is read by a second pinned instrument, which codes stance toward the agenda item on a −2…+2 scale, hostility 0–4, a multi-label frame set, a sub-topic, and whether the speaker self-identified.</p>
+    <dl class="kv">
+      <dt>Model</dt><dd><code>${esc(S.model)}</code>, thinking disabled, no sampling parameters, JSON-schema output, Message Batches API</dd>
+      <dt>prompt_version</dt><dd><code>${esc(S.prompt_version)}</code> — the codebook version <code>${esc(S.codebook_version)}</code> is the SHA-256 of the block below, recorded on every row</dd>
+      <dt>Unit</dt><dd>${esc(S.unit)}</dd>
+      <dt>Replicates</dt><dd>k = ${S.k}, median kept, spread recorded</dd>
+    </dl>
+    ${verbatim("The stance codebook", S.codebook, `the block below <code>--- CODEBOOK ---</code>`)}
+    <h3>Replicate agreement (k = ${S.k})</h3>
+    <div class="panel"><table>
+      <thead><tr><th>subset</th><th class="num">turns</th><th class="num">stance κ<sub>w</sub>, pairwise</th></tr></thead>
+      <tbody>
+        <tr><td><b>all</b></td><td class="num">${fi(rep.n_turns)}</td><td class="num">${(rep.stance_kappa_w || []).map(f3).join(" / ")}</td></tr>
+        ${Object.entries(rep.by_role || {}).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${fi(v.n_turns)}</td><td class="num">${(v.stance_kappa_w || []).map(f3).join(" / ")}</td></tr>`).join("")}
+      </tbody>
+    </table></div>
+    <p class="note">All three replicates identical on ${f3(rep.all3_identical_stance * 100)} % of turns. ${esc(rep.note)}</p>
+    <div class="caveat crit"><b>The κ ≥ 0.6 gate has not been passed</b>${esc(S.kappa_gate)}</div>`);
+
+  // ── 4. speakers ────────────────────────────────────────────────────────
+  const K = M.speakers, pil = K.pilot, D = K.derivation;
+  d3.select("#s-speakers").html(`
+    <p>Two different things carry the YIMBY / NIMBY labels, and they must not be confused. One is a direct prompt, piloted on 300 turns, quoted in full below. The other — the one the dashboard's per-cluster figures actually use — is <b>derived</b> from the stance pass by a threshold rule.</p>
+    <h3>The pilot prompt</h3>
+    <dl class="kv">
+      <dt>Model</dt><dd><code>${esc(K.model)}</code></dd>
+      <dt>prompt_version</dt><dd><code>${esc(K.prompt_version)}</code> (run as <code>${esc(pil.prompt_version_run)}</code>)</dd>
+      <dt>Labels</dt><dd>${K.labels.map(l => `<code>${esc(l)}</code>`).join(", ")}</dd>
+      <dt>Pilot</dt><dd>${fi(pil.n_labelled)} turns, $${f2(pil.actual_usd)}; the model returned ${Object.entries(pil.label_counts || {}).map(([k, v]) => `${esc(k)} ${v}`).join(", ")}</dd>
+    </dl>
+    ${verbatim("The NIMBY / YIMBY prompt", K.prompt)}
+    <p class="note">${esc(pil.note)}</p>
+
+    <h3>The derivation rule used on the dashboard</h3>
+    <p>${esc(D.rule)}</p>
+    <dl class="kv">
+      <dt>Threshold</dt><dd>YIMBY if mean cluster stance ≥ <b>+${D.threshold}</b>, NIMBY if ≤ <b>−${D.threshold}</b>, neutral in between (half a codebook step)</dd>
+      <dt>Unit</dt><dd>episode × anonymous diarized cluster; bodies shown only with ≥ ${D.min_clusters_per_body} public clusters</dd>
+      <dt>Scope</dt><dd>${fi(D.n_turns)} turns → ${fi(D.n_clusters)} clusters${D.clusters_by_role_label ? ` (public: ${["YIMBY","NIMBY","neutral","no stance"].map(l => `${l} ${D.clusters_by_role_label["public/" + l] ?? 0}`).join(", ")})` : ""}</dd>
+      <dt>Code</dt><dd><code>${esc(D.source)}</code> · stamp: ${esc(D.stamp)}</dd>
+      <dt>No linking</dt><dd>${esc(D.no_linking)}</dd>
+    </dl>
+    ${K.caveats.map(c => `<div class="caveat"><b>${esc(c.name)}</b>${esc(c.text)}</div>`).join("")}`);
+
+  // ── 5. the models behind the role results ──────────────────────────────
+  // Short entries, each complementing a dashboard bullet rather than restating
+  // the panel's table (owner, 2026-10-19). The plan documents are named but not
+  // linked: they live in the repo, not on this site.
+  const MO = M.models;
+  d3.select("#s-models").html(!MO || !MO.available
+    ? `<p class="note">This section needs <code>${esc((MO && MO.source) || "output/stance_s2/site_numbers_role.json")}</code> — run <code>analysis/site_numbers_role.py</code> in the pipeline repo, then rebuild this page.</p>`
+    : `<p>${esc(MO.intro)}</p>
+    ${MO.entries.map(e => `<p class="lim"><b>${esc(e.name)}.</b> ${esc(e.text)}${
+      (e.docs || []).length ? ` <span class="note">${e.docs.map(d => `<code>${esc(d)}</code>`).join(" ")}</span>` : ""}</p>`).join("")}
+    <p class="note">${esc(MO.stamp || "")}</p>`);
+
+  // ── 6. limitations ─────────────────────────────────────────────────────
+  const LIM = M.limitations;
+  const sev = {critical: "crit", high: "high", medium: "med"};
+  d3.select("#s-limitations").html(`
+    <p>An independent methodological review read this project on 2026-10-18. Its findings, in plain language:</p>
+    ${LIM.items.map(i => `<p class="lim"><span class="pill ${sev[i.severity] || ""}">${esc(i.severity)}</span> <b>${esc(i.name)}.</b> ${esc(i.text)}</p>`).join("")}
+    <h3>What the owner decided</h3>
+    <div class="panel"><p class="note" style="margin:0;white-space:pre-wrap">${esc(LIM.owner_response.text)}</p></div>
+    <p class="note">Quoted from <code>${esc(LIM.owner_response.source)}</code>. <span class="hash">sha256 ${esc(LIM.owner_response.sha256)}</span></p>`);
+
+  // ── 7. versions ────────────────────────────────────────────────────────
+  d3.select("#s-versions").html(`
+    <p>Generated from the code constants, not maintained by hand. The hash column is the SHA-256 of the exact text sent to the model; for the non-LLM steps it is a version string instead.</p>
+    <div class="panel"><table>
+      <thead><tr><th>instrument</th><th>version</th><th>model</th><th>source</th><th>sha256</th><th>status</th></tr></thead>
+      <tbody>${M.versions.map(v => `<tr>
+        <td>${esc(v.instrument)}</td>
+        <td><code>${esc(v.version)}</code></td>
+        <td>${v.model === "—" ? "—" : `<code>${esc(v.model)}</code>`}</td>
+        <td class="note">${esc(v.source)}</td>
+        <td class="hash">${v.sha256 ? esc(v.sha256.slice(0, 16)) + "…" : "—"}</td>
+        <td class="note">${esc(v.status)}</td></tr>`).join("")}</tbody>
+    </table></div>`);
+
+  d3.select("#foot").html(`Built ${esc(M.generated.slice(0, 16).replace("T", " "))} UTC by <code>${esc(M.generated_by)}</code> and <code>export/export_flow.py</code> from the ytpt repo. Every verbatim block carries the SHA-256 of its own text, and <code>analysis/test_pipeline.py</code> recomputes those hashes from the sources on every <code>make test</code> — if an instrument is edited and this page is not rebuilt, the test fails.`);
+
+  // Render the production flowchart with mermaid; if the CDN is unavailable the
+  // verbatim source is already in the DOM and simply stays visible.
+  import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.15.0/mermaid.esm.min.mjs")
+    .then(({ default: mermaid }) => {
+      const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+      mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "neutral", securityLevel: "strict",
+                           flowchart: { useMaxWidth: true, htmlLabels: true } });
+      return mermaid.render("prodchart", M.pipeline.mermaid.text);
+    })
+    .then(({ svg }) => { d3.select("#chart").html(svg); })
+    .catch(err => { console.warn("mermaid unavailable; showing the chart source", err); });
+}).catch(err => {
+  d3.select("#s-pipeline").html(`<p>Could not load <code>data/methods.json</code>: ${esc(err.message)}. Run <code>cd ~/ytpt && .venv/bin/python ~/ytpt-site/export/export_methods.py</code>, and serve this folder over HTTP (<code>python3 -m http.server</code>) — browsers block <code>file://</code> fetches.</p>`);
+  console.error(err);
+});
+</script>
+</body>
+</html>

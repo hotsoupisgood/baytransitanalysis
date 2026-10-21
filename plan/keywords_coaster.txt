@@ -1,0 +1,33 @@
+# Keywords for the Coaster / NCTD / LOSSAN / Del Mar bluffs rail-corridor topic.
+# One term per line; '#' starts a comment. Matching is case-insensitive and
+# whole-word (a trailing 's or s is allowed, so "bluff" also hits "bluffs").
+# Multi-word terms match across any whitespace or a hyphen.
+# Draft from Puck, 2026-09-19. Edit freely; pipeline/segment.py re-reads it every run.
+coaster
+nctd
+north county transit
+lossan
+rail corridor
+bluff
+del mar bluffs
+tunnel
+realignment
+double track
+double tracking
+quiet zone
+train horn
+grade crossing
+cedros
+amtrak
+surfliner
+sandag
+railroad
+train
+transit
+# ASR variants seen in YouTube auto captions of Solana Beach meetings (2026-09-20):
+# "LOSSAN" is never transcribed as such -- it comes out as one of these.
+losan
+los santo
+los san
+low sand corridor
+lowand corridor

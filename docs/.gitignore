@@ -1,0 +1,50 @@
+# docs/ is the GitHub Pages root (main:/docs). Only the data files index.html
+# and methods.html actually fetch are committed; everything else the exporters
+# in scripts/site_export/ write stays local. Owner, 2026-10-19: "keep the data
+# off of the repo".
+#
+# Ignore the whole data tree, then re-include the committed keep-list below.
+# Re-deriving the list: grep -oE '(data/)[A-Za-z0-9_/.-]+' index.html methods.html
+data/*
+
+# loaded by index.html on first paint
+!data/bayarea_counties.json
+!data/bodies.json
+!data/meetings.json
+!data/episodes.json
+!data/terms.json
+!data/panels.json
+!data/nimby_points.json
+!data/panels/
+# data/figs/ holds the topic-time and pilot role-gap figures. No page fetches them
+# since the topic-time panel came off index.html on 2026-10-20, but they are kept in
+# the repo: REPORT.md cites them by filename.
+!data/figs/
+# data/models/summary.json is NOT re-included: index.html stopped fetching it with
+# that panel, and export_site_data.py no longer writes it, so a committed copy could
+# only go stale. The figures and posterior tables it indexed are still copied.
+
+# loaded by methods.html
+!data/flow.json
+!data/methods.json
+
+# index.html hard-codes LEAD_EPISODE = "gr-fremont-21_e4" and loads that body's
+# turns on first paint, so this one shard (0.43 MB) is part of the landing view.
+# Without it the published page logs a 404 before anyone clicks anything.
+!data/episodes/
+data/episodes/*
+!data/episodes/fremont.json
+
+# Deliberately NOT committed:
+#   data/episodes/*     the other 26 bodies' full meeting turns, 18.4 MB,
+#                       fetched only when a reader opens that body. They 404 on
+#                       the published site; loadText() catches it and shows an
+#                       empty text pane. See README.md "Dashboard".
+#   data/bodies_geo.csv an INPUT to export_site_data.py and
+#                       export_nimby_points.py, not loaded by any page. Keep a
+#                       local copy or the exporters cannot run.
+#   data/site_numbers.json  written by export_panels.py, read by no page today.
+#   data/tables/        copied from output/analysis/models/, read by no page today.
+
+# local screenshot runs
+screenshots/

@@ -1,0 +1,41 @@
+# body<TAB>WhisperX initial_prompt vocabulary (T2, 2026-09-22; output/validation/REPORT.md 6.1).
+# One line per body, <= 200 characters: body name, dais titles, agencies and
+# local place / station names the auto captions and WhisperX disagreed on most.
+# pipeline/vocab.py reads this (sources.vocab in the DB overrides a line);
+# `vocab.py suggest <body>` prints capitalised tokens from cased caption tracks
+# to extend a line. Names of individuals are deliberately absent (DECISIONS #15).
+# UNVERIFIED on a pod until the next batch runs with it.
+sanjose	San José City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, VTA, Caltrain, HCD, RHNA, ADU, SB 79, Diridon, Berryessa, Alum Rock, Coyote Valley, Santa Clara County.
+sanrafael	San Rafael City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. SMART, Golden Gate Transit, Marin Transit, HCD, RHNA, ADU, SB 79, Canal, Terra Linda, Northgate, Marin County.
+bart	BART Board of Directors. President, Vice President, Director, General Manager, District Secretary. Clipper, Muni, Caltrain, AC Transit, MTC, SB 63, Link21, Embarcadero, Fremont, Millbrae, Dublin.
+oakland	Oakland City Council. Mayor, Council President, Councilmember, City Administrator, City Clerk. BART, AC Transit, HCD, RHNA, ADU, SB 79, Lake Merritt, Fruitvale, MacArthur, Rockridge, Alameda County.
+sunnyvale	Sunnyvale City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. VTA, Caltrain, HCD, RHNA, ADU, SB 79, Moffett Park, Lawrence, El Camino Real, Mathilda, Santa Clara County.
+santarosa	Santa Rosa City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. SMART, CityBus, Golden Gate Transit, HCD, RHNA, ADU, SB 79, Roseland, Railroad Square, Coddingtown, Sonoma County.
+healdsburg	Healdsburg City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. SMART, Sonoma County Transit, HCD, RHNA, ADU, SB 79, Healdsburg Avenue, Russian River, Windsor, Sonoma County.
+rohnertpark	Rohnert Park City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. SMART, Sonoma County Transit, HCD, RHNA, ADU, SB 79, Sonoma State, Cotati, Golf Course Drive, Sonoma County.
+paloalto	Palo Alto City Council. Mayor, Vice Mayor, Council Member, City Manager, City Clerk. Caltrain, VTA, SamTrans, HCD, RHNA, ADU, SB 79, Churchill, Charleston, El Camino Real, University Avenue, Stanford.
+cupertino	Cupertino City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. VTA, HCD, RHNA, ADU, SB 79, builder's remedy, Vallco, Rise, Stevens Creek, De Anza, Santa Clara County.
+sanmateo	San Mateo City Council. Mayor, Deputy Mayor, Councilmember, City Manager, City Clerk. Caltrain, SamTrans, HCD, RHNA, ADU, SB 79, Hillsdale, Hayward Park, El Camino Real, Bay Meadows, San Mateo County.
+dalycity	Daly City City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, SamTrans, HCD, RHNA, ADU, SB 79, Serramonte, Westlake, Colma, Mission Street, San Mateo County.
+concord	Concord City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, County Connection, HCD, RHNA, ADU, SB 79, Naval Weapons Station, Todos Santos, Monument, Contra Costa County.
+milpitas	Milpitas City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, VTA, HCD, RHNA, ADU, SB 79, Great Mall, Calaveras, Montague, McCarthy Ranch, Santa Clara County.
+losaltos	Los Altos City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. VTA, Caltrain, HCD, RHNA, ADU, SB 79, builder's remedy, El Camino Real, Foothill, Loyola, Santa Clara County.
+petaluma	Petaluma City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. SMART, Petaluma Transit, HCD, RHNA, ADU, SB 79, Corona Road, Lakeville, Fairgrounds, Sonoma County.
+cotati	Cotati City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. SMART, Sonoma County Transit, HCD, RHNA, ADU, SB 79, Old Redwood Highway, La Plaza, Rohnert Park, Sonoma County.
+vta	VTA Board of Directors. Chair, Vice Chair, Board Member, General Manager, Board Secretary. BART, Caltrain, Clipper, MTC, Measure B, Diridon, Eastridge, light rail, Santa Clara County.
+sanfrancisco	San Francisco Board of Supervisors. President, Supervisor, Clerk of the Board, City Attorney. Muni, SFMTA, BART, Caltrain, HCD, RHNA, ADU, SB 79, Planning Department, Mission, Sunset, Richmond.
+mountainview	Mountain View City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. Caltrain, VTA, MVgo, HCD, RHNA, ADU, SB 79, North Bayshore, East Whisman, El Camino Real, Castro Street.
+fremont	Fremont City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, AC Transit, ACE, HCD, RHNA, ADU, SB 79, Warm Springs, Irvington, Centerville, Niles, Alameda County.
+santaclara	Santa Clara City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. VTA, Caltrain, ACE, HCD, RHNA, ADU, SB 79, Related Santa Clara, Tasman, El Camino Real, Levi's Stadium.
+alameda	Alameda City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. AC Transit, BART, ferry, WETA, HCD, RHNA, ADU, SB 79, Alameda Point, Webster, Park Street, Bay Farm, Alameda County.
+richmond	Richmond City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, AC Transit, ferry, HCD, RHNA, ADU, SB 79, Hilltop, Point Richmond, Iron Triangle, Contra Costa County.
+hayward	Hayward City Council. Mayor, Mayor Pro Tempore, Council Member, City Manager, City Clerk. BART, AC Transit, HCD, RHNA, ADU, SB 79, South Hayward, Mission Boulevard, Tennyson, Alameda County.
+sanleandro	San Leandro City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, AC Transit, HCD, RHNA, ADU, SB 79, Bay Fair, East 14th Street, Marina, Alameda County.
+walnutcreek	Walnut Creek City Council. Mayor, Mayor Pro Tem, Councilmember, City Manager, City Clerk. BART, County Connection, HCD, RHNA, ADU, SB 79, Pleasant Hill, Ygnacio Valley, Contra Costa County.
+sausalito	Sausalito City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. Golden Gate Transit, ferry, Marin Transit, HCD, RHNA, ADU, SB 79, Bridgeway, Marinship, Marin City, Marin County.
+napa	Napa County Board of Supervisors. Chair, Vice Chair, Supervisor, County Executive Officer, Clerk of the Board. Vine Transit, NVTA, HCD, RHNA, ADU, SB 79, American Canyon, Calistoga, St. Helena.
+samtrans	SamTrans Board of Directors. Chair, Vice Chair, Director, General Manager, District Secretary. Caltrain, BART, Clipper, MTC, El Camino Real, Daly City, Redwood City, San Mateo County.
+pleasanton	Pleasanton City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, Wheels, LAVTA, ACE, HCD, RHNA, ADU, SB 79, Hacienda, Stoneridge, Valley Avenue, Alameda County.
+livermore	Livermore City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. BART, ACE, Wheels, LAVTA, HCD, RHNA, ADU, SB 79, Downtown Specific Plan, First Street, Alameda County.
+vallejo	Vallejo City Council. Mayor, Vice Mayor, Councilmember, City Manager, City Clerk. SolTrans, ferry, WETA, Capitol Corridor, HCD, RHNA, ADU, SB 79, Mare Island, Sonoma Boulevard, Solano County.
+sfmta	SFMTA Board, San Francisco Municipal Transportation Agency. Chair, Director of Transportation. Muni, Muni Metro, Central Subway, Geary, Van Ness BRT, paratransit, Clipper, Vision Zero, BART.

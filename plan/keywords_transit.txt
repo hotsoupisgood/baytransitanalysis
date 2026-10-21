@@ -1,0 +1,258 @@
+# Keywords for the TRANSIT family (rail, bus, bike / pedestrian street
+# reallocation) in Bay Area council / county / transit-board meetings.
+# PROPOSAL-transit.md 1 and 4; generalised from keywords_coaster.txt (LOSSAN /
+# Coaster) and keywords_smart.txt (SMART). Draft 2026-09-20 for T0.
+#
+# Format: see keywords_density.txt (same loader; '@family', '? term' for
+# conditional terms that only count next to an unconditional hit of this
+# family in the same window).
+@family transit
+#
+# Bay Area agencies. Bare "smart" was 41/41 the agency in North Bay meetings
+# (keywords_smart.txt:18-22) but San Jose / Sunnyvale have "smart city" and
+# "smart meter" items, so in the union file it is CONDITIONAL; the multi-word
+# forms stay unconditional.
+bart
+bay area rapid transit
+caltrain
+smart train
+sonoma-marin
+sonoma marin
+sonoma marin area rail
+area rail transit
+snowoma marin
+? smart
+vta
+valley transportation authority
+muni
+sfmta
+ac transit
+actransit
+samtrans
+golden gate transit
+golden gate ferry
+marin transit
+sonoma county transit
+citybus
+city bus
+tri delta
+county connection
+wheels bus
+mtc
+metropolitan transportation commission
+abag
+capitol corridor
+amtrak
+ace train
+altamont corridor
+high-speed rail
+high speed rail
+hsr
+link21
+link 21
+#
+# Rail generally ("train" is a verb often enough to be conditional; "rail" was
+# clean 8/8 in the SMART pilot)
+rail
+light rail
+commuter rail
+passenger rail
+rail station
+rail service
+rail line
+rail corridor
+railroad
+? train
+? trains
+? freight
+grade crossing
+grade separation
+grade separations
+quiet zone
+train horn
+level crossing
+diridon
+diridon station
+berryessa
+transbay
+salesforce transit center
+#
+# Bus and service
+bus lane
+bus lanes
+bus rapid transit
+brt
+bus route
+bus routes
+bus stop
+bus stops
+bus service
+bus line
+express bus
+rapid bus
+paratransit
+microtransit
+shuttle
+shuttles
+? bus
+service cut
+service cuts
+service reduction
+service reductions
+service change
+service changes
+headway
+headways
+frequency
+frequent service
+ridership
+fare
+fares
+fare gate
+fare gates
+fare evasion
+clipper
+clipper card
+transit
+public transit
+public transportation
+mass transit
+transit agency
+transit agencies
+transit funding
+transit operations
+transit center
+transit hub
+transit village
+transit pass
+transit oriented
+transit-oriented
+tod
+station area
+station area plan
+#
+# Streets: bike, pedestrian, road space
+bike lane
+bike lanes
+bikeway
+bikeways
+bike path
+bike paths
+bike network
+protected bike
+cycle track
+class iv
+class 4 bikeway
+multi-use path
+multiuse path
+multi-use pathway
+road diet
+lane reduction
+lane reductions
+lane removal
+complete streets
+complete street
+vision zero
+traffic calming
+pedestrian safety
+pedestrian improvements
+crosswalk
+crosswalks
+? bicycle
+? bicycles
+? bike
+? cyclist
+? cyclists
+? pedestrian
+? pedestrians
+#
+# Travel demand / planning vocabulary
+vmt
+vehicle miles traveled
+vehicle miles travelled
+mode share
+mode shift
+transportation demand management
+tdm
+? active transportation
+? congestion
+? mobility
+#
+# Funding measures that are transit-specific by name. Generic "measure q" /
+# "measure i" stay OFF (keywords_smart.txt:58-63: 4/4 hits were city sales
+# taxes).
+regional measure
+sb 125
+transit fiscal cliff
+fiscal cliff
+#
+# ASR variants seen in YouTube auto captions of North Bay meetings (2026-09-20)
+lurchburg
+#
+# Active transportation vocabulary (2026-10-18, plan/RECALL-CHECK.md "Keyword
+# screen expansion", approved by Puck). The locate-recall check found 23 of 30
+# missed about-minutes had 0.0 hits/100w; the transit misses were a Bay Trail /
+# bike-share / e-bike lending-library sequence (Richmond) and a biking
+# infrastructure contract (San Leandro) whose words were all absent here.
+# Frequency over the 293 caption/ASR tracks on disk (67,944 60-s windows):
+# "trail" 0.72 % of windows, "greenway" 0.13 %, "e-bike" 0.16 %, every other
+# term below 0.1 % -- so bare "trail"/"trails", "lending library" (tool
+# libraries), "bike rack", "scooter" and "safe routes" are CONDITIONAL; the
+# compound forms are unconditional.
+bay trail
+shoreline trail
+multi-use trail
+multiuse trail
+greenway
+? trail
+? trails
+bike share
+bikeshare
+e-bike
+e-bikes
+ebike
+ebikes
+electric bike
+electric bikes
+bike library
+? lending library
+? bike rack
+? bike racks
+? bike parking
+protected bikeway
+protected bikeways
+biking
+bicycling
+bike infrastructure
+biking infrastructure
+bicycle infrastructure
+bike plan
+bicycle plan
+bike boulevard
+bicycle boulevard
+active transportation plan
+? pedestrian plan
+safe routes to school
+? safe routes
+walking and biking
+biking and walking
+bike and pedestrian
+bicycle and pedestrian
+pedestrian and bicycle
+bike ped
+pedestrian bridge
+pedestrian bridges
+micromobility
+e-scooter
+e-scooters
+? scooter
+? scooters
+clean mobility
+bus shelter
+bus shelters
+bus rider
+bus riders
+bus passenger
+bus passengers
+transit rider
+transit riders

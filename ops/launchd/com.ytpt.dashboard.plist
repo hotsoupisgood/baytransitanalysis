@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Template. ops/launchd/install_dashboard.sh fills __REPO__, __PYTHON__ and
+  __LOGDIR__ and loads it as a per-user LaunchAgent: starts at login, restarts
+  if it exits. Same pattern for the downloader/transcoder workers (PLAN.md 4.8):
+  plain scripts under launchd, supervised -- not run -- by OpenClaw.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ytpt.dashboard</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__PYTHON__</string>
+    <string>__REPO__/dashboard/serve.py</string>
+  </array>
+  <key>WorkingDirectory</key><string>__REPO__</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>ThrottleInterval</key><integer>30</integer>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>__LOGDIR__/dashboard.log</string>
+  <key>StandardErrorPath</key><string>__LOGDIR__/dashboard.log</string>
+</dict>
+</plist>

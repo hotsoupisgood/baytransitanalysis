@@ -1,0 +1,56 @@
+# plan/gpu-freeze.txt -- pinned GPU stack for pipeline/gpu_bootstrap.sh
+#
+# STATUS: UNVERIFIED -- written 2026-09-18 from docs/MODELS.md and PyPI
+# metadata; NO POD HAS RUN THIS YET. PLAN.md 4.5 (2) says the real file is the
+# `pip freeze` of the first pod that works. When that happens, replace this
+# file wholesale with the pod's output, and change this header to:
+#   VERIFIED on <date>, pod image <image>, batch <id>
+# and delete the (unverified) notes.
+#
+# Format: `pip install -r` compatible. Every non-comment line is name==version.
+# Only the packages that fight each other are pinned (PLAN.md 4.5 "dependency
+# hell"); the rest resolve from these. Expected interpreter: Python 3.11
+# (WhisperX 3.8.x requires >=3.10,<3.14) on the pod image named in
+# pipeline/gpu_job.py (GPU_IMAGE).
+#
+# How each pin was chosen (all from PyPI requires_dist on 2026-09-18):
+#   whisperx 3.8.6      latest 3.8.x; requires torch~=2.8.0, torchaudio~=2.8.0,
+#                       torchvision~=0.23.0, torchcodec>=0.6,<0.8,
+#                       huggingface-hub<1.0, pyannote-audio>=4.0, ctranslate2>=4.5,
+#                       faster-whisper>=1.2, numpy>=2.1, pandas>=2.2.3
+#   pyannote.audio 4.0.7  requires torch>=2.8, torchaudio>=2.8, torchcodec>=0.7
+#                       -> torchcodec==0.7.0 is the ONLY version both accept
+#   huggingface-hub 0.36.2  last 0.x (whisperx forbids 1.x)
+#   transformers 4.57.6 last 4.x; transformers 5.x needs huggingface-hub 1.x
+#   pandas 2.3.3        pandas 3.x is untested with whisperx's DataFrame code
+#   numpy 2.3.5         last line that installs on Python 3.11
+#
+# Diarization model loaded by this stack (docs/MODELS.md 3, .env.example):
+#   pyannote/speaker-diarization-community-1   -- gated; HF_TOKEN's account
+#   must have accepted its conditions (`make creds` checks this for $0).
+
+# --- ASR + alignment + diarization (the pins that matter) ---------------------
+whisperx==3.8.6                 # (unverified)
+faster-whisper==1.2.1           # (unverified)
+ctranslate2==4.8.2              # (unverified)
+pyannote.audio==4.0.7           # (unverified)
+
+# --- torch family: must match each other AND the pod image's CUDA -------------
+torch==2.8.0                    # (unverified) PyPI wheel bundles CUDA 12.8
+torchaudio==2.8.0               # (unverified)
+torchvision==0.23.0             # (unverified)
+torchcodec==0.7.0               # (unverified) the one version in both ranges
+
+# --- HF stack: whisperx needs hub <1.0, which rules out transformers 5.x ------
+huggingface-hub==0.36.2         # (unverified)
+transformers==4.57.6            # (unverified)
+tokenizers==0.22.1              # transformers 4.57.6 requires >=0.22.0,<=0.23.0; 0.23.2 failed on b3 (2026-09-18)
+safetensors==0.8.0              # (unverified)
+
+# --- numerics ---------------------------------------------------------------
+numpy==2.3.5                    # (unverified) Python 3.11 ceiling
+pandas==2.3.3                   # (unverified)
+onnxruntime==1.30.0             # (unverified) faster-whisper VAD
+av==18.1.0                      # (unverified) faster-whisper audio decode
+nltk==3.10.3                    # (unverified) whisperx sentence split
+omegaconf==2.3.1                # (unverified)

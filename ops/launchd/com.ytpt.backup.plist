@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Nightly copy of downloads, transcripts and DB snapshots to Backblaze B2 (backup.sh).
+  06:00 local: after the 00:00 YouTube shift and its GPU batch. backup.sh is copy-only and
+  holds a lock, so a run that finds the previous one still uploading exits at once.
+  Fill __REPO__, __LOGDIR__ and __PATH__ (PATH must include b2 and sqlite3), then
+  `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.ytpt.backup.plist`.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ytpt.backup</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__REPO__/backup.sh</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>__PATH__</string></dict>
+  <key>WorkingDirectory</key><string>__REPO__</string>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>0</integer></dict>
+  <key>RunAtLoad</key><false/>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>__LOGDIR__/backup.log</string>
+  <key>StandardErrorPath</key><string>__LOGDIR__/backup.log</string>
+</dict>
+</plist>

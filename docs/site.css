@@ -1,0 +1,609 @@
+/* thtrans dashboard — house style, matching lucashenry.xyz.
+   Tokens and conventions surveyed in docs/STYLE.md. Light only: the site
+   declares no dark mode, so neither do we. Nothing here changes a number;
+   the data-bearing colours (family, role, status, map) survive, pulled
+   toward the site's restraint. */
+
+:root {
+  /* his tokens, verbatim from /css/index.css */
+  --content-max: 66rem;
+  --fig-max: 44rem;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --codefont: Consolas, Menlo, Monaco, "Andale Mono WT", "Lucida Console", "DejaVu Sans Mono", "Liberation Mono", "Courier New", monospace;
+  --lightgray: #e0e0e0;
+  --gray: #C0C0C0;
+  --darkgray: #333;
+  --navy: #17050F;
+  --blue: #082840;
+  --white: #fff;
+  --muted-ink: #666;
+  --pre-bg: #f6f6f6;
+  --warn-bg: #ffc;
+
+  /* dashboard aliases */
+  --bg: var(--white);
+  --ink: var(--darkgray);
+  --muted: var(--muted-ink);
+  --panel: var(--white);
+  --border: var(--lightgray);
+  --grid: var(--lightgray);
+  --accent: var(--blue);
+  --pending: var(--gray);
+  --code: var(--pre-bg);
+
+  /* data-bearing, muted to print weights */
+  --density: #8a5a0a;
+  --transit: #1f4e79;
+  --land: #f4f4f2;
+  --water: #eceff2;
+  --dais: #4c3575;
+  --public: #0f5f57;
+  --staff: #7a5230;
+  --unknown: var(--gray);
+  --ok: #2f6b3a;
+  --warn: #8a6d1a;
+  --crit: #8c2b23;
+  --pilot: var(--dais);
+  --chip: var(--warn-bg);
+  --chipink: #5c4a00;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 16px;
+}
+main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+p, li { line-height: 1.45; }
+p { margin: 0 0 0.625rem; }
+
+h1 { font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.25rem; font-weight: 700; }
+h2 { font-size: 1.1875rem; margin: 2rem 0 0.375rem; scroll-margin-top: 0.75rem; }
+h3 { font-size: 1rem; margin: 1.25rem 0 0.25rem; }
+h4 { font-size: 0.9375rem; margin: 0 0 0.375rem; }
+
+a[href] { color: var(--accent); }
+a[href]:visited { color: var(--navy); }
+
+.sub { color: var(--muted); margin: 0 0 0.5rem; font-size: 0.9375rem; max-width: var(--fig-max); }
+.note { font-size: 0.8125rem; color: var(--muted); }
+
+/* Nav line, in his uppercase mono chrome */
+.nav {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--lightgray);
+}
+.nav a[href], .nav a[href]:visited { color: var(--muted); text-decoration: none; }
+.nav a[href]:hover { opacity: 0.5; }
+
+/* Banner rule (owner, 2026-10-18 21:18, docs/STYLE.md): there is no cream
+   EXPLORATORY banner. The word is in the page title and h1; the limitations are
+   plain prose on Methods and in each panel's results body. */
+
+/* The intro paragraphs under the title (owner, 2026-10-19): what was collected,
+   then a little on what came out. Full body size, because this is the first thing
+   anyone reads; the TLDR follows it. Numbers live here, not in the TLDR. */
+p.intro {
+  margin: 0.5rem 0 0.75rem; max-width: 76ch; font-size: 1rem; line-height: 1.45;
+  color: var(--ink);
+}
+p.intro + p.intro { margin-top: -0.25rem; }
+
+/* TLDR block, his pattern: a literal label, then short bullets */
+.tldr-label {
+  margin: 0.75rem 0 0.25rem;
+  font-weight: 700;
+}
+ul.tldr::before {
+  content: "TLDR:";
+  display: block;
+  margin: 0 0 0.25rem -1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+ul.tldr {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  max-width: var(--fig-max);
+  font-size: 1rem;
+}
+ul.tldr li { margin: 0.25rem 0; line-height: 1.45; }
+
+/* The data-as-of and total-spend line under the TLDR. Dated spend is visible by
+   house rule, so it sits in the opening block rather than in a fold, but it is
+   support rather than a finding -- hence the muted .sub treatment, one notch
+   smaller, with a rule above it to separate it from the bullets. */
+.asof {
+  margin: -0.5rem 0 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  max-width: var(--fig-max);
+}
+.asof:empty { display: none; }
+
+/* Panel lede + headline bullets: his TLDR-first opening, label supplied here
+   so no panel content changes. */
+.lede { font-size: 0.9375rem; color: var(--muted); margin: 0 0 0.625rem; max-width: 76ch; line-height: 1.45; }
+ul.heads {
+  margin: 0 0 0.875rem; padding-left: 1.25rem;
+  font-size: 1rem; max-width: var(--fig-max);
+}
+ul.heads::before {
+  content: "TLDR:";
+  display: block;
+  margin: 0 0 0.25rem -1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+ul.heads li { margin: 0.25rem 0; line-height: 1.45; }
+
+/* Caveats: plain prose in the results body, his bolded run-in lead (§7), no box */
+.caveats { margin: 0.875rem 0 0; }
+.caveat-prose {
+  font-size: 0.875rem; color: var(--ink); line-height: 1.45;
+  margin: 0.625rem 0; max-width: 80ch;
+}
+.caveat-prose b { color: var(--ink); font-weight: 700; }
+.caveats p { font-size: 0.875rem; color: var(--ink); margin: 0.4375rem 0 0; max-width: 80ch; }
+.caveats table { margin-top: 0.5rem; }
+.pfigs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 1rem; margin: 0.75rem 0; }
+.src-note { font-size: 0.75rem; color: var(--muted); margin: 0.5rem 0 0; }
+.pill.s1 { border-color: var(--dais); color: var(--dais); }
+
+/* Panels: a rule and whitespace, not a card */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.75rem 0.875rem;
+  margin: 0.625rem 0;
+  overflow-x: auto;
+}
+.wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 24rem); gap: 1rem; align-items: start; }
+@media (max-width: 50rem) { .wrap { grid-template-columns: 1fr; } }
+.detail { position: sticky; top: 0.75rem; max-height: calc(100vh - 1.5rem); overflow: auto; }
+.detail h3 { margin: 0 0 0.375rem; font-size: 0.9375rem; }
+.detail p { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.875rem; }
+.crumbs { font-size: 0.8125rem; color: var(--muted); margin: 0 0 0.5rem; }
+.crumbs a { color: var(--accent); cursor: pointer; }
+
+/* Code */
+pre, code, .detail code, .hash, .files a, svg .code {
+  font-family: var(--codefont);
+}
+code {
+  font-size: 0.8125rem;
+  background: var(--pre-bg);
+  padding: 0 3px;
+  word-break: break-all;
+}
+.detail code { background: var(--pre-bg); padding: 1px 4px; font-size: 0.75rem; }
+.hash { font-size: 0.75rem; color: var(--muted); word-break: break-all; }
+details .verbatim {
+  margin: 0;
+  padding: 0.625rem 0.875rem 0.875rem;
+  border-top: 1px solid var(--border);
+  font: 14px/1.375 var(--codefont);
+  white-space: pre-wrap;
+  background: var(--pre-bg);
+}
+
+/* Tables: his are plain, rules under rows only */
+table { border-collapse: collapse; width: 100%; font-size: 0.8125rem; margin: 1em 0; }
+th, td {
+  text-align: left;
+  padding: 0.3125rem 0.4375rem;
+  padding-right: 1em;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+  vertical-align: top;
+}
+th { color: var(--muted); font-weight: 500; }
+td.num, th.num { text-align: right; }
+tr.row { cursor: pointer; }
+tr.row:hover td { background: var(--pre-bg); }
+tr.best td { background: var(--pre-bg); }
+tr.fam-head td {
+  border-bottom: 0; padding-top: 0.75rem; color: var(--muted);
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.6875rem;
+}
+
+/* Tags and pills, borrowed from his .post-tag */
+.pill {
+  display: inline-block; font-size: 0.6875rem; line-height: 1.8;
+  padding: 0.0833em 0.3333em; margin: 0;
+  border: 1px solid var(--gray); border-radius: 0.25em;
+  color: var(--muted); white-space: nowrap; text-transform: uppercase;
+}
+.pill.density { border-color: var(--density); color: var(--density); }
+.pill.transit { border-color: var(--transit); color: var(--transit); }
+.pill.both, .pill.done, .pill.OK, .pill.on { border-color: var(--ok); color: var(--ok); }
+.pill.located, .pill.cut, .pill.med { border-color: var(--accent); color: var(--accent); }
+.pill.mention, .pill.off { color: var(--pending); border-color: var(--pending); }
+.pill.WARN, .pill.high { border-color: var(--warn); color: var(--warn); }
+.pill.prelim { border-color: var(--warn); color: var(--warn); font-weight: 600; }
+.pill.crit { border-color: var(--crit); color: var(--crit); font-weight: 600; }
+.pill.pilot { border-color: var(--pilot); color: var(--pilot); }
+.badge-row { display: flex; gap: 0.375rem; flex-wrap: wrap; margin: 0 0 0.5rem; }
+.chip {
+  display: inline-block; font-size: 0.6875rem; font-weight: 600;
+  padding: 0 6px; border-radius: 0.25em;
+  background: var(--chip); color: var(--chipink); line-height: 1.5; vertical-align: baseline;
+}
+.role {
+  display: inline-block; font-size: 0.6875rem; font-weight: 600;
+  padding: 0.0833em 0.3333em; border-radius: 0.25em;
+  color: var(--white); background: var(--unknown);
+}
+.role.dais { background: var(--dais); }
+.role.public { background: var(--public); }
+.role.staff { background: var(--staff); }
+
+/* Role audit (rule ra-1, 2026-10-18): the reader shows the reported role and, where the
+   audit disagrees with the diarization-cue label, the cue label struck through plus the
+   self-identification that moved it. Muted on purpose -- the reported role is the headline. */
+.rolewas { display: inline-block; font-size: 0.625rem; color: var(--muted); }
+.rolewas s { text-decoration-thickness: 1px; }
+.selfid { display: inline-block; font-size: 0.625rem; color: var(--muted); font-style: italic; }
+
+/* Panel TL;DR. The "corrected" provenance badge that used to sit beside it is no
+   longer rendered (readability review §7.6); the rule is kept for the stylesheet's
+   other callers, and every correction is written out in that panel's caveats. */
+.ptldr {
+  margin: 0 0 0.625rem; padding: 0.5rem 0.6875rem; max-width: 80ch;
+  font-size: 0.9375rem; line-height: 1.45;
+  background: transparent; border-left: 3px solid var(--border); border-radius: 0;
+}
+.corrected {
+  display: inline-block; font-size: 0.6875rem; font-weight: 600; white-space: nowrap;
+  padding: 0.0833em 0.3333em; border-radius: 0.25em;
+  color: var(--muted); border: 1px solid var(--border);
+}
+.note.rolenote {
+  margin: 0.75rem 0 0; padding: 0.5rem 0.6875rem; max-width: 84ch;
+  border: 1px solid var(--border); border-left: 3px solid var(--accent);
+  border-radius: 0.1875rem; line-height: 1.5;
+}
+
+/* Disclosures (readability review, docs/READABILITY-REVIEW-2026-10-18.md).
+   Nothing was deleted to make the page shorter: every sentence, table and figure
+   is still here, and only its DEFAULT VISIBILITY moved. A fold is a rule and a
+   link, not a card -- the same restraint as the rest of the page. */
+details.fold {
+  border: 0; border-radius: 0; background: none;
+  margin: 0.625rem 0; padding: 0;
+}
+details.fold > summary {
+  padding: 0.3125rem 0; font-size: 0.875rem; color: var(--accent);
+  border-bottom: 1px solid var(--border);
+}
+details.fold > summary:hover { background: none; text-decoration: underline; }
+details.fold[open] > summary { margin-bottom: 0.25rem; }
+details.fold > .body { padding: 0 0 0.25rem; }
+/* The "more" fold at the foot of the page gets a little more presence, because
+   it is the one a reader has to decide to open. */
+details.fold.more { margin: 2rem 0 0; }
+details.fold.more > summary {
+  font-size: 1rem; font-weight: 600; color: var(--accent);
+  padding: 0.5rem 0; border-top: 1px solid var(--border);
+}
+/* The plain sentence that stands in for a collapsed table. */
+.numlede { font-size: 0.9375rem; max-width: 80ch; margin: 0.625rem 0 0.125rem; }
+/* Every table scrolls inside its own box instead of widening the page. */
+.tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+
+/* Reader: the quoted turn leads, everything about it folds away. */
+blockquote.leadturn {
+  margin: 0.5rem 0 0.375rem; padding: 0 0 0 0.875rem;
+  border-left: 3px solid var(--border);
+  font-size: 1.0625rem; line-height: 1.5; max-width: var(--fig-max);
+}
+blockquote.leadturn p { margin: 0 0 0.375rem; }
+.leadsrc { font-size: 0.8125rem; color: var(--muted); margin: 0 0 0.75rem; }
+
+/* A data load that fails says so, instead of leaving empty panels. */
+.loadfail {
+  margin: 0.75rem 0; padding: 0.625rem 0.75rem; max-width: 80ch;
+  border: 1px solid var(--border); border-left: 3px solid var(--crit);
+  font-size: 0.9375rem; color: var(--ink);
+}
+
+/* Key / legend */
+.key {
+  display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+  font-size: 0.75rem; color: var(--muted); margin: 0.375rem 0 0.875rem;
+}
+.key span.sw::before {
+  content: ""; display: inline-block; width: 10px; height: 10px;
+  border-radius: 50%; margin-right: 6px; vertical-align: middle; background: var(--c);
+}
+.key span::before { background: var(--c); }
+.key .ramp {
+  display: inline-block; width: 90px; height: 10px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--transit), #9ca3af, var(--density));
+  vertical-align: middle; margin: 0 6px;
+}
+
+/* Figures: image and caption both capped at his 44rem, caption is muted prose */
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 1rem; }
+.fig {
+  background: var(--panel); border: 0; border-top: 1px solid var(--lightgray);
+  border-radius: 0; padding: 0.75rem 0 0;
+}
+.fig img {
+  display: block; width: 100%; max-width: min(100%, var(--fig-max));
+  height: auto; margin: 0 auto; background: var(--white);
+}
+.fig h4 { margin: 0 0 0.375rem; font-size: 0.9375rem; }
+.fig p, .caption {
+  display: block; max-width: min(100%, var(--fig-max)); margin: 0.5rem auto 0;
+  font-size: 0.8125rem; line-height: 1.45; color: var(--muted);
+}
+#map, #flow, #chart svg { display: block; max-width: 100%; height: auto; }
+#chart { text-align: center; }
+
+/* Map and SVG */
+svg text { fill: var(--ink); }
+svg .lbl { font-size: 10.5px; fill: var(--muted); }
+svg .muted { fill: var(--muted); font-size: 12px; }
+svg .code { font-size: 11px; fill: var(--muted); }
+.county { fill: var(--land); stroke: var(--border); stroke-width: 1; }
+.body { stroke: var(--panel); stroke-width: 1.2; cursor: pointer; }
+.body.empty { fill: none; stroke: var(--pending); stroke-dasharray: 2 2; }
+.body.selected { stroke: var(--ink); stroke-width: 2; }
+svg .node .box { fill: var(--bg); stroke: var(--pending); stroke-width: 1.5; }
+svg .node.done .box { stroke: var(--ok); }
+svg .node.active .box { stroke: var(--accent); stroke-width: 2.5; }
+svg .node.prelim .box { stroke: var(--warn); }
+svg .node.pilot .box { stroke: var(--pilot); }
+svg .node.gate .box { stroke-dasharray: 5 3; }
+/* A decision box: something was judged here rather than processed. Dashed, as
+   in the D3 flow this chart follows (docs/STYLE.md; owner's reference, 2026-10-19). */
+svg .node.decision .box { stroke: var(--warn); stroke-dasharray: 5 3; }
+svg .node.selected .box { stroke-width: 3; }
+svg .node:focus { outline: none; }
+svg .node:focus-visible .box { stroke-width: 3; }
+svg .lbl { font-size: 11px; fill: var(--muted); }
+svg .code { font-size: 11px; fill: var(--muted); }
+svg .badge { font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
+svg .num { font-weight: 700; font-size: 13px; fill: var(--accent); }
+svg .title { font-weight: 600; font-size: 15px; }
+svg .desc { font-size: 12.5px; fill: var(--muted); }
+svg .big { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+svg .edge { fill: none; stroke: var(--muted); stroke-width: 2; }
+svg .edge.gate { stroke: var(--warn); stroke-dasharray: 6 4; }
+svg .elabel { font-size: 12px; fill: var(--muted); }
+svg .elabel.gate { fill: var(--warn); }
+
+/* Tooltip */
+.tip {
+  position: fixed; pointer-events: none; display: none; z-index: 9;
+  background: var(--panel); color: var(--ink);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 0.375rem 0.5625rem; font-size: 0.75rem; white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0,0,0,.12);
+}
+
+/* Reader */
+#reader { margin-top: 1rem; display: none; }
+#reader h3 { margin: 0 0 0.25rem; font-size: 1rem; }
+#reader .meta { color: var(--muted); font-size: 0.875rem; margin: 0 0 0.625rem; }
+.turns td.t { color: var(--muted); white-space: nowrap; width: 62px; }
+.turns td.r { width: 64px; }
+.turns td.s { width: 110px; color: var(--pending); font-size: 0.75rem; }
+.turns td.s.scored { color: var(--ink); }
+.turns td.s .k { color: var(--muted); }
+.turns td.s .h { display: block; color: var(--muted); font-size: 0.6875rem; }
+.turns td.x { line-height: 1.45; }
+mark { border-radius: 2px; padding: 0 2px; color: inherit; }
+mark.kw-d { background: #f0e2c8; }
+mark.kw-t { background: #dde6ee; }
+mark.frame { background: none; border-bottom: 2px dotted var(--ok); }
+a.src { color: var(--accent); white-space: nowrap; }
+button.lnk {
+  font: inherit; font-size: 0.75rem; color: var(--accent);
+  background: none; border: 1px solid var(--gray); border-radius: 0.25em;
+  padding: 1px 8px; cursor: pointer;
+}
+button.lnk:disabled { color: var(--pending); border-color: var(--lightgray); cursor: default; }
+
+/* Methods page furniture */
+.toc { font-size: 0.8125rem; color: var(--muted); margin: 0 0 1.125rem; }
+.toc a { color: var(--accent); }
+details { border: 1px solid var(--border); border-radius: 3px; margin: 0.5rem 0; background: var(--panel); }
+details > summary { cursor: pointer; padding: 0.5rem 0.75rem; font-size: 0.875rem; list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "\25B8 "; color: var(--muted); }
+details[open] > summary::before { content: "\25BE "; }
+details > summary:hover { background: var(--pre-bg); }
+dl.kv, .methods dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 0.875rem; margin: 0.5rem 0; font-size: 0.875rem; }
+dl.kv dt, .methods dt { font-weight: 600; color: var(--ink); }
+dl.kv dd, .methods dd { margin: 0; color: var(--muted); }
+.caveat { border-left: 3px solid var(--gray); padding: 2px 0 2px 0.75rem; margin: 0.625rem 0; font-size: 0.875rem; }
+.caveat.crit { border-left-color: var(--crit); }
+.caveat b { display: block; color: var(--ink); }
+.lim { margin: 0.625rem 0; font-size: 0.875rem; }
+.lim b { color: var(--ink); }
+.files { list-style: none; padding: 0; margin: 0.375rem 0 0; }
+.files li { margin: 2px 0; }
+.files a { font-size: 0.75rem; color: var(--accent); text-decoration: none; }
+.files a:hover { text-decoration: underline; }
+.methods, .foot {
+  font-size: 0.75rem; color: var(--muted); margin-top: 1.75rem;
+  border-top: 1px solid var(--lightgray); padding-top: 0.75rem;
+}
+.methods code, .foot code { font-size: 0.6875rem; }
+
+/* ── NIMBY/YIMBY scatter: one dot per public speaker cluster ──────────────
+   The three label colours are the ones analysis/stance_s1_role_audit_view.py
+   already draws the bars with, so a dot and a bar for the same cluster can
+   never be different colours. They carry data, which is the one case the house
+   style keeps a saturated colour for (docs/STYLE.md §2). */
+:root {
+  --yimby: #2a7f62;
+  --nimby: #b5543a;
+  --nstance: #898781;
+}
+.sctl { font-size: 0.875rem; margin: 0.375rem 0 0.5rem; }
+.sctl select { font: inherit; font-size: 0.875rem; padding: 0.125rem 0.25rem; }
+.sctl button {
+  font: inherit; font-size: 0.8125rem; color: var(--accent);
+  background: none; border: 0; border-bottom: 1px solid var(--border);
+  padding: 0; cursor: pointer;
+}
+svg#nsc { width: 100%; height: auto; max-width: var(--fig-max); display: block; }
+svg#nsc .thr { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+svg#nsc .ax { stroke: var(--border); stroke-width: 1; }
+svg#nsc text { font-size: 10px; fill: var(--muted); }
+/* Phone: the viewBox is the rendered width, so one unit is one CSS pixel and these
+   are real sizes (readability review §7.5 -- 10px pre-scale arrived at 5px). */
+svg#nsc.narrow text { font-size: 12px; }
+svg#nsc circle.pt { stroke: var(--white); stroke-width: 0.75; cursor: pointer; }
+svg#nsc.narrow circle.pt { stroke-width: 1; }
+
+/* The dot tooltip. It follows the pointer while hovering, so it must not be a
+   hover target itself; pinned, it anchors to its dot and becomes clickable, which
+   is the only way to reach the "watch at" link inside it. */
+.qtip {
+  position: fixed; left: 0; top: 0; z-index: 10; display: none;
+  pointer-events: none; max-width: min(26rem, calc(100vw - 1.5rem));
+  background: var(--panel); color: var(--ink);
+  border: 1px solid var(--border); border-left: 3px solid var(--gray);
+  border-radius: 3px; padding: 0.5rem 0.625rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.14);
+}
+.qtip.pinned { pointer-events: auto; border-left-color: var(--accent); }
+.qtip.yimby { border-left-color: var(--yimby); }
+.qtip.nimby { border-left-color: var(--nimby); }
+.qtip blockquote { margin: 0 0 0.375rem; padding: 0; font-size: 0.9375rem; line-height: 1.4; }
+.qtip .qmeta { font-size: 0.75rem; color: var(--muted); margin: 0; line-height: 1.4; }
+
+/* The role dot plot (owner, 2026-10-19): stance up the page, the two benches as
+   the two halves of the frame. Same dot, same colours and the same tooltip as the
+   scatter above; only the arrangement differs, so the shared rules are repeated on
+   this selector rather than generalised -- the two charts are allowed to diverge in
+   geometry and must not in palette. */
+svg#rdp { width: 100%; height: auto; max-width: var(--fig-max); display: block; }
+svg#rdp text { font-size: 10px; fill: var(--muted); }
+svg#rdp.narrow text { font-size: 12px; }
+svg#rdp text.side { fill: var(--ink); font-weight: 600; font-size: 12px; }
+svg#rdp.narrow text.side { font-size: 13px; }
+svg#rdp text.zl { font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; }
+svg#rdp.narrow text.zl { font-size: 10px; }
+/* The neutral line is the figure's one reference, so it reads as ink, not as grid */
+svg#rdp .zero { stroke: var(--darkgray); stroke-width: 1.25; stroke-opacity: 0.6; }
+svg#rdp .thr { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; stroke-opacity: 0.6; }
+svg#rdp .ax { stroke: var(--border); stroke-width: 1; }
+svg#rdp circle.pt { stroke: var(--white); stroke-width: 0.5; cursor: pointer; }
+svg#rdp.narrow circle.pt { stroke-width: 0.75; }
+svg#rdp circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
+/* A caption is muted prose under the thing it describes (docs/STYLE.md §3) */
+.cap {
+  display: block; max-width: min(100%, var(--fig-max)); margin: 0.5rem 0 0;
+  font-size: 0.8125rem; line-height: 1.45; color: var(--muted);
+}
+
+/* "Who takes a side": the role gap at full size, then taken apart. A panel rather
+   than loose prose because it is one argument in four parts and the parts have to
+   stay together -- the headline number is misleading on its own. */
+.sideblock { margin-top: 1rem; }
+.sidelead { margin: 0 0 0.75rem; max-width: 80ch; font-size: 1rem; line-height: 1.45; }
+.sidesteps {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 0.25rem 1.25rem;
+}
+.sidesteps h5 { margin: 0 0 0.25rem; font-size: 0.875rem; }
+.sidesteps p { margin: 0 0 0.625rem; font-size: 0.875rem; line-height: 1.45; }
+.sideres, .sidewhy {
+  max-width: 80ch; font-size: 0.875rem; line-height: 1.45; margin: 0.5rem 0 0;
+}
+.sideres { padding-left: 0.6875rem; border-left: 3px solid var(--accent); }
+.sidewhy { color: var(--muted); }
+
+/* The one-paragraph answer to "can the words tell the two benches apart", in the
+   Stance panel body where numbers are allowed to live. */
+.rolepred {
+  max-width: 80ch; margin: 0 0 0.75rem; font-size: 0.9375rem; line-height: 1.45;
+}
+
+/* Topic time's own figure: horizontal bars, drawn client-side (review §7.4). */
+svg#rtb { width: 100%; height: auto; max-width: var(--fig-max); display: block; }
+svg#rtb text { font-size: 12px; fill: var(--muted); }
+svg#rtb text.rl { fill: var(--ink); font-size: 12px; }
+svg#rtb text.rl.rt { fill: var(--muted); font-size: 11px; }
+svg#rtb text.bv { font-size: 11px; }
+svg#rtb line.g { stroke: var(--grid); stroke-width: 1; }
+svg#rtb line.ci { stroke: var(--darkgray); stroke-width: 1.25; stroke-opacity: 0.55; }
+svg#nsc circle.pt.dim { opacity: 0.1; }
+svg#nsc circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
+.skey { font-size: 0.8125rem; color: var(--muted); margin: 0.25rem 0 0; }
+.skey i { display: inline-block; width: 0.625rem; height: 0.625rem; border-radius: 50%; margin-right: 0.25rem; vertical-align: -0.0625rem; }
+
+/* The quote card under the scatter: a quotation first, the metadata as its
+   caption. It is a block in the flow, not a floating tooltip, so a tap on a
+   phone puts it somewhere a thumb has not covered. */
+.qcard {
+  margin: 0.5rem 0 0; padding: 0.5rem 0 0;
+  border-top: 1px solid var(--border); min-height: 7rem; max-width: var(--fig-max);
+}
+.qcard.pinned { border-top-color: var(--accent); }
+.qcard blockquote { margin: 0 0 0.375rem; padding: 0 0 0 0.75rem; border-left: 3px solid var(--border); line-height: 1.45; }
+.qcard.yimby blockquote { border-left-color: var(--yimby); }
+.qcard.nimby blockquote { border-left-color: var(--nimby); }
+.qcard .qmeta, .qcard .qhint { font-size: 0.8125rem; color: var(--muted); margin: 0; }
+
+/* The examples strip. Each quote is a disclosure, closed at every width
+   (readability review §7.1): rendering them open on desktop put 521 words of
+   block quote on the page before anyone asked for one. */
+.qex { margin: 0.375rem 0; border-bottom: 1px solid var(--border); }
+.qex > summary { padding: 0.3125rem 0; font-size: 0.875rem; cursor: pointer; }
+.qex.yimby > summary b { color: var(--yimby); }
+.qex.nimby > summary b { color: var(--nimby); }
+.qex blockquote { margin: 0.125rem 0 0.375rem; padding: 0 0 0 0.75rem; border-left: 3px solid var(--border); font-size: 0.9375rem; line-height: 1.45; }
+.qex.yimby blockquote { border-left-color: var(--yimby); }
+.qex.nimby blockquote { border-left-color: var(--nimby); }
+.qex .qmeta { font-size: 0.8125rem; color: var(--muted); margin: 0 0 0.25rem; }
+.excols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.25rem; }
+.excols h5 { margin: 0.625rem 0 0; font-size: 0.875rem; font-weight: 600; }
+
+@media (max-width: 50rem) {
+  main { padding: 1rem 1rem 2rem; }
+  .figs, .pfigs { grid-template-columns: 1fr; }
+  /* Phone: the scatter fits the viewport and the examples become one column of
+     tap-to-expand rows -- two columns of quotes do not survive 390 px. */
+  .excols { grid-template-columns: 1fr; }
+  svg#nsc { max-width: 100%; }
+  svg#rdp { max-width: 100%; }
+  /* Phone: the two steps of "Who takes a side" stack, and the quoted-number rule
+     loses its indent so the paragraph keeps its full measure. */
+  .sidesteps { grid-template-columns: 1fr; }
+  .qcard { min-height: 0; }
+  /* Phone: nothing may widen the page, and the head has to be short enough that
+     the map is on the first screen (readability review §3.1). */
+  h1 { font-size: 1.25rem; }
+  table { font-size: 0.75rem; }
+  th, td { padding-right: 0.5em; }
+  .detail { position: static; max-height: none; overflow: visible; }
+  ul.tldr, ul.heads { padding-left: 1.125rem; }
+  blockquote.leadturn { font-size: 1rem; }
+}
+@media print {
+  .nav, .tip { display: none; }
+  main { max-width: none; }
+}

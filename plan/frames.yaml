@@ -1,0 +1,241 @@
+# plan/frames.yaml -- frame lexicon for the density / transit meeting corpus
+# (plan/ANALYSIS-transit.md 2). Seeded 2026-09-21 from the T1 pilot: 46
+# transcribed episodes, 4 bodies, 69k words (output/analysis/a0_frame_counts.csv
+# has the count behind every term). Read by analysis/a0_terms.py.
+#
+# Format (deliberately a YAML subset so no library is needed): a frame is a
+# top-level `key:` line followed by `- term` lines; `#` starts a comment; terms
+# are matched whole-word, case-insensitive, with an optional 's, and a space
+# in a term matches whitespace or a hyphen (pipeline/segment.py load_keywords).
+#
+# "0 hits" marks a term that did not occur in the pilot. It stays in the list
+# so the next corpus reports it, rather than quietly disappearing. Bare words
+# that turned out to mean something else in context are NOT listed; the
+# reasons are in the comment next to the frame (KWIC in a0_kwic.md).
+
+traffic_parking:
+  - traffic
+  - parking
+  - cars
+  - congestion
+  - commute
+  - speeding
+  - gridlock            # 0 hits
+  - cut-through         # 0 hits
+  - parking spaces
+  - parking garage      # 0 hits
+  - parking lot
+
+neighborhood_character:
+  # "character" alone: 0 hits; "scale" alone is "at scale" / "AMI scale" (dais finance talk), so only the phrase forms
+  - neighborhood
+  - neighborhood character   # 0 hits
+  - community character      # 0 hits
+  - single-family
+  - single family
+  - privacy
+  - height
+  - stories
+  - four-story          # 0 hits
+  - five-story
+  - three-story
+  - shadows               # 0 hits
+  - views                 # 0 hits
+  - quality of life
+  - transitional scale
+  - out of scale          # 0 hits
+  - compatible
+  - compatibility       # 0 hits
+
+safety_crime:
+  # "police" at BART is largely the BART Police department reporting (dais); kept, read the role split
+  - safety
+  - safe
+  - unsafe                # 0 hits
+  - crime
+  - police
+  - security
+  - homeless
+  - homelessness
+  - drugs
+  - fear
+  - dangerous
+  - assault               # 0 hits
+  - harassment            # 0 hits
+  - enforcement
+
+environment_ceqa_fire:
+  # bare "fire" is the fire department / "fire life safety" in 30/30 pilot hits; only the hazard phrases count here
+  - ceqa
+  - environmental review
+  - environmental impact
+  - environmental
+  - environment
+  - wildfire
+  - fire hazard           # 0 hits
+  - fire risk             # 0 hits
+  - fire danger           # 0 hits
+  - evacuation
+  - trees
+  - open space
+  - climate
+  - greenhouse
+  - emissions
+  - sustainability
+  - flooding              # 0 hits
+  - sea level             # 0 hits
+
+affordability_displacement:
+  - affordable
+  - affordability
+  - affordable housing
+  - displacement
+  - displaced             # 0 hits
+  - gentrification        # 0 hits
+  - rent
+  - rents
+  - renters
+  - tenants
+  - eviction              # 0 hits
+  - low-income
+  - working families
+  - cost of living
+  - ami
+  - below market rate   # 0 hits
+
+property_values:
+  - property value
+  - property values
+  - home values           # 0 hits
+  - homeowner
+  - homeowners
+  - property tax
+  - property taxes      # 0 hits
+  # "investment" (35 hits, 32 dais) excluded: public-finance "investment in housing", not home-value talk
+  - resale                # 0 hits
+
+process_notification:
+  - process
+  - notice
+  - notification
+  - notified              # 0 hits
+  - outreach
+  - transparency
+  - public input
+  - community input
+  - community engagement
+  - heard
+  - rushed                # 0 hits
+  - comment period
+  - public hearing
+  - appeal
+
+fiscal:
+  - cost
+  - costs
+  - budget
+  - fiscal
+  - deficit
+  - revenue
+  - fees
+  - impact fees
+  - taxpayer
+  - taxpayers             # 0 hits
+  - funding
+  - subsidy
+  - subsidies           # 0 hits
+  - bond
+  - general fund        # 0 hits
+  - grant
+  - grants
+
+state_mandate:
+  # bare "state" is also "San Jose State", "current state" (KWIC); only the mandate vocabulary counts here
+  - state law
+  - state mandate         # 0 hits
+  - state mandates        # 0 hits
+  - sacramento
+  - mandate
+  - mandates              # 0 hits
+  - hcd
+  - housing element
+  - rhna
+  - builder's remedy
+  - builders remedy
+  - local control
+  - sb 9                # 0 hits
+  - sb 79               # 0 hits
+  - sb 35               # 0 hits
+  - sb 330              # 0 hits
+  - ab 2011             # 0 hits
+  - state requirement   # 0 hits
+  - state requirements  # 0 hits
+  # "compliance" (18 hits) excluded: tax-credit / code / BFS compliance in context, not state mandates
+
+yimby_pro_housing:
+  - yimby                 # 0 hits
+  - nimby                 # 0 hits
+  - housing crisis        # 0 hits
+  - housing shortage      # 0 hits
+  - more housing
+  - new homes
+  - new housing
+  - build more            # 0 hits
+  - supply
+  - housing supply
+  - housing production
+  - all income levels
+  - density
+
+transit_service:
+  - fare
+  - fares
+  - service cut           # 0 hits
+  - service cuts          # 0 hits
+  - service reduction   # 0 hits
+  - headway               # 0 hits
+  - headways              # 0 hits
+  - frequency
+  - reliability
+  - reliable
+  - on time
+  - on-time performance
+  - delay
+  - delays
+  - ridership
+  - riders
+  - schedule
+  - schedules
+  # bare "service" (97 hits) is excluded: "service area" x12, "customer service" x7, "community services", "50 years of service" (KWIC); phrase forms only
+  - transit service
+  - train service
+  - rail service
+  - bus service
+  - revenue service
+  - service disruption
+  - service disruptions
+  - service running
+  - service plan
+  - service hours
+  - level of service
+  - shuttle
+  - fiscal cliff        # 0 hits
+
+transit_safety:
+  - fare evasion
+  - fare gate
+  - fare gates
+  - ambassadors           # 0 hits
+  - crisis intervention   # 0 hits
+  - bart police
+  - transit police        # 0 hits
+  - cleanliness
+  - clean
+  - dirty                 # 0 hits
+  - cameras               # 0 hits
+  - elevator              # 0 hits
+  - elevators           # 0 hits
+  - escalator
+  - escalators          # 0 hits
+  - lighting
+  - station safety        # 0 hits

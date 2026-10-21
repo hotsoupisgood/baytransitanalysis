@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "defaults": { "security": "allowlist", "ask": "on-miss", "askFallback": "deny" },
+  "agents": {
+    "main": {
+      "allowlist": [
+        { "pattern": "/Users/ytpt/ytpt/.venv/bin/python",
+          "argPattern": "^(/Users/ytpt/ytpt/)?(dashboard/status\\.py( --json| --new-alerts)?|pipeline/notify\\.py (--flush|--dry-run .*|(info|warn|error) .*)|analysis/qa_transcripts\\.py( .*)?|analysis/legacy_to_contract\\.py( .*)?|plan/build_frame\\.py( --quota-hours [0-9.]+)?|scripts/check_credentials\\.py|pipeline/gpu_batch\\.py (list|propose( --quiet)?( --min-hours [0-9.]+)?( --limit [0-9]+)?|approve b[0-9]+( --via whatsapp)?|deny b[0-9]+|launch b[0-9]+ --dry-run)|pipeline/requeue\\.py [A-Za-z0-9_-]+( [A-Za-z0-9_-]+)*|pipeline/transcode\\.py --check|pipeline/state\\.py counts|pipeline/discover\\.py)$" },
+        { "pattern": "/Users/ytpt/ytpt/scripts/smoke_test.sh", "argPattern": "^(--offline|--network|--notify)?$" },
+        { "pattern": "make", "argPattern": "^(qa|status|smoke|test|legacy|batches|audio-check)$" },
+        { "pattern": "/bin/launchctl", "argPattern": "^(print|kickstart -k|bootout) gui/[0-9]+/com\\.ytpt\\.(dashboard|downloader|transcoder)$" },
+        { "pattern": "tail", "argPattern": "^-[0-9]+ /Users/ytpt/Library/Logs/ytpt/[a-z_]+\\.log$" }
+      ]
+    }
+  }
+}

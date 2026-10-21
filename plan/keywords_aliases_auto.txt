@@ -1,0 +1,67 @@
+# Caption homophones and misspellings for the keyword screen, YouTube
+# AUTO-CAPTION tracks only (videos.captions = 'auto'). 2026-10-18,
+# plan/RECALL-CHECK.md "YouTube auto-caption arm": the screen owned 61 of that
+# arm's 63 misses and 15 of those were the caption track misspelling the very
+# words the screen keys on, consistently, across meetings.
+#
+# Format (pipeline/segment.py load_aliases / apply_aliases):
+#   alias => term      the alias is counted AS `term` (the term's regex gains
+#                      it; top_keywords shows the term). `term` must be in
+#                      keywords_density.txt / keywords_transit.txt; an unknown
+#                      term is skipped with a warning, never invented.
+#   ? alias => term    CONDITIONAL alias: its own entry, named after the alias,
+#                      in the term's family, counted only beside an
+#                      unconditional hit of that family in the same window.
+# Case-insensitive, whole-word, optional 's / s, exactly like the terms.
+#
+# This layer changes what the SCREEN matches and nothing else: the stored VTT,
+# the window text the classifier reads, and the transcripts are never
+# rewritten. The alias list is versioned: segment.aliases_version() hashes the
+# parsed (alias, term, conditional) triples into 'al-<10 hex>', and a
+# KeywordList loaded with it carries 'kw-<hash>/al-<hash>' as its version, so
+# every classifier_calls / episodes row written on an auto-caption track says
+# which alias list was in force. Comments do not change the version.
+#
+# Frequencies below are 60-s windows (>= 10 words) over the 107 auto-caption
+# tracks on disk on 2026-10-18 (21,248 windows); the true spelling's count is
+# given for comparison.
+#
+# --- transit ---------------------------------------------------------------
+# BART board 9FM5406YagE: 'fare' 13 -> 0 on the caption track; 'fare gates'
+# became 'fairgates' / 'fair gates'. 'fairgate' 54 windows, 'fair gates' 52,
+# 'fair gate' 60 vs 'fare gate' (true spelling) in the auto tracks: rare.
+fairgate => fare gate
+fair gate => fare gate
+fairgates => fare gates
+fair gates => fare gates
+# bare 'fair' is a common word (592 windows, 2.8 %): conditional, counted
+# only beside an unconditional transit hit (BART, ridership, Clipper ...)
+? fair => fare
+# 'ridership' -> 'wrership' (125 windows) / 'writership' (120 windows); the
+# true spelling 'ridership' is in 6 of the BART meeting's windows against 16
+# in the WhisperX text
+wrership => ridership
+writership => ridership
+# 'riders' -> 'writers' (6 of 12 on the BART track). Bare 'riders' is not a
+# term; the compounds are
+transit writers => transit riders
+transit writer => transit rider
+bus writers => bus riders
+bus writer => bus rider
+#
+# --- density ---------------------------------------------------------------
+# Los Altos jgyX7NNf7g0: 'YIMBY' 17 -> 0 ('yimi' 12, 'ymi' 1, 'emb' once --
+# the last is too short to alias)
+yimi => yimby
+ymi => yimby
+# 'rezoning' 11 -> 0 on the caption track; across the 107 auto tracks
+# 'rezoning' occurs in 2 windows, 'reszoning' in 23, 'resoning' in 51,
+# 'reszone' in 15. ('reasoning' is left alone: it is a word.)
+reszoning => rezoning
+resoning => rezoning
+reszonings => rezoning
+resonings => rezoning
+reszone => rezone
+resone => rezone
+# 'RHNA' -> 'rena' (1 of 1 on Los Altos; 'rena' is also a name): conditional
+? rena => rhna

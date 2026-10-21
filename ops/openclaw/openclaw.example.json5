@@ -1,0 +1,62 @@
+// ~/.openclaw/openclaw.json for the ytpt supervisor -- EXAMPLE, merge by hand.
+//
+// Keys follow docs.openclaw.ai as read on 2026-09-17. OpenClaw changes quickly:
+// after editing, run `openclaw doctor` and `openclaw security audit`, and fix
+// whatever they report rather than trusting this file.
+// Replace +15551234567 with Puck's WhatsApp number (E.164) everywhere.
+{
+  gateway: {
+    mode: "local",
+    bind: "loopback",                          // never expose the gateway to the LAN
+    auth: { mode: "token", token: "REPLACE-with-a-long-random-token" },
+  },
+
+  // API-key auth (separate key, with a monthly spend limit set on its
+  // workspace in the Anthropic Console). Put the key in the environment of the
+  // dedicated macOS user, not in this file, if you can.
+  env: { vars: { ANTHROPIC_API_KEY: "sk-ant-REPLACE" } },
+
+  agents: {
+    defaults: {
+      workspace: "~/.openclaw/workspace",      // AGENTS.md, HEARTBEAT.md, skills/ytpt-ops live here
+      // Day-to-day supervision: Sonnet 5. Switch the session to Opus 5 (/model)
+      // for building Phases 1-3 or debugging. See docs/MODELS.md.
+      model: {
+        primary: "anthropic/claude-sonnet-5",
+        fallbacks: ["anthropic/claude-opus-5"],
+      },
+      models: {
+        "anthropic/claude-sonnet-5": { params: { thinking: "medium", cacheRetention: "long" } },
+        "anthropic/claude-opus-5": { params: { thinking: "high" } },
+      },
+      heartbeat: {
+        every: "30m",
+        target: "last",                        // replies go to the last chat (Puck's WhatsApp)
+        model: "anthropic/claude-sonnet-5",
+        isolatedSession: true,                 // ~2-5K tokens per run instead of the whole history
+        lightContext: true,
+        activeHours: { start: "07:30", end: "23:30", timezone: "America/Los_Angeles" },
+      },
+    },
+  },
+
+  channels: {
+    whatsapp: {
+      dmPolicy: "allowlist",                   // only Puck can command the supervisor
+      allowFrom: ["+15551234567"],
+      groupPolicy: "disabled",
+    },
+  },
+
+  // Exec approvals are forwarded to Puck on WhatsApp; he answers
+  // /approve <id> allow-once  (or deny). Unanswered requests expire as denials.
+  approvals: {
+    exec: {
+      enabled: true,
+      mode: "targets",
+      targets: [{ channel: "whatsapp", to: "+15551234567" }],
+    },
+  },
+
+  session: { dmScope: "per-channel-peer" },
+}

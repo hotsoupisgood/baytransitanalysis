@@ -1,0 +1,296 @@
+# Keywords for the DENSITY family, SPANISH -- the same construct as
+# keywords_density.txt, for a caption track that is a Spanish interpretation of
+# an English-language meeting (plan/T2-PLAN.md 3e: all 20 Napa Granicus tracks
+# are a full Spanish interpretation at 141 wpm and 100 % coverage, so the
+# English list could not match a word of 104 audio-h).
+#
+# Format (pipeline/segment.py load_keywords): identical to the English file --
+# one term per line, '#' comments, case-insensitive, whole-word.
+#   @family <name>   -- every term below the line belongs to this family
+#   ? term           -- CONDITIONAL: counted in a 60-s window only when that
+#                       window also has an unconditional hit from the same
+#                       family.
+# The family tags MUST match the English files ('density' / 'transit'): the
+# family is what stage 2 and the episodes' `tags` column are keyed on, and a
+# Napa episode has to be comparable with a Fremont one.
+#
+# Three things are different from a straight translation, and all three are
+# properties of INTERPRETED speech, not of Spanish:
+#
+#   1. Proper nouns and statute names are not interpreted. "SB 9", "RHNA",
+#      "ADU", "HCD", "CEQA" come through in English, so they are repeated here
+#      rather than translated.
+#   2. The loader's optional-plural rule is English ("(?:'?s)?"). Spanish
+#      plurals of words ending in a consonant are "-es" (estacion -> estaciones),
+#      so every plural that is not a bare "+s" is listed on its own line.
+#   3. Accents may or may not survive a captioner. Where an accented term is
+#      load-bearing the unaccented spelling is listed beside it.
+#
+# Like the English file this is stage 1: deliberately over-inclusive at
+# threshold 0.5, with the Claude classifier deciding about_density /
+# mention_only / no on the candidate windows.
+@family density
+#
+# State housing law and the housing element cycle (names come through in English)
+elemento de vivienda
+elemento habitacional
+plan de vivienda
+necesidades de vivienda
+necesidad de vivienda
+asignacion regional de vivienda
+asignación regional de vivienda
+rhna
+hcd
+departamento de vivienda
+prohousing
+recurso del constructor
+sb 9
+sb9
+sb 35
+sb35
+sb 79
+sb79
+sb 330
+sb330
+sb 423
+ab 2011
+ab 2097
+ab 1033
+ab 1287
+ley de responsabilidad de vivienda
+aprobacion ministerial
+aprobación ministerial
+revision ministerial
+revisión ministerial
+por derecho
+normas objetivas
+estandares objetivos
+estándares objetivos
+aprobacion simplificada
+aprobación simplificada
+#
+# Zoning and density mechanisms. Bare "zonificacion" is conditional for the same
+# reason bare "zoning" is in the English file: a zoning administrator, a zoning
+# map correction and a zoning enforcement item are not density discussions.
+rezonificacion
+rezonificación
+recalificacion
+recalificación
+cambio de zonificacion
+cambio de zonificación
+cambio de zona
+enmienda de zonificacion
+enmienda de zonificación
+codigo de zonificacion
+código de zonificación
+ordenanza de zonificacion
+ordenanza de zonificación
+? zonificacion
+? zonificación
+bono de densidad
+densidad
+alta densidad
+mayor densidad
+densificacion
+densificación
+unidades por acre
+viviendas por acre
+? unidades
+unidades de vivienda
+unidades habitacionales
+limite de altura
+límite de altura
+limites de altura
+límites de altura
+altura del edificio
+altura maxima
+altura máxima
+numero de pisos
+número de pisos
+indice de area construida
+índice de área construida
+retranqueo
+retranqueos
+division de lote
+división de lote
+division del lote
+división del lote
+tamano minimo del lote
+tamaño mínimo del lote
+lote minimo
+lote mínimo
+zonificacion unifamiliar
+zonificación unifamiliar
+unifamiliar
+vivienda unifamiliar
+multifamiliar
+multifamiliares
+vivienda multifamiliar
+viviendas multifamiliares
+uso mixto
+duplex
+dúplex
+triplex
+tríplex
+cuadruplex
+cuádruplex
+casa adosada
+casas adosadas
+condominio
+condominios
+edificio de apartamentos
+complejo de apartamentos
+apartamentos
+departamentos
+? apartamento
+edificio alto
+torre residencial
+unidad de vivienda accesoria
+unidades de vivienda accesoria
+unidad accesoria
+unidades accesorias
+vivienda accesoria
+adu
+adus
+jadu
+casa de abuela
+#
+# Parking as a density instrument. Bare "estacionamiento" is enforcement,
+# garages and tickets most of the time -- conditional, exactly like bare
+# "parking" in the English file; the multi-word forms are unconditional.
+estacionamiento minimo
+estacionamiento mínimo
+estacionamientos minimos
+estacionamientos mínimos
+requisito de estacionamiento
+requisitos de estacionamiento
+requerimiento de estacionamiento
+requerimientos de estacionamiento
+mandato de estacionamiento
+proporcion de estacionamiento
+proporción de estacionamiento
+reduccion de estacionamiento
+reducción de estacionamiento
+reforma de estacionamiento
+? estacionamiento
+? aparcamiento
+#
+# Affordability and production
+vivienda asequible
+viviendas asequibles
+vivienda economica
+vivienda económica
+viviendas economicas
+viviendas económicas
+asequibilidad
+? asequible
+inclusionaria
+inclusionario
+zonificacion inclusionaria
+zonificación inclusionaria
+vivienda inclusionaria
+por debajo del precio de mercado
+precio de mercado
+tasa de mercado
+unidades restringidas por escritura
+produccion de vivienda
+producción de vivienda
+oferta de vivienda
+suministro de vivienda
+construccion de viviendas
+construcción de viviendas
+crisis de vivienda
+crisis habitacional
+escasez de vivienda
+falta de vivienda
+desarrollo de vivienda
+desarrollo habitacional
+proyecto de vivienda
+proyectos de vivienda
+propuesta de vivienda
+fondo de vivienda
+bono de vivienda
+politica de vivienda
+política de vivienda
+plan general de vivienda
+metas de vivienda
+nuevas viviendas
+mas viviendas
+más viviendas
+vivienda
+viviendas
+casas
+hogares
+#
+# Planning instruments (co-occur with a housing term before they count -- the
+# same conditional set as the English file: a general plan item about parks is
+# not a density discussion)
+? plan general
+? plan especifico
+? plan específico
+? plan de area
+? plan de área
+? uso de suelo
+? uso del suelo
+? uso de la tierra
+? permiso
+? permisos
+? derechos de desarrollo
+? comision de planificacion
+? comisión de planificación
+? revision ambiental
+? revisión ambiental
+? ceqa
+#
+# Displacement, tenants and the opposition frames (PROPOSAL 1: counted as
+# collocates, not asserted).
+#
+# CAREFUL -- "desplazamiento" is the one term in this file that is genuinely
+# two topics. In housing Spanish it is displacement; in transport Spanish it is
+# a trip or a commute ("los desplazamientos diarios"), which is the TRANSIT
+# family. It is therefore CONDITIONAL here (it counts only beside an
+# unconditional housing term) and "desplazamiento residencial" carries the
+# unambiguous sense. The English file has no equivalent problem: "displacement"
+# is not how an English speaker says "commute".
+desplazamiento residencial
+desplazamiento de residentes
+desplazamiento de inquilinos
+? desplazamiento
+? desplazamientos
+desplazados
+gentrificacion
+gentrificación
+aburguesamiento
+control de alquileres
+control de renta
+control de rentas
+estabilizacion de alquileres
+estabilización de alquileres
+proteccion de inquilinos
+protección de inquilinos
+protecciones para inquilinos
+inquilino
+inquilinos
+arrendatarios
+desalojo
+desalojos
+alquiler
+alquileres
+renta
+rentas
+causa justa
+caracter del vecindario
+carácter del vecindario
+caracter de la comunidad
+carácter de la comunidad
+caracter del barrio
+carácter del barrio
+control local
+nimby
+yimby
+? trafico
+? tráfico
+? hacinamiento
+? sombras
+? valor de las propiedades
+? valores de propiedad

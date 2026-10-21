@@ -1,0 +1,38 @@
+# Offline test suite (docs/TESTING.md level 1). `make test` builds a simulated
+# corpus with a planted effect and asserts over it; it never touches YouTube,
+# RunPod, Hugging Face or the Anthropic API, and needs no .env.
+#
+# ffmpeg is installed so the downloader / transcode / episode-cut checks run
+# instead of being skipped (test_pipeline.py checks shutil.which("ffmpeg")).
+# Ubuntu's ffmpeg ships the libopus encoder that transcode.py requires.
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          ffmpeg -hide_banner -encoders | grep -q libopus
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: make test
+        run: make test

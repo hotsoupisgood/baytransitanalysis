@@ -1,0 +1,1186 @@
+{
+ "meta": {
+  "generated": "2026-10-20T22:18-07:00",
+  "exploratory": true,
+  "redacted": true,
+  "published": true,
+  "published_note": "the dashboard, the NIMBY/YIMBY quotes and one body's episode shard are published, all redacted; the other bodies' shards stay local (the keep-list is docs/.gitignore)",
+  "derived_dates": 0,
+  "text": {
+   "episodes_with_text": 1680,
+   "turns": 27358,
+   "words": 2187676,
+   "from_corpus": 1680,
+   "gated_no_corpus_text": 0,
+   "stance_turns_matched": 15961,
+   "stance_matched_by_position": 183,
+   "stance_turns_unmatched": 0,
+   "redaction": "redact-1.3: names, street addresses and contact details removed from every published turn (2030 replacements), before the keyword spans were computed"
+  },
+  "qa": {
+   "episode_OK": 1545,
+   "episode_WARN": 135,
+   "show_OK": 125,
+   "show_WARN": 18,
+   "validation_OK": 9,
+   "validation_WARN": 22
+  },
+  "links": {
+   "youtube": "&t=<s>s",
+   "granicus": "&entrytime=<s>&autostart=1 (parameters the MediaPlayer page's own embed generator emits; playback at that offset not verified in a browser)",
+   "swagit": "player page only; the page returns 403 to a plain GET so no seek parameter could be read -- the reader prints the offset to scrub to"
+  },
+  "instruments": {
+   "classifier": {
+    "episodes_by_version": [
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "v2.1-9e052492e4/claude-sonnet-4-6/mr120",
+      "n": 2674
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "t0-a4a8e55760",
+      "n": 1972
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "t0-a4a8e55760/claude-sonnet-4-6/swagit",
+      "n": 172
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "t0-a4a8e55760/claude-sonnet-4-6/es",
+      "n": 83
+     }
+    ],
+    "calls_by_version": [
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "v2.1-9e052492e4/claude-sonnet-4-6/mr120",
+      "n": 22024
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "t0-a4a8e55760",
+      "n": 6860
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "v2-ed4c72c9d6/claude-sonnet-4-6/mr120",
+      "n": 771
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "t0-a4a8e55760/claude-sonnet-4-6/swagit",
+      "n": 442
+     },
+     {
+      "model": "claude-haiku-4-5-20251001",
+      "prompt_version": "t0-a4a8e55760/claude-haiku-4-5-20251001",
+      "n": 198
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "t0-a4a8e55760/claude-sonnet-4-6/es",
+      "n": 152
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "t0-a4a8e55760/claude-sonnet-4-6/mr120",
+      "n": 111
+     },
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "v2-ed4c72c9d6/claude-sonnet-4-6",
+      "n": 60
+     }
+    ]
+   },
+   "asr": {
+    "model": "large-v3",
+    "diarization": "pyannote/speaker-diarization-community-1",
+    "pyannote_audio": "4.0.7",
+    "faster_whisper": "1.2.1",
+    "n_episodes": 1680,
+    "variants": [
+     {
+      "model": "large-v3",
+      "diarization": "pyannote/speaker-diarization-community-1",
+      "pyannote_audio": "4.0.7",
+      "faster_whisper": "1.2.1",
+      "n": 1680
+     }
+    ]
+   },
+   "roles": [
+    {
+     "cues_version": "cues-df383f750b",
+     "method": "prior",
+     "n": 3224
+    },
+    {
+     "cues_version": "cues-df383f750b",
+     "method": "cue_phrase",
+     "n": 2938
+    },
+    {
+     "cues_version": "cues-df383f750b",
+     "method": "structure",
+     "n": 1208
+    },
+    {
+     "cues_version": "cues-df383f750b",
+     "method": "none",
+     "n": 299
+    },
+    {
+     "cues_version": "cues-df383f750b",
+     "method": "recurrence",
+     "n": 219
+    }
+   ],
+   "stance": {
+    "runs": [
+     {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "st-7161e26ad2/claude-sonnet-4-6",
+      "n": 15961,
+      "n_episodes": 1239
+     }
+    ],
+    "codebook_hash_on_disk": "st-7161e26ad2",
+    "codebook_file_sha": "a3edac7c25",
+    "n_turns": 15961,
+    "n_episodes": 1239,
+    "kappa_gate": "not passed (no human has coded any turn)"
+   },
+   "redaction": {
+    "version": "redact-1.3",
+    "by_rule": {
+     "ci_given_pair": 307,
+     "ci_honorific": 884,
+     "ci_intro": 29,
+     "ci_name_is": 56,
+     "cue_honorific": 32,
+     "cue_speaker": 45,
+     "cue_thank_you": 15,
+     "given_name": 193,
+     "heading_address": 204,
+     "heading_honorific": 239,
+     "person": 26
+    },
+    "total": 2030,
+    "words": 2164483,
+    "rule": "names, street addresses and contact details removed from every published turn (owner, 2026-10-20 09:13; plan/DECISIONS.md #15)"
+   }
+  },
+  "totals": {
+   "bodies": 33,
+   "bodies_with_hours": 27,
+   "bodies_with_text": 27,
+   "meetings": 692,
+   "meetings_by_platform": {
+    "youtube": 385,
+    "granicus": 294,
+    "swagit": 13
+   },
+   "episodes": 4954,
+   "episodes_by_status": {
+    "done": 1821,
+    "mention": 2959,
+    "failed": 10,
+    "located": 164
+   },
+   "episodes_by_route": {
+    "classifier": 1491,
+    "agenda_index": 53,
+    "local_asr": 564,
+    "swagit_transcript": 172,
+    "fullasr": 2674
+   },
+   "gated_by_route": {
+    "classifier": 654,
+    "agenda_index": 53,
+    "local_asr": 260,
+    "swagit_transcript": 101,
+    "fullasr": 612
+   },
+   "episodes_done": 1821,
+   "episodes_located": 164,
+   "episodes_with_text": 1680,
+   "episodes_scored": 1239,
+   "stance_turns": 15961,
+   "hours_done": 270.22,
+   "hours_located": 29.75,
+   "meeting_hours": 2285.3
+  },
+  "episode_files": {
+   "n": 27,
+   "bytes_total": 26481268,
+   "bytes_max": 3925393
+  }
+ },
+ "bodies": [
+  {
+   "body": "sanjose",
+   "name": "San Jos\u00e9 City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.3382,
+   "lon": -121.8863,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 35,
+   "meeting_hours": 121.47,
+   "n_episodes": 110,
+   "n_done": 29,
+   "n_text": 29,
+   "n_scored": 29,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 9.268,
+   "hours_located": 2.351,
+   "hours_mention": 4.871,
+   "density_share": 0.894,
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/sanjose.json",
+   "text_bytes": 1003927
+  },
+  {
+   "body": "sanrafael",
+   "name": "San Rafael City Council",
+   "county": "Marin",
+   "kind": "council",
+   "lat": 37.9735,
+   "lon": -122.5311,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 18,
+   "meeting_hours": 56.15,
+   "n_episodes": 41,
+   "n_done": 17,
+   "n_text": 17,
+   "n_scored": 12,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 1.866,
+   "hours_located": 0.4,
+   "hours_mention": 1.301,
+   "density_share": 0.443,
+   "date_min": "2025-10-06",
+   "date_max": "2026-09-08",
+   "text_file": "data/episodes/sanrafael.json",
+   "text_bytes": 189124
+  },
+  {
+   "body": "bart",
+   "name": "BART Board of Directors",
+   "county": "Alameda",
+   "kind": "transit",
+   "lat": 37.8059,
+   "lon": -122.2661,
+   "site": "HQ (Oakland)",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 16,
+   "meeting_hours": 67.71,
+   "n_episodes": 218,
+   "n_done": 54,
+   "n_text": 54,
+   "n_scored": 40,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 9.478,
+   "hours_located": 24.301,
+   "hours_mention": 3.087,
+   "density_share": 0.075,
+   "date_min": "2025-09-25",
+   "date_max": "2026-09-10",
+   "text_file": "data/episodes/bart.json",
+   "text_bytes": 969319
+  },
+  {
+   "body": "oakland",
+   "name": "Oakland City Council",
+   "county": "Alameda",
+   "kind": "council",
+   "lat": 37.8052,
+   "lon": -122.2727,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 12,
+   "meeting_hours": 40.8,
+   "n_episodes": 236,
+   "n_done": 29,
+   "n_text": 24,
+   "n_scored": 21,
+   "routes": [
+    "classifier",
+    "fullasr",
+    "local_asr"
+   ],
+   "hours_done": 2.034,
+   "hours_located": 0,
+   "hours_mention": 13.792,
+   "density_share": 0.82,
+   "date_min": "2025-10-07",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/oakland.json",
+   "text_bytes": 201888
+  },
+  {
+   "body": "sunnyvale",
+   "name": "Sunnyvale City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.3688,
+   "lon": -122.0363,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 26,
+   "meeting_hours": 131.53,
+   "n_episodes": 42,
+   "n_done": 22,
+   "n_text": 22,
+   "n_scored": 15,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 4.635,
+   "hours_located": 0,
+   "hours_mention": 1.569,
+   "density_share": 0.688,
+   "date_min": "2025-09-30",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/sunnyvale.json",
+   "text_bytes": 544776
+  },
+  {
+   "body": "santarosa",
+   "name": "Santa Rosa City Council",
+   "county": "Sonoma",
+   "kind": "council",
+   "lat": 38.4405,
+   "lon": -122.7144,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 21,
+   "meeting_hours": 98.05,
+   "n_episodes": 40,
+   "n_done": 18,
+   "n_text": 18,
+   "n_scored": 16,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 5.655,
+   "hours_located": 0.266,
+   "hours_mention": 1.169,
+   "density_share": 0.587,
+   "date_min": "2025-09-30",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/santarosa.json",
+   "text_bytes": 574883
+  },
+  {
+   "body": "healdsburg",
+   "name": "Healdsburg City Council",
+   "county": "Sonoma",
+   "kind": "council",
+   "lat": 38.6102,
+   "lon": -122.8694,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 20,
+   "meeting_hours": 56.81,
+   "n_episodes": 17,
+   "n_done": 7,
+   "n_text": 7,
+   "n_scored": 5,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 1.3,
+   "hours_located": 0,
+   "hours_mention": 0.735,
+   "density_share": 0.602,
+   "date_min": "2025-10-06",
+   "date_max": "2026-09-08",
+   "text_file": "data/episodes/healdsburg.json",
+   "text_bytes": 128365
+  },
+  {
+   "body": "rohnertpark",
+   "name": "Rohnert Park City Council",
+   "county": "Sonoma",
+   "kind": "council",
+   "lat": 38.3396,
+   "lon": -122.7011,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 20,
+   "meeting_hours": 50.06,
+   "n_episodes": 4,
+   "n_done": 0,
+   "n_text": 0,
+   "n_scored": 0,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 0.0,
+   "hours_located": 0,
+   "hours_mention": 0.217,
+   "density_share": null,
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-08",
+   "text_file": null,
+   "text_bytes": 0
+  },
+  {
+   "body": "paloalto",
+   "name": "Palo Alto City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.4443,
+   "lon": -122.1598,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 41,
+   "meeting_hours": 218.41,
+   "n_episodes": 52,
+   "n_done": 27,
+   "n_text": 27,
+   "n_scored": 20,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 6.149,
+   "hours_located": 0,
+   "hours_mention": 1.701,
+   "density_share": 0.661,
+   "date_min": "2025-09-29",
+   "date_max": "2026-09-14",
+   "text_file": "data/episodes/paloalto.json",
+   "text_bytes": 677966
+  },
+  {
+   "body": "cupertino",
+   "name": "Cupertino City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.323,
+   "lon": -122.0322,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 31,
+   "meeting_hours": 80.89,
+   "n_episodes": 16,
+   "n_done": 11,
+   "n_text": 11,
+   "n_scored": 8,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 1.234,
+   "hours_located": 0,
+   "hours_mention": 0.35,
+   "density_share": 0.703,
+   "date_min": "2025-10-07",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/cupertino.json",
+   "text_bytes": 125921
+  },
+  {
+   "body": "sanmateo",
+   "name": "San Mateo City Council",
+   "county": "San Mateo",
+   "kind": "council",
+   "lat": 37.563,
+   "lon": -122.3255,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 12,
+   "meeting_hours": 46.06,
+   "n_episodes": 35,
+   "n_done": 18,
+   "n_text": 18,
+   "n_scored": 18,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 3.195,
+   "hours_located": 1.033,
+   "hours_mention": 0.633,
+   "density_share": 0.872,
+   "date_min": "2026-01-26",
+   "date_max": "2026-09-08",
+   "text_file": "data/episodes/sanmateo.json",
+   "text_bytes": 351877
+  },
+  {
+   "body": "dalycity",
+   "name": "Daly City City Council",
+   "county": "San Mateo",
+   "kind": "council",
+   "lat": 37.6879,
+   "lon": -122.4702,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 18,
+   "meeting_hours": 56.42,
+   "n_episodes": 16,
+   "n_done": 5,
+   "n_text": 5,
+   "n_scored": 5,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 1.05,
+   "hours_located": 0.617,
+   "hours_mention": 0.384,
+   "density_share": 1.0,
+   "date_min": "2025-11-10",
+   "date_max": "2026-09-14",
+   "text_file": "data/episodes/dalycity.json",
+   "text_bytes": 144864
+  },
+  {
+   "body": "concord",
+   "name": "Concord City Council",
+   "county": "Contra Costa",
+   "kind": "council",
+   "lat": 37.978,
+   "lon": -122.0311,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 11,
+   "meeting_hours": 20.86,
+   "n_episodes": 26,
+   "n_done": 14,
+   "n_text": 14,
+   "n_scored": 14,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 1.668,
+   "hours_located": 0.134,
+   "hours_mention": 0.619,
+   "density_share": 1.0,
+   "date_min": "2025-10-09",
+   "date_max": "2026-09-10",
+   "text_file": "data/episodes/concord.json",
+   "text_bytes": 154389
+  },
+  {
+   "body": "milpitas",
+   "name": "Milpitas City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.4323,
+   "lon": -121.8996,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 16,
+   "meeting_hours": 62.18,
+   "n_episodes": 7,
+   "n_done": 2,
+   "n_text": 2,
+   "n_scored": 2,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 0.151,
+   "hours_located": 0,
+   "hours_mention": 0.517,
+   "density_share": 1.0,
+   "date_min": "2025-10-21",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/milpitas.json",
+   "text_bytes": 29934
+  },
+  {
+   "body": "losaltos",
+   "name": "Los Altos City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.3852,
+   "lon": -122.1141,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 19,
+   "meeting_hours": 53.27,
+   "n_episodes": 31,
+   "n_done": 20,
+   "n_text": 20,
+   "n_scored": 20,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 3.409,
+   "hours_located": 0.333,
+   "hours_mention": 0.25,
+   "density_share": 0.989,
+   "date_min": "2025-09-30",
+   "date_max": "2026-09-08",
+   "text_file": "data/episodes/losaltos.json",
+   "text_bytes": 399549
+  },
+  {
+   "body": "petaluma",
+   "name": "Petaluma City Council",
+   "county": "Sonoma",
+   "kind": "council",
+   "lat": 38.2324,
+   "lon": -122.6367,
+   "site": "City Hall",
+   "platforms": [
+    "swagit",
+    "youtube"
+   ],
+   "n_meetings": 31,
+   "meeting_hours": 138.74,
+   "n_episodes": 430,
+   "n_done": 200,
+   "n_text": 185,
+   "n_scored": 155,
+   "routes": [
+    "classifier",
+    "fullasr",
+    "swagit_transcript"
+   ],
+   "hours_done": 24.566,
+   "hours_located": 0.317,
+   "hours_mention": 14.469,
+   "density_share": 0.528,
+   "date_min": "2025-09-29",
+   "date_max": "2026-09-14",
+   "text_file": "data/episodes/petaluma.json",
+   "text_bytes": 2351617
+  },
+  {
+   "body": "cotati",
+   "name": "Cotati City Council",
+   "county": "Sonoma",
+   "kind": "council",
+   "lat": 38.3277,
+   "lon": -122.7072,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 3,
+   "meeting_hours": 7.99,
+   "n_episodes": 0,
+   "n_done": 0,
+   "n_text": 0,
+   "n_scored": 0,
+   "routes": [],
+   "hours_done": 0.0,
+   "hours_located": 0,
+   "hours_mention": 0,
+   "density_share": null,
+   "date_min": "2026-01-27",
+   "date_max": "2026-03-24",
+   "text_file": null,
+   "text_bytes": 0
+  },
+  {
+   "body": "vta",
+   "name": "VTA Board of Directors",
+   "county": "Santa Clara",
+   "kind": "transit",
+   "lat": 37.4005,
+   "lon": -121.9336,
+   "site": "HQ (San Jos\u00e9)",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 11,
+   "meeting_hours": 44.67,
+   "n_episodes": 125,
+   "n_done": 96,
+   "n_text": 96,
+   "n_scored": 24,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 21.678,
+   "hours_located": 0,
+   "hours_mention": 1.934,
+   "density_share": 0.107,
+   "date_min": "2025-10-02",
+   "date_max": "2026-09-03",
+   "text_file": "data/episodes/vta.json",
+   "text_bytes": 2017681
+  },
+  {
+   "body": "sanfrancisco",
+   "name": "San Francisco Board of Supervisors",
+   "county": "San Francisco",
+   "kind": "council",
+   "lat": 37.7793,
+   "lon": -122.4193,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 37,
+   "meeting_hours": 116.93,
+   "n_episodes": 0,
+   "n_done": 0,
+   "n_text": 0,
+   "n_scored": 0,
+   "routes": [],
+   "hours_done": 0.0,
+   "hours_located": 0,
+   "hours_mention": 0,
+   "density_share": null,
+   "date_min": "2025-09-30",
+   "date_max": "2026-09-15",
+   "text_file": null,
+   "text_bytes": 0
+  },
+  {
+   "body": "mountainview",
+   "name": "Mountain View City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.3894,
+   "lon": -122.0819,
+   "site": "City Hall",
+   "platforms": [],
+   "n_meetings": 0,
+   "meeting_hours": 0,
+   "n_episodes": 0,
+   "n_done": 0,
+   "n_text": 0,
+   "n_scored": 0,
+   "routes": [],
+   "hours_done": 0.0,
+   "hours_located": 0,
+   "hours_mention": 0,
+   "density_share": null,
+   "date_min": null,
+   "date_max": null,
+   "text_file": null,
+   "text_bytes": 0
+  },
+  {
+   "body": "fremont",
+   "name": "Fremont City Council",
+   "county": "Alameda",
+   "kind": "council",
+   "lat": 37.5485,
+   "lon": -121.9886,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 24,
+   "meeting_hours": 49.2,
+   "n_episodes": 236,
+   "n_done": 93,
+   "n_text": 82,
+   "n_scored": 52,
+   "routes": [
+    "classifier",
+    "fullasr"
+   ],
+   "hours_done": 7.566,
+   "hours_located": 0,
+   "hours_mention": 7.945,
+   "density_share": 0.438,
+   "date_min": "2026-01-13",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/fremont.json",
+   "text_bytes": 700025
+  },
+  {
+   "body": "santaclara",
+   "name": "Santa Clara City Council",
+   "county": "Santa Clara",
+   "kind": "council",
+   "lat": 37.3541,
+   "lon": -121.9552,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 40,
+   "meeting_hours": 178.43,
+   "n_episodes": 763,
+   "n_done": 286,
+   "n_text": 244,
+   "n_scored": 215,
+   "routes": [
+    "agenda_index",
+    "classifier",
+    "fullasr"
+   ],
+   "hours_done": 43.753,
+   "hours_located": 0,
+   "hours_mention": 27.278,
+   "density_share": 0.667,
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/santaclara.json",
+   "text_bytes": 3925393
+  },
+  {
+   "body": "alameda",
+   "name": "Alameda City Council",
+   "county": "Alameda",
+   "kind": "council",
+   "lat": 37.7652,
+   "lon": -122.2416,
+   "site": "City Hall",
+   "platforms": [],
+   "n_meetings": 0,
+   "meeting_hours": 0,
+   "n_episodes": 0,
+   "n_done": 0,
+   "n_text": 0,
+   "n_scored": 0,
+   "routes": [],
+   "hours_done": 0.0,
+   "hours_located": 0,
+   "hours_mention": 0,
+   "density_share": null,
+   "date_min": null,
+   "date_max": null,
+   "text_file": null,
+   "text_bytes": 0
+  },
+  {
+   "body": "richmond",
+   "name": "Richmond City Council",
+   "county": "Contra Costa",
+   "kind": "council",
+   "lat": 37.9358,
+   "lon": -122.3477,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 31,
+   "meeting_hours": 178.93,
+   "n_episodes": 621,
+   "n_done": 183,
+   "n_text": 165,
+   "n_scored": 102,
+   "routes": [
+    "fullasr",
+    "local_asr"
+   ],
+   "hours_done": 16.322,
+   "hours_located": 0,
+   "hours_mention": 24.583,
+   "density_share": 0.469,
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/richmond.json",
+   "text_bytes": 1718999
+  },
+  {
+   "body": "hayward",
+   "name": "Hayward City Council",
+   "county": "Alameda",
+   "kind": "council",
+   "lat": 37.6688,
+   "lon": -122.0808,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 29,
+   "meeting_hours": 68.47,
+   "n_episodes": 363,
+   "n_done": 130,
+   "n_text": 118,
+   "n_scored": 80,
+   "routes": [
+    "agenda_index",
+    "classifier",
+    "fullasr",
+    "local_asr"
+   ],
+   "hours_done": 12.435,
+   "hours_located": 0,
+   "hours_mention": 13.036,
+   "density_share": 0.374,
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/hayward.json",
+   "text_bytes": 1190290
+  },
+  {
+   "body": "sanleandro",
+   "name": "San Leandro City Council",
+   "county": "Alameda",
+   "kind": "council",
+   "lat": 37.7249,
+   "lon": -122.1561,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 29,
+   "meeting_hours": 82.83,
+   "n_episodes": 472,
+   "n_done": 168,
+   "n_text": 156,
+   "n_scored": 139,
+   "routes": [
+    "classifier",
+    "fullasr",
+    "local_asr"
+   ],
+   "hours_done": 21.503,
+   "hours_located": 0,
+   "hours_mention": 17.302,
+   "density_share": 0.791,
+   "date_min": "2025-10-06",
+   "date_max": "2026-09-08",
+   "text_file": "data/episodes/sanleandro.json",
+   "text_bytes": 2161208
+  },
+  {
+   "body": "walnutcreek",
+   "name": "Walnut Creek City Council",
+   "county": "Contra Costa",
+   "kind": "council",
+   "lat": 37.9101,
+   "lon": -122.0652,
+   "site": "City Hall",
+   "platforms": [],
+   "n_meetings": 0,
+   "meeting_hours": 0,
+   "n_episodes": 0,
+   "n_done": 0,
+   "n_text": 0,
+   "n_scored": 0,
+   "routes": [],
+   "hours_done": 0.0,
+   "hours_located": 0,
+   "hours_mention": 0,
+   "density_share": null,
+   "date_min": null,
+   "date_max": null,
+   "text_file": null,
+   "text_bytes": 0
+  },
+  {
+   "body": "sausalito",
+   "name": "Sausalito City Council",
+   "county": "Marin",
+   "kind": "council",
+   "lat": 37.8591,
+   "lon": -122.4853,
+   "site": "City Hall",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 30,
+   "meeting_hours": 0.0,
+   "n_episodes": 306,
+   "n_done": 121,
+   "n_text": 107,
+   "n_scored": 78,
+   "routes": [
+    "agenda_index",
+    "fullasr"
+   ],
+   "hours_done": 21.332,
+   "hours_located": 0,
+   "hours_mention": 9.676,
+   "density_share": 0.782,
+   "date_min": "2025-10-07",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/sausalito.json",
+   "text_bytes": 2391804
+  },
+  {
+   "body": "napa",
+   "name": "Napa County Board of Supervisors",
+   "county": "Napa",
+   "kind": "county",
+   "lat": 38.2975,
+   "lon": -122.2869,
+   "site": "County Administration",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 30,
+   "meeting_hours": 104.3,
+   "n_episodes": 367,
+   "n_done": 110,
+   "n_text": 102,
+   "n_scored": 91,
+   "routes": [
+    "agenda_index",
+    "classifier",
+    "fullasr",
+    "local_asr"
+   ],
+   "hours_done": 16.215,
+   "hours_located": 0,
+   "hours_mention": 16.343,
+   "density_share": 0.744,
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/napa.json",
+   "text_bytes": 1304679
+  },
+  {
+   "body": "samtrans",
+   "name": "SamTrans Board of Directors",
+   "county": "San Mateo",
+   "kind": "transit",
+   "lat": 37.5072,
+   "lon": -122.2605,
+   "site": "HQ (San Carlos)",
+   "platforms": [
+    "granicus"
+   ],
+   "n_meetings": 12,
+   "meeting_hours": 0.0,
+   "n_episodes": 202,
+   "n_done": 90,
+   "n_text": 86,
+   "n_scored": 12,
+   "routes": [
+    "agenda_index",
+    "fullasr"
+   ],
+   "hours_done": 24.246,
+   "hours_located": 0,
+   "hours_mention": 6.384,
+   "density_share": 0.093,
+   "date_min": "2025-10-08",
+   "date_max": "2026-09-02",
+   "text_file": "data/episodes/samtrans.json",
+   "text_bytes": 2179698
+  },
+  {
+   "body": "pleasanton",
+   "name": "Pleasanton City Council",
+   "county": "Alameda",
+   "kind": "council",
+   "lat": 37.6624,
+   "lon": -121.8747,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 16,
+   "meeting_hours": 53.45,
+   "n_episodes": 22,
+   "n_done": 17,
+   "n_text": 17,
+   "n_scored": 15,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 1.915,
+   "hours_located": 0,
+   "hours_mention": 0.283,
+   "density_share": 0.913,
+   "date_min": "2025-10-07",
+   "date_max": "2026-09-15",
+   "text_file": "data/episodes/pleasanton.json",
+   "text_bytes": 228929
+  },
+  {
+   "body": "livermore",
+   "name": "Livermore City Council",
+   "county": "Alameda",
+   "kind": "council",
+   "lat": 37.6819,
+   "lon": -121.768,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 17,
+   "meeting_hours": 22.75,
+   "n_episodes": 16,
+   "n_done": 10,
+   "n_text": 10,
+   "n_scored": 10,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 1.5,
+   "hours_located": 0,
+   "hours_mention": 0.483,
+   "density_share": 0.955,
+   "date_min": "2025-10-13",
+   "date_max": "2026-09-14",
+   "text_file": "data/episodes/livermore.json",
+   "text_bytes": 160014
+  },
+  {
+   "body": "vallejo",
+   "name": "Vallejo City Council",
+   "county": "Solano",
+   "kind": "council",
+   "lat": 38.1041,
+   "lon": -122.2566,
+   "site": "City Hall",
+   "platforms": [
+    "youtube"
+   ],
+   "n_meetings": 16,
+   "meeting_hours": 77.99,
+   "n_episodes": 140,
+   "n_done": 44,
+   "n_text": 44,
+   "n_scored": 41,
+   "routes": [
+    "classifier"
+   ],
+   "hours_done": 6.094,
+   "hours_located": 0,
+   "hours_mention": 6.126,
+   "density_share": 0.884,
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-08",
+   "text_file": "data/episodes/vallejo.json",
+   "text_bytes": 654149
+  }
+ ]
+}

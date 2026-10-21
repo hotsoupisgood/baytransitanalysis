@@ -1,0 +1,235 @@
+# Keywords for the TRANSIT family, SPANISH -- the Spanish half of the pair
+# keywords_density_es.txt opens. Same construct, same '@family transit' tag as
+# keywords_transit.txt, so a Napa episode's `tags` mean what a Fremont one's do.
+#
+# Format: see keywords_density_es.txt (same loader, same '?' conditional rule,
+# same three interpreted-speech adjustments: proper nouns stay English, "-es"
+# plurals are listed out, accented terms are listed twice).
+@family transit
+#
+# Bay Area agencies. An interpreter says "BART", not "Transito Rapido del Area
+# de la Bahia" -- the agency names come through in English and are repeated
+# from the English file unchanged. Bare "smart" stays CONDITIONAL for the same
+# reason it is in the English file, and for a second one here: in a Spanish
+# track an English word on its own is more likely to be a borrowed adjective
+# ("smart city") than the North Bay rail agency.
+bart
+caltrain
+? smart
+smart train
+sonoma marin
+vta
+muni
+sfmta
+ac transit
+samtrans
+golden gate transit
+golden gate ferry
+marin transit
+mtc
+abag
+capitol corridor
+amtrak
+ace train
+link21
+autoridad de transporte del valle
+comision metropolitana de transporte
+comisión metropolitana de transporte
+#
+# "Transit" itself. NOTE -- "transito" is the term in this file with the worst
+# false-positive rate, and the mirror image of the density file's
+# "desplazamiento": in much Spanish "transito" is ROAD traffic ("accidente de
+# transito", "transito vehicular"), not public transport. It is kept
+# unconditional anyway, because stage 1 is deliberately over-inclusive at
+# threshold 0.5 and stage 2 reads the window; but a Napa candidate window whose
+# only hits are bare "transito" is the one to distrust when reading the
+# classifier's rationales. "transporte publico" is the unambiguous form.
+transito
+tránsito
+transporte publico
+transporte público
+transporte colectivo
+transporte masivo
+transporte de pasajeros
+agencia de transporte
+agencias de transporte
+financiamiento del transporte
+fondos para el transporte
+centro de transporte
+centro de transbordo
+desarrollo orientado al transito
+desarrollo orientado al tránsito
+desarrollo orientado al transporte
+tod
+area de la estacion
+área de la estación
+plan del area de la estacion
+plan del área de la estación
+#
+# Rail. "tren" is a noun in Spanish and needs no conditional guard -- unlike
+# English "train", which is a verb often enough that keywords_transit.txt has
+# to mark it '? train'.
+tren
+trenes
+tren ligero
+tren de cercanias
+tren de cercanías
+tren de pasajeros
+tren de alta velocidad
+alta velocidad
+ferrocarril
+ferrocarriles
+via ferrea
+vía férrea
+vias ferreas
+vías férreas
+riel
+rieles
+estacion
+estación
+estaciones
+estacion de tren
+estación de tren
+linea ferroviaria
+línea ferroviaria
+corredor ferroviario
+servicio ferroviario
+cruce a nivel
+cruces a nivel
+separacion de niveles
+separación de niveles
+zona de silencio
+bocina del tren
+diridon
+berryessa
+transbay
+#
+# Bus and service
+autobus
+autobús
+autobuses
+camion urbano
+camión urbano
+? bus
+? buses
+carril de autobus
+carril de autobús
+carriles de autobus
+carriles de autobús
+carril exclusivo
+ruta de autobus
+ruta de autobús
+rutas de autobus
+rutas de autobús
+linea de autobus
+línea de autobús
+parada de autobus
+parada de autobús
+paradas de autobus
+paradas de autobús
+servicio de autobus
+servicio de autobús
+autobus rapido
+autobús rápido
+transito rapido de autobuses
+tránsito rápido de autobuses
+brt
+transporte especial
+paratransito
+paratránsito
+lanzadera
+recorte de servicio
+recortes de servicio
+reduccion de servicio
+reducción de servicio
+reducciones de servicio
+cambio de servicio
+cambios de servicio
+intervalo de servicio
+intervalos de servicio
+servicio frecuente
+numero de pasajeros
+número de pasajeros
+? pasajeros
+? usuarios
+tarifa
+tarifas
+evasion de tarifas
+evasión de tarifas
+clipper
+transbordador
+transbordadores
+#
+# "frecuencia" is CONDITIONAL here although the English file has "frequency"
+# unconditional: "con frecuencia" is simply "often" in ordinary Spanish speech
+# and would fire in every meeting. The multi-word service sense is above.
+? frecuencia
+? frecuencias
+#
+# Streets: bike, pedestrian, road space
+ciclovia
+ciclovía
+ciclovias
+ciclovías
+carril bici
+carril para bicicletas
+carriles para bicicletas
+carril protegido
+via para bicicletas
+vía para bicicletas
+red de ciclismo
+sendero de uso multiple
+sendero de uso múltiple
+? bicicleta
+? bicicletas
+? ciclista
+? ciclistas
+peatonal
+peatonales
+peaton
+peatón
+peatones
+seguridad peatonal
+cruce peatonal
+cruces peatonales
+paso peatonal
+mejoras peatonales
+calles completas
+calle completa
+vision cero
+visión cero
+vision zero
+pacificacion del trafico
+pacificación del tráfico
+calmado de trafico
+calmado de tráfico
+reduccion de carriles
+reducción de carriles
+eliminacion de carril
+eliminación de carril
+dieta vial
+? carril
+? carriles
+#
+# Travel demand / planning vocabulary
+vmt
+millas vehiculares recorridas
+millas recorridas por vehiculo
+millas recorridas por vehículo
+cambio modal
+reparto modal
+gestion de la demanda
+gestión de la demanda
+tdm
+? transporte activo
+? congestion
+? congestión
+? movilidad
+#
+# Funding measures that are transit-specific by name (generic "medida Q" stays
+# OFF for the same reason the English file leaves "measure q" off: 4/4 hits in
+# the SMART pilot were city sales taxes)
+medida regional
+sb 125
+abismo fiscal del transporte
+crisis fiscal del transporte

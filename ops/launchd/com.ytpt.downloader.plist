@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Template for the download worker (PLAN.md 4.2, 4.8). ops/launchd/install_workers.sh
+  fills __REPO__, __PYTHON__, __LOGDIR__ and __PATH__. Plain script under launchd;
+  OpenClaw supervises it (pause = bootout, resume = bootstrap; docs/OPENCLAW_SETUP.md 7).
+  YouTube bot check / 429: the worker notifies Puck and exits 0 (in --loop mode), so
+  KeepAlive (SuccessfulExit=false) leaves it DOWN -- a non-zero exit would have made
+  launchd retry YouTube every ThrottleInterval, the retry loop AGENTS.md forbids.
+  Resume: `launchctl kickstart -k gui/$(id -u)/com.ytpt.downloader` when Puck says so.
+  A crash (non-zero exit) is still restarted after ThrottleInterval.
+  Concurrency stays at 1 here; raise to 2 only deliberately (never more).
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ytpt.downloader</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__PYTHON__</string>
+    <string>__REPO__/pipeline/downloader.py</string>
+    <string>--loop</string>
+    <string>--concurrency</string><string>1</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>__PATH__</string></dict>
+  <key>WorkingDirectory</key><string>__REPO__</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><dict><key>SuccessfulExit</key><false/></dict>
+  <key>ThrottleInterval</key><integer>600</integer>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>__LOGDIR__/downloader.log</string>
+  <key>StandardErrorPath</key><string>__LOGDIR__/downloader.log</string>
+</dict>
+</plist>

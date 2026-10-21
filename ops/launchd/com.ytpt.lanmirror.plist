@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Daily read-only file server for the Linux node's audio/transcript mirror
+  (ops/lan_mirror_server.py). Starts 06:30 local, after the 06:00 B2 backup, and stops
+  itself after 3 h; the Linux node's ytpt-mirror-sync.timer pulls at 06:45.
+  Fill __REPO__ and __LOGDIR__, then
+  `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.ytpt.lanmirror.plist`.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ytpt.lanmirror</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>__REPO__/ops/lan_mirror_server.py</string>
+    <string>--hours</string><string>3</string>
+  </array>
+  <key>WorkingDirectory</key><string>__REPO__</string>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>30</integer></dict>
+  <key>RunAtLoad</key><false/>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>__LOGDIR__/lanmirror.log</string>
+  <key>StandardErrorPath</key><string>__LOGDIR__/lanmirror.log</string>
+</dict>
+</plist>
