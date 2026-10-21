@@ -126,6 +126,14 @@ badly: "I kept n at 250 … and froze that before collecting any more data."
 Jargon is defined on first use in plain words. No exclamation marks, no
 emoji, no hype adjectives.
 
+**Superseded for the dashboard, 2026-10-21.** The owner's dashboard language
+rules replace this section on the dashboard and the Methods page: formal
+register, no first person, short descriptive sentences, precise claims that
+name who was measured, what was measured and how much, uncommon terms defined
+where they first appear, and no em dashes. The rules above still apply to
+posts and to the rest of this file. The dashboard rules are in
+`~/.openclaw/workspace/style/DASHBOARD-LANGUAGE.md`.
+
 ## 8. CSS variables for this dashboard
 
 Drop-in token block for `site.css`, mapping his tokens onto the names the
@@ -184,6 +192,58 @@ diagnostics and caveats live in the panel body and on Methods.
 Clarified 21:16: **no numbers in a TLDR at all**. Numbers appear only in
 the results body of a panel and on Methods. ("like the only numbers need to
 come in in the actual methods or for results stuff")
+
+**Superseded for the dashboard, 2026-10-21 07:14.** Each panel opens with its
+heading and a short descriptive sentence that states the measured quantity,
+not with a bulleted TLDR of its own.
+
+**Reinstated for the page, 2026-10-21 08:40.** "the tldr should replace the
+first paragraph". The page itself opens with a TLDR block in the blog format:
+3 or 4 bullets, first person, past tense, no numbers, with the last bullet
+pointing at the plots and the Methods page. `ul.tldr::before` in site.css puts
+the visible "TLDR:" label back. The per-panel TLDRs stay gone, so the page has
+exactly one. The dashboard rules are in
+`~/.openclaw/workspace/style/DASHBOARD-LANGUAGE.md`.
+
+## Page order and no disclosures (owner, 2026-10-21 08:45 PDT)
+
+"the site should begin after tldr with a sentence or two about the goal o fthe
+classification ... then example of a nimby comment next to a yimby comment.
+then get into the graphs. don't ahve all thoes drop downs that you have now.
+just briefly summarize plots in short paragraphs."
+
+The front page order is: h1, TLDR, the goal with the corpus scope and the one
+exploratory sentence, the two links, why it matters, one NIMBY comment beside
+one YIMBY comment, the plots, the footer. index.html carries **no `details`
+element at all**. 49 of them came off the page on 2026-10-21:
+
+- the episode reader and its two folds (the two example comments replace what
+  it was there for; `data/episodes/*.json` is unchanged and nothing on the
+  page fetches it now);
+- the scatter's examples strip, 26 folds in all;
+- "Show the numbers", one statistics table per panel, 4;
+- "What is wrong with this result", 4, with their own nested tables;
+- "More figures", 3;
+- "Which speaker is 'the public', and how that was decided";
+- "The numbers, and what is wrong with this" under the role block;
+- the "Renter share" fold, which the panel came out of;
+- the methods footer's "The corpus and every instrument version".
+
+Nothing was deleted from the data. Every row is still in `data/panels.json`,
+every figure is still in `data/panels/`, and the caveats, tables and
+provenance are on the Methods page, which rule 8 of DASHBOARD-LANGUAGE.md
+names as where they belong.
+
+## Takeaway titles (owner, 2026-10-21 08:46 PDT)
+
+"titles should be takeaways i forget if i put that there". Every heading under
+the h1 is a sentence that states a finding, with its number where it has one.
+The four panel headings are rendered from each panel's own first headline
+sentence, so the title cannot drift from the data, and the summary paragraph
+is the sentences after it rather than a restatement of the title (rule 14).
+The goal, the links and the "why it matters" sentences carry no heading: a
+label there would not be a takeaway, and a takeaway would restate the
+sentence under it.
 
 ## Banner rule (owner, 2026-10-18 21:18 PDT)
 

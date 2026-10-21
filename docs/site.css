@@ -95,24 +95,65 @@ a[href]:visited { color: var(--navy); }
    EXPLORATORY banner. The word is in the page title and h1; the limitations are
    plain prose on Methods and in each panel's results body. */
 
-/* The intro paragraphs under the title (owner, 2026-10-19): what was collected,
-   then a little on what came out. Full body size, because this is the first thing
-   anyone reads; the TLDR follows it. Numbers live here, not in the TLDR. */
+/* THE TLDR BLOCK, his blog pattern: a literal label, then 3 or 4 short bullets.
+   It opens the page in place of an intro paragraph (owner, 2026-10-21 08:40: "the
+   tldr should replace the first paragraph"), and style/DASHBOARD-LANGUAGE.md
+   section "The TLDR" keeps the label visible. These rules came off the stylesheet
+   on 2026-10-21 07:14, when the bullets were turned into prose, and are back
+   unchanged now that the block is the first thing on the page again. */
+ul.tldr::before {
+  content: "TLDR:";
+  display: block;
+  margin: 0 0 0.25rem -1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+ul.tldr {
+  margin: 0.75rem 0 1.25rem;
+  padding-left: 1.25rem;
+  max-width: var(--fig-max);
+  font-size: 1rem;
+}
+ul.tldr li { margin: 0.25rem 0; line-height: 1.45; }
+
+/* The goal block under the TLDR: what the classification decides, then the corpus
+   scope with its counts. Full body size, because it is the first prose anyone
+   reads. Numbers live here, not in the TLDR. */
 p.intro {
   margin: 0.5rem 0 0.75rem; max-width: 76ch; font-size: 1rem; line-height: 1.45;
   color: var(--ink);
 }
 p.intro + p.intro { margin-top: -0.25rem; }
 
-/* The one visible exploratory stamp, under the intro's three sentences. */
+/* The one visible exploratory stamp, under the scope line (rule 12). */
 .stamp { margin: -0.25rem 0 1rem; max-width: var(--fig-max); font-weight: 600; }
 
-/* The data-as-of and total-spend line under the intro. Dated spend is visible by
-   house rule, so it sits in the opening block rather than in a fold, but it is
-   support rather than a finding -- hence the muted .sub treatment, one notch
-   smaller, with a rule above it to separate it from the sentences above. */
+/* The owner's own sentences: the two links, and why it matters. Body size, same
+   measure as the goal block, because they are the page's argument and not notes. */
+p.said { margin: 0.5rem 0 1rem; max-width: 76ch; font-size: 1rem; line-height: 1.5; }
+
+/* THE TWO EXAMPLE COMMENTS, one NIMBY beside one YIMBY (owner, 2026-10-21 08:45).
+   Side by side on a desktop and stacked on a phone, which .excols already does.
+   The side is carried by the quote's own left rule and by the heading colour, so
+   the two read as a pair rather than as two unrelated blockquotes. */
+.exq { margin: 0.25rem 0 0.75rem; }
+.exq h5 { margin: 0 0 0.375rem; font-size: 0.875rem; font-weight: 600; }
+.exq.yimby h5 { color: var(--yimby); }
+.exq.nimby h5 { color: var(--nimby); }
+.exq blockquote.quote {
+  margin: 0; padding: 0 0 0 0.75rem;
+  border-left: 3px solid var(--border);
+  font-size: 0.9375rem; line-height: 1.5;
+}
+.exq.yimby blockquote.quote { border-left-color: var(--yimby); }
+.exq.nimby blockquote.quote { border-left-color: var(--nimby); }
+.exq .qmeta { font-size: 0.8125rem; color: var(--muted); margin: 0.375rem 0 0; }
+
+/* The data-as-of and total-spend line, now the page footer. Dated spend is visible
+   by house rule, and it is support rather than a finding -- hence the muted .sub
+   treatment, one notch smaller, with a rule above it. */
 .asof {
-  margin: -0.5rem 0 1rem;
+  margin: 1.5rem 0 0.5rem;
   padding-top: 0.5rem;
   border-top: 1px solid var(--border);
   font-size: 0.875rem;

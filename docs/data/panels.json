@@ -1,9 +1,9 @@
 {
-"generated": "2026-10-21T08:30-07:00",
-"stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
+"generated": "2026-10-21T09:40-07:00",
+"stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
-"collected": "A year of meetings from 33 Bay Area city councils, county boards and transit boards: 692 meetings, 2,285 hours of video, 15,961 statements scored by an LLM.",
-"results": "Transit boards spend far more meeting time on housing density and transit than councils do. Public speakers take sides where the dais stays neutral, and when they take one they lean against the item.",
+"goal": "The classification sorts every statement at these meetings by whether the speaker supported or opposed the housing-density or transit item on the agenda. It then compares the officials who ran the meeting with the members of the public who spoke. The point is to measure who asked for housing density and transit at the meetings that decide them, and who asked against.",
+"scope": "15,961 statements were scored, from 692 meetings of 33 Bay Area bodies: city councils, county boards and transit boards. The window is one year and 2,285 hours of video. A statement is one speaker turn of at least 5 words, in an episode that passed the quality gate. Each was scored three times and the median was kept.",
 "note": "Exploratory analysis. Stance and tone were coded by a large language model and have not been validated against human coders.",
 "spend": {
 "usd": 145.38,
@@ -13,7 +13,7 @@
 "runpod_total": 17.46,
 "stance": 67.93
 },
-"text": "Total spend to date $145 \u2014 GPU transcription $17, stance coding $68, topic classifier $60"
+"text": "Total spend to date $145: GPU transcription $17, stance coding $68, topic classifier $60"
 },
 "as_of": "2026-10-20",
 "totals": {
@@ -31,17 +31,17 @@
 },
 "stance": {
 "title": "Stance: the role gap",
-"stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
-"lede": "",
+"stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
+"lede": "The dais is where the elected officials or board members sit and run the meeting. Hostility is scored from 0 to 4 for each statement. The scale counts speech aimed at people rather than strength of disagreement. A score of 2 or higher counts as hostile.",
 "corrected": "corrected 2026-10-18 after role audit",
 "headline": [
-"The public reads as more hostile than the dais, and takes a side where the dais does not.",
-"74 of 100 dais statements sit exactly at neutral, against 22 of 100 of the public."
+"4.9 % of public statements were coded hostile, against 0.3 % of dais statements.",
+"74 of 100 dais statements with a stance score were coded exactly neutral, against 22 of 100 public statements."
 ],
 "role_pred": {
-"title": "How well content alone tells the dais from the public",
-"text": "From the words alone, a model tells a public speaker from a dais one about 0.80 of the time \u2014 by how strong the opinion is, not which side it takes.",
-"detail": "The features are stance, hostility, the twelve frames, sub-topic and length, and two of them do nearly all the work: dropping absolute stance costs 0.14 of AUC and dropping length 0.04, with nothing else over 0.02. Signed stance on its own is at chance \u2014 0.44 by cluster, against 0.50 for a coin \u2014 so the model is not learning who is a NIMBY, it is learning who holds a position at all. Two caveats. Calibration does not travel: the ranking holds between bodies but the probabilities do not, at a slope of 0.63 out of body, so this is a measurement of how separable the two roles are and not a classifier anyone should point at a new city. And the target here is the diarization-cue role. Fitted against the audited role the same model reaches 0.86, but that number is circular \u2014 the audit is itself built from what a speaker says about who they are, so the model is partly predicting its own input.",
+"title": "Telling officials from the public, without reading the transcript",
+"text": "A second model is given 35 coded measures of what each speaker said, and none of the transcript. Its task is to pick the member of the public out of one public and one dais speaker. It picks correctly 8 times out of 10, against 5 times out of 10 for chance. What separates the two is how strong an opinion a statement carries, not which side it is on.",
+"detail": "The features are stance, hostility, the twelve frames, sub-topic and length, and two of them do nearly all the work: dropping absolute stance costs 0.14 of AUC and dropping length 0.04, with nothing else over 0.02. Signed stance on its own is at chance: 0.44 by cluster, against 0.50 for a coin. So the model is not learning who is a NIMBY, it is learning who holds a position at all. Two caveats. Calibration does not travel: the ranking holds between bodies but the probabilities do not, at a slope of 0.63 out of body, so this is a measurement of how separable the two roles are and not a classifier anyone should point at a new city. And the target here is the diarization-cue role. Fitted against the audited role the same model reaches 0.86, but that number is circular. The audit is itself built from what a speaker says about who they are, so the model is partly predicting its own input.",
 "auc_cluster": 0.8019794842347703,
 "auc_turn": 0.7751403513289657,
 "cal_slope_cluster": 0.626481400462586,
@@ -393,7 +393,7 @@
 "source": "state.sqlite role_audit; plan/ROLE-AUDIT-2026-10-18.md"
 },
 "model_free": {
-"note": "Model-free contrast, 2,000 episode-cluster bootstrap reps, role instrument db, **under the reported role_audit role** (corrected 2026-10-18 after role audit). Shares are among turns with a numeric stance; the public also has far fewer not_applicable turns. Every tail gap is larger than under the cue role, on both outcomes and in every family.",
+"note": "Model-free contrast, 2,000 episode-cluster bootstrap reps, under the reported role (corrected 2026-10-18 after role audit). Shares are among turns with a numeric stance. Turns with no stance to code are 19.5 % of public turns and 47.1 % of dais turns. Every tail gap is larger than under the older cue-phrase role, on both outcomes and in every family.",
 "rows": [
 {
 "role_col": "audit",
@@ -1011,11 +1011,11 @@
 },
 {
 "name": "There is no staff role",
-"text": "Roles are dais / public / unknown; staff reports sit inside dais and pull it toward neutral. 472 unknown-role turns are outside the frame, and the computed role instrument (35 classifier episodes) is a separate, wider facet rather than more data."
+"text": "Roles are dais / public / unknown. Staff reports are counted as dais, which moves the dais toward neutral. 472 unknown-role turns are outside the frame, and the computed role instrument (35 classifier episodes) is a separate, wider facet rather than more data."
 },
 {
 "name": "The reported role is an audit, not a gold label",
-"text": "Added 2026-10-18. The public/dais split here is role_audit (rule ra-1), which prefers the codebook's SELF_ID over the diarization-cue role. SELF_ID is model output and no human has checked it. 7,119 of 15,961 turns (45%) say nothing about who the speaker is and keep the cue role, so the audited public bucket is still contaminated at an unknown rate \u2014 the measured error is a lower bound on the informative subset only. And the audit is a re-partition in both directions, not a cleanup: it admits cue-dais clusters as well as removing cue-public ones, and the public base with a stance *rises* from 947 to 1050 clusters. Differences from the _cue numbers are not 'contamination removed'.",
+"text": "Added 2026-10-18. The public/dais split here is role_audit (rule ra-1), which prefers the codebook's SELF_ID over the diarization-cue role. SELF_ID is model output and no human has checked it. 7,119 of 15,961 turns (45%) say nothing about who the speaker is and keep the cue role, so the audited public bucket is still contaminated at an unknown rate. The measured error is a lower bound on the informative subset only. And the audit is a re-partition in both directions, not a cleanup: it admits cue-dais clusters as well as removing cue-public ones, and the public base with a stance *rises* from 947 to 1050 clusters. Differences from the _cue numbers are not 'contamination removed'.",
 "table": [
 {
 "_body": "santaclara",
@@ -1147,21 +1147,21 @@
 },
 "nimby": {
 "title": "YIMBY / NIMBY",
-"stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
-"lede": "A speaker is YIMBY if their turns lean toward the housing item, NIMBY if against.",
+"stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
+"lede": "Stance is scored from -2 to +2 for each statement. A speaker is YIMBY when their statements average +0.5 or higher in support of the housing item, NIMBY at -0.5 or lower, and neutral between. A speaker here is one voice at one meeting.",
 "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
 "headline": [
-"Public speakers split close to evenly for and against the housing items, leaning slightly against.",
-"Only a few bodies separate from that split on their own."
+"Of 1,050 public speakers, 40.1 % were YIMBY, 47.6 % NIMBY and 12.3 % neutral.",
+"In 5 of the 29 body-and-route groups measured, the likely range on YIMBY minus NIMBY excludes zero. In the other 24 it does not."
 ],
 "role_side": {
 "title": "Who takes a side",
-"headline": "Public speakers take a side far more often than the dais. When they do, they are more often against the item.",
-"model_line": "",
+"headline": "Public speakers took a side on 83.7 % of the statements that carried a stance, against 33.1 % of dais statements. Of the statements that took a side, 53.4 % of public ones opposed the item, against 36.4 % of dais ones.",
+"model_line": "A statement took a side when its median stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing the item to +2 for supporting it. Staff speakers are excluded from this measure.",
 "steps": [
 {
 "name": "Took a side at all",
-"text": "10.39\u00d7 in odds (likely range 8.48 to 12.85).",
+"text": "10.39\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 8.48 to 12.85).",
 "odds_ratio": 10.385677831320098,
 "beta": 2.34042772542629,
 "ci95": [
@@ -1171,7 +1171,7 @@
 },
 {
 "name": "Which side, given a side",
-"text": "1.81\u00d7 against the item (likely range 1.42 to 2.32).",
+"text": "1.81\u00d7 the odds of opposing the item rather than supporting it, for a public statement against a dais one (likely range 1.42 to 2.32).",
 "odds_ratio": 1.8075128467009125,
 "beta": 0.591951782467247,
 "ci95": [
@@ -1180,8 +1180,8 @@
 ]
 }
 ],
-"restated": "Quote 1.81\u00d7 for \u201cmore opposed\u201d. The first line is about taking a side at all.",
-"why": "Behind the two steps: 83.7 % of public turns take a side rather than sitting in the neutral band, against 33.1 % of dais turns; of the turns that do take one, 53.4 % of public turns come out against the item against 36.4 % of dais ones. The two steps are separate fits on their own rows and do not multiply together. Almost all the dependence in this corpus is inside meetings rather than between bodies: on the second step the spread between stretches of meeting is 0.96 and between meetings 0.81 on the log-odds scale, while the spread between bodies is 0.00 once meeting is in the model. Which is why the model groups turns by meeting and not by city. Renter share does not move either step: its interval covers zero on both, and so does its interaction with role. Staff speakers are dropped from these rows altogether \u2014 they read reports rather than take positions \u2014 and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
+"restated": "Quote 1.81\u00d7 for \u201cmore opposed\u201d. Step 1 measures whether a statement took a side at all, not which side.",
+"why": "Behind the two steps: 83.7 % of public turns take a side rather than scoring inside the neutral band, against 33.1 % of dais turns; of the turns that do take one, 53.4 % of public turns come out against the item against 36.4 % of dais ones. The two steps are separate fits on their own rows and do not multiply together. Almost all the dependence in this corpus is inside meetings rather than between bodies: on the second step the spread between stretches of meeting is 0.96 and between meetings 0.81 on the log-odds scale, while the spread between bodies is 0.00 once meeting is in the model. Which is why the model groups turns by meeting and not by city. Renter share does not move either step: its interval covers zero on both, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
 "table": [
 {
 "what": "Took a side at all, of every turn with a stance",
@@ -1216,8 +1216,8 @@
 "meetings": 180
 }
 ],
-"table_note": "Odds ratios are for a public turn against a dais one, with renter share, its interaction with role and the locate route also in the model, and with a baseline per body, per meeting and per stretch of meeting. Intervals are 95 % and come from the likelihood rather than a standard error, which is why they are not symmetric around the estimate.",
-"limits": "The unit here is a scored turn, not a person, and both the stance score and the public/dais label are model output that no human has checked \u2014 the role label comes from what a speaker says about who they are. The first step is largely a measure of speech act rather than opinion: chairing, moving and reading a report are all neutral by construction, and they are things only the dais does. The second step's interval is a shade wider than it needs to be, because the optimiser stops just short of the likelihood's peak and the interval was taken at a loosened tolerance. And the permutation test once quoted for this gap has been withdrawn; the evidence here is this model and nothing else.",
+"table_note": "Odds ratios are for a public turn against a dais one, with renter share, its interaction with role and the locate route also in the model, and with a baseline per body, per meeting and per stretch of meeting. Each likely range is a 95 % interval taken from the likelihood rather than from a standard error, which is why it is not symmetric around the estimate.",
+"limits": "The unit here is a scored turn, not a person, and both the stance score and the public/dais label are model output that no human has checked. The role label comes from what a speaker says about who they are. The first step is largely a measure of speech act rather than opinion: chairing, moving and reading a report are all neutral by construction, and they are things only the dais does. The second step's interval is slightly wider than the data require, because the optimiser stops just short of the likelihood's peak and the interval was taken at a loosened tolerance. And the permutation test once quoted for this gap has been withdrawn; the evidence here is this model and nothing else.",
 "sources": [
 "output/renter_share_6/",
 "analysis/r/export_anyside.py",
@@ -5409,8 +5409,8 @@
 "text": "A speaker is YIMBY at a mean stance of \u2265 +0.5 toward the housing item, NIMBY at \u2264 \u22120.5, neutral between. Transit items are left out, YIMBY and NIMBY being about housing. Each route gets its own table and figure and nothing is pooled, because routes that read the same body can disagree."
 },
 {
-"name": "On restriction items the label inverts \u2014 San Leandro",
-"text": "A speaker is scored for or against the item in front of them, so where the item is a restriction the label turns over: a landlord against a rent-stabilisation ordinance reads as NIMBY. 146 of San Leandro's 203 public speakers are on items like that (71.9 % of them), and San Leandro is 19.3 % of all public speakers here. Dropping it moves the split from 40.1 / 47.6 / 12.3 to 39.2 / 47.6 / 13.2, so the direction of this panel is unresolved rather than merely noisy.",
+"name": "On restriction items the label inverts: San Leandro",
+"text": "A speaker is scored for or against the item in front of them, so where the item is a restriction the label inverts: a landlord opposing a rent-stabilisation ordinance is coded NIMBY. 146 of San Leandro's 203 public speakers are on items like that (71.9 % of them), and San Leandro is 19.3 % of all public speakers here. Dropping it moves the split from 40.1 / 47.6 / 12.3 to 39.2 / 47.6 / 13.2, so the direction of this panel is unresolved rather than merely noisy.",
 "table": [
 {
 "body": "sanleandro",
@@ -5512,7 +5512,7 @@
 },
 {
 "name": "Most speaker labels rest on one scored statement",
-"text": "86.2 % of labels rest on exactly one scored statement, and a speaker averages 1.12 of them. A speaker here is one voice inside one meeting, found by the machine: one person split in two counts twice, two people merged count once."
+"text": "86.2 % of labels rest on exactly one scored statement, and a speaker averages 1.12 of them. A speaker here is one voice inside one meeting, as separated by the diarizer: one person split in two counts twice, and two people merged count once."
 }
 ],
 "figs": [
@@ -5528,23 +5528,23 @@
 "fig_public_vs_dais_swagit_transcript.png"
 ],
 "fig_titles": {
-"fig_public_yimby_nimby_classifier_stars.png": "How the public split, body by body \u2014 classifier route",
-"fig_public_yimby_nimby_fullasr_stars.png": "How the public split, body by body \u2014 fullasr route",
-"fig_public_yimby_nimby_local_asr_stars.png": "How the public split, body by body \u2014 local_asr route",
-"fig_public_yimby_nimby_agenda_index_stars.png": "How the public split, body by body \u2014 agenda_index route",
-"fig_public_yimby_nimby_swagit_transcript_stars.png": "How the public split, body by body \u2014 swagit_transcript route",
-"fig_public_vs_dais_classifier.png": "The same split with the dais beside the public \u2014 classifier route",
-"fig_public_vs_dais_fullasr.png": "The same split with the dais beside the public \u2014 fullasr route",
-"fig_public_vs_dais_local_asr.png": "The same split with the dais beside the public \u2014 local_asr route",
-"fig_public_vs_dais_agenda_index.png": "The same split with the dais beside the public \u2014 agenda_index route",
-"fig_public_vs_dais_swagit_transcript.png": "The same split with the dais beside the public \u2014 swagit_transcript route"
+"fig_public_yimby_nimby_classifier_stars.png": "How the public split, body by body: classifier route",
+"fig_public_yimby_nimby_fullasr_stars.png": "How the public split, body by body: fullasr route",
+"fig_public_yimby_nimby_local_asr_stars.png": "How the public split, body by body: local_asr route",
+"fig_public_yimby_nimby_agenda_index_stars.png": "How the public split, body by body: agenda_index route",
+"fig_public_yimby_nimby_swagit_transcript_stars.png": "How the public split, body by body: swagit_transcript route",
+"fig_public_vs_dais_classifier.png": "The same split with the dais beside the public: classifier route",
+"fig_public_vs_dais_fullasr.png": "The same split with the dais beside the public: fullasr route",
+"fig_public_vs_dais_local_asr.png": "The same split with the dais beside the public: local_asr route",
+"fig_public_vs_dais_agenda_index.png": "The same split with the dais beside the public: agenda_index route",
+"fig_public_vs_dais_swagit_transcript.png": "The same split with the dais beside the public: swagit_transcript route"
 },
 "fig_caps": {
-"fig_public_yimby_nimby_classifier_stars.png": "One bar per body on the classifier route: how its public speakers split. A star means the YIMBY \u2212 NIMBY interval clears zero \u2014 few do, which is the result.",
-"fig_public_yimby_nimby_fullasr_stars.png": "One bar per body on the fullasr route: how its public speakers split. A star means the YIMBY \u2212 NIMBY interval clears zero \u2014 few do, which is the result.",
-"fig_public_yimby_nimby_local_asr_stars.png": "One bar per body on the local_asr route: how its public speakers split. A star means the YIMBY \u2212 NIMBY interval clears zero \u2014 few do, which is the result.",
-"fig_public_yimby_nimby_agenda_index_stars.png": "One bar per body on the agenda_index route: how its public speakers split. A star means the YIMBY \u2212 NIMBY interval clears zero \u2014 few do, which is the result.",
-"fig_public_yimby_nimby_swagit_transcript_stars.png": "One bar per body on the swagit_transcript route: how its public speakers split. A star means the YIMBY \u2212 NIMBY interval clears zero \u2014 few do, which is the result.",
+"fig_public_yimby_nimby_classifier_stars.png": "One bar per body on the classifier route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
+"fig_public_yimby_nimby_fullasr_stars.png": "One bar per body on the fullasr route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
+"fig_public_yimby_nimby_local_asr_stars.png": "One bar per body on the local_asr route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
+"fig_public_yimby_nimby_agenda_index_stars.png": "One bar per body on the agenda_index route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
+"fig_public_yimby_nimby_swagit_transcript_stars.png": "One bar per body on the swagit_transcript route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
 "fig_public_vs_dais_classifier.png": "The same bodies on the classifier route with the dais drawn beside the public. The dais is mostly neutral, so this is the baseline the public split should be read against rather than against nothing.",
 "fig_public_vs_dais_fullasr.png": "The same bodies on the fullasr route with the dais drawn beside the public. The dais is mostly neutral, so this is the baseline the public split should be read against rather than against nothing.",
 "fig_public_vs_dais_local_asr.png": "The same bodies on the local_asr route with the dais drawn beside the public. The dais is mostly neutral, so this is the baseline the public split should be read against rather than against nothing.",
@@ -5555,11 +5555,11 @@
 },
 "renter": {
 "title": "Renter share",
-"stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
-"lede": "Does a body's renter share predict what gets said at its meetings? One correlation per outcome per route, against the ACS renter share.",
+"stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
+"lede": "This panel tests whether a body's renter share predicts what gets said at its meetings. Renter share is the renter-occupied share of a body's occupied housing units, from the American Community Survey. One correlation per outcome per locate route.",
 "headline": [
-"Renter share does not predict what gets said at a body's meetings: every outcome tested leaves the direction open.",
-"That is how few bodies there are, not evidence that renter share does not matter."
+"Renter share does not predict what gets said at a body's meetings.",
+"On every outcome tested, the likely range on the slope includes zero. Each correlation rests on 15 to 20 bodies. That sample size is the finding here, not evidence that renter share does not matter."
 ],
 "correlations": [
 {
@@ -8477,15 +8477,15 @@
 },
 "caveats": [
 {
-"name": "How little this could have detected \u2014 n is the finding",
-"text": "\u201cNo relationship\u201d here means \u201cno relationship this design could see\u201d. Each correlation rests on 15\u201320 bodies with a median of 18 scored public turns each, which could only have detected an effect several times larger than any plausible one. The 90 % interval on the NIMBY slope runs from a large negative effect to a moderate positive one, and so does every other outcome tested. Read the null as a statement about the sample size, not about renter share. And a sharp result here would still be a statement about cities rather than about the people who show up to speak at their meetings: the covariate is a body's whole renter share, not anything known about a speaker."
+"name": "How little this could have detected: n is the finding",
+"text": "\u201cNo relationship\u201d here means \u201cno relationship this design could see\u201d. Each correlation rests on 15 to 20 bodies with a median of 18 scored public turns each, which could only have detected an effect several times larger than any plausible one. The 90 % interval on the NIMBY slope runs from a large negative effect to a moderate positive one, and so does the interval on every other outcome tested. Read the null as a statement about the sample size, not about renter share. And a sharp result here would still be a statement about cities rather than about the people who show up to speak at their meetings: the covariate is a body's whole renter share, not anything known about a speaker."
 },
 {
 "name": "The rate correlations should not be quoted at all yet",
 "text": "Both rate rows are computed on the as-published 7-body complete-coverage set. The coverage test has since been fixed and the complete set is 5 bodies, so on a rerun today those rows fall to n = 3 on the classifier route. The local_asr and agenda_index rate figures drop below the 3-body floor entirely and have been moved to output/renter_share/_stale_pre_coverage_fix/."
 },
 {
-"name": "Transit boards are marked hollow, and a councils-only panel sits beside each figure",
+"name": "Transit boards are marked hollow, and a councils-only panel is drawn beside each figure",
 "text": "A transit board's topic time mostly measures what it exists to do, so every figure draws the boards with hollow markers and carries a councils-only panel wherever one can be drawn above the 3-body floor. Read the councils-only panel first."
 }
 ],
@@ -8505,40 +8505,42 @@
 ],
 "fig_titles": {
 "fig_beta_renter_forest.png": "Renter share as a body-level predictor, every outcome tested",
-"fig_rate_density_classifier.png": "Density topic time against renter share \u2014 classifier route",
-"fig_rate_transit_classifier.png": "Transit topic time against renter share \u2014 classifier route",
-"fig_stance_gap_agenda_index.png": "Public \u2212 dais stance gap against renter share \u2014 agenda_index route",
-"fig_stance_gap_classifier.png": "Public \u2212 dais stance gap against renter share \u2014 classifier route",
-"fig_stance_net_agenda_index.png": "Net YIMBY \u2212 NIMBY against renter share \u2014 agenda_index route",
-"fig_stance_net_classifier.png": "Net YIMBY \u2212 NIMBY against renter share \u2014 classifier route",
-"fig_stance_nimby_agenda_index.png": "NIMBY share against renter share \u2014 agenda_index route",
-"fig_stance_nimby_classifier.png": "NIMBY share against renter share \u2014 classifier route",
-"fig_stance_yimby_agenda_index.png": "YIMBY share against renter share \u2014 agenda_index route",
-"fig_stance_yimby_classifier.png": "YIMBY share against renter share \u2014 classifier route",
+"fig_rate_density_classifier.png": "Density topic time against renter share: classifier route",
+"fig_rate_transit_classifier.png": "Transit topic time against renter share: classifier route",
+"fig_stance_gap_agenda_index.png": "Public \u2212 dais stance gap against renter share: agenda_index route",
+"fig_stance_gap_classifier.png": "Public \u2212 dais stance gap against renter share: classifier route",
+"fig_stance_net_agenda_index.png": "Net YIMBY \u2212 NIMBY against renter share: agenda_index route",
+"fig_stance_net_classifier.png": "Net YIMBY \u2212 NIMBY against renter share: classifier route",
+"fig_stance_nimby_agenda_index.png": "NIMBY share against renter share: agenda_index route",
+"fig_stance_nimby_classifier.png": "NIMBY share against renter share: classifier route",
+"fig_stance_yimby_agenda_index.png": "YIMBY share against renter share: agenda_index route",
+"fig_stance_yimby_classifier.png": "YIMBY share against renter share: classifier route",
 "fig_ppc_binomial.png": "Does the NIMBY-count fit reproduce what was observed?"
 },
 "fig_caps": {
-"fig_beta_renter_forest.png": "One row per outcome: the posterior slope on renter share, per standard deviation of it, with its 90 % and 95 % intervals. Every interval crosses the dashed zero line, which is the whole result of this panel \u2014 and at this many bodies it is what the design could have produced either way.",
-"fig_rate_density_classifier.png": "One point per body, read on the classifier route only: its density minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_rate_transit_classifier.png": "One point per body, read on the classifier route only: its transit minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_gap_agenda_index.png": "One point per body, read on the agenda_index route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_gap_classifier.png": "One point per body, read on the classifier route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_net_agenda_index.png": "One point per body, read on the agenda_index route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_net_classifier.png": "One point per body, read on the classifier route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_nimby_agenda_index.png": "One point per body, read on the agenda_index route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_nimby_classifier.png": "One point per body, read on the classifier route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_yimby_agenda_index.png": "One point per body, read on the agenda_index route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_yimby_classifier.png": "One point per body, read on the classifier route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_ppc_binomial.png": "Posterior predictive check for the binomial NIMBY-count fit: the observed NIMBY count in each body-and-route cell against the band the fitted model replicates. Every cell lands inside its band, so the fit reproduces the data it was given \u2014 which is self-consistency, not evidence that renter share predicts anything."
+"fig_beta_renter_forest.png": "One row per outcome: the posterior slope on renter share, per standard deviation of it, with its 90 % and 95 % intervals. Every interval crosses the dashed zero line, which is the whole result of this panel. At this many bodies it is what the design could have produced either way.",
+"fig_rate_density_classifier.png": "One point per body, read on the classifier route only: its density minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_rate_transit_classifier.png": "One point per body, read on the classifier route only: its transit minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_gap_agenda_index.png": "One point per body, read on the agenda_index route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_gap_classifier.png": "One point per body, read on the classifier route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_net_agenda_index.png": "One point per body, read on the agenda_index route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_net_classifier.png": "One point per body, read on the classifier route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_nimby_agenda_index.png": "One point per body, read on the agenda_index route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_nimby_classifier.png": "One point per body, read on the classifier route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_yimby_agenda_index.png": "One point per body, read on the agenda_index route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_stance_yimby_classifier.png": "One point per body, read on the classifier route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
+"fig_ppc_binomial.png": "Posterior predictive check for the binomial NIMBY-count fit: the observed NIMBY count in each body-and-route cell against the band the fitted model replicates. Every cell lands inside its band, so the fit reproduces the data it was given. That is self-consistency, not evidence that renter share predicts anything."
 },
 "methods_anchor": "limitations"
 },
 "rates": {
 "title": "Topic time per meeting-hour",
-"stamp": "Rates are a measurement, not a model estimate; intervals are 95 % episode bootstrap",
+"stamp": "Rates are a measurement, not a model estimate. Each likely range is a 95 % episode bootstrap.",
 "lede": "",
 "headline": [
-"Transit boards give housing density and transit far more of each meeting-hour than any council does."
+"The two transit boards gave housing density and transit the most meeting time: BART 29.14 and VTA 27.00 minutes of each meeting-hour.",
+"Napa County gave them 1.78 to 2.48 minutes, depending on which route read the meeting.",
+"Only 3 bodies have every meeting read and a published video length, so only those 3 have a rate."
 ],
 "complete": [
 {
@@ -12214,7 +12216,7 @@
 },
 {
 "name": "Which route read a body moves its rate as much as the body does",
-"text": "Hayward reads 0.65 min/h one way, 1.73 another and 4.17 a third. The two transit boards sit at BART 29.1 min/h and VTA 27.0, and Napa at 1.8\u20132.2 on all three of its routes. So route is a column in every table here and nothing is pooled."
+"text": "Hayward measures 0.65 min/h on one route, 1.73 on another and 4.17 on a third. BART is at 29.1 min/h and VTA at 27.0, and Napa at 1.8 to 2.2 on all three of its routes. So route is a column in every table here and nothing is pooled."
 },
 {
 "name": "Density does not outweigh transit everywhere",

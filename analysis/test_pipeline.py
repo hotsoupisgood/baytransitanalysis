@@ -3901,12 +3901,23 @@ def section_methods_page(tmp):
           "NIMBY prompt_version matches nimby_pilot.PROMPT_VERSION",
           f"{M['speakers']['prompt_version']} vs {nb.PROMPT_VERSION}")
 
-    # -- 5. the flowchart, against README.md ----------------------------------
+    # -- 5. the README chart: not published any more, still the version source -
+    # The owner removed "The pipeline in one paragraph" and the production
+    # flowchart inside it on 2026-10-21 ("remove the pipeline in one paragraph
+    # section on the methdos", "and the flow associated"). The chart is still
+    # read out of README.md, because section_versions() takes the pinned
+    # versions of the non-LLM steps off it rather than retyping them; it is just
+    # no longer exported as a section of its own. README.md itself is untouched.
+    check("pipeline" not in M, "methods.json no longer carries a pipeline entry", str(sorted(M))[:200])
     fences = re.findall(r"```mermaid\n(.*?)```", (ROOT / "README.md").read_text(), re.S)
     chart = fences[0].rstrip("\n") if fences else ""
-    check(M["pipeline"]["mermaid"]["text"] == chart,
-          "flowchart: exported text is the production mermaid fence of README.md verbatim")
-    check(M["pipeline"]["mermaid"]["sha256"] == sha(chart), "flowchart: exported sha256 matches README.md")
+    check(bool(fences), "README.md still has the production mermaid fence the versions table reads")
+    vr = {v["instrument"]: v for v in M["versions"]}
+    for name in ("Keyword screen", "GPU transcription", "Redaction"):
+        row = vr.get(name)
+        check(bool(row) and row["version"] in chart,
+              f"versions row {name!r} carries a version string taken off README.md's chart",
+              str(row))
 
     # -- 6. the versions table is generated, and every hash in it resolves -----
     vrows = {v["instrument"]: v for v in M["versions"]}
@@ -3924,14 +3935,31 @@ def section_methods_page(tmp):
     # -- 7. the page's own wiring: the sections and the data file it fetches ---
     html = page.read_text()
     check('d3.json("data/methods.json")' in html, "methods.html fetches data/methods.json")
-    for anchor in ("pipeline", "locate", "stance", "speakers", "limitations", "versions"):
+    for anchor in ("locate", "stance", "speakers", "models", "limitations", "versions"):
         check(f'id="s-{anchor}"' in html and f'id="{anchor}"' in html,
               f"methods.html has the {anchor} section and its anchor")
+    # Removed 2026-10-21 with the section itself: no anchor, no render target,
+    # and no mermaid import left anywhere on the page. Section 1's "What we did,
+    # step by step" flow is a different chart, built from data/flow.json by D3,
+    # and must still be here.
+    check('id="pipeline"' not in html and 'id="s-pipeline"' not in html,
+          "the pipeline section and its anchor are gone from methods.html")
+    check("mermaid" not in html, "no mermaid import or chart source is left on methods.html")
+    check('id="flow"' in html and 'id="flow-svg"' in html and 'data/flow.json' in html,
+          "methods.html still carries the step-by-step flow built from data/flow.json")
+    numbered = re.findall(r'<h2 id="([a-z]+)">(\d+)\. ', html)
+    check([a for a, _ in numbered] == ["flow", "locate", "stance", "speakers", "models",
+                                       "limitations", "versions"]
+          and [n for _, n in numbered] == [str(i) for i in range(1, 8)],
+          "the Methods sections are numbered 1 to 7 in order, with no gap", str(numbered))
     check(">EXPLORATORY<" in html or "<b>EXPLORATORY</b>" in html, "methods.html carries the EXPLORATORY banner")
     check('href="methods.html"' in (site / "index.html").read_text(), "the dashboard links to the Methods page")
 
     # -- 8. the exploratory stamp and the two caveats the review requires ------
-    check(M["exploratory"].startswith("EXPLORATORY"), "methods.json carries the exploratory stamp")
+    # The stamp is now the standard's own sentence (style/DASHBOARD-LANGUAGE.md
+    # rule 12) and opens "Exploratory analysis."; it used to open "EXPLORATORY -".
+    check(M["exploratory"].lower().startswith("exploratory analysis."),
+          "methods.json carries the exploratory stamp", M["exploratory"][:80])
     check("circularity" in M["locate"]["recall"] and len(M["locate"]["recall"]["circularity"]) > 400,
           "the recall section carries the circularity note from VALIDATION 6")
     check(all(r["family"] in ("any", "transit", "density") for r in M["locate"]["recall"]["rows"])

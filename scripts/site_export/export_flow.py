@@ -203,8 +203,8 @@ def build():
          "detail": (
              f"<p>Three archives, one row per body in the channel list: {fi(n_youtube)} "
              f"meetings found on YouTube, {fi(n_granicus)} on Granicus and {fi(n_swagit)} "
-             f"on Swagit, {fi(T.get('bodies'))} bodies in all — city councils, one board of "
-             "supervisors and three transit boards. Metadata only at this stage: a playlist "
+             f"on Swagit. That is {fi(T.get('bodies'))} bodies in all: city councils, one "
+             "board of supervisors and three transit boards. Metadata only at this stage: a playlist "
              "listing and an agenda page, no media.</p>"
              f"<p>The decision that shapes everything downstream is what a <i>regular</i> "
              "meeting is. Each body gets a title pattern that keeps its ordinary sessions and "
@@ -217,19 +217,20 @@ def build():
         {"id": "download", "n": "2", "title": "Download and transcode",
          "state": "active" if cut_queued else "done",
          "badge": "TRICKLING" if cut_queued else "DONE",
-         "line": ("How fast this runs was decided by YouTube, not by us: a few requests at a "
-                  "time from one Mac, and a bot check stops the worker rather than retrying."),
+         "line": ("How fast this runs was decided by YouTube, not by this project: a few "
+                  "requests at a time from one Mac, and a bot check stops the worker rather "
+                  "than retrying."),
          "nums": [["clips transcoded", fi(T.get("episodes_done"))],
                   ["waiting", fi(cut_queued)],
                   ["audio hours", f1(T.get("hours_done"))],
                   ["bodies at 0 h", fi((T.get("bodies") or 0) - (T.get("bodies_with_hours") or 0))]],
          "detail": (
-             "<p>Captions come first and cost nothing: platform caption tracks — YouTube "
-             "auto-captions, Granicus VTT, Swagit transcripts — are fetched slowly by a "
-             "background worker, and they decide <i>where</i> to look before any audio is "
+             "<p>Captions come first and cost nothing. The platform caption tracks are "
+             "YouTube auto-captions, Granicus VTT and Swagit transcripts. They are fetched "
+             "slowly by a background worker, and they decide <i>where</i> to look before any audio is "
              "pulled. Only then is audio downloaded and cut to the located spans, two or "
              "three at a time, from this one machine.</p>"
-             "<p>The constraint is a daily YouTube budget that is not ours to set. A "
+             "<p>The constraint is a daily YouTube budget that this project does not set. A "
              "“confirm you’re not a bot” page or an HTTP 429 stops the downloader and pages "
              "the owner; nothing retries in a loop, and no personal account cookies are ever "
              f"used. {fi(cut_queued)} clips are cut or queued and waiting for their turn, which "
@@ -237,7 +238,7 @@ def build():
          "docs": ["pipeline/captions.py", "pipeline/episodes.py",
                   "plan/BACKLOG-2026-10-18.md"]},
 
-        {"id": "locate", "n": "3", "title": "Locate: is this stretch about the topic?",
+        {"id": "locate", "n": "3", "title": "Locate: which stretches are about the topic",
          "state": "done", "decision": True,
          "badge": f"{fi(T.get('episodes'))} EPISODES · 2 ROUTES",
          "line": ("Decided twice over, by two routes with measured recall: a keyword screen "
@@ -253,15 +254,15 @@ def build():
              "whether each window is <i>about</i> housing density, <i>about</i> transit, both, "
              "a passing mention or nothing. Adjacent “about” windows merge into an episode. "
              f"Its measured recall is {f3(screen_any)} on any topic and {f3(screen_transit)} on "
-             "transit — and the leak is almost entirely the keyword screen in front of the "
+             "transit. The leak is almost entirely the keyword screen in front of the "
              "model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and "
              "rezoning drop out of the captions altogether.</p>"
              "<p><b>Route two, the expensive one.</b> For the bodies whose audio is not on "
              "YouTube, every regular meeting is transcribed whole, undiarized, and then read "
              "on every 120-second window with <b>no keyword screen at all</b>. Recall there is "
              f"{f3(full_any)} on any topic and {f3(full_transit)} on transit. Transcribing a "
-             f"meeting whole and undiarized is the cheap part of that — "
-             f"{nodiar_cost or 'a fraction of a cent per audio-hour'} — which is why it was "
+             f"meeting whole and undiarized is the cheap part of that, at "
+             f"{nodiar_cost or 'a fraction of a cent per audio-hour'}, which is why it was "
              "worth doing for half the corpus.</p>"
              f"<p>Route is kept as a stratum in every model and nothing is pooled across "
              f"routes, because the routes that read the same body can disagree about it. "
@@ -269,8 +270,8 @@ def build():
              "whole-meeting episodes are past the QA gate. The recall figures are measured "
              "against a reference the newer codebook itself partly defined, so they are a best "
              "case rather than an estimate.</p>"
-             + (f"<p>The reading itself — every window either route sent to the model, on "
-                f"both arms — comes to {cls_total}.</p>" if cls_total else "")),
+             + (f"<p>The reading itself, every window either route sent to the model on "
+                f"both arms, comes to {cls_total}.</p>" if cls_total else "")),
          "docs": ["pipeline/classify.py", "scripts/fullasr.py",
                   "plan/RECALL-CHECK.md", "plan/FULLASR-GRANICUS.md"]},
 
@@ -289,23 +290,23 @@ def build():
              f"<p>Clip audio is batched on the Mac with a cost estimate attached; the owner "
              f"approves the batch; only then does a pod start. It runs WhisperX "
              f"<code>{asr.get('model', '')}</code> with "
-             f"<code>{asr.get('diarization', '')}</code> — so the output is not just words but "
-             f"words attributed to separate voices — uploads one JSON per episode and is torn "
-             f"down. An orphan-pod check pages the owner if anything is still billing with no "
+             f"<code>{asr.get('diarization', '')}</code>, so the output is not just words "
+             f"but words attributed to separate voices. It uploads one JSON per episode and "
+             f"is torn down. An orphan-pod check pages the owner if anything is still billing with no "
              f"batch running.</p>"
              + (f"<p>Measured rather than estimated: {gpu_cost} with diarization on, over "
                 f"{f1((mny.get('gpu') or {}).get('hours'))} audio-hours in "
                 f"{(mny.get('gpu') or {}).get('batches')} finished batches, {gpu_total} in all. "
                 f"Every GPU pod this project has ever run comes to {pod_total}. Dropping "
                 f"diarization roughly halves the rate"
-                + (f" — {nodiar_cost}" if nodiar_cost else "")
+                + (f", to {nodiar_cost}" if nodiar_cost else "")
                 + ", which is what the whole-meeting route in step 3 does.</p>"
                 if gpu_cost else "")
              + "<p>The estimate is frozen onto the batch row when it is written, so a later "
              "measured throughput does not rewrite what was approved.</p>"),
          "docs": ["pipeline/gpu_batch.py", "pipeline/spend.py", "docs/COSTS.md"]},
 
-        {"id": "qa", "n": "5", "title": "QA gate: does the transcript hold up?",
+        {"id": "qa", "n": "5", "title": "QA gate: whether the transcript holds up",
          "state": "done", "decision": True,
          "badge": f"{fi(Q.get('episode_OK'))} PASS · {fi(Q.get('episode_WARN'))} WARN"
                   + (f" · {fi(Q.get('episode_FAIL'))} FAIL" if Q.get("episode_FAIL") else ""),
@@ -332,35 +333,36 @@ def build():
          "docs": ["analysis/qa_transcripts.py", "docs/TESTING.md",
                   "plan/FULLASR-GRANICUS.md"]},
 
-        {"id": "stance", "n": "6", "title": "Turn-level stance coding, three reads each",
+        {"id": "stance", "n": "6", "title": "Turn-level stance coding, each turn read three times",
          "state": "done", "gate": True,
          "badge": f"{fi(T.get('stance_turns'))} TURNS · κ GATE UNPASSED",
          "line": ("Reliability was decided by reading every turn three times and keeping the "
-                  "median — which measures the instrument against itself, not against a human."),
+                  "median. That measures the instrument against itself, not against a human."),
          "nums": [["turns scored", fi(T.get("stance_turns"))],
                   ["episodes", fi(T.get("episodes_scored"))],
-                  ["reads each", "3"],
+                  ["times read", "3"],
                   ["replicate κ", f2(kap[0] if kap else None)]],
          "detail": (
              f"<p>Every turn of at least five words inside a located episode is coded for "
-             f"stance toward the agenda item on a −2…+2 scale, hostility 0–4, a frame set, a "
-             f"sub-topic and whether the speaker said who they are. The codebook is hashed "
+             f"stance toward the agenda item. Stance runs on a scale from −2 for opposing "
+             f"it to +2 for supporting it. The same read scores hostility on a scale from 0 "
+             f"to 4, a frame set, a sub-topic and whether the speaker said who they are. The codebook is hashed "
              f"into the prompt version recorded on every row, thinking is disabled, and each "
              f"turn is read three times with the median kept and the spread stored. This is a "
              f"census of the gated corpus, not a sample: {fi(st_run[0].get('n'))} turns in "
              f"{fi(st_run[0].get('n_episodes'))} episodes.</p>"
-             f"<p>The three reads agree at weighted κ "
-             f"{' / '.join(f3(k) for k in kap) or '—'} and are identical on "
+             f"<p>The three readings agree at weighted κ "
+             f"{' / '.join(f3(k) for k in kap) or 'not measured'} and are identical on "
              f"{f1((rep.get('all3_identical_stance') or 0) * 100)} % of turns. That is the "
              f"instrument agreeing with <i>itself</i>. <b>No human has coded any turn</b>, so "
              f"the κ ≥ 0.6 validity gate is unpassed and everything downstream of here is "
-             f"exploratory — which is the single most important sentence on this page.</p>"
-             + (f"<p>Cost: {stance_total} for the pass, {stance_cost} per turn at three reads "
-                f"each.</p>" if stance_total else "")),
+             f"exploratory. That is the single most important sentence on this page.</p>"
+             + (f"<p>Cost: {stance_total} for the pass, {stance_cost} per turn, read three "
+                f"times.</p>" if stance_total else "")),
          "docs": ["pipeline/stance.py", "plan/STANCE-CODEBOOK.md",
                   "plan/STANCE-S1-RESULTS.md", "docs/COSTS.md"]},
 
-        {"id": "roles", "n": "7", "title": "Role audit: public or dais?",
+        {"id": "roles", "n": "7", "title": "Role audit: public or dais",
          "state": "done",
          "badge": (f"{audit.get('audit_version', 'AUDITED').upper()} · "
                    f"{fi((audit.get('disagree_rate_informative') or 0) * 100)} % MOVED"
@@ -373,10 +375,11 @@ def build():
                    ["no signal", f"{fi((audit.get('unknown_share') or 0) * 100)} %"]]
                   if audit else None),
          "detail": (
-             "<p>Roles start from cue phrases in the diarized transcript — “my name is, I live "
-             "at” against “the motion carries” — never from names. That labeller reads the "
-             "wrong thing often enough to matter: a council member who chairs an item can "
-             "pick up a public cue, and a staff planner presenting a report reads as neither. "
+             "<p>Roles start from cue phrases in the diarized transcript, “my name is, I live "
+             "at” against “the motion carries”, never from names. That labeller assigns the "
+             "wrong role often enough to matter: a council member who chairs an item can "
+             "pick up a public cue, and a staff planner presenting a report matches neither "
+             "cue set. "
              "So the role is re-decided from what the speaker says about who they are, and "
              "that overrides the cue.</p>"
              + (f"<p>Of {fi(audit.get('informative'))} turns that say anything about the "
@@ -401,15 +404,15 @@ def build():
                   ["public, with a stance",
                    fi(((overall.get("split") or {}).get("n_public_clusters")))]],
          "detail": (
-             f"<p>The turn scores are rolled up per diarized voice per episode: a cluster is "
-             f"YIMBY if its mean stance is at or above +{f2(overall.get('threshold'))}, NIMBY "
-             f"if at or below −{f2(overall.get('threshold'))}, neutral between — half a "
-             f"codebook step either side. Transit-family episodes are left out of that label, "
+             f"<p>The turn scores are rolled up per diarized voice per episode. A cluster "
+             f"is YIMBY if its mean stance is at or above +{f2(overall.get('threshold'))}, "
+             f"and NIMBY if at or below −{f2(overall.get('threshold'))}. Between the two it "
+             f"is neutral, which is half a codebook step either side. Transit-family episodes are left out of that label, "
              f"YIMBY and NIMBY being a housing construct.</p>"
              "<p>A cluster is a voice in one meeting, not a person. There are no voice "
              "embeddings, no persistent speaker ids and no name extraction into a field, so a "
-             "cluster label means nothing outside the one episode it appears in — the same "
-             "person at two meetings is two clusters and the analysis cannot tell. Most public "
+             "cluster label means nothing outside its own episode. The same "
+             "person at two meetings is two clusters, and the analysis cannot tell. Most public "
              "clusters rest on a single scored turn, which is why the per-body intervals are "
              "wide and why one table and one figure exist per locate route, never pooled.</p>"),
          "docs": ["analysis/stance_s1_nimby_view.py", "plan/DECISIONS.md",
@@ -423,18 +426,20 @@ def build():
          "nums": ([[s["name"].lower(), f"{s['odds_ratio']:.2f}×"]
                    for s in (side.get("steps") or [])] or None),
          "detail": (
-             "<p>One row per scored turn, and a mixed logistic regression that gives every "
-             "stretch of meeting, every meeting and every body its own baseline, with speaker "
-             "role, renter share, their interaction and the locate route as fixed terms. It is "
-             "fitted twice on the same frame: did a turn take a side at all, and, among the "
+             "<p>One row per scored turn. The fit is a mixed logistic regression that gives "
+             "every stretch of meeting, every meeting and every body its own baseline. "
+             "Speaker role, renter share, their interaction and the locate route are fixed "
+             "terms. It is fitted twice on the same frame: did a turn take a side at all, and, among the "
              "turns that took one, which side.</p>"
              + ("<p>" + " ".join(
                  f"<b>{s['name']}</b>: {s['text']}" for s in (side.get("steps") or []))
                 + "</p>" if side.get("steps") else "")
-             + (f"<p>{side.get('model_line', '')} {side.get('restated', '')}</p>" if side else "")
+             + ("<p>" + " ".join(x for x in (side.get("model_line") or "",
+                                               side.get("restated") or "") if x) + "</p>"
+                if side else "")
              + "<p>The reason the model groups turns by meeting rather than by city is that "
-             "the spread between bodies is zero once meeting is in it — meeting sits inside "
-             "body and absorbs it entirely. Earlier fits grouped by body, which is the wrong "
+             "the spread between bodies is zero once meeting is in it, because meeting is "
+             "nested inside body and absorbs it entirely. Earlier fits grouped by body, which is the wrong "
              "level; they are kept in the repo and agree with this one to within a few "
              "thousandths of a log-odds. The role block on the dashboard reports this model "
              "and nothing else.</p>"),

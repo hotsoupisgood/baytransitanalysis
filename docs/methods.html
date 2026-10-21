@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Methods and instruments — thtrans, an exploratory analysis of who talks about density and transit at Bay Area public meetings</title>
+<title>Methods and instruments: thtrans, an exploratory analysis of who talks about density and transit at Bay Area public meetings</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -13,16 +13,14 @@
   <!-- Banner rule (owner, 2026-10-18 21:18, docs/STYLE.md): no cream warning box. The
        word itself stays, as plain prose, on the page where the limitations live --
        analysis/test_pipeline.py §33 checks that it is still here. -->
-  <p class="sub" id="banner"><b>EXPLORATORY</b> — loading the stamp…</p>
-  <p class="sub">The four LLM instruments this study runs on, quoted in full, with their hashes, the model behind each one, what was measured about them, and what is wrong with those measurements. Every block on this page is read out of the repo at build time by <code>export/export_methods.py</code> — none of it is typed here — and a test recomputes each block's hash from the source so the page cannot drift from the instrument.</p>
+  <p class="sub" id="banner"><b>EXPLORATORY</b>. Loading the stamp…</p>
+  <p class="sub">The four LLM instruments this study runs on, quoted in full, with their hashes, the model behind each one, what was measured about them, and what is wrong with those measurements. Every block on this page is read out of the repo at build time by <code>export/export_methods.py</code>, not typed here. A test recomputes each block's hash from the source, so the page cannot drift from the instrument.</p>
   <!-- TLDR rule (owner, 2026-10-18 21:16, docs/STYLE.md): vague, result-pointing, no
        numbers at all. This page is where the detail belongs, so the TLDR only says what
        is here and where to start. -->
   <ul class="heads">
-    <li>I ran this study on a handful of LLM instruments, and this page quotes each of them in full, with the model that ran it.</li>
-    <li>Each quote is followed by what was measured about it and what is wrong with that measurement, because an instrument agreeing with itself is not the same as it being right.</li>
-    <li>Nothing here is typed by hand: every block is read out of the repo at build time, so the page cannot drift from the instrument that produced the numbers.</li>
-    <li>The limitations list below is the part to read before any number on the dashboard.</li>
+    <li>An instrument agreeing with itself is not the same as an instrument being right.</li>
+    <li>The limitations list in section 6 is the part to read before any number on the dashboard.</li>
     <li>The results these instruments produced are on the <a href="index.html">dashboard</a>.</li>
   </ul>
   <p class="toc" id="toc"></p>
@@ -35,7 +33,7 @@
        builds from this repo's own exported JSON and the project's spend ledger -- nothing
        below is typed into this file. This replaces the old separate flow.html; there is
        one flowchart on the site and it is here. -->
-  <h2 id="flow">1. What we did, step by step</h2>
+  <h2 id="flow">1. How the data was made, step by step</h2>
   <p class="sub" id="flow-lede">Loading…</p>
   <p class="sub" id="flow-meta"></p>
   <div class="key" id="flow-key"></div>
@@ -45,28 +43,25 @@
   </div>
   <p class="note" id="flow-money"></p>
 
-  <h2 id="pipeline">2. The pipeline in one paragraph</h2>
-  <div id="s-pipeline"></div>
-
-  <h2 id="locate">3. Locate: the episode classifier</h2>
+  <h2 id="locate">2. Locate: the episode classifier</h2>
   <div id="s-locate"></div>
 
-  <h2 id="stance">4. Stance: the per-turn codebook</h2>
+  <h2 id="stance">3. Stance: the per-turn codebook</h2>
   <div id="s-stance"></div>
 
-  <h2 id="speakers">5. Speaker labels: YIMBY / NIMBY</h2>
+  <h2 id="speakers">4. Speaker labels: YIMBY / NIMBY</h2>
   <div id="s-speakers"></div>
 
   <!-- Added 2026-10-19 (owner): the statistical work behind the role results, as short
        entries complementing the dashboard's bullets rather than restating their tables.
        Every number in it is substituted by export_methods.py from the runs' artefacts. -->
-  <h2 id="models">6. The models behind the role results</h2>
+  <h2 id="models">5. The models behind the role results</h2>
   <div id="s-models"></div>
 
-  <h2 id="limitations">7. Limitations</h2>
+  <h2 id="limitations">6. Limitations</h2>
   <div id="s-limitations"></div>
 
-  <h2 id="versions">8. Every instrument version</h2>
+  <h2 id="versions">7. Every instrument version</h2>
   <div id="s-versions"></div>
 
   <p class="foot" id="foot"></p>
@@ -76,8 +71,8 @@
 <script>
 const esc = t => String(t ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const f2 = d3.format(".2f"), f3 = d3.format(".3f"), fi = d3.format(",d");
-const pct = v => v == null ? "—" : f2(v);
-const ci = a => Array.isArray(a) && a.length === 2 ? `${f3(a[0])}–${f3(a[1])}` : "";
+const pct = v => v == null ? "not measured" : f2(v);
+const ci = a => Array.isArray(a) && a.length === 2 ? `${f3(a[0])} to ${f3(a[1])}` : "";
 
 // ── 1. the flowchart ────────────────────────────────────────────────────────
 // A vertical column of boxes, one per stage, in the order they ran: the pattern
@@ -221,25 +216,18 @@ d3.json("data/flow.json").then(F => {
 // not paraphrasing.
 const verbatim = (label, b, extra = "") => `
   <details>
-    <summary>${label} — ${fi(b.chars)} characters, ${fi(b.lines)} lines${extra ? " · " + extra : ""}</summary>
+    <summary>${label}, ${fi(b.chars)} characters, ${fi(b.lines)} lines${extra ? " · " + extra : ""}</summary>
     <div style="padding:8px 14px 0"><span class="hash">sha256 ${esc(b.sha256)}${b.source ? " · " + esc(b.source) : ""}</span></div>
     <pre class="verbatim">${esc(b.text)}</pre>
   </details>`;
 
 d3.json("data/methods.json").then(M => {
-  const expl = esc(M.exploratory).replace(/^EXPLORATORY — /, "");
-  d3.select("#banner").html(`<b>EXPLORATORY</b> — this is an exploratory analysis: ${expl.charAt(0).toLowerCase() + expl.slice(1)}`);
-  d3.select("#toc").html([["flow","What we did"],["pipeline","Pipeline"],["locate","Locate classifier"],
+  d3.select("#banner").html(esc(M.exploratory)
+    .replace(/^Exploratory analysis\./, "<b>Exploratory analysis.</b>"));
+  d3.select("#toc").html([["flow","How the data was made"],["locate","Locate classifier"],
     ["stance","Stance codebook"],["speakers","Speaker labels"],["models","Models"],
     ["limitations","Limitations"],["versions","Versions"]]
     .map(([id,t],i) => `<a href="#${id}">${i+1}. ${t}</a>`).join(" · "));
-
-  // ── 1. pipeline ────────────────────────────────────────────────────────
-  const P = M.pipeline;
-  d3.select("#s-pipeline").html(`
-    <p>${esc(P.paragraph)}</p>
-    <div class="panel"><div id="chart"><pre class="verbatim" id="chart-src">${esc(P.mermaid.text)}</pre></div></div>
-    <p class="note">The production chart above is the one in the repo's <code>README.md</code> — only nodes that exist and run today, each with its script and its pinned instrument version. <span class="hash">sha256 ${esc(P.mermaid.sha256)}</span></p>`);
 
   // ── 2. locate ──────────────────────────────────────────────────────────
   const L = M.locate, R = L.recall;
@@ -260,7 +248,7 @@ d3.json("data/methods.json").then(M => {
       </tr>`).join("");
   }
   d3.select("#s-locate").html(`
-    <p>A keyword screen over a cheap full-length text track proposes candidate windows; this instrument makes the screening decision on each one — <code>about_density</code>, <code>about_transit</code>, <code>about_both</code>, <code>mention_only</code> or <code>no</code> — and adjacent "about" windows merge into an episode. It is the step that decides what gets transcribed, so its recall is the study's main measurement risk.</p>
+    <p>A keyword screen over a cheap full-length text track proposes candidate windows. This instrument makes the screening decision on each one, choosing between <code>about_density</code>, <code>about_transit</code>, <code>about_both</code>, <code>mention_only</code> and <code>no</code>. Adjacent "about" windows merge into an episode. This is the step that decides what gets transcribed, so its recall is the study's main measurement risk.</p>
     <dl class="kv">
       <dt>Model</dt><dd><code>${esc(L.model)}</code></dd>
       <dt>Call shape</dt><dd>${esc(L.model_note)}</dd>
@@ -275,7 +263,7 @@ d3.json("data/methods.json").then(M => {
                    `~${fi(c.est_tokens)} tokens${c.is_default ? " · <b>default in code</b>" : ""}`)}
         <p class="note" style="margin:4px 2px 0">${esc(c.note)}</p>
       </div>`).join("")}
-    <p class="note">The whole difference between v2.1 and v2 is this one sentence at the top of the transit definition — <code>classify.py</code> asserts every other byte is identical:</p>
+    <p class="note">The whole difference between v2.1 and v2 is this one sentence at the top of the transit definition. <code>classify.py</code> asserts every other byte is identical:</p>
     <div class="panel"><pre class="verbatim" style="border:none;background:none;padding:0">${esc(L.v21_delta.text)}</pre></div>
 
     <h3>Recall and precision</h3>
@@ -291,26 +279,27 @@ d3.json("data/methods.json").then(M => {
       </tr></thead>
       <tbody>${recallRows}</tbody>
     </table></div>
+    <p class="note">Every likely range in this table is a 95 % interval.</p>
     <dl class="kv">${refs.map(r => `<dt>${esc(r.name)}</dt><dd>${esc(r.detail)}</dd>`).join("")}</dl>
     <div class="caveat crit"><b>The circularity, stated plainly</b>${esc(R.circularity)}</div>
     <p class="note"><b>Power.</b> ${esc(R.power)}</p>
     ${R.local_asr_arm ? `
       <h3>A separate arm: the v1 pipeline's own recall on the Mac-ASR route</h3>
       <div class="panel"><table>
-        <thead><tr><th>family</th><th class="num">about-min</th><th class="num">located-min</th><th class="num">recall</th><th class="num">95% CI</th><th class="num">screen alone</th></tr></thead>
+        <thead><tr><th>family</th><th class="num">about-min</th><th class="num">located-min</th><th class="num">recall</th><th class="num">likely range</th><th class="num">screen alone</th></tr></thead>
         <tbody>${Object.entries(R.local_asr_arm.families).map(([f, v]) => `<tr>
           <td>${esc(f)}</td><td class="num">${fi(v.about_min)}</td><td class="num">${fi(v.located_min)}</td>
           <td class="num"><b>${pct(v.recall)}</b></td><td class="num">${ci(v.recall_ci)}</td><td class="num">${pct(v.screen_recall)}</td></tr>`).join("")}</tbody>
       </table></div>
-      <p class="note">${esc(R.local_asr_arm.note)}</p>` : ""}`);
+      <p class="note">Every likely range in this table is a 95 % interval. ${esc(R.local_asr_arm.note)}</p>` : ""}`);
 
   // ── 3. stance ──────────────────────────────────────────────────────────
   const S = M.stance, rep = S.replicates;
   d3.select("#s-stance").html(`
-    <p>Every transcript turn of at least five words inside a located episode is read by a second pinned instrument, which codes stance toward the agenda item on a −2…+2 scale, hostility 0–4, a multi-label frame set, a sub-topic, and whether the speaker self-identified.</p>
+    <p>Every transcript turn of at least five words inside a located episode is coded by a second pinned instrument. It scores stance toward the agenda item on a scale from −2 for opposing it to +2 for supporting it, hostility on a scale from 0 to 4, a multi-label frame set, a sub-topic, and whether the speaker self-identified. A statement took a side when its median stance score is 0.5 or more away from neutral. Staff speakers are excluded from that measure.</p>
     <dl class="kv">
       <dt>Model</dt><dd><code>${esc(S.model)}</code>, thinking disabled, no sampling parameters, JSON-schema output, Message Batches API</dd>
-      <dt>prompt_version</dt><dd><code>${esc(S.prompt_version)}</code> — the codebook version <code>${esc(S.codebook_version)}</code> is the SHA-256 of the block below, recorded on every row</dd>
+      <dt>prompt_version</dt><dd><code>${esc(S.prompt_version)}</code>. The codebook version <code>${esc(S.codebook_version)}</code> is the SHA-256 of the block below, and is recorded on every row</dd>
       <dt>Unit</dt><dd>${esc(S.unit)}</dd>
       <dt>Replicates</dt><dd>k = ${S.k}, median kept, spread recorded</dd>
     </dl>
@@ -329,13 +318,14 @@ d3.json("data/methods.json").then(M => {
   // ── 4. speakers ────────────────────────────────────────────────────────
   const K = M.speakers, pil = K.pilot, D = K.derivation;
   d3.select("#s-speakers").html(`
-    <p>Two different things carry the YIMBY / NIMBY labels, and they must not be confused. One is a direct prompt, piloted on 300 turns, quoted in full below. The other — the one the dashboard's per-cluster figures actually use — is <b>derived</b> from the stance pass by a threshold rule.</p>
+    <p>A speaker whose statements average 0.5 or higher in support of the housing item is YIMBY, and -0.5 or lower is NIMBY. A speaker here is one voice at one meeting, never a person followed from one meeting to the next.</p>
+    <p>Two different things carry those labels, and they must not be confused. One is a direct prompt, piloted on 300 turns, quoted in full below. The other is <b>derived</b> from the stance pass by a threshold rule, and it is the one the dashboard's per-cluster figures use.</p>
     <h3>The pilot prompt</h3>
     <dl class="kv">
       <dt>Model</dt><dd><code>${esc(K.model)}</code></dd>
       <dt>prompt_version</dt><dd><code>${esc(K.prompt_version)}</code> (run as <code>${esc(pil.prompt_version_run)}</code>)</dd>
       <dt>Labels</dt><dd>${K.labels.map(l => `<code>${esc(l)}</code>`).join(", ")}</dd>
-      <dt>Pilot</dt><dd>${fi(pil.n_labelled)} turns, $${f2(pil.actual_usd)}; the model returned ${Object.entries(pil.label_counts || {}).map(([k, v]) => `${esc(k)} ${v}`).join(", ")}</dd>
+      <dt>Pilot</dt><dd>${fi(pil.n_labelled)} turns, $${f2(pil.actual_usd)}${pil.date ? ", measured " + esc(pil.date) : ""}; the model returned ${Object.entries(pil.label_counts || {}).map(([k, v]) => `${esc(k)} ${v}`).join(", ")}</dd>
     </dl>
     ${verbatim("The NIMBY / YIMBY prompt", K.prompt)}
     <p class="note">${esc(pil.note)}</p>
@@ -357,7 +347,7 @@ d3.json("data/methods.json").then(M => {
   // linked: they live in the repo, not on this site.
   const MO = M.models;
   d3.select("#s-models").html(!MO || !MO.available
-    ? `<p class="note">This section needs <code>${esc((MO && MO.source) || "output/stance_s2/site_numbers_role.json")}</code> — run <code>analysis/site_numbers_role.py</code> in the pipeline repo, then rebuild this page.</p>`
+    ? `<p class="note">This section needs <code>${esc((MO && MO.source) || "output/stance_s2/site_numbers_role.json")}</code>. Run <code>analysis/site_numbers_role.py</code> in the pipeline repo, then rebuild this page.</p>`
     : `<p>${esc(MO.intro)}</p>
     ${MO.entries.map(e => `<p class="lim"><b>${esc(e.name)}.</b> ${esc(e.text)}${
       (e.docs || []).length ? ` <span class="note">${e.docs.map(d => `<code>${esc(d)}</code>`).join(" ")}</span>` : ""}</p>`).join("")}
@@ -381,27 +371,16 @@ d3.json("data/methods.json").then(M => {
       <tbody>${M.versions.map(v => `<tr>
         <td>${esc(v.instrument)}</td>
         <td><code>${esc(v.version)}</code></td>
-        <td>${v.model === "—" ? "—" : `<code>${esc(v.model)}</code>`}</td>
+        <td>${v.model === "not applicable" ? "not applicable" : `<code>${esc(v.model)}</code>`}</td>
         <td class="note">${esc(v.source)}</td>
-        <td class="hash">${v.sha256 ? esc(v.sha256.slice(0, 16)) + "…" : "—"}</td>
+        <td class="hash">${v.sha256 ? esc(v.sha256.slice(0, 16)) + "…" : "not applicable"}</td>
         <td class="note">${esc(v.status)}</td></tr>`).join("")}</tbody>
     </table></div>`);
 
-  d3.select("#foot").html(`Built ${esc(M.generated.slice(0, 16).replace("T", " "))} UTC by <code>${esc(M.generated_by)}</code> and <code>export/export_flow.py</code> from the ytpt repo. Every verbatim block carries the SHA-256 of its own text, and <code>analysis/test_pipeline.py</code> recomputes those hashes from the sources on every <code>make test</code> — if an instrument is edited and this page is not rebuilt, the test fails.`);
+  d3.select("#foot").html(`Built ${esc(M.generated.slice(0, 16).replace("T", " "))} UTC by <code>${esc(M.generated_by)}</code> and <code>export/export_flow.py</code> from the ytpt repo. Every verbatim block carries the SHA-256 of its own text, and <code>analysis/test_pipeline.py</code> recomputes those hashes from the sources on every <code>make test</code>. If an instrument is edited and this page is not rebuilt, the test fails.`);
 
-  // Render the production flowchart with mermaid; if the CDN is unavailable the
-  // verbatim source is already in the DOM and simply stays visible.
-  import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.15.0/mermaid.esm.min.mjs")
-    .then(({ default: mermaid }) => {
-      const dark = matchMedia("(prefers-color-scheme: dark)").matches;
-      mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "neutral", securityLevel: "strict",
-                           flowchart: { useMaxWidth: true, htmlLabels: true } });
-      return mermaid.render("prodchart", M.pipeline.mermaid.text);
-    })
-    .then(({ svg }) => { d3.select("#chart").html(svg); })
-    .catch(err => { console.warn("mermaid unavailable; showing the chart source", err); });
 }).catch(err => {
-  d3.select("#s-pipeline").html(`<p>Could not load <code>data/methods.json</code>: ${esc(err.message)}. Run <code>cd ~/ytpt && .venv/bin/python ~/ytpt-site/export/export_methods.py</code>, and serve this folder over HTTP (<code>python3 -m http.server</code>) — browsers block <code>file://</code> fetches.</p>`);
+  d3.select("#s-locate").html(`<p>Could not load <code>data/methods.json</code>: ${esc(err.message)}. Run <code>cd ~/ytpt && .venv/bin/python ~/ytpt-site/export/export_methods.py</code>, and serve this folder over HTTP (<code>python3 -m http.server</code>): browsers block <code>file://</code> fetches.</p>`);
   console.error(err);
 });
 </script>

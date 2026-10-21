@@ -36,6 +36,7 @@ import csv
 import datetime as dt
 import json
 import math
+import re
 import shutil
 import sqlite3
 import sys
@@ -61,7 +62,7 @@ WAVE1 = OUT / "wave1"
 CORPUS = Path("~/.local/share/ytpt/corpus.sqlite").expanduser()
 STATE = Path("~/.local/share/ytpt/state.sqlite").expanduser()
 
-STAMP = "EXPLORATORY — stance κ gate not passed"
+STAMP = "EXPLORATORY. The stance κ gate is not passed."
 
 #: The numbers this file's prose used to carry as 2026-10-18 literals, recomputed
 #: from the view's own per-cluster CSVs by analysis/stance_s2_site_numbers.py
@@ -321,6 +322,17 @@ def sign_flip():
 def panel_stance():
     kappa = json.loads((S1 / "s1_k_replicate_agreement.json").read_text(encoding="utf-8")) if (S1 / "s1_k_replicate_agreement.json").exists() else {}
     tails = [r for r in num(rd(S1 / "s1_tail_shares_bootstrap_roleaudit.csv")) if r.get("role_source") == "db"]
+    # The hostile share this panel's first sentence quotes, taken off the same row of
+    # the same table the fold prints (all families, turn-weighted) rather than typed.
+    def _host(role):
+        r = next((r for r in tails if "hostile" in r["statistic"]
+                  and r.get("family", "").startswith("all")), None)
+        return (r or {}).get(role)
+    # The share of turns with no stance to code, same row, for the table note below.
+    def _na(role):
+        r = next((r for r in tails if "not_applicable" in r["statistic"]
+                  and r.get("family", "").startswith("all")), None)
+        return (r or {}).get(role)
     tails_cue = [r for r in num(rd(S1 / "s1_tail_shares_bootstrap_cue.csv")) if r.get("role_source") == "db"]
     audit = role_audit_summary()
     # The `_computed` forests came off the page 2026-10-20 (owner): the computed role
@@ -340,7 +352,16 @@ def panel_stance():
         # dais?" directly under the two sentences that answer it, so it is empty: the
         # panel states the finding once and index.html renders no second line. The
         # scales, the turn floor and the codebook are on Methods § stance.
-        "lede": "",
+        # Owner, 2026-10-21 08:31: "define dai it is not a common term". This panel is
+        # where "the dais" and "hostile" first carry a number, so both are defined
+        # here, in the line index.html renders under the finding. The hostility scale
+        # is the codebook's own (plan/STANCE-CODEBOOK.md: speech aimed at people, not
+        # strength of disagreement) and the hostile cut is the analysis's own, >= 2
+        # (analysis/stance_s1_models.py).
+        "lede": ("The dais is where the elected officials or board members sit and run the "
+                 "meeting. Hostility is scored from 0 to 4 for each statement. The scale "
+                 "counts speech aimed at people rather than strength of disagreement. A score "
+                 "of 2 or higher counts as hostile."),
         "corrected": "corrected 2026-10-18 after role audit",
         # TLDR rule (owner, 2026-10-18 21:16, docs/SITE-STYLE.md): vague, result-
         # pointing, no numbers at all. Every latent gap, share, interval and κ that used
@@ -356,25 +377,31 @@ def panel_stance():
         # Owner, 2026-10-21 07:14: two short sentences. The second carries the two
         # shares the removed role dot plot was drawn from, so dropping that chart loses
         # no finding -- same source, same numbers, rounded to whole statements in 100.
-        "headline": [
-            "The public reads as more hostile than the dais, and takes a side where the dais does "
-            "not.",
-            (f"{_p100(_zero('dais'))} of 100 dais statements sit exactly at neutral, against "
-             f"{_p100(_zero('public'))} of 100 of the public."
+        # Precise-language pass (owner, 2026-10-21 08:31: "'the public reads' as another
+        # one. reads is unspecific"). "Reads as more hostile" named no quantity and no
+        # denominator; the two hostile shares are in this panel's own tail table, in the
+        # all-families row, so the sentence quotes them and the scale is defined once
+        # here, where "hostile" first appears on the page.
+        "headline": [h for h in [
+            (f"{_pc(_host('public'))} % of public statements were coded hostile, against "
+             f"{_pc(_host('dais'))} % of dais statements."
+             if _host("public") is not None and _host("dais") is not None else ""),
+            (f"{_p100(_zero('dais'))} of 100 dais statements with a stance score were coded "
+             f"exactly neutral, against {_p100(_zero('public'))} of 100 public statements."
              if _zero("dais") and _zero("public") else
-             "The dais mostly stays in the neutral band."),
-        ],
+             "Most dais statements with a stance score were coded exactly neutral."),
+        ] if h],
         # Owner, 2026-10-19: "we also need to put the accuracy for that classification
         # of dai/not." It belongs in this panel rather than NIMBY/YIMBY, because it is a
         # statement about the stance instrument's separability, not about housing.
         "role_pred": role_accuracy(),
         "role_audit": audit,
         "model_free": {
-            "note": ("Model-free contrast, 2,000 episode-cluster bootstrap reps, role instrument db, "
-                     "**under the reported role_audit role** (corrected 2026-10-18 after role audit). "
-                     "Shares are among turns with a numeric stance; the public also has far fewer "
-                     "not_applicable turns. Every tail gap is larger than under the cue role, on both "
-                     "outcomes and in every family."),
+            "note": ("Model-free contrast, 2,000 episode-cluster bootstrap reps, under the reported "
+                     "role (corrected 2026-10-18 after role audit). Shares are among turns with a "
+                     f"numeric stance. Turns with no stance to code are {_pc(_na('public'))} % of "
+                     f"public turns and {_pc(_na('dais'))} % of dais turns. Every tail gap is larger "
+                     "than under the older cue-phrase role, on both outcomes and in every family."),
             "rows": tails,
             "rows_cue": tails_cue,
             "cue_note": ("The same contrast under the old diarization-cue role, kept as a sensitivity. It "
@@ -400,8 +427,8 @@ def panel_stance():
                       "is κ 0.63 against a second codebook, same side 88 % of the time. Nothing here is a "
                       "confirmatory result.")},
             {"name": "There is no staff role",
-             "text": ("Roles are dais / public / unknown; staff reports sit inside dais and pull it toward "
-                      "neutral. 472 unknown-role turns are outside the frame, and the computed role "
+             "text": ("Roles are dais / public / unknown. Staff reports are counted as dais, which moves "
+                      "the dais toward neutral. 472 unknown-role turns are outside the frame, and the computed role "
                       "instrument (35 classifier episodes) is a separate, wider facet rather than more data.")},
             {"name": "The reported role is an audit, not a gold label",
              "text": ("Added 2026-10-18. The public/dais split here is role_audit (rule "
@@ -409,8 +436,8 @@ def panel_stance():
                       "diarization-cue role. SELF_ID is model output and no human has checked it. "
                       f"{audit['unknown']:,} of {audit['turns']:,} turns "
                       f"({audit['unknown_share']:.0%}) say nothing about who the speaker is and keep the "
-                      "cue role, so the audited public bucket is still contaminated at an unknown rate — "
-                      "the measured error is a lower bound on the informative subset only. And the audit "
+                      "cue role, so the audited public bucket is still contaminated at an unknown rate. "
+                      "The measured error is a lower bound on the informative subset only. And the audit "
                       "is a re-partition in both directions, not a cleanup: it admits cue-dais clusters as "
                       "well as removing cue-public ones, and the public base with a stance *rises* from "
                       f"{audit['public_clusters_with_stance']['cue']} to "
@@ -448,29 +475,39 @@ def role_accuracy():
     if not (cl and tn):
         return None
     imp = rp.get("importance_cluster") or []
+    nfeat = cl.get("n_features") or "35"
     return {
-        "title": "How well content alone tells the dais from the public",
-        # One short sentence visible (owner, 2026-10-21 07:14). The ablation, the
-        # calibration slope and the circularity of the audited target are on Methods.
+        "title": "Telling officials from the public, without reading the transcript",
+        # Owner, 2026-10-21 08:31: "'from the words alone' i want it to be more well
+        # defined. no em dashes. just short descriptive sentences." Four sentences, and
+        # the first one corrects the old claim rather than restating it: this model
+        # never sees the text. It is given the coded measures of each speaker's turns
+        # (analysis/role_prediction.py featurise_turns), and no speaker identifier.
+        # The AUC is stated as what AUC is: the share of public-against-dais pairs the
+        # model orders correctly, against 5 in 10 for picking at random.
         "text": (
-            f"From the words alone, a model tells a public speaker from a dais one about "
-            f"{cl['auc']:.2f} of the time — by how strong the opinion is, not which side it takes."),
+            f"A second model is given {nfeat} coded measures of what each speaker said, and "
+            "none of the transcript. Its task is to pick the member of the public out of one "
+            "public and one dais speaker. "
+            f"It picks correctly {round(cl['auc'] * 10)} times out of 10, against 5 times out "
+            "of 10 for chance. What separates the two is how strong an opinion a statement "
+            "carries, not which side it is on."),
         "detail": (
             "The features are stance, hostility, the twelve frames, sub-topic and length, and "
             "two of them do nearly all the work: dropping absolute stance costs "
             f"{(imp[0]['auc_drop'] if imp else 0):.2f} of AUC and dropping length "
             f"{(imp[1]['auc_drop'] if len(imp) > 1 else 0):.2f}, with nothing else over "
             "0.02. "
-            + (f"Signed stance on its own is at chance — {dirn['auc']:.2f} by cluster, "
-               "against 0.50 for a coin — so the model is not learning who is a NIMBY, it is "
+            + (f"Signed stance on its own is at chance: {dirn['auc']:.2f} by cluster, against "
+               "0.50 for a coin. So the model is not learning who is a NIMBY, it is "
                "learning who holds a position at all. " if dirn else "")
             + "Two caveats. Calibration does not travel: the ranking holds between bodies but "
             f"the probabilities do not, at a slope of {cl['cal_slope']:.2f} out of body, so "
             "this is a measurement of how separable the two roles are and not a classifier "
             "anyone should point at a new city. And the target here is the diarization-cue "
             "role. Fitted against the audited role the same model reaches "
-            f"{(aud.get('cluster') or {}).get('auc', 0):.2f}, but that number is circular — "
-            "the audit is itself built from what a speaker says about who they are, so the "
+            f"{(aud.get('cluster') or {}).get('auc', 0):.2f}, but that number is circular. "
+            "The audit is itself built from what a speaker says about who they are, so the "
             "model is partly predicting its own input."),
         "auc_cluster": cl["auc"], "auc_turn": tn["auc"],
         "cal_slope_cluster": cl["cal_slope"],
@@ -535,34 +572,51 @@ def who_takes_a_side():
     if took:
         vis_steps.append({
             "name": took["name"],
-            "text": f"{orx(took)}× in odds (likely range {orci(took, bare=True)}).",
+            "text": (f"{orx(took)}× the odds of taking a side, for a public statement against a "
+                     f"dais one (likely range {orci(took, bare=True)})."),
             "odds_ratio": took["odds_ratio"], "beta": took["beta"],
             "ci95": took["ci95"]})
     vis_steps.append({
         "name": side["name"],
-        "text": f"{orx(side)}× against the item (likely range {orci(side, bare=True)}).",
+        "text": (f"{orx(side)}× the odds of opposing the item rather than supporting it, for a "
+                 f"public statement against a dais one (likely range {orci(side, bare=True)})."),
         "odds_ratio": side["odds_ratio"], "beta": side["beta"],
         "ci95": side["ci95"]})
 
+    # Precise-language pass (owner, 2026-10-21 08:31): "far more often" and "more often
+    # against" named no quantity. Both shares are the ones the fold below already
+    # prints, from this same fit, so the headline and the fold cannot disagree.
     headline = (
-        "Public speakers take a side far more often than the dais. When they do, they are more "
-        "often against the item."
+        f"Public speakers took a side on {_pc(took['rate_public'])} % of the statements that "
+        f"carried a stance, against {_pc(took['rate_dais'])} % of dais statements. Of the "
+        f"statements that took a side, {_pc(side['rate_public'])} % of public ones opposed the "
+        f"item, against {_pc(side['rate_dais'])} % of dais ones."
         if took else
-        "When public speakers take a side, they are more often against the item than the dais is.")
+        f"Of the statements that took a side, {_pc(side['rate_public'])} % of public ones "
+        f"opposed the item, against {_pc(side['rate_dais'])} % of dais ones.")
 
     # Owner, 2026-10-21 07:14: no method name in a visible sentence where a plain
-    # phrase works. What the model is, and what it groups by, is one click down in
-    # the fold below and spelled out on Methods § the models, which this block links.
-    model_line = ""
+    # phrase works. What the model is, and what it groups by, is spelled out on
+    # Methods § the models, which this block links.
+    #
+    # This line now carries the one definition the page owes a reader here: "took a
+    # side" is the first phrase in this block and the page says it nowhere else, so
+    # rule 3 asks for it where it first appears. The cut is the fit's own coding,
+    # analysis/r/export_anyside.py at |stance_median| >= 0.5 with staff dropped, not
+    # a paraphrase of it. It used to sit in the intro paragraph, which is gone.
+    model_line = (
+        "A statement took a side when its median stance score was 0.5 or more away from "
+        "neutral. The scale runs from -2 for opposing the item to +2 for supporting it. "
+        "Staff speakers are excluded from this measure.")
 
-    restated = (f"Quote {orx(side)}× for “more opposed”. The first line is about taking a side "
-                "at all.")
+    restated = (f"Quote {orx(side)}× for “more opposed”. Step 1 measures whether a statement "
+                "took a side at all, not which side.")
 
     why_parts = []
     if took:
         why_parts.append(
             f"Behind the two steps: {_pc(took['rate_public'])} % of public turns take a side "
-            f"rather than sitting in the neutral band, against {_pc(took['rate_dais'])} % of "
+            f"rather than scoring inside the neutral band, against {_pc(took['rate_dais'])} % of "
             f"dais turns; of the turns that do take one, {_pc(side['rate_public'])} % of public "
             f"turns come out against the item against {_pc(side['rate_dais'])} % of dais ones. "
             "The two steps are separate fits on their own rows and do not multiply together.")
@@ -580,7 +634,7 @@ def who_takes_a_side():
     why_parts.append(
         "Renter share does not move either step: its interval covers zero on both, and so "
         "does its interaction with role. Staff speakers are dropped from these rows "
-        "altogether — they read reports rather than take positions — and a council member "
+        "altogether, because they read reports rather than take positions, and a council member "
         "chairing an item is doing something other than taking one too, which is most of "
         "what the first step is measuring.")
 
@@ -602,17 +656,17 @@ def who_takes_a_side():
     table_note = (
         "Odds ratios are for a public turn against a dais one, with renter share, its "
         "interaction with role and the locate route also in the model, and with a baseline "
-        "per body, per meeting and per stretch of meeting. Intervals are 95 % and come from "
-        "the likelihood rather than a standard error, which is why they are not symmetric "
-        "around the estimate.")
+        "per body, per meeting and per stretch of meeting. Each likely range is a 95 % interval "
+        "taken from the likelihood rather than from a standard error, which is why it is not "
+        "symmetric around the estimate.")
 
     limits = (
         "The unit here is a scored turn, not a person, and both the stance score and the "
-        "public/dais label are model output that no human has checked — the role label comes "
+        "public/dais label are model output that no human has checked. The role label comes "
         "from what a speaker says about who they are. The first step is largely a measure of "
         "speech act rather than opinion: chairing, moving and reading a report are all "
         "neutral by construction, and they are things only the dais does. The second step's "
-        "interval is a shade wider than it needs to be, because the optimiser stops just "
+        "interval is slightly wider than the data require, because the optimiser stops just "
         "short of the likelihood's peak and the interval was taken at a loosened tolerance. "
         "And the permutation test once quoted for this gap has been withdrawn; the evidence "
         "here is this model and nothing else.")
@@ -664,12 +718,27 @@ def panel_nimby():
     pet_cue = next((r for r in by_body_cue if r["role"] == "public" and r["body"] == "petaluma"
                     and r["route"] == "swagit_transcript"), {})
     oak_audit = next((r for r in by_body if r["role"] == "public" and r["body"] == "oakland"), {})
+    # The two quantities this panel's headline states, read off the same rows the table
+    # under it prints: the overall public split, and how many body-and-route groups have
+    # a YIMBY-minus-NIMBY interval clear of zero (the stars).
+    _sp = _split(SITE_N.get("split_audit"), None)
+    _npub = (_sp or {}).get("n_public_clusters") or 0
+    _cells = [r for r in by_body if r["role"] == "public"]
+    _ncell = len(_cells)
+    _nstar = sum(1 for r in _cells if r.get("net_lo90") is not None and r.get("net_hi90") is not None
+                 and (r["net_lo90"] > 0 or r["net_hi90"] < 0))
     return {
         "title": "YIMBY / NIMBY",
         "stamp": STAMP,
         # One short line of definition (owner, 2026-10-21 07:14). Nothing is re-scored
         # for this panel; the thresholds and the no-pooling rule are in the caveats.
-        "lede": ("A speaker is YIMBY if their turns lean toward the housing item, NIMBY if against."),
+        # Owner, 2026-10-21 08:31: define the uncommon term where it first appears, and
+        # say it as a measurement rather than as "leans toward". The threshold is the
+        # view's own, not typed here, and the full rule stays in the first caveat.
+        "lede": (f"Stance is scored from -2 to +2 for each statement. A speaker is YIMBY when "
+                 f"their statements average +{summary.get('threshold') or 0.5} or higher in "
+                 f"support of the housing item, NIMBY at -{summary.get('threshold') or 0.5} or "
+                 f"lower, and neutral between. A speaker here is one voice at one meeting."),
         # The one-line TLDR is gone (owner, 2026-10-21 07:14); it is the first
         # sentence of `headline` now, so the panel says it once.
         "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
@@ -680,11 +749,19 @@ def panel_nimby():
         # TLDR form. San Jose, Napa, Santa Clara and Oakland are named in the bars and
         # in the per-body table; the withdrawn Petaluma star keeps its own caveat; the
         # cell counts the old second bullet quoted are the stars on the chart.
-        "headline": [
-            "Public speakers split close to evenly for and against the housing items, leaning "
-            "slightly against.",
-            "Only a few bodies separate from that split on their own.",
-        ],
+        # Precise-language pass (owner, 2026-10-21 08:31): "split close to evenly",
+        # "leaning slightly against" and "only a few bodies separate" named no
+        # quantity. Both sentences now quote the split and the star count the table
+        # under them prints, computed above from the view's own rows.
+        "headline": [h for h in [
+            (f"Of {_npub:,} public speakers, {_pc(_sp['YIMBY'])} % were YIMBY, "
+             f"{_pc(_sp['NIMBY'])} % NIMBY and {_pc(_sp['neutral'])} % neutral."
+             if _sp else "The public split for and against the housing items is in the table "
+                         "below."),
+            (f"In {_nstar} of the {_ncell} body-and-route groups measured, the likely range on "
+             f"YIMBY minus NIMBY excludes zero. In the other {_ncell - _nstar} it does not."
+             if _ncell else ""),
+        ] if h],
         # Owner, 2026-10-19: the 8.2 goes on the dashboard. It goes on carrying its
         # own denominator and its own split -- see who_takes_a_side().
         "role_side": who_takes_a_side(),
@@ -716,10 +793,10 @@ def panel_nimby():
                       "≤ −0.5, neutral between. Transit items are left out, YIMBY and NIMBY being about "
                       "housing. Each route gets its own table and figure and nothing is pooled, because "
                       "routes that read the same body can disagree.")},
-            {"name": "On restriction items the label inverts — San Leandro",
+            {"name": "On restriction items the label inverts: San Leandro",
              "text": ("A speaker is scored for or against the item in front of them, so where the item is "
-                      "a restriction the label turns over: a landlord against a rent-stabilisation "
-                      f"ordinance reads as NIMBY. {_sl.get('flip_clusters', '?')} of San Leandro's "
+                      "a restriction the label inverts: a landlord opposing a rent-stabilisation "
+                      f"ordinance is coded NIMBY. {_sl.get('flip_clusters', '?')} of San Leandro's "
                       f"{_sl.get('clusters', '?')} public speakers are on items like that "
                       f"({_pc(_sl.get('flip_share'))} % of them), and San Leandro is "
                       f"{_pc(_sl.get('share_of_public_base'))} % of all public speakers here. Dropping it "
@@ -730,22 +807,22 @@ def panel_nimby():
             {"name": "Most speaker labels rest on one scored statement",
              "text": (f"{_pc(_one.get('share_one_numeric'), '83')} % of labels rest on exactly one scored "
                       f"statement, and a speaker averages {_one.get('mean_all', 1.10)} of them. A speaker "
-                      "here is one voice inside one meeting, found by the machine: one person split in two "
-                      "counts twice, two people merged count once.")},
+                      "here is one voice inside one meeting, as separated by the diarizer: one person split "
+                      "in two counts twice, and two people merged count once.")},
         ],
         "figs": figs,
         # Figure titles are written, not derived from the filename (readability review
         # §7.3), and the captions no longer end in a provenance tail (§7.6) -- the
         # "regenerated after the role audit" note is in the first caveat above.
         "fig_titles": {f"fig_public_yimby_nimby_{r}_stars.png":
-                       f"How the public split, body by body — {r} route" for r in routes}
+                       f"How the public split, body by body: {r} route" for r in routes}
         | {f"fig_public_vs_dais_{r}.png":
-           f"The same split with the dais beside the public — {r} route" for r in routes},
+           f"The same split with the dais beside the public: {r} route" for r in routes},
         # Concision pass, owner 2026-10-19 12:46: the caption reads the figure and
         # stops. The bootstrap, the threshold and what n counts are in the caveats.
         "fig_caps": {f"fig_public_yimby_nimby_{r}_stars.png":
                      f"One bar per body on the {r} route: how its public speakers split. A star means "
-                     "the YIMBY − NIMBY interval clears zero — few do, which is the result."
+                     "the YIMBY minus NIMBY interval clears zero. Few do, which is the result."
                      for r in routes}
         | {f"fig_public_vs_dais_{r}.png":
            f"The same bodies on the {r} route with the dais drawn beside the public. The dais is mostly "
@@ -783,29 +860,29 @@ def renter_fig_title(fname: str) -> str:
     if fname == "fig_ppc_binomial.png":
         return "Does the NIMBY-count fit reproduce what was observed?"
     _, _, short, route = _renter_parts(fname)
-    return f"{short[0].upper()}{short[1:]} against renter share — {route} route" if short else fname
+    return f"{short[0].upper()}{short[1:]} against renter share: {route} route" if short else fname
 
 
 def renter_fig_cap(fname: str) -> str:
     if fname == "fig_beta_renter_forest.png":
         return ("One row per outcome: the posterior slope on renter share, per standard deviation of it, "
                 "with its 90 % and 95 % intervals. Every interval crosses the dashed zero line, which is "
-                "the whole result of this panel — and at this many bodies it is what the design could have "
+                "the whole result of this panel. At this many bodies it is what the design could have "
                 "produced either way.")
     if fname == "fig_ppc_binomial.png":
         return ("Posterior predictive check for the binomial NIMBY-count fit: the observed NIMBY count in "
                 "each body-and-route cell against the band the fitted model replicates. Every cell lands "
-                "inside its band, so the fit reproduces the data it was given — which is self-consistency, "
+                "inside its band, so the fit reproduces the data it was given. That is self-consistency, "
                 "not evidence that renter share predicts anything.")
     _, phrase, _, route = _renter_parts(fname)
     if not phrase:
         return ""
     return (f"One point per body, read on the {route} route only: {phrase} against the renter-occupied "
             "share of its occupied housing units. Point area is how much that body contributes and the "
-            "dashed line is an ordinary least-squares fit; the rank correlation and its interval are in "
-            "the figure's own title. Transit boards are drawn hollow, because a transit board's topic "
-            "time mostly measures what it exists to do. With this few bodies the line describes the points on the "
-            "chart and nothing beyond them.")
+            "dashed line is an ordinary least-squares fit. The rank correlation and its likely range are "
+            "in the figure's own title. Transit boards are drawn hollow, because a transit board's topic "
+            "time largely measures what it exists to do. With this few bodies the line describes the dots "
+            "on the chart and nothing beyond them.")
 
 
 def panel_renter():
@@ -828,17 +905,22 @@ def panel_renter():
         "stamp": STAMP,
         # Concision pass, owner 2026-10-19 12:46: one sentence. The ACS table, the
         # transit-board county union and the outcome list are on Methods.
-        "lede": ("Does a body's renter share predict what gets said at its meetings? One correlation "
-                 "per outcome per route, against the ACS renter share."),
+        "lede": ("This panel tests whether a body's renter share predicts what gets said at its "
+                 "meetings. Renter share is the renter-occupied share of a body's occupied "
+                 "housing units, from the American Community Survey. One correlation per "
+                 "outcome per locate route."),
         # TLDR rule (owner, 2026-10-18 21:16, docs/SITE-STYLE.md): vague, result-
         # pointing, no numbers at all. The slopes, their intervals and how little this
         # design could have detected are in the table and caveats of the body below.
         # Concision pass, owner 2026-10-19 12:46: three bullets, no numbers. That a
         # result here would be about cities rather than speakers is its own caveat.
+        # Owner, 2026-10-21 08:46: "titles should be takeaways". index.html renders the
+        # first sentence here as the panel's heading, so it is one sentence on its own.
         "headline": [
-            "Renter share does not predict what gets said at a body's meetings: every outcome tested "
-            "leaves the direction open.",
-            "That is how few bodies there are, not evidence that renter share does not matter.",
+            "Renter share does not predict what gets said at a body's meetings.",
+            "On every outcome tested, the likely range on the slope includes zero. "
+            "Each correlation rests on 15 to 20 bodies. That sample size is the finding here, "
+            "not evidence that renter share does not matter.",
         ],
         # The lexicon-pilot outcome rows come out with its figures: a correlation against a
         # rejected instrument is not a weaker result, it is not a result.
@@ -848,12 +930,12 @@ def panel_renter():
         "model_table": num(rd(RENTER / "models" / "model_table.csv")),
         "model": clean(model),
         "caveats": [
-            {"name": "How little this could have detected — n is the finding",
+            {"name": "How little this could have detected: n is the finding",
              "text": ("“No relationship” here means “no relationship this design could see”. Each "
-                      "correlation rests on 15–20 bodies with a median of 18 scored public turns each, "
+                      "correlation rests on 15 to 20 bodies with a median of 18 scored public turns each, "
                       "which could only have detected an effect several times larger than any plausible "
                       "one. The 90 % interval on the NIMBY slope runs from a large negative effect to a "
-                      "moderate positive one, and so does every other outcome tested. Read the null as a "
+                      "moderate positive one, and so does the interval on every other outcome tested. Read the null as a "
                       "statement about the sample size, not about renter share. And a sharp result here "
                       "would still be a statement about cities rather than about the people who show up "
                       "to speak at their meetings: the covariate is a body's whole renter share, not "
@@ -864,7 +946,7 @@ def panel_renter():
                       "today those rows fall to n = 3 on the classifier route. The local_asr and "
                       "agenda_index rate figures drop below the 3-body floor entirely and have been moved "
                       "to output/renter_share/_stale_pre_coverage_fix/.")},
-            {"name": "Transit boards are marked hollow, and a councils-only panel sits beside each figure",
+            {"name": "Transit boards are marked hollow, and a councils-only panel is drawn beside each figure",
              "text": ("A transit board's topic time mostly measures what it exists to do, so every figure "
                       "draws the boards with hollow markers and carries a councils-only panel wherever one "
                       "can be drawn above the 3-body floor. Read the councils-only panel first.")},
@@ -889,19 +971,47 @@ def panel_rates():
     bodies = sorted({r["body"] for r in cov_complete})
     rated = sorted({r["body"] for r in complete})
     no_exposure = [b for b in bodies if b not in rated]
+    # Precise-language pass (owner, 2026-10-21 08:31): the headline names the bodies
+    # it measured and their own rates, so `kind` and the display names are read from
+    # the same bodies.json the map and the methods footer read.
+    _kind, _name = {}, {}
+    if (DATA / "bodies.json").exists():
+        for b in (json.loads((DATA / "bodies.json").read_text(encoding="utf-8")).get("bodies") or []):
+            _kind[b["body"]], _name[b["body"]] = b.get("kind"), re.sub(
+                r" (Board of Directors|Board of Supervisors|City Council)$", "", b.get("name") or b["body"])
+    _any = [r for r in complete if r.get("family") == "any" and r.get("rate_min_per_h") is not None]
+    _tb = sorted((r for r in _any if _kind.get(r["body"]) == "transit"),
+                 key=lambda r: -r["rate_min_per_h"])
+    _other = [r for r in _any if _kind.get(r["body"]) != "transit"]
+    _rest = sorted(r["rate_min_per_h"] for r in _other)
+    _rest_b = sorted({r["body"] for r in _other})
+    _nm = lambda b: _name.get(b, b)
     return {
         "title": "Topic time per meeting-hour",
-        "stamp": "Rates are a measurement, not a model estimate; intervals are 95 % episode bootstrap",
+        "stamp": "Rates are a measurement, not a model estimate. Each likely range is a 95 % episode bootstrap.",
         # Owner, 2026-10-21 07:14: "no need for a graph on meeting hours". The bar
         # chart and its caption came off index.html; this panel is a heading, one
         # sentence and the collapsed table. The lede was a unit definition, which the
         # table's own heading and columns already carry.
         "lede": "",
-        # One sentence, the finding (owner, 2026-10-21 07:14).
-        "headline": [
-            "Transit boards give housing density and transit far more of each meeting-hour than any "
-            "council does.",
-        ],
+        # One sentence, the finding (owner, 2026-10-21 07:14), stated as a measurement
+        # (owner, 2026-10-21 08:31). "far more of each meeting-hour than any council
+        # does" named no quantity and compared against bodies whose rates are floors;
+        # this names the bodies in the table below it and their own rates.
+        "headline": [h for h in [
+            ("The two transit boards gave housing density and transit the most meeting time: "
+             + " and ".join(f"{_nm(r['body'])} {r['rate_min_per_h']:.2f}" for r in _tb)
+             + " minutes of each meeting-hour."
+             if len(_tb) == 2 else
+             "Topic time is measured per meeting-hour, on the bodies whose every meeting "
+             "has been read."),
+            (f"{_nm(_rest_b[0])} gave them {_rest[0]:.2f} to {_rest[-1]:.2f} minutes, "
+             f"depending on which route read the meeting." if len(_rest_b) == 1 else
+             f"The other {len(_rest_b)} bodies gave them {_rest[0]:.2f} to "
+             f"{_rest[-1]:.2f} minutes." if _rest_b else ""),
+            (f"Only {len(rated)} bodies have every meeting read and a published video length, "
+             f"so only those {len(rated)} have a rate." if rated else ""),
+        ] if h],
         "complete": complete,
         "all_rows": rows,
         "coverage": cov,
@@ -918,8 +1028,8 @@ def panel_rates():
                       "floors. " + ", ".join(no_exposure) + " publish no video length, so they get no "
                       "rate at all.")},
             {"name": "Which route read a body moves its rate as much as the body does",
-             "text": ("Hayward reads 0.65 min/h one way, 1.73 another and 4.17 a third. The two transit "
-                      "boards sit at BART 29.1 min/h and VTA 27.0, and Napa at 1.8–2.2 on all three of "
+             "text": ("Hayward measures 0.65 min/h on one route, 1.73 on another and 4.17 on a third. "
+                      "BART is at 29.1 min/h and VTA at 27.0, and Napa at 1.8 to 2.2 on all three of "
                       "its routes. So route is a column in every table here and nothing is pooled.")},
             {"name": "Density does not outweigh transit everywhere",
              "text": ("An earlier draft said it did. Hayward on the classifier route is 0.1 density "
@@ -951,7 +1061,7 @@ def spend_so_far():
         "usd": round(total, 2),
         "as_of": as_of,
         "by_account": {k: round(v["usd"], 2) for k, v in sorted(parts.items())},
-        "text": (f"Total spend to date ${total:,.0f} — GPU transcription "
+        "text": (f"Total spend to date ${total:,.0f}: GPU transcription "
                  f"${parts['runpod_total']['usd']:,.0f}, stance coding "
                  f"${parts['stance']['usd']:,.0f}, topic classifier "
                  f"${parts['classifier']['usd']:,.0f}"
@@ -960,68 +1070,76 @@ def spend_so_far():
     }
 
 
-def page_intro():
-    """The paragraph under the title, and the page TLDR under that.
+def page_intro(rates=None):
+    """The goal block under the page TLDR: the goal, the scope, the stamp.
 
-    Owner, 2026-10-19: "cite in the intro paragraph the amount of data
-    collected, how many individual statements were collected, that we cut them
-    and classified them with an llm. keep sentences short. then speak on the
-    results just a little inline. have a short concise tldr."
+    Owner, 2026-10-21 08:45: the page opens with the TLDR, then "a sentence or
+    two about the goal o fthe classification", then the two example comments,
+    then the plots. So this function no longer writes an opening paragraph of
+    findings: it writes what the classification is for, how big the corpus is,
+    and the one exploratory sentence, and nothing else.
 
     Every count comes out of `data/bodies.json`'s own totals block, which
-    export_site_data.py writes from the live DB -- so the intro, the map, the
-    methods footer and the Methods page cannot quote different corpus sizes.
-    The result sentences take their two numbers from site_numbers_role.json.
-    Run export_site_data.py before this script or the intro goes stale, which
-    is why the sentences are built here and not typed into index.html.
+    export_site_data.py writes from the live DB -- so the scope line, the map,
+    the footer and the Methods page cannot quote different corpus sizes. Run
+    export_site_data.py before this script or the scope line goes stale, which
+    is why the sentence is built here and not typed into index.html.
 
-    TLDR rule (owner, 2026-10-18 21:16, docs/STYLE.md): no numbers at all,
-    first person, past tense, one claim a bullet, last bullet points onward.
+    `rates` is kept on the signature because main() builds the rates panel in
+    the same call that builds this one, which fixes panels.json's key order.
+    Nothing here reads it now: the topic-time rates are the Rates panel's own
+    headline and this block does not restate them (rule 14).
     """
     t, bmeta = {}, {}
     bj = DATA / "bodies.json"
     if bj.exists():
-        bmeta = json.loads(bj.read_text(encoding="utf-8")).get("meta") or {}
+        _bj = json.loads(bj.read_text(encoding="utf-8"))
+        bmeta = _bj.get("meta") or {}
         t = bmeta.get("totals") or {}
-    z = ((ROLE_N.get("zero_stance") or {}).get("by_role")) or {}
-    # The one model (owner, 2026-10-19), not run 5's cluster-level fit, so the
-    # intro's last clause quotes the same number the role block does.
-    dirn = next((s for s in (role_model().get("steps") or [])
-                 if s["key"] == "which_side"), {})
     fi = lambda v: f"{v:,.0f}" if isinstance(v, (int, float)) else "?"
     f1 = lambda v: f"{v:,.0f}" if isinstance(v, (int, float)) else "?"
 
-    # -- what was collected, in short sentences -------------------------------
-    # Concision pass, owner 2026-10-19 12:46: same four facts, short sentences, no
-    # clause a later panel repeats. What the stance scale is, that no human has coded
-    # it, and the no-linking and names rules are all said once further down the page.
-    collected = (
-        f"A year of meetings from {fi(t.get('bodies'))} Bay Area city councils, county boards "
-        f"and transit boards: {fi(t.get('meetings'))} meetings, {f1(t.get('meeting_hours'))} hours "
-        f"of video, {fi(t.get('stance_turns'))} statements scored by an LLM.")
+    # -- the goal of the classification ---------------------------------------
+    # Owner, 2026-10-21 08:45: "the site should begin after tldr with a sentence or
+    # two about the goal o fthe classification". Two sentences: what the
+    # classification decides about each statement, and what the comparison is for.
+    # It names no result. The panels below carry the results, once each (rule 14).
+    goal = (
+        "The classification sorts every statement at these meetings by whether the speaker "
+        "supported or opposed the housing-density or transit item on the agenda. It then "
+        "compares the officials who ran the meeting with the members of the public who spoke. "
+        "The point is to measure who asked for housing density and transit at the meetings "
+        "that decide them, and who asked against.")
 
-    # -- and what came out, briefly: the three the owner named ----------------
-    dz = (z.get("dais") or {}).get("share_at_zero")
-    pz = (z.get("public") or {}).get("share_at_zero")
-    results = (
-        "Transit boards spend far more meeting time on housing density and transit than councils "
-        "do. Public speakers take sides where the dais stays neutral, and when they take one they "
-        "lean against the item.")
+    # -- and the corpus it ran on, in one sentence ----------------------------
+    # The scope line that used to be the opening paragraph (`collected`). It sits in
+    # the goal block now, directly above the exploratory note (page order,
+    # 2026-10-21). Every count comes out of data/bodies.json's own totals, which
+    # export_site_data.py writes from the live DB, so the scope line, the map, the
+    # footer and the Methods page cannot quote different corpus sizes.
+    #
+    # The second paragraph that stood here (`results`) is gone: it restated the Rates
+    # headline, the role block's two shares and the "took a side" definition, all of
+    # which the panels below say with their own numbers (owner, 2026-10-21 08:40:
+    # "look for redundancies across it").
+    scope = (
+        f"{fi(t.get('stance_turns'))} statements were scored, from {fi(t.get('meetings'))} "
+        f"meetings of {fi(t.get('bodies'))} Bay Area bodies: city councils, county boards and "
+        f"transit boards. The window is one year and {f1(t.get('meeting_hours'))} hours of "
+        "video. A statement is one speaker turn of at least 5 words, in an episode that "
+        "passed the quality gate. Each was scored three times and the median was kept.")
 
     return {
-        "collected": collected,
-        "results": results,
-        # Owner, 2026-10-21 07:14: the TLDR bullet lists and the first-person
-        # narration are gone from the dashboard -- "too much text for a dashboard
-        # should be short concise sentences. a lot of it reads like ai too". The
-        # three findings are the two sentences of `results` above; the panels say
-        # them again with their numbers. One visible exploratory stamp replaces the
-        # old closing clause of `collected` and the h1's "exploratory analysis".
+        "goal": goal,
+        "scope": scope,
+        # Rule 12 of style/DASHBOARD-LANGUAGE.md: exploratory status is stated once,
+        # as a formal sentence, with no warning banner. It renders directly under the
+        # scope line, which is the first place a reader meets a number.
         # Owner, 2026-10-21 08:29: "make 'judged by ai' more formal".
         "note": ("Exploratory analysis. Stance and tone were coded by a large language "
                  "model and have not been validated against human coders."),
         # Owner's dashboard rules: spend is visible and dated, and the page says how
-        # current its data is. Both are rendered under the TLDR by index.html.
+        # current its data is. Both are rendered in the page footer by index.html.
         "spend": spend_so_far(),
         # The date the pipeline database was last read for this page, which is what a
         # reader means by "as of": export_site_data.py stamps it, and this script runs
@@ -1044,11 +1162,16 @@ def main():
         # the owner took the EXPLORATORY banner off index.html on purpose, and the
         # per-figure stamps are what carry it now, so no banner string is exported.
         "stamp": STAMP,
-        "intro": page_intro(),
+        # The intro quotes the Rates panel's own measured rates, so that panel is
+        # built first and handed to it rather than re-read from its CSV. The key
+        # order below is the published one and does not follow the build order:
+        # panels.json is written at indent=0, one key per line, so moving a
+        # top-level key rewrites 12,000 lines of the file for no change in content.
+        "intro": page_intro(_rates := panel_rates()),
         "stance": panel_stance(),
         "nimby": panel_nimby(),
         "renter": panel_renter(),
-        "rates": panel_rates(),
+        "rates": _rates,
     }
     DATA.mkdir(exist_ok=True)
     (DATA / "panels.json").write_text(json.dumps(clean(panels), indent=0), encoding="utf-8")

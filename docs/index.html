@@ -3,25 +3,89 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>thtrans — who talks about housing density and transit at Bay Area public meetings</title>
+<title>thtrans: who talks about housing density and transit at Bay Area public meetings</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 <main>
-  <p class="nav">thtrans · Dashboard · <a href="#rates">Topic time</a> · <a href="#nimby">NIMBY/YIMBY</a> · <a href="#stance">Stance</a> · <a href="#more">Renter share</a> · <a href="methods.html">Methods</a> · <a href="methods.html#flow">Flowchart</a></p>
-  <h1>thtrans — who talks about housing density and transit at Bay Area public meetings</h1>
-  <!-- Owner, 2026-10-21 07:14: the dashboard opens with three short sentences and
-       nothing else. The standing subtitle restated the first of them, and the TLDR
-       bullet list under it restated all three in the first person, so both are gone.
-       The three sentences and the exploratory stamp are rendered from panels.json's
-       `intro`, which export_panels.py builds from data/bodies.json's own corpus totals
-       -- no count here is typed into this file, so it cannot drift from the map. -->
+  <p class="nav">thtrans · <a href="#examples">Examples</a> · <a href="#map-h">Map</a> · <a href="#rates">Topic time</a> · <a href="#nimby">YIMBY/NIMBY</a> · <a href="#stance">Stance</a> · <a href="#renter">Renter share</a> · <a href="methods.html">Methods</a></p>
+  <!-- Owner, 2026-10-21 08:46: "titles should be takeaways". Every heading below the
+       h1 is a sentence stating a finding, and the four panel headings are rendered
+       from each panel's own first headline sentence, with its number, so the title
+       and the data cannot disagree and no paragraph restates its own title (rule
+       14). The goal block, the two links and the "why it matters" sentences carry no
+       heading at all: a label like "What this measures" is not a takeaway, and a
+       takeaway there would only restate the sentence under it. -->
+  <h1>thtrans: who talks about housing density and transit at Bay Area public meetings</h1>
+
+  <!-- PAGE ORDER, owner 2026-10-21 08:45, codified as "Page order" in
+       style/DASHBOARD-LANGUAGE.md: the TLDR, then the goal with the links that
+       define the subject and show why it matters, then one NIMBY comment beside one
+       YIMBY comment, then the plots, then the footer.
+       Rule 8 of that standard: this page carries no disclosure element at all. What used to
+       sit in its 49 disclosures is either in the plot summaries below, on the
+       Methods page, or cut; docs/SITE-STYLE.md records each one.
+       The TLDR replaces the opening paragraph (owner, 08:40) and is the one place on
+       the page where the first person is allowed (rule 7). It carries no numbers:
+       each bullet is a finding in words, and its panel states it once with the
+       number (rule 14). -->
+  <ul class="tldr">
+    <li>I collected a year of city council, county board and transit board meetings from around the Bay Area. I transcribed the stretches where housing density or transit was the item on the agenda.</li>
+    <li>I had a large language model score each statement from its transcribed words. Each score says whether the speaker supported or opposed the item, and whether the speaker was hostile.</li>
+    <li>I found that public speakers came out for or against the item more often than the officials who ran the meeting. Their statements were also coded hostile more often.</li>
+    <li>The plots below carry the numbers. Every instrument, limitation and version is on the <a href="methods.html">Methods</a> page.</li>
+  </ul>
+
+  <!-- The goal block: two sentences on what the classification decides, the corpus
+       scope with its counts, then the one exploratory sentence (rule 12). All three
+       strings come out of panels.json, built in export_panels.py page_intro() from
+       data/bodies.json's own totals, so no count is typed into this file and the
+       scope line cannot drift from the map. -->
   <div id="intro"><p class="sub">Loading…</p></div>
   <p class="sub stamp" id="stamp"></p>
-  <!-- Spend is visible and dated, and the page says how current its data is (owner's
-       dashboard rules). Both strings come out of panels.json: the total is the same
-       spend ledger the Methods flowchart reads, so the two pages cannot disagree. -->
-  <p class="sub asof" id="asof"></p>
+
+  <!-- The two links the owner asked for (08:45): a neutral explainer of the two
+       labels, and one case of a Bay Area body stopping homes. Both were fetched and
+       checked for a 200 and for saying what the sentence claims. -->
+  <p class="said">NIMBY and YIMBY name the two sides of this argument: Wikipedia defines <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener">NIMBY</a> and <a href="https://en.wikipedia.org/wiki/YIMBY" target="_blank" rel="noopener">YIMBY</a>. These meetings decide real projects. <a href="https://sanjosespotlight.com/san-jose-residents-win-fight-to-stop-housing-project/" target="_blank" rel="noopener">San José Spotlight</a> reported that in June 2025 the San Jose City Council voted unanimously to deny 135 homes, after neighbors objected.</p>
+
+  <!-- Why it matters: the owner's view, two sentences, each naming a cost and a harm
+       (08:45: "be brief"). The cost claim carries its source. -->
+  <p class="said why">Blocking housing density and transit keeps the next generation out of the places with the jobs, and <a href="https://lao.ca.gov/reports/2015/finance/housing-costs/housing-costs.aspx" target="_blank" rel="noopener">keeps housing costs high</a>. It also locks in car dependence: longer journeys, higher household travel costs, more traffic deaths and more tailpipe pollution.</p>
+
+  <!-- The two example comments (08:45: "then example of a nimby comment next to a
+       yimby comment"). Both are public speakers on a zoning item, lifted from
+       data/nimby_points.json, which export_nimby_points.py writes through
+       pipeline/redact.py (redact-1.3): names, home addresses and contact details are
+       already out of this text, and redaction_scan.py reports 0/0/0 over both.
+       Transcript text is data (AGENTS.md rule 5), so no word is changed and every cut
+       is marked "…". The label rule under the heading is rendered from panels.json
+       rather than typed here, so the ±0.5 threshold cannot drift from the view that
+       applies it. These two quotes are also the reason the per-speaker scatter's own
+       examples strip is gone: it said the same thing a screen further down. -->
+  <h2 id="examples">One comment against the housing item, one for it</h2>
+  <div id="ex-def"></div>
+  <div class="excols">
+    <div class="exq nimby">
+      <h5>NIMBY (against the housing item)</h5>
+      <blockquote class="quote">“Mayor and council members, reject the missing middle framework recommendation in the general plan for your review. San Jose residents do not want three-story apartment complexes by right in residential neighborhoods without parking. Smart growth means concentrating density along commercial corridors, transit hubs, not quiet residential streets. …”</blockquote>
+      <p class="qmeta">A member of the public, San José City Council, 2026-08-18. This speaker's statements average -2.0, on the scale from -2 to +2.</p>
+    </div>
+    <div class="exq yimby">
+      <h5>YIMBY (for it)</h5>
+      <blockquote class="quote">“… I'm somebody who is very interested in housing in Fremont, and from what I can tell, this changing with the zoning does improve the ability for us to actually create more housing …”</blockquote>
+      <p class="qmeta">A member of the public, Fremont City Council, 2026-05-05. This speaker's statements average +1.0, on the same scale.</p>
+    </div>
+  </div>
+  <p class="note">Transcribed speech, quoted as it was transcribed. Names, home addresses and contact details are removed. Cuts are marked “…”.</p>
+
+  <!-- THE PLOTS. Each one gets a takeaway title and one short paragraph of two or
+       three sentences with its numbers (rule 8). The paragraph is the panel's own
+       `headline` out of panels.json, so the page and the data cannot disagree.
+       The map's summary is rendered from bodies.json rather than typed, and it is
+       what is left of the Corpus entry that used to sit in the footer disclosure. -->
+  <h2 id="map-h">Transcribed hours are concentrated in a few bodies</h2>
+  <p class="heads" id="map-sum"></p>
   <div class="wrap">
     <div class="panel"><svg id="map"></svg></div>
     <div class="panel detail" id="detail"><h3>Click a body</h3><p>Its meetings appear here.</p></div>
@@ -34,38 +98,29 @@
     <span class="sw" style="--c:var(--pending)">dashed = nothing transcribed yet</span>
     <span>■ council &nbsp; ▲ transit board &nbsp; ◆ county</span>
   </div>
-  <!-- The reader starts on an episode rather than empty (review §5.3): it is the one
-       place a general reader hears an actual person at an actual meeting. -->
-  <h2 id="reader-h">One episode, as it was read</h2>
-  <p class="sub">Click any meeting above to read a different one.</p>
-  <div class="panel" id="reader"></div>
 
-  <!-- Panel order follows the review's suggested reading order (§5): the shortest,
-       most concrete result first, then the label a reader already knows, then the
-       hardest panel; renter share goes behind the "more" fold. -->
   <h2 id="rates">Topic time per meeting-hour</h2>
   <div id="p-rates"><p class="sub">Loading…</p></div>
 
-  <h2 id="nimby">NIMBY / YIMBY</h2>
+  <h2 id="nimby">YIMBY / NIMBY</h2>
   <div id="p-nimby"><p class="sub">Loading…</p></div>
 
   <h2 id="stance">Stance: the role gap</h2>
   <div id="p-stance"><p class="sub">Loading…</p></div>
 
-  <!-- The topic-time model panel came off this page 2026-10-20 (owner). It was a count
-       model fitted before the current corpus, it had not been re-run since the newest
-       locate route landed, and the measured rates in the Rates panel are the live
-       number. Its figures and tables stay in the repo; no page fetches them. -->
-  <details class="fold more" id="more">
-    <summary>Renter share</summary>
-    <div class="body">
-      <h2 id="renter">Renter share</h2>
-      <div id="p-renter"><p class="sub">Loading…</p></div>
-    </div>
-  </details>
+  <!-- Renter share came out of the "more" disclosure it used to sit behind, because
+       this page has no disclosures (rule 8). It is a null result and it says so in
+       its own first sentence; the owner can cut the panel outright in one word. -->
+  <h2 id="renter">Renter share</h2>
+  <div id="p-renter"><p class="sub">Loading…</p></div>
 
-  <div class="methods" id="methods"><h2 style="margin-top:0">Methods and instrument versions</h2><p>Loading…</p></div>
-  <p class="sub" style="margin-top:0.75rem">Every instrument, number and limitation is on <a href="methods.html">Methods</a>, with a <a href="methods.html#flow">flowchart</a> of how the data was made.</p>
+  <!-- FOOTER: the dated spend, the data date, the Methods link. Nothing else. The
+       instrument-versions disclosure that stood here is on Methods, section
+       "Every instrument version", which reads the same database. -->
+  <p class="sub asof" id="asof"></p>
+  <!-- Rule 14 of style/DASHBOARD-REFERENCE.md, taken off hsereport.ie: close with
+       what the data is, where it came from and the code, as a sentence. -->
+  <p class="sub">Every instrument, number and limitation is on <a href="methods.html">Methods</a>, with a <a href="methods.html#flow">flowchart</a> of how the data was made. The meetings are public recordings on YouTube, Granicus and Swagit, and the code that read them is at <a href="https://github.com/hotsoupisgood/baytransitanalysis" target="_blank" rel="noopener">github.com/hotsoupisgood/baytransitanalysis</a>.</p>
 </main>
 <div class="tip" id="tip"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
@@ -86,31 +141,44 @@ Promise.all([
   d3.json("data/panels.json").catch(() => null),
   d3.json("data/nimby_points.json").catch(() => null),
 ]).then(([topo, bj, meetings, episodes, terms, panels, nimbyPts]) => {
-  const bodies = bj.bodies, meta = bj.meta, T = meta.totals;
+  const bodies = bj.bodies, meta = bj.meta;
   const byBody = new Map(bodies.map(b => [b.body, b]));
   const epById = new Map(episodes.map(e => [e.episode_id, e]));
   const meetingsOf = d3.group(meetings, m => m.body);
   const mById = new Map(meetings.map(m => [m.meeting_id, m]));
   const withHours = bodies.filter(b => b.hours_done > 0);
   const top = withHours.slice().sort((a,b) => b.hours_done - a.hours_done);
-  const noText = bodies.filter(b => !b.n_text);
   const short = n => n.replace(/ City Council| Board.*| County.*/, "");
 
-  // TLDR rule (owner, 2026-10-18 21:16, docs/STYLE.md): vague, result-pointing, no
-  // numbers at all. Every count, share, interval and caveat that used to sit here is
-  // now in the panel bodies, in the Corpus entry of the methods footer at the foot of
-  // this page, and on the Methods page.
-  // The intro's three sentences come out of panels.json, built in
-  // export_panels.py page_intro() from the corpus's own totals -- no literal here.
-  // One visible exploratory stamp goes under them (owner, 2026-10-21): it is the
-  // clause that used to close the intro and the words that used to sit in the h1.
+  // The goal block under the TLDR: what the classification decides, then the corpus
+  // scope with its counts, then the one exploratory sentence. All three come out of
+  // panels.json, built in export_panels.py page_intro() from the corpus's own totals,
+  // so no count is a literal here. The second paragraph of findings that used to
+  // stand here is gone: it restated the Rates headline and the role block's two
+  // shares, which those panels say with their own numbers (owner, 2026-10-21 08:40,
+  // "look for redundancies across it"; rule 14).
   if (panels && panels.intro) {
     d3.select("#intro").html(
-      `<p class="intro">${panels.intro.collected}</p><p class="intro">${panels.intro.results}</p>`);
+      `<p class="intro">${panels.intro.goal}</p><p class="intro scope">${panels.intro.scope}</p>`);
     d3.select("#stamp").text(panels.intro.note || "");
+    // The YIMBY / NIMBY rule, under the two example comments where the labels first
+    // appear (rule 3). It is the view's own threshold out of panels.json, which is
+    // why it is rendered rather than typed into the markup above; the panel that
+    // used to carry it as its lede now renders its headline only (rule 14).
+    if (panels.nimby && panels.nimby.lede)
+      d3.select("#ex-def").html(`<p class="lede">${esc(panels.nimby.lede)}</p>`);
+    // The map's summary: two sentences with the counts the footer disclosure used to
+    // carry, read from bodies.json so they cannot drift from the markers.
+    if (top.length) {
+      d3.select("#map-h").text(`Only ${fi(withHours.length)} of the ${fi(bodies.length)} bodies have transcribed hours`);
+      d3.select("#map-sum").text(`The hours are uneven: ${short(top[0].name)} has `
+        + `${f1(top[0].hours_done)} h and ${short(top[top.length - 1].name)} has `
+        + `${f1(top[top.length - 1].hours_done)} h. The dashed markers have nothing `
+        + `transcribed yet.`);
+    }
     // Both halves are exported strings, not typed here: the spend total carries the
     // date its newest account was measured, which is not always the export date.
-    // When it is, the one date covers both and is said once — "Data as of 2026-10-20
+    // When it is, the one date covers both and is said once: "Data as of 2026-10-20
     // … as of 2026-10-20" reads like two different stamps that happen to agree.
     const sp = panels.intro.spend;
     const asOf = panels.intro.as_of, same = sp && sp.as_of && sp.as_of === asOf;
@@ -119,7 +187,7 @@ Promise.all([
       sp && sp.text ? `${esc(sp.text)}${sp.as_of && !same ? `, as of ${esc(sp.as_of)}` : ""}.` : "",
     ].filter(Boolean).join(" "));
   } else {
-    d3.select("#intro").html(`<p class="note">The intro needs <code>data/panels.json</code> — run <code>export/export_panels.py</code>.</p>`);
+    d3.select("#intro").html(`<p class="note">The intro needs <code>data/panels.json</code>. Run <code>export/export_panels.py</code> to build it.</p>`);
   }
 
   // ── map ────────────────────────────────────────────────────────────────
@@ -159,14 +227,9 @@ Promise.all([
     return `<b>${esc(b.name)}</b><br>${b.kind} · ${esc(b.county)} County · ${b.platforms.join("/")}<br>${b.n_meetings} meetings · ${f1(b.meeting_hours)} h of video<br><b>${f2(b.hours_done)} h</b> transcribed in ${b.n_done} episodes · ${b.n_text} readable · ${b.n_scored} with stance<br>${share}`;
   }
 
-  // ── per-body text files, loaded on demand ──────────────────────────────
-  const textCache = new Map();
-  function loadText(slug){
-    const b = byBody.get(slug);
-    if (!b || !b.text_file) return Promise.resolve({ episodes: {} });
-    if (!textCache.has(slug)) textCache.set(slug, d3.json(b.text_file).catch(err => { console.error(err); return { episodes: {} }; }));
-    return textCache.get(slug);
-  }
+  // The per-body text loader stood here. It fetched data/episodes/<body>.json for the
+  // episode reader; with the reader gone nothing on this page reads turn text, so the
+  // page no longer pulls a 3 MB shard when a body is clicked.
 
   // ── detail: body → meetings → episodes ─────────────────────────────────
   const detail = d3.select("#detail");
@@ -182,17 +245,16 @@ Promise.all([
     mk.select("path").classed("selected", d => d.b.body === b.body);
     history.replaceState(null, "", "#" + b.body);
     const ms = (meetingsOf.get(b.body) || []).slice().sort((x,y) => d3.descending(x.date, y.date));
-    const share = b.density_share == null ? "—" : `${Math.round(b.density_share*100)}% density / ${Math.round((1-b.density_share)*100)}% transit (by episode-hours)`;
+    const share = b.density_share == null ? "no transcribed episodes" : `${Math.round(b.density_share*100)}% density / ${Math.round((1-b.density_share)*100)}% transit (by episode-hours)`;
     detail.html(`
       <h3>${esc(b.name)}</h3>
-      <p>${b.kind} · ${esc(b.county)} County · video on ${b.platforms.join(" and ") || "—"} · ${esc(b.site)} at ${b.lat.toFixed(3)}, ${b.lon.toFixed(3)}</p>
+      <p>${b.kind} · ${esc(b.county)} County · video on ${b.platforms.join(" and ") || "no known platform"} · ${esc(b.site)} at ${b.lat.toFixed(3)}, ${b.lon.toFixed(3)}</p>
       <p><b>${b.n_meetings}</b> regular meetings (${f1(b.meeting_hours)} h) ${b.date_min ? `from ${b.date_min} to ${b.date_max}` : ""}.
-         <b>${f2(b.hours_done)} h</b> transcribed in ${b.n_done} episodes, ${b.n_text} readable after QA, ${b.n_scored} with stance; ${f1(b.hours_mention)} h mention-only (not transcribed by design).<br>Mix: ${share}.${b.text_bytes ? ` Text file ${f1(b.text_bytes/1e6)} MB, loaded when you open an episode.` : ""}</p>
+         <b>${f2(b.hours_done)} h</b> transcribed in ${b.n_done} episodes, ${b.n_text} readable after QA, ${b.n_scored} with stance; ${f1(b.hours_mention)} h mention-only (not transcribed by design).<br>Mix: ${share}.</p>
       <div class="tscroll"><table><thead><tr><th>date</th><th>title</th><th>src</th><th class="num">h</th><th class="num">eps</th><th class="num">done h</th><th class="num">read</th></tr></thead>
       <tbody>${ms.map(m => `<tr class="row" data-m="${esc(m.meeting_id)}"><td>${esc(m.date)}</td><td>${esc(shortTitle(m.title))}</td><td>${m.platform === "youtube" ? "YT" : m.platform === "granicus" ? "Gr" : "Sw"}</td><td class="num">${f1(m.duration_h)}</td><td class="num">${m.episodes.length}</td><td class="num">${m.hours_done ? f2(m.hours_done) : "·"}</td><td class="num">${m.n_text || "·"}</td></tr>`).join("")}</tbody></table></div>
       <p class="note" style="margin-top:8px">eps = episodes of any status (done / cut / located / mention); read = episodes past the QA gate, with text. Click a meeting.</p>`);
     detail.selectAll("tr.row").on("click", function(){ selectMeeting(mById.get(this.dataset.m)); });
-    loadText(b.body);  // prefetch
   }
   const shortTitle = t => (t || "").replace(/\s+/g," ").trim().slice(0, 48);
 
@@ -201,178 +263,90 @@ Promise.all([
     const b = byBody.get(m.body);
     const eps = m.episodes.map(id => epById.get(id)).filter(Boolean);
     const linkNote = m.platform === "youtube" ? "▶ opens YouTube at the episode start (<code>&amp;t=</code>)."
-      : m.platform === "granicus" ? "▶ opens the Granicus player with <code>&amp;entrytime=</code> at the episode start — the parameter the player's own embed-code generator uses; seeking has not yet been verified in a browser."
+      : m.platform === "granicus" ? "▶ opens the Granicus player with <code>&amp;entrytime=</code> at the episode start. That is the parameter the player's own embed-code generator uses. Seeking has not yet been verified in a browser."
       : "▶ opens the Swagit player page; no timestamp parameter is known for it, so scrub to the time shown.";
     detail.html(`
       <div class="crumbs"><a data-b="${b.body}">${esc(b.name)}</a> › ${esc(m.date)}</div>
       <h3>${esc(m.title)}</h3>
       <p>${m.platform} · ${f1(m.duration_h)} h · <a class="src" href="${esc(m.source_url)}" target="_blank" rel="noopener">source video ↗</a></p>
-      <div class="tscroll"><table><thead><tr><th>start</th><th class="num">min</th><th>topic</th><th>route</th><th>status</th><th>QA</th><th></th></tr></thead>
+      <div class="tscroll"><table><thead><tr><th>start</th><th class="num">min</th><th>topic</th><th>route</th><th>status</th><th>QA</th></tr></thead>
       <tbody>${eps.map(e => `<tr><td><a class="src" href="${esc(e.link)}" target="_blank" rel="noopener" title="open the source video at this timestamp">▶ ${hms(e.start_s)}</a></td>
         <td class="num">${mins(e.hours)}</td><td><span class="pill ${e.tags}">${e.tags}</span></td><td class="note">${esc(e.route)}</td>
         <td><span class="pill ${e.status}">${e.status}</span>${e.label ? `<br><span class="note">${esc(e.label)}</span>` : ""}</td>
-        <td>${e.qa_status ? `<span class="pill ${e.qa_status}">${e.qa_status}</span>` : "<span class='note'>·</span>"}</td>
-        <td>${e.has_text ? `<button class="lnk" data-e="${esc(e.episode_id)}">read${e.stance_coverage === "s1" ? " ★" : ""}</button>` : e.status === "done" ? `<button class="lnk" disabled title="transcript exists but did not pass the QA gate or is not yet gated">no text</button>` : ""}</td></tr>`).join("")}</tbody></table></div>
-      <p class="note" style="margin-top:8px">${linkNote} ★ = has stance scores. Route: <i>classifier</i> = captions → keyword windows → Claude; <i>agenda_index</i> = Granicus agenda item times; <i>swagit_transcript</i> = Swagit's own transcript; <i>local_asr</i> = Mac Whisper where captions were missing; <i>fullasr</i> = the whole meeting transcribed end to end, with no caption screen in front of it (<code>scripts/fullasr.py</code>).</p>`);
+        <td>${e.qa_status ? `<span class="pill ${e.qa_status}">${e.qa_status}</span>` : "<span class='note'>·</span>"}</td></tr>`).join("")}</tbody></table></div>
+      <p class="note" style="margin-top:8px">${linkNote} Route: <i>classifier</i> = captions, then keyword windows, then Claude; <i>agenda_index</i> = Granicus agenda item times; <i>swagit_transcript</i> = Swagit's own transcript; <i>local_asr</i> = Mac Whisper where captions were missing; <i>fullasr</i> = the whole meeting transcribed end to end, with no caption screen in front of it.</p>`);
     detail.select(".crumbs a").on("click", function(){ selectBody(byBody.get(this.dataset.b)); });
-    detail.selectAll("button.lnk:not([disabled])").on("click", function(){ openReader(epById.get(this.dataset.e)); });
   }
 
-  // ── episode reader ─────────────────────────────────────────────────────
-  const frameName = cls => cls.startsWith("f:") ? cls.slice(2).replace(/_/g, " ") : cls;
-  function render(t){
-    let out = "", pos = 0;
-    for (const [s, e, cls] of t.spans || []) {
-      if (s < pos) continue;
-      out += esc(t.text.slice(pos, s));
-      const m = cls === "d" || cls === "t" ? `kw-${cls}` : "frame";
-      const title = cls === "d" ? "density keyword" : cls === "t" ? "transit keyword" : "frame: " + frameName(cls);
-      out += `<mark class="${m}" title="${title}">${esc(t.text.slice(s, e))}</mark>`;
-      pos = e;
-    }
-    return out + esc(t.text.slice(pos));
-  }
-  const sgn = v => v == null ? "n/a" : (v > 0 ? "+" : "") + v;
-  function stanceCell(t){
-    const s = t.stance;
-    if (!s) return `<td class="s" title="outside the S1 frame: either under 5 words, or its diarized cluster carries the unknown role, or its episode was loaded after the S1 pass ran">not scored</td>`;
-    const main = s.median == null ? `<span title="${esc(s.label)}: all k votes said the item has no stance to code">n/a</span>` : `<b>${sgn(s.median)}</b>`;
-    const k = s.spread == null ? "" : ` <span class="k" title="spread of the k=${s.k} votes">±${s.spread}</span>`;
-    const h = s.hostility == null ? "" : `<span class="h">hostility ${s.hostility}${s.hostility_spread ? ` ±${s.hostility_spread}` : ""}</span>`;
-    const extra = [s.sub_topic && s.sub_topic !== "other" ? `topic: ${s.sub_topic}` : "", s.frames?.length ? `frames: ${s.frames.join(", ")}` : "", s.self_id && s.self_id !== "unknown" ? `self-id: ${s.self_id}` : ""].filter(Boolean);
-    const title = `votes ${esc(s.votes)} · NA share ${s.na_share}` + (extra.length ? " · " + esc(extra.join(" · ")) : "");
-    return `<td class="s scored" title="${title}">${main}${k}${h}${extra.length ? `<span class="h">${esc(extra.join(" · "))}</span>` : ""}</td>`;
-  }
-  function openReader(e, opts = {}){
-    const m = mById.get(e.meeting_id), b = byBody.get(e.body);
-    const rd = d3.select("#reader").style("display","block").html(`<p class="note">Loading ${esc(b.name)} text…</p>`);
-    if (opts.scroll !== false) rd.node().scrollIntoView({behavior: "smooth", block: "start"});
-    loadText(e.body).then(tf => {
-      const x = tf.episodes[e.episode_id];
-      // Only one body's turns are published (docs/.gitignore keeps the list); the other
-      // shards 404 here. That used to leave an empty pane saying "No text file", which
-      // tells a reader nothing and loses the one thing that always works -- the public
-      // recording at this episode's timestamp. So the pane falls back to the source
-      // link and the episode's own metadata instead of to a dead end.
-      if (!x) {
-        rd.html(`
-        <div class="crumbs"><a data-b="${b.body}">${esc(b.name)}</a> › <a data-m="${esc(m.meeting_id)}">${esc(m.date)}</a> › episode ${esc(e.episode_id)}</div>
-        <h3 style="margin-top:0">${esc(b.name)}, ${esc(m.date)} — ${hms(e.start_s)}–${hms(e.end_s)} (${mins(e.hours)} min), <span class="pill ${e.tags}">${e.tags}</span> <span class="pill">${esc(e.route)}</span>${e.qa_status ? ` <span class="pill ${e.qa_status}">QA ${e.qa_status}</span>` : ""}</h3>
-        <p class="meta"><a class="src" href="${esc(linkAt(m, e.start_s))}" target="_blank" rel="noopener">▶ watch the recording from ${hms(e.start_s)} ↗</a>${m.platform === "swagit" ? " (Swagit has no seek parameter — scrub to the time shown)" : ""} · located by <i>${esc(e.route)}</i>${e.agenda_item ? ` (agenda item ${esc(e.agenda_item)})` : ""}</p>
-        <p class="note">The turn-by-turn text of this episode is not published here — one body's episodes are, as an auditable sample, and the rest stay on the machine that made them. The recording above is the primary source either way, and it starts at this episode.</p>`);
-        rd.select(".crumbs a[data-b]").on("click", function(){ selectBody(byBody.get(this.dataset.b)); });
-        rd.select(".crumbs a[data-m]").on("click", function(){ selectMeeting(mById.get(this.dataset.m)); });
-        return;
-      }
-      const roles = e.speakers;
-      const nScored = x.turns.filter(t => t.stance).length;
-      const tsNote = m.platform === "swagit" ? ` (Swagit has no seek parameter — scrub to the time shown)` : "";
-      // Readability review §3.7: the reader leads with the quoted turn, because the
-      // speech is the only place a general reader hears an actual person at an actual
-      // meeting. The five metadata lines are all still here, behind the disclosure.
-      const lead = x.turns.find(t => t.role === "public" && t.stance && t.stance.median != null)
-                || x.turns.find(t => t.role === "public" && (t.text || "").length > 200)
-                || x.turns.find(t => (t.text || "").length > 200) || x.turns[0];
-      rd.html(`
-        <div class="crumbs"><a data-b="${b.body}">${esc(b.name)}</a> › <a data-m="${esc(m.meeting_id)}">${esc(m.date)}</a> › episode ${esc(e.episode_id)}</div>
-        ${lead ? `<blockquote class="leadturn"><p>${render(lead)}</p></blockquote>
-        <p class="leadsrc">${{public: "A member of the public", dais: "A speaker on the dais", staff: "A staff speaker", unknown: "A speaker whose role the labeller could not tell"}[lead.role] || "A speaker"}, ${esc(b.name)}, ${esc(m.date)}, <a class="src" href="${esc(linkAt(m, lead.t_s))}" target="_blank" rel="noopener">${hms(lead.t_s)} in the recording ↗</a>.</p>` : ""}
-        <details class="fold"><summary>About this excerpt</summary><div class="body">
-        <h3 style="margin-top:0">${esc(b.name)}, ${esc(m.date)} — ${hms(e.start_s)}–${hms(e.end_s)} (${mins(e.hours)} min), <span class="pill ${e.tags}">${e.tags}</span> <span class="pill">${esc(e.route)}</span> ${e.label ? `<span class="pill">${esc(e.label)}</span>` : ""} ${e.qa_status ? `<span class="pill ${e.qa_status}">QA ${e.qa_status}</span>` : ""} ${nScored ? `<span class="pill s1">stance: ${nScored} of ${x.turns.length} turns</span>` : `<span class="pill">stance: none in frame</span>`}</h3>
-        <p class="meta"><a class="src" href="${esc(e.link)}" target="_blank" rel="noopener">▶ source video at ${hms(e.start_s)} ↗</a>${tsNote} · located by <i>${esc(e.route)}</i>${e.agenda_item ? ` (agenda item ${esc(e.agenda_item)})` : ""} · ASR ${esc(x.asr?.model)} + ${esc(x.asr?.diarization)} · speakers: ${roles.dais} dais, ${roles.public} public, ${roles.unknown} unknown · ${fi(x.words)} words${x.roles_source ? ` · role instrument <i>${esc(x.roles_source)}</i>` : ""}</p>
-        ${e.qa_issues ? `<p class="meta">QA ${esc(e.qa_status)}: ${esc(e.qa_issues)}</p>` : ""}
-        <p class="meta">Highlights: <mark class="kw-d">density keyword</mark> <mark class="kw-t">transit keyword</mark> <mark class="frame">frame-lexicon term</mark> (hover for the frame). Roles come from the cue-phrase labeller (<code>pipeline/roles.py</code>, ${esc(x.roles_cues_version)}) per diarized cluster, never from names; there is no <i>staff</i> role, so staff reports sit inside <i>dais</i>. Stance column: median of the k=3 votes, ± = spread of the votes, hostility 0–4; hover a cell for the votes, frames, sub-topic and self-identification.</p>
-        <p class="note">Episode excerpt only, and redacted: this is the public record of a public meeting, but personal names, home addresses and contact details are removed from the text here — a speaker who introduces themselves reads as <code>[name]</code>. The source video at the timestamp gives the full context. No persistent speaker ids exist — a cluster label means nothing outside this one episode, and no speaker is followed from one meeting to the next. Stance is an LLM reading against a pinned codebook with no human gold set; see <a href="methods.html#stance">Methods</a>.</p>
-        </div></details>
-        <details class="fold"><summary>Read the whole episode, turn by turn (${x.turns.length} ${x.turns.length === 1 ? "turn" : "turns"}${nScored ? `, ${nScored} with a stance score` : ""})</summary>
-        <div class="body tscroll"><table class="turns"><thead><tr><th>time</th><th>role</th><th>turn</th><th class="s">stance</th></tr></thead>
-        <tbody>${x.turns.map(t => `<tr><td class="t"><a class="src" href="${esc(linkAt(m, t.t_s))}" target="_blank" rel="noopener">${hms(t.t_s)}</a></td><td class="r">${roleCell(t)}</td><td class="x">${render(t)}</td>${stanceCell(t)}</tr>`).join("")}</tbody></table></div></details>
-`);
-      rd.select(".crumbs a[data-b]").on("click", function(){ selectBody(byBody.get(this.dataset.b)); });
-      rd.select(".crumbs a[data-m]").on("click", function(){ selectMeeting(mById.get(this.dataset.m)); });
-    });
-  }
-  const linkAt = (m, s) => {
-    const sep = m.source_url.includes("?") ? "&" : "?";
-    if (m.platform === "youtube") return `${m.source_url}${sep}t=${Math.floor(s)}s`;
-    if (m.platform === "granicus") return `${m.source_url}${sep}entrytime=${Math.floor(s)}&autostart=1`;
-    return m.source_url;
-  };
-
-  // The reader shows the REPORTED role (role_audit, rule ra-1) and, where the audit
-  // disagrees with the diarization-cue label, both — with the self_id that decided it.
-  // The audit is a second instrument, not a correction of a known-bad label, so hiding
-  // the cue role would overstate it.
-  const roleCell = t => {
-    const tip = `${t.speaker} · cue role ${t.role_cue ?? "?"} (${t.role_method ?? "?"}, conf ${t.role_conf ?? "?"})`
-      + (t.role_audit_version ? ` · audited ${t.role_audit_version}, rule ${t.role_rule ?? "?"}, self_id ${t.role_self_id ?? "unknown"}` : "");
-    const main = `<span class="role ${t.role}" title="${esc(tip)}">${esc(t.role)}</span>`;
-    if (!t.role_changed) {
-      return t.role_self_id && t.role_self_id !== "unknown"
-        ? `${main}<br><span class="selfid" title="what the speaker says about who they are, this turn's words only">“${esc(t.role_self_id)}”</span>` : main;
-    }
-    return `${main}<br><span class="rolewas" title="${esc(tip)}">was <s>${esc(t.role_cue)}</s></span>`
-      + `<br><span class="selfid" title="the self-identification that moved it">“${esc(t.role_self_id ?? "unknown")}”</span>`;
-  };
+  // ── the episode reader stood here until 2026-10-21 ─────────────────────
+  // It was a transcript pane: one lead turn, a disclosure of excerpt metadata, and a
+  // second disclosure holding the whole episode turn by turn, with per-turn stance
+  // cells, keyword highlighting and the audited speaker role beside the cue role.
+  //
+  // It came off the page with the rest of the disclosures (owner, 2026-10-21 08:45:
+  // "don't ahve all thoes drop downs that you have now"), and nothing replaced it in
+  // kind. Without its two folds it was a wall of transcript, and the thing it was
+  // there for -- a general reader hearing an actual person at an actual meeting -- is
+  // what the two example comments at the top of the page now do, in 80 words instead
+  // of a screenful.
+  //
+  // Nothing was deleted from the data: data/episodes/*.json still carries every
+  // published turn, and the meeting table in the detail pane beside the map still
+  // links each episode to the public recording at its own timestamp, which was always
+  // the primary source. openReader, loadText, render, stanceCell, roleCell, linkAt and
+  // the LEAD_EPISODE deep link went with it. docs/SITE-STYLE.md records the cut.
 
   // ── analysis panels (data/panels.json) ─────────────────────────────────
   const pc = v => v == null ? "·" : (100*v).toFixed(0) + "%";
+  // Five disclosure helpers stood here and are gone with rule 8 of
+  // style/DASHBOARD-LANGUAGE.md ("A dashboard has no collapsible sections: caveats,
+  // provenance and tables go on Methods"; owner, 2026-10-21 08:45):
+  //
+  //   numbers()        "Show the numbers", once per panel: the statistics table, its
+  //                    heading and its source path. Every row is still in
+  //                    data/panels.json and every quotable number is in the panel's
+  //                    summary paragraph above it; how each was measured is the
+  //                    "How this was measured" link to Methods.
+  //   restFigs()       "More figures": the per-route variants and the public-beside-
+  //                    dais pair. The files are still in data/panels/; the lead
+  //                    figure is the one the page shows.
+  //   caveats()        "What is wrong with this result", 3 per panel, with their own
+  //                    nested tables. These are on Methods, section Limitations, and
+  //                    the one exploratory sentence under the goal block states the
+  //                    status of the whole page (rule 12).
+  //   roleAuditNote()  "Which speaker is 'the public', and how that was decided",
+  //                    plus roleAuditLink() which pointed the second panel at it.
+  //                    Methods, section "Speaker labels", carries the audit.
+  //
+  // What is left is the markup every panel still needs: tables, figures and the
+  // panel head.
   const ci = (lo, hi, d) => lo == null || hi == null ? "" : ` <span class="note">(${(+lo).toFixed(d)}, ${(+hi).toFixed(d)})</span>`;
   const sg = (v, d) => v == null ? "·" : (v > 0 ? "+" : "") + (+v).toFixed(d);
   const tbl = (cols, rows) => `<div class="tscroll"><table><thead><tr>${cols.map(c => `<th class="${c.num ? "num" : ""}">${esc(c.h)}</th>`).join("")}</tr></thead><tbody>${
     rows.map(r => `<tr>${cols.map(c => `<td class="${c.num ? "num" : ""}">${c.f(r)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-  // Readability review §3.2-3.5: every statistics table is collapsed by default, with
-  // one plain sentence standing in for it. The table itself, its heading and its note
-  // are unchanged inside the fold -- this moves visibility, not content.
-  // Concision pass, owner 2026-10-19 12:46: the stand-in sentence is dropped where
-  // the summary line already names the table, which is every call below -- it was a
-  // second caption for a thing the reader cannot see yet. Pass a lede only when it
-  // says something the summary does not; an empty one renders nothing.
-  const numbers = (lede, title, inner) => `${lede ? `<p class="numlede">${lede}</p>` : ""}
-    <details class="fold numbers"><summary>Show the numbers</summary>
-    <div class="body"><h4>${esc(title)}</h4>${inner}</div></details>`;
-  // One figure per panel above the fold, the rest behind a disclosure (§3.3).
   // Readability review §7.3 and §7.6: the heading is a written title from panels.json,
   // not the filename with its underscores taken out, the alt text is the title rather
-  // than the filename, and the caption ends where the sentence ends -- the raw repo
-  // path used to be the last thing in the reader's first two sentences. Every panel's
-  // source files are still named, once, in that panel's "Instrument ... Methods" line.
+  // than the filename, and the caption ends where the sentence ends.
   const figTitle = (p, f) => (p.fig_titles || {})[f] || f.replace(/^fig_|\.png$/g,"").replace(/_/g," ");
   const figOne = (p, f) => `<div class="fig"><h4>${esc(figTitle(p, f))}</h4><img src="data/panels/${esc(f)}" alt="${esc(figTitle(p, f))}" loading="lazy"><p>${esc((p.fig_caps || {})[f] || "")}</p></div>`;
   const leadFig = p => p.figs && p.figs.length ? `<div class="pfigs">${figOne(p, p.figs[0])}</div>` : "";
-  const restFigs = p => p.figs && p.figs.length > 1
-    ? `<details class="fold"><summary>More figures (${p.figs.length - 1})</summary><div class="body pfigs">${p.figs.slice(1).map(f => figOne(p, f)).join("")}</div></details>` : "";
-  // Banner rule (owner, 2026-10-18 21:18, docs/STYLE.md): limitations stay, but as
-  // plain prose in the panel's results body -- not as a cream warning box.
-  // The caveats are the honest part of the panel, and they are also the longest.
-  // They stay, every sentence of them, one click away rather than in front of the
-  // figure (readability review §2: the wall arrives before the result).
-  const caveats = cs => `<details class="fold"><summary>What is wrong with this result (${cs.length})</summary><div class="body caveats">${cs.map(c => `<p class="caveat-prose"><b>${esc(c.name)}.</b> ${esc(c.text)}</p>${
-    c.table && c.table.length ? `<details class="fold"><summary>Show the numbers</summary><div class="body">${
-      tbl(Object.keys(c.table[0]).map(k => ({h: k.replace(/_/g," "), num: typeof c.table[0][k] === "number", f: r => esc(r[k])})), c.table)}</div></details>` : ""}`).join("")}</div></details>`;
-  // Owner, 2026-10-21 07:14: a panel opens with its heading and one or two short
-  // sentences, as prose. It used to open with a bulleted list under a literal
-  // "TLDR:" label (site.css), above a one-line restatement of the same finding and
-  // a definition of the panel's unit. The bullets are sentences now, the "In one
-  // line" restatement is gone from the exporter, and a panel that has nothing to
-  // define leaves `lede` empty and renders no second line.
-  const head = p => `<p class="heads">${p.headline.map(esc).join(" ")}</p>${
-    p.lede ? `<p class="lede">${esc(p.lede)}</p>` : ""}`;
-  // The role column every public/dais number on the page uses. role_audit (rule ra-1) is the
-  // reported one since 2026-10-18; the cue role is kept as a sensitivity in the repo (_cue).
-  // One copy, on the first panel that uses it. Both panels' public/dais numbers rest
-  // on the same audit, and rendering the whole disclosure twice was the one sentence
-  // the concision pass found repeated verbatim across panels (owner, 2026-10-19 12:46);
-  // the second panel links the first instead, and the hashchange handler below opens
-  // a closed disclosure the link lands in.
-  const roleAuditLink = a => !a ? "" : `<p class="src-note"><a href="#who-is-public">Which speaker is “the public”, and how that was decided</a>.</p>`;
-  const roleAuditNote = a => !a ? "" : `<details class="fold" id="who-is-public"><summary>Which speaker is “the public”, and how that was decided</summary><div class="body"><p class="note rolenote"><b>Reported role: <code>role_audit</code> (${
-    esc(a.audit_version)})</b> — not the diarization-cue role. Where a speaker says who they are, that beats a cue-phrase label: ${
-    fi(a.by_cue_role.public.disagree)} of ${fi(a.by_cue_role.public.informative)} adjudicable turns in the cue-labelled <i>public</i> bucket (${
-    pc(a.by_cue_role.public.rate)}) say <code>elected</code> or <code>staff</code>, against ${pc(a.by_cue_role.dais.rate)} in the dais bucket. ${
-    fi(a.disagree)} of ${fi(a.informative)} informative turns disagree overall (${pc(a.disagree_rate_informative)}); ${
-    pc(a.unknown_share)} of all ${fi(a.turns)} turns say nothing about the speaker and keep the cue role. <b>This is an audit, not a gold set</b> — the self-identification is another model's output, no human has checked it, and the audit moves clusters <i>both</i> ways: the public base with a stance rises ${
-    fi(a.public_clusters_with_stance.cue)} → ${fi(a.public_clusters_with_stance.audit)} clusters, so a shift in these numbers is a re-partition, not contamination removed. <code>${esc(a.source)}</code></p></div></details>`;
+  // A panel is now its takeaway <h2> in index.html, this summary paragraph of two or
+  // three sentences with its numbers, its lead figure, and the Methods link (rule 8).
+  // `lede` is the panel's definition line and renders only where that panel is the
+  // first place a term appears: the YIMBY / NIMBY rule moved to the example comments
+  // at the top of the page, so the panel that owns it passes defs:false (rule 14).
+  // Owner, 2026-10-21 08:46: "titles should be takeaways". The panel's <h2> is its
+  // first headline sentence, with its number, written into the heading already in the
+  // markup; the summary paragraph is the sentences after it. So the title states the
+  // finding and the paragraph never repeats it (rule 14). A panel with a one-sentence
+  // headline keeps its heading and renders no paragraph.
+  const head = (p, opts = {}) => {
+    const hs = (p.headline || []).map(esc);
+    if (hs.length) d3.select("#" + opts.h2).text(p.headline[0]);
+    const rest = hs.slice(1).join(" ");
+    return `${rest ? `<p class="heads">${rest}</p>` : ""}${
+      p.lede && opts.defs !== false ? `<p class="lede">${esc(p.lede)}</p>` : ""}`;
+  };
   const mlink = p => `<p class="src-note">How this was measured, and how well: <a href="methods.html#${esc(p.methods_anchor)}">Methods</a>.</p>`;
 
   // ── "Who takes a side": the role gap, in a headline and two steps ──
@@ -384,13 +358,11 @@ Promise.all([
   // only lays out prose it is given; it names no estimator and no package,
   // because the page describes the model in plain words.
   //
-  // Concision pass, owner 2026-10-19 12:46 ("its too much explanation"): what is
-  // visible is the headline, the one line describing the model, the two steps at
-  // one line each, and the line saying which number to quote. The shares behind
-  // each step, the two-row table, where the dependence sits and the limitations
-  // are in one disclosure under them.
-  const orc = (v, lo, hi) => v == null ? "·"
-    : `<b>${f2(v)}×</b>${lo == null ? "" : ` <span class="note">(${f2(lo)}, ${f2(hi)})</span>`}`;
+  // Rule 8, 2026-10-21: the disclosure under the two steps is gone. It held the
+  // shares behind each step, the two-row odds-ratio table, where the dependence
+  // sits and the limitations. All four are on Methods, section "The models behind
+  // the role results", which reads the same fit; the two odds ratios a reader
+  // would quote are the two step lines themselves.
   const roleSide = rs => !rs ? "" : `
     <div class="panel sideblock" id="side-block">
       <h4 style="margin:0 0 4px">${esc(rs.title)}</h4>
@@ -399,20 +371,7 @@ Promise.all([
         <div><h5>${i + 1}. ${esc(s.name)}</h5><p>${esc(s.text)}</p></div>`).join("")}</div>
       ${rs.model_line ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
       <p class="sideres">${esc(rs.restated)}</p>
-      <details class="fold"><summary>The numbers, and what is wrong with this</summary>
-        <div class="body">
-        <p class="sidewhy" style="margin-top:0">${esc(rs.why)}</p>
-        <h4>Public against dais, on both steps of the same model</h4>
-        ${tbl([{h: "what is counted", f: r => esc(r.what)},
-               {h: "odds ratio (95 %)", num: 1, f: r => orc(r.odds_ratio, (r.or_ci95 || [])[0], (r.or_ci95 || [])[1])},
-               {h: "log-odds", num: 1, f: r => `${sg(r.delta, 2)}${ci((r.ci95 || [])[0], (r.ci95 || [])[1], 2)}`},
-               {h: "turns", num: 1, f: r => r.turns == null ? "·" : fi(r.turns)},
-               {h: "meetings", num: 1, f: r => r.meetings == null ? "·" : fi(r.meetings)}], rs.table)}
-        <p class="note">${esc(rs.table_note)}</p>
-        <p class="caveat-prose">${esc(rs.limits)}</p>
-        <p class="note">${(rs.sources || []).filter(Boolean).map(s => `<code>${esc(s)}</code>`).join(" · ")}</p>
-        </div></details>
-      <p class="src-note">How this was measured: <a href="methods.html#models">Methods</a>.</p>
+      <p class="src-note">How this model was fitted: <a href="methods.html#models">Methods</a>.</p>
     </div>`;
 
   // ── one speaker cluster, described: shared by both dot charts ─────────────
@@ -519,9 +478,9 @@ Promise.all([
       hideQtip(); showCard(null); draw();
     });
     sel.selectAll("option").data(routes).join("option").attr("value", d => d)
-      .text(d => `${d} — ${NP.meta.routes[d].n} speakers`);
+      .text(d => `${d}: ${NP.meta.routes[d].n} speakers`);
     sel.property("value", route);
-    const card = d3.select("#nsc-card"), exes = d3.select("#nsc-ex");
+    const card = d3.select("#nsc-card");
     const shown = () => PTS.filter(d => d.route === route && (!bodyFilter || d.body === bodyFilter));
 
     function showCard(d, pin) {
@@ -544,7 +503,7 @@ Promise.all([
 
     const tipHtml = (d, pin) => `<blockquote>“${esc(d.quote)}”</blockquote>
       <p class="qmeta">${meta1(d)}<br>${meta2(d)}${
-        pin ? `<br><b>pinned</b> — click or tap the dot again to release` : ""}</p>`;
+        pin ? `<br><b>pinned</b>. Click or tap the dot again to release.` : ""}</p>`;
 
     const placeTip = (cx, cy) => placeFloating(qtip, cx, cy);
     function showQtip(d, pin, cx, cy) {
@@ -595,36 +554,20 @@ Promise.all([
         });
       d3.select("#nsc-filter").html(bodyFilter
         ? `${esc((byBody.get(bodyFilter) || {}).name || bodyFilter)} only, ${rows.length} of ${
-            PTS.filter(d => d.route === route).length} on this route — <button id="nsc-clear">show every body</button>`
+            PTS.filter(d => d.route === route).length} on this route. <button id="nsc-clear">show every body</button>`
         : `every body on this route: ${rows.length} speakers in ${new Set(rows.map(d => d.body)).size} bodies`);
       d3.select("#nsc-clear").on("click", () => { bodyFilter = null; draw(); });
       if (pinned && !rows.some(d => d.id === pinned.id)) { pinned = null; pinnedNode = null; hideQtip(); showCard(null); }
-      drawExamples(rows);
     }
 
-    // The examples strip: the longest turn from each side, three visible and ten
-    // more behind a disclosure. Longest is the only ranking used -- picking
-    // "best" quotes by hand would be picking the result.
-    // Readability review §7.1: these used to render open on a wide screen, which put
-    // 521 words of block quote on the page before anyone asked for one and was the
-    // whole of the regression against §6. Closed at every width now -- same markup,
-    // same contract, and the summary line still says who is speaking and when.
-    const exItem = d => `<details class="qex ${d.label.toLowerCase()}">
-      <summary><b>${esc(d.label)}</b> · ${esc(d.body_name)} · ${esc(d.date)}</summary>
-      <blockquote>“${esc(d.quote)}”</blockquote>
-      <p class="qmeta">${meta2(d)}</p></details>`;
-
-    function drawExamples(rows) {
-      const side = l => rows.filter(d => d.label === l).sort((a, b) => d3.descending(a.quote_words, b.quote_words));
-      const col = (l, title) => { const s = side(l);
-        return `<div><h5>${title} (${s.length} on this route)</h5>${
-          s.slice(0, 3).map(exItem).join("") || `<p class="note">None on this route.</p>`}${
-          s.length > 3 ? `<details class="fold"><summary>Show ${Math.min(10, s.length - 3)} more ${l} ${
-            s.length - 3 === 1 ? "speaker" : "speakers"}</summary><div class="body">${
-            s.slice(3, 13).map(exItem).join("")}</div></details>` : ""}</div>`; };
-      exes.html(`<div class="excols">${col("YIMBY", "Spoke for the housing item")}${
-        col("NIMBY", "Spoke against it")}</div>`);
-    }
+    // The examples strip stood here: the longest turn from each public speaker on
+    // the selected route, three a side in a details.qex element plus a "Show 10 more"
+    // fold, which was 26 disclosures on its own. It is gone (rule 8, and owner
+    // 2026-10-21 08:45), and the two example comments at the top of the page replace
+    // it: one NIMBY comment beside one YIMBY comment, chosen for being short, civil
+    // and on the same zoning question. data/nimby_points.json still carries every
+    // speaker's quote, and the scatter's own card and tooltip still show the quote
+    // for whichever dot is clicked.
 
     // Clicking a body on the map filters the scatter to it. A body is often read
     // by only one route, so if the selected route has nothing for it, move to the
@@ -674,166 +617,95 @@ Promise.all([
     const P = panels;
     // stance
     {
-      const p = P.stance, T = p.model_free.rows;
-      const pick = (rx, fam) => T.find(r => rx.test(r.statistic) && r.family === fam) || {};
-      const op = T.filter(r => /opposed/.test(r.statistic));
-      const pair = (rx, f) => { const s = pick(rx, f); return `${pc(s.public)} <span class="note">/ ${pc(s.dais)}</span><br><b>${sg(s.diff_public_minus_dais,2)}</b>${ci(s.diff_lo90,s.diff_hi90,2)}`; };
+      const p = P.stance;
       // Owner, 2026-10-19: "we also need to put the accuracy for that classification
       // of dai/not." One sentence, in the panel body where numbers belong.
-      // Concision pass, 2026-10-19 12:46: the fold under it repeated Methods § models
-      // ("Predicting the role from content") almost word for word -- the ablation, the
-      // calibration slope and the circularity of the audited target are all there --
-      // so it is a link now rather than a second copy of the same paragraph.
       const rolePred = rp => !rp ? "" : `<p class="rolepred">${esc(rp.text)} <a href="methods.html#models">How that works</a>.</p>`;
-      d3.select("#p-stance").html(`${head(p)}${rolePred(p.role_pred)}${leadFig(p)}
-        ${numbers("",
-          "Tail shares, public / dais — the numbers to quote", `
-        ${tbl([{h:"family",f:r=>esc(r.family)},
-               {h:"opposed",num:1,f:r=>pair(/opposed/, r.family)},
-               {h:"supportive",num:1,f:r=>pair(/supportive/, r.family)},
-               {h:"no stance to code",num:1,f:r=>pair(/not_applicable/, r.family)},
-               {h:"hostile (≥ 2)",num:1,f:r=>pair(/hostile/, r.family)},
-               {h:"scored turns",num:1,f:r=>`${fi(r.n_turns)} <span class="note">(${fi(r.n_public)} public)</span>`}], op)}
-        <p class="note">Each cell is public / dais, then the difference with its 90 % interval. <b>Opposed</b> and <b>supportive</b> shares are among turns with a numeric stance, which is a smaller set than the scored-turns column: the public also has far fewer turns with no stance to code, −26 points on density and −24 on transit, and that gap is itself a result. 2,000 episode-cluster bootstrap reps, role instrument db. <code>${esc(p.model_free.source)}</code></p>`)}
-        ${restFigs(p)}${roleAuditLink(p.role_audit)}${caveats(p.caveats)}${mlink(p)}`);
+      // The tail-shares table ("Tail shares, public and dais: the numbers to quote",
+      // one row per argument family, with the 90 % likely range on each difference)
+      // was a disclosure here and is gone (rule 8). Its two quotable numbers are the
+      // panel's own two sentences above; every row is still in panels.json
+      // stance.model_free and in output/stance_s2/, and Methods, section Stance,
+      // carries the bootstrap and the "no stance to code" result.
+      d3.select("#p-stance").html(`${head(p, {h2: "stance"})}${rolePred(p.role_pred)}${leadFig(p)}${mlink(p)}`);
     }
     // nimby
     {
-      const p = P.nimby, pub = p.by_body.filter(r => r.role === "public");
-      // Third pass: the scatter is this panel's lead figure. The four route bar charts
-      // say the same thing as the table under them, and leaving one of them above the
-      // scatter cost half a screen and a caption to say "the bars above". They are all
-      // one click away, together, where "More figures" already puts the other three.
-      // Panel order, 2026-10-19: the starred bar chart leads again (owner: it is "the most
-      // provoking finding"), then the per-speaker scatter, then the role block and the dot
-      // plot that shows what is underneath it. The third readability pass had the scatter
-      // leading; it keeps its place directly under the bars rather than losing it.
-      d3.select("#p-nimby").html(`${head(p)}${leadFig(p)}
+      const p = P.nimby;
+      // Panel order, 2026-10-19: the starred bar chart leads (owner: it is "the most
+      // provoking finding"), then the per-speaker scatter, then the role block.
+      // Rule 8, 2026-10-21: the "More figures" disclosure (the other four routes and
+      // the public-beside-dais pair) and the "Public speaker clusters by body and
+      // route" table are gone. The table's own result, that 5 of the 29 groups have a
+      // likely range on YIMBY minus NIMBY that excludes zero, is the panel's second
+      // sentence; the rows are in panels.json nimby.by_body and in
+      // output/stance_s1/nimby_view/, and the per-route splits and the 2026-10-18 role
+      // audit correction are on Methods, section "Speaker labels".
+      // The YIMBY / NIMBY definition this panel used to carry as its lede is now
+      // under the two example comments at the top of the page, so it passes
+      // defs:false and says it once (rule 14).
+      d3.select("#p-nimby").html(`${head(p, {h2: "nimby", defs: false})}${leadFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
-          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: support for the item. Up: hostility. Dot size: words said.</p>
+          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: support for the item. Up: hostility. Dot size: words said. Click a dot for that speaker's longest statement.</p>
           <p class="sctl">Route <select id="nsc-route"></select>
             <span id="nsc-filter" class="note"></span></p>
           <svg id="nsc" role="img" aria-label="Public speaker clusters by mean stance and mean hostility, one dot each"></svg>
-          <p class="skey"><i style="background:var(--yimby)"></i>YIMBY (mean ≥ +0.5) &nbsp; <i style="background:var(--nimby)"></i>NIMBY (≤ −0.5) &nbsp; <i style="background:var(--nstance)"></i>neutral between &nbsp;· larger dot = more words</p>
+          <p class="skey"><i style="background:var(--yimby)"></i>YIMBY: mean stance +0.5 or higher &nbsp; <i style="background:var(--nimby)"></i>NIMBY: −0.5 or lower &nbsp; <i style="background:var(--nstance)"></i>neutral: between the two &nbsp;· larger dot = more words</p>
           <div class="qcard" id="nsc-card"></div>
           <div class="qtip" id="nsc-tip" role="tooltip"></div>
-          <h4 style="margin:1.25rem 0 0">Examples</h4>
-          <p class="numlede">The longest thing each said, as transcribed — three a side.</p>
-          <div id="nsc-ex"></div>
-        </div>` : `<p class="note">The per-speaker scatter and the examples need <code>data/nimby_points.json</code> — run <code>export/export_nimby_points.py</code>.</p>`}
-        ${roleSide(p.role_side)}
-        ${numbers("",
-          "Public speaker clusters by body and route", `
-        ${tbl([{h:"route",f:r=>esc(r.route)},{h:"body",f:r=>esc(r.body)},
-               {h:"clusters",num:1,f:r=>`${fi(r.n_clusters)} <span class="note">(${fi(r.n_episodes)} ep)</span>`},
-               {h:"YIMBY (90 %)",num:1,f:r=>`${pc(r.YIMBY_share)}${ci(r.YIMBY_lo90,r.YIMBY_hi90,2)}`},
-               {h:"NIMBY (90 %)",num:1,f:r=>`${pc(r.NIMBY_share)}${ci(r.NIMBY_lo90,r.NIMBY_hi90,2)}`},
-               {h:"Y − N (90 %)",num:1,f:r=>{const sig = r.net_lo90 != null && r.net_hi90 != null && (r.net_lo90 > 0 || r.net_hi90 < 0);
-                 return `${sig?"<b>":""}${sg(r.net_yimby_minus_nimby,2)}${sig?"</b> ★":""}${ci(r.net_lo90,r.net_hi90,2)}`;}},
-               {h:"top sub-topics",f:r=>`<span class="note">${esc((r.top_sub_topics||"").split(";").slice(0,2).join(", "))}</span>`}],
-              pub.sort((a,b) => d3.ascending(a.route,b.route) || d3.descending(a.n_clusters,b.n_clusters)))}
-        <p class="note">★ = the 90 % interval on YIMBY − NIMBY excludes zero. Route-wide public splits: ${
-          p.by_route.map(r => `${esc(r.route)} ${fi(r.n_public_clusters)} clusters → ${pc(r.YIMBY_share)} / ${pc(r.NIMBY_share)} / ${pc(r.neutral_share)} (Y/N/neutral)`).join(" · ")}. Overall ${
-          f1(100*p.overall.split.YIMBY)} % YIMBY / ${f1(100*p.overall.split.NIMBY)} % NIMBY / ${f1(100*p.overall.split.neutral)} % neutral on ${fi(p.overall.split.n_public_clusters)} clusters, threshold ±${p.overall.threshold}, ${fi(p.overall.bootstrap_reps)} bootstrap reps. ${
-          p.overall.split_cue ? `<b>Corrected 2026-10-18 after role audit</b>: under the old diarization-cue role this read ${
-          f1(100*p.overall.split_cue.YIMBY)} / ${f1(100*p.overall.split_cue.NIMBY)} / ${f1(100*p.overall.split_cue.neutral)} on ${
-          fi(p.overall.split_cue.n_public_clusters)} clusters. The YIMBY−NIMBY balance hardly shifts; the neutral band shrinks, and <b>Petaluma loses its star</b> (see the caveats). Starred bodies now: ${
-          esc(Object.entries(p.overall.stars_public||{}).filter(([,v]) => (v||[]).length).map(([r,v]) => `${v.join(", ")} (${r})`).join("; ") || "none")}.` : ""} <code>output/stance_s1/nimby_view/</code></p>`)}
-        ${/* Owner, 2026-10-19: "the horizontal bar plot should be there as well as it is
-              the most provoking finding imo and invites the most further analysis." The
-              third readability pass had demoted every bar chart into a fold and made the
-              scatter the lead; the public starred bars come back out, for the route that
-              read the most bodies. The rest -- the other routes and the public-beside-dais
-              pair -- stay one click away, where they already were. The all-roles version of
-              the same chart came off the page 2026-10-20: it was drawn before the data
-              freeze and nothing in the repo regenerates it. */
-          p.figs && p.figs.length > 1
-            ? `<details class="fold"><summary>More figures — the other routes, and the dais beside the public (${p.figs.length - 1})</summary><div class="body pfigs">${p.figs.slice(1).map(f => figOne(p, f)).join("")}</div></details>` : ""}${roleAuditNote(p.role_audit)}${caveats(p.caveats)}${mlink(p)}`);
+        </div>` : `<p class="note">The per-speaker scatter needs <code>data/nimby_points.json</code>. Run <code>export/export_nimby_points.py</code> to build it.</p>`}
+        ${roleSide(p.role_side)}${mlink(p)}`);
       if (nimbyPts) buildScatter(nimbyPts);
     }
     // renter
     {
-      const p = P.renter, cr = p.correlations.filter(r => r.n != null).sort((a,b) => d3.descending(Math.abs(a.pearson||0), Math.abs(b.pearson||0)));
-      const cols = cr.length ? Object.keys(cr[0]) : [];
-      d3.select("#p-renter").html(`${head(p)}${leadFig(p)}
-        ${cr.length ? numbers("",
-          "Correlations with renter share, and how few bodies each rests on", `
-        ${tbl(cols.map(k => ({h: k.replace(/_/g," "), num: typeof cr[0][k] === "number",
-              f: r => typeof r[k] === "number" ? (Math.abs(r[k]) < 10 ? (+r[k]).toFixed(3) : fi(r[k])) : esc(r[k])})), cr)}
-        <p class="note"><code>output/renter_share/correlations.csv</code></p>`) : ""}
-        ${restFigs(p)}${caveats(p.caveats)}${mlink(p)}`);
+      const p = P.renter;
+      // Rule 8, 2026-10-21: the correlations table ("Correlations with renter share,
+      // and how few bodies each rests on") and the "More figures" disclosure are gone,
+      // and the panel came out of the "more" fold it used to sit behind. Its finding
+      // is that every likely range includes zero, which is its own first sentence;
+      // output/renter_share/correlations.csv still holds every row and Methods,
+      // section Limitations, carries how little this could have detected.
+      d3.select("#p-renter").html(`${head(p, {h2: "renter"})}${leadFig(p)}${mlink(p)}`);
     }
     // rates
     {
-      const p = P.rates, any = p.complete.filter(r => r.family === "any");
-      d3.select("#p-rates").html(`${head(p)}${leadFig(p)}
-        ${numbers("",
-          `Complete-coverage bodies, minutes per meeting-hour — ${p.rated_bodies.join(", ")}`, `
-        ${tbl([{h:"body",f:r=>esc(r.body)},{h:"route",f:r=>esc(r.route)},{h:"meetings",num:1,f:r=>fi(r.meetings)},
-               {h:"meeting-h",num:1,f:r=>f1(r.meeting_hours)},{h:"episodes",num:1,f:r=>fi(r.episodes)},
-               {h:"on-topic min",num:1,f:r=>f1(r.episode_minutes)},
-               {h:"min per meeting-h (95 %)",num:1,f:r=>`<b>${f2(r.rate_min_per_h)}</b>${ci(r.ci95_lo,r.ci95_hi,2)}`},
-               {h:"density",num:1,f:r=>{const d=p.complete.find(x=>x.body===r.body&&x.route===r.route&&x.family==="density")||{};return d.rate_min_per_h==null?"·":f2(d.rate_min_per_h);}},
-               {h:"transit",num:1,f:r=>{const d=p.complete.find(x=>x.body===r.body&&x.route===r.route&&x.family==="transit")||{};return d.rate_min_per_h==null?"·":f2(d.rate_min_per_h);}}], any)}
-        <p class="note">Complete coverage means every meeting of that body has been located. ${
-          p.complete_without_exposure.length ? `${p.complete_without_exposure.map(esc).join(" and ")} are complete too but publish no video duration, so they have no exposure denominator and no rate. ` : ""}${
-          fi(p.all_rows.length)} rows in all, including the partial bodies whose rates are floors: <code>output/wave1/rates_by_body_route.csv</code>.</p>`)}
-        ${restFigs(p)}${caveats(p.caveats)}${mlink(p)}`);
+      const p = P.rates;
+      // Rule 8, 2026-10-21: the per-body table ("Complete-coverage bodies, minutes per
+      // meeting-hour") is gone. The three rated bodies and their rates are the panel's
+      // own three sentences; every row, including the partial bodies whose rates are
+      // floors, is in panels.json rates.all_rows and in
+      // output/wave1/rates_by_body_route.csv.
+      d3.select("#p-rates").html(`${head(p, {h2: "rates"})}${leadFig(p)}${mlink(p)}`);
     }
   } else {
     ["stance","nimby","renter","rates"].forEach(k => d3.select("#p-"+k).html(`<p class="loadfail">This panel is empty because <code>data/panels.json</code> is missing: run <code>export/export_panels.py</code> to build it.</p>`));
   }
 
-  // ── methods footer: instrument versions from the DB / files ───────────
-  const I = meta.instruments;
-  const clsRows = I.classifier.episodes_by_version.map(r => `<code>${esc(r.model)}</code> prompt <code>${esc(r.prompt_version)}</code> (${fi(r.n)} episodes)`).join("; ");
-  const callRows = I.classifier.calls_by_version.map(r => `<code>${esc(r.model)}</code> / <code>${esc(r.prompt_version)}</code>: ${fi(r.n)}`).join("; ");
-  const st = I.stance.runs[0] || {};
-  const roleV = I.roles[0] || {};
-  d3.select("#methods").html(`
-    <h2 style="margin-top:0" id="methods-h">Methods and instrument versions</h2>
-    <p>Read from the pipeline database at export time (${meta.generated.slice(0,16).replace("T"," ")}), not typed in.</p>
-    <details class="fold"><summary>The corpus and every instrument version</summary><div class="body">
-    <dl>
-      <dt>Corpus</dt><dd>${fi(T.bodies)} bodies — ${T.meetings_by_platform.youtube} meetings on YouTube, ${T.meetings_by_platform.granicus} on Granicus, ${T.meetings_by_platform.swagit} on Swagit — ${fi(T.meetings)} regular meetings in all, ${fi(Math.round(T.meeting_hours))} meeting-hours of video found. ${fi(T.episodes)} episodes flagged; ${fi(T.episodes_done)} transcribed (${f1(T.hours_done)} h) across ${withHours.length} bodies, ${fi(T.episodes_by_status.mention || 0)} mention-only and ${fi(T.episodes_by_status.cut || 0)} cut and waiting for the next GPU batch. ${noText.length} bodies have nothing transcribed yet (San Francisco and SFMTA are registered but have no transcripts). Five locate routes, by readable episodes: ${Object.entries(T.gated_by_route).sort((a,b) => b[1]-a[1]).map(([r,n]) => `<i>${esc(r)}</i> ${fi(n)}`).join(", ")}; <i>fullasr</i> is the newest — whole meetings transcribed end to end, with no caption screen in front of it. Hours are uneven: ${short(top[0].name)} ${f1(top[0].hours_done)} h, ${short(top[1].name)} ${f1(top[1].hours_done)} h … ${short(top[top.length-1].name)} ${f1(top[top.length-1].hours_done)} h, and the role-gap sample is capped at 8 h per body. ${fi(T.episodes_with_text)} episodes are readable here after the QA gate: ${fi(meta.text.turns)} turns, ${fi(meta.text.words)} words, text as loaded. Stance and hostility are scored per turn on ${fi(T.stance_turns)} turns in ${fi(T.episodes_scored)} episodes at k=3. Exported ${meta.generated.slice(0,16).replace("T"," ")}; ${esc(meta.published_note)}.</dd>
-      <dt>Topic classifier</dt><dd>${clsRows || "—"}. Calls audited in <code>classifier_calls</code>: ${callRows}. Haiku was rejected at 0.758 agreement with the hand labels.</dd>
-      <dt>ASR + diarization</dt><dd>WhisperX <code>${esc(I.asr.model)}</code> + <code>${esc(I.asr.diarization)}</code> (pyannote.audio ${esc(I.asr.pyannote_audio)}, faster-whisper ${esc(I.asr.faster_whisper)}) on ${fi(I.asr.n_episodes)} of ${fi(T.episodes_with_text)} readable episodes${I.asr.variants.length > 1 ? `; other stacks: ${I.asr.variants.slice(1).map(v => `${esc(v.model)}+${esc(v.diarization)} ×${v.n}`).join(", ")}` : ""}. Episodes located by <i>local_asr</i> were first found with Mac Whisper, then re-transcribed on the GPU like the others.</dd>
-      <dt>Speaker roles</dt><dd>cue-phrase labeller <code>pipeline/roles.py</code>, cues version <code>${esc(roleV.cues_version)}</code>; methods: ${I.roles.map(r => `${esc(r.method)}/${esc(r.cues_version)} ${fi(r.n)}`).join(", ")}.</dd>
-      <dt>Stance codebook</dt><dd><code>plan/STANCE-CODEBOOK.md</code>, hash <code>${esc(I.stance.codebook_hash_on_disk)}</code> (file sha256 ${esc(I.stance.codebook_file_sha)}); prompt version <code>${esc(st.prompt_version)}</code>, model <code>${esc(st.model)}</code>, ${fi(st.n || 0)} turns in ${fi(st.n_episodes || 0)} episodes at k=3${I.stance.codebook_hash_on_disk && st.prompt_version && !st.prompt_version.startsWith(I.stance.codebook_hash_on_disk) ? " — <b>codebook on disk differs from the scored rows'</b>" : " (codebook unchanged since the pass)"}. Human coder agreement (κ): <b>${esc(I.stance.kappa_gate)}</b>.</dd>
-      <dt>Redaction</dt><dd><b>Names, addresses and contact details are removed</b> — ${esc(meta.text.redaction)}. A speaker who introduces themselves reads as <code>[name]</code>, a home address as <code>[address]</code>. These are public meetings and every turn still links to the public recording at the same timestamp, so a quote stays checkable without naming anyone here. The no-persistent-speaker-id rule (<code>plan/DECISIONS.md</code> #15) holds as well: clusters are per episode and nothing links one across meetings.</dd>
-      <dt>QA gate</dt><dd><code>make qa</code>: episodes ${fi(meta.qa.episode_OK)} OK / ${fi(meta.qa.episode_WARN)} WARN / ${fi(meta.qa.episode_FAIL || 0)} FAIL; whole shows ${fi(meta.qa.show_OK)} OK / ${fi(meta.qa.show_WARN)} WARN. Only OK and WARN episodes are exported.</dd>
-      <dt>Source links</dt><dd>YouTube <code>${esc(meta.links.youtube)}</code>; Granicus <code>&amp;entrytime=&lt;s&gt;&amp;autostart=1</code> (${esc(meta.links.granicus.replace(/^[^(]*\(/, "").replace(/\)$/, ""))}); Swagit: ${esc(meta.links.swagit)}.</dd>
-    </dl>
-    <p>Episode text files: ${meta.episode_files.n} bodies, ${f1(meta.episode_files.bytes_total/1e6)} MB total, largest ${f1(meta.episode_files.bytes_max/1e6)} MB, loaded only when a body is opened. Design decisions are frozen in <code>plan/DECISIONS.md</code>. This is an exploratory study: no human gold set, the stance κ ≥ 0.6 gate not passed, a yield-ordered rather than randomly sampled caption queue, and speaker clusters scoped to one episode. ${esc(meta.published_note.charAt(0).toUpperCase() + meta.published_note.slice(1))}.</p></div></details>`);
-
-  // The reader starts on one episode instead of empty (readability review §5.3), so the
-  // best thing on the page -- an actual person at an actual meeting -- arrives without a
-  // click. Fremont 2026, nine minutes on a street crossing: QA OK, five public speakers
-  // with stance both ways, short enough not to be a wall. Any other readable episode
-  // works; this one is a choice of display, not of analysis.
-  const LEAD_EPISODE = "gr-fremont-21_e4";
+  // ── the methods footer stood here until 2026-10-21 ────────────────────
+  // It was a <dl> of nine entries read from the pipeline database at export time
+  // (Corpus, Topic classifier, ASR + diarization, Speaker roles, Stance codebook,
+  // Redaction, QA gate, Source links, episode text files), inside one disclosure.
+  // Rule 8 puts provenance on Methods, and the Methods page already carries every
+  // one of those entries, in section "Every instrument version", read from the same
+  // export. The footer is now the dated spend, the data date and the Methods link.
+  // The two counts the Corpus entry carried that nothing else said, how many bodies
+  // are mapped and how many have transcribed hours, are in the map's summary line.
 
   // deep link
   const hb = location.hash.slice(1);
   if (hb && byBody.has(hb)) selectBody(byBody.get(hb));
-  else if (epById.has(LEAD_EPISODE)) openReader(epById.get(LEAD_EPISODE), { scroll: false });
 
-  // An anchor inside the "more" fold has to open it, or the link goes nowhere.
-  const openFoldFor = h => { const el = h && document.getElementById(h); if (!el) return;
-    for (let p = el; p; p = p.parentElement) if (p.tagName === "DETAILS") p.open = true; };
-  openFoldFor(hb);
-  addEventListener("hashchange", () => openFoldFor(location.hash.slice(1)));
-  window.__site = { selectBody, selectMeeting, openReader, loadText, bodies, meetings, episodes, byBody, mById, epById, meta };
+  window.__site = { selectBody, selectMeeting, bodies, meetings, episodes, byBody, mById, epById, meta };
 }).catch(err => {
   // A failed data load used to leave the panels silently empty, with only the
   // console saying why (readability review §3, point 7). Say it on the page.
-  const msg = `<b>The dashboard could not load its data.</b> ${esc(err.message)}. Nothing below this line is showing results. This folder has to be served over HTTP (<code>python3 -m http.server 8766</code> in the site directory) — browsers block <code>file://</code> fetches — and the export scripts in <code>export/</code> have to have been run.`;
+  const msg = `<b>The dashboard could not load its data.</b> ${esc(err.message)}. Nothing below this line is showing results. This folder has to be served over HTTP, because browsers block <code>file://</code> fetches: run <code>python3 -m http.server 8766</code> in the site directory. The export scripts in <code>export/</code> also have to have been run.`;
   d3.select("main").insert("p", ".nav + *").attr("class", "loadfail").html(msg);
   d3.select("#detail").html(`<h3>Data not loaded</h3><p>See the message at the top of the page.</p>`);
   ["stance","nimby","renter","rates"].forEach(k => d3.select("#p-"+k).html(`<p class="loadfail">This panel has no data: the dashboard's data load failed. ${esc(err.message)}.</p>`));
   d3.select("#asof").text("");
-  d3.select("#methods").html(`<p class="loadfail">Instrument versions are read from the exported data, which did not load. The full Methods page is <a href="methods.html">here</a>.</p>`);
   console.error(err);
 });
 </script>
