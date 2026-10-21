@@ -6,11 +6,11 @@ Serve the site first, then run against that URL:
     python3 -m http.server 8788            # in ~/ytpt/docs
     python3 scripts/site_export/shoot_screenshots.py <url> <prefix>
 
-Writes five files: the full-page desktop render cut in half (it is past 6,000 px,
+Writes four files: the full-page desktop render cut in half (it is past 6,000 px,
 which is too tall for one readable file), the full-page phone render at 390 px,
-the role dot-plot panel on its own, and the Methods page's flowchart with its
-detail pane. Console errors and page errors are printed rather than swallowed —
-a screenshot of a broken page should say so.
+and the Methods page's flowchart with its detail pane. Console errors and page
+errors are printed rather than swallowed — a screenshot of a broken page should
+say so. The role dot-plot shot went when the plot came off the page (2026-10-21).
 """
 import sys
 from playwright.sync_api import sync_playwright
@@ -38,10 +38,6 @@ with sync_playwright() as pw:
                   clip={"x": 0, "y": 0, "width": 1280, "height": half})
     pg.screenshot(path=f"{P}-desktop-2.png", full_page=True,
                   clip={"x": 0, "y": half, "width": 1280, "height": h - half})
-    r = pg.locator("#rdp-panel")
-    r.scroll_into_view_if_needed()
-    pg.wait_for_timeout(600)
-    r.screenshot(path=f"{P}-role.png")
     pg.set_viewport_size({"width": 390, "height": 844})
     pg.wait_for_timeout(1500)
     pg.evaluate("window.scrollTo(0,0)")

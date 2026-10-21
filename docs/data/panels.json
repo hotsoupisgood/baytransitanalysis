@@ -1,21 +1,16 @@
 {
-"generated": "2026-10-20T22:18-07:00",
+"generated": "2026-10-21T07:44-07:00",
 "stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
 "intro": {
-"collected": "I pulled a year of regular meetings from 33 Bay Area city councils, county boards and transit boards: 692 meetings, about 2,285 hours of video. An LLM marked the stretches about housing density or transit; those were cut out as 1,821 episodes and transcribed, 270 hours of speech. A second pass scored 15,961 statements for stance and hostility. No human has coded any of it, so this is exploratory.",
-"results": "Three things came out. Transit boards spend far more meeting time on the topic than councils do, and which route found a body moves its rate almost as much as the body does. Public speakers take positions where the dais does not: 74.0 % of scored dais statements sit at exactly neutral against 22.3 % of public ones. And of the statements that do take a side, public ones are about 1.8 times as likely in odds to be against the item.",
-"tldr": [
-"I collected a year of Bay Area council, county and transit-board meetings, cut out the parts about housing density and transit, and had an LLM score every statement in them.",
-"I found that transit boards gave the topic far more of their meeting time than councils did, and that which route read a body mattered nearly as much as the body itself.",
-"I found that the public took sides where the dais stayed neutral, and that most of the gap between them was about who took a position at all rather than which position they took.",
-"I put the results in the map, the episode reader and the panels below, and kept every instrument, number and limitation on the <a href=\"methods.html\">Methods</a> page."
-],
+"collected": "A year of meetings from 33 Bay Area city councils, county boards and transit boards: 692 meetings, 2,285 hours of video, 15,961 statements scored by an LLM.",
+"results": "Transit boards spend far more meeting time on housing density and transit than councils do. Public speakers take sides where the dais stays neutral, and when they take one they lean against the item.",
+"note": "Early, exploratory look. Who took which side was judged by AI, not checked by people.",
 "spend": {
-"usd": 144.84,
-"as_of": "2026-10-20",
+"usd": 145.38,
+"as_of": "2026-10-21",
 "by_account": {
 "classifier": 59.99,
-"runpod_total": 16.92,
+"runpod_total": 17.46,
 "stance": 67.93
 },
 "text": "Total spend to date $145 \u2014 GPU transcription $17, stance coding $68, topic classifier $60"
@@ -37,17 +32,15 @@
 "stance": {
 "title": "Stance: the role gap",
 "stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
-"lede": "Does public comment differ from the dais inside the same meeting? Three reads of every turn against one pinned codebook.",
-"tldr": "The public reads as more hostile than the dais.",
+"lede": "",
 "corrected": "corrected 2026-10-18 after role audit",
 "headline": [
-"I scored every turn for stance and hostility and compared public comment with the dais.",
-"Found the public more hostile than the dais.",
-"Found the public sits in both tails at once while the dais stays neutral, so quote the tail shares below, not the gap."
+"The public reads as more hostile than the dais, and takes a side where the dais does not.",
+"74 of 100 dais statements sit exactly at neutral, against 22 of 100 of the public."
 ],
 "role_pred": {
 "title": "How well content alone tells the dais from the public",
-"text": "Given only what was said, a model picks the public speaker out of a pair about 0.80 of the time \u2014 using not the position but its distance from neutral.",
+"text": "From the words alone, a model tells a public speaker from a dais one about 0.80 of the time \u2014 by how strong the opinion is, not which side it takes.",
 "detail": "The features are stance, hostility, the twelve frames, sub-topic and length, and two of them do nearly all the work: dropping absolute stance costs 0.14 of AUC and dropping length 0.04, with nothing else over 0.02. Signed stance on its own is at chance \u2014 0.44 by cluster, against 0.50 for a coin \u2014 so the model is not learning who is a NIMBY, it is learning who holds a position at all. Two caveats. Calibration does not travel: the ranking holds between bodies but the probabilities do not, at a slope of 0.63 out of body, so this is a measurement of how separable the two roles are and not a classifier anyone should point at a new city. And the target here is the diarization-cue role. Fitted against the audited role the same model reaches 0.86, but that number is circular \u2014 the audit is itself built from what a speaker says about who they are, so the model is partly predicting its own input.",
 "auc_cluster": 0.8019794842347703,
 "auc_turn": 0.7751403513289657,
@@ -1013,10 +1006,6 @@
 },
 "caveats": [
 {
-"name": "Proportional odds misfits the public stance distribution",
-"text": "A posterior predictive check of that fit puts 58 % of public turns at stance 0 against 23 % observed: a single shiftof shared cutpoints cannot represent a distribution spread into both tails. The latent stance gap therefore averages two opposite effects. Quote the tail shares, not the gap. A two-part model (stance taken or not; direction given a stance) is the right next model."
-},
-{
 "name": "The \u03ba \u2265 0.6 hand-coding gate is not passed",
 "text": "No human has coded any of these turns. The 0.98 replicate \u03ba is the instrument agreeing with itself (noise floor \u2248 2 %); the one cross-instrument check on record is \u03ba 0.63 against a second codebook, same side 88 % of the time. Nothing here is a confirmatory result."
 },
@@ -1159,23 +1148,20 @@
 "nimby": {
 "title": "YIMBY / NIMBY",
 "stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
-"lede": "No new scoring: a speaker is YIMBY if their turns lean toward the housing item, NIMBY if against.",
-"tldr": "Public speakers split close to evenly for and against the housing items, leaning slightly against.",
+"lede": "A speaker is YIMBY if their turns lean toward the housing item, NIMBY if against.",
 "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
 "headline": [
-"I rolled the per-turn stance up to speakers and asked how the public split YIMBY against NIMBY on housing items.",
-"Found the split close to even, with only a few bodies separating from it on their own.",
-"Found the routes that read the same body can disagree, so nothing here is pooled.",
-"I put the shares in the starred bars and the table below, and kept the limits on Methods."
+"Public speakers split close to evenly for and against the housing items, leaning slightly against.",
+"Only a few bodies separate from that split on their own."
 ],
 "role_side": {
 "title": "Who takes a side",
-"headline": "Public speakers take a side far more often than the dais does, and when they do they come out against the item somewhat more often.",
-"model_line": "Both lines come from one mixed model, with its own baseline for every meeting and every stretch of meeting.",
+"headline": "Public speakers take a side far more often than the dais. When they do, they are more often against the item.",
+"model_line": "",
 "steps": [
 {
 "name": "Took a side at all",
-"text": "10.39\u00d7 in odds (95 % 8.48 to 12.85).",
+"text": "10.39\u00d7 in odds (likely range 8.48 to 12.85).",
 "odds_ratio": 10.385677831320098,
 "beta": 2.34042772542629,
 "ci95": [
@@ -1185,7 +1171,7 @@
 },
 {
 "name": "Which side, given a side",
-"text": "1.81\u00d7 against the item (95 % 1.42 to 2.32).",
+"text": "1.81\u00d7 against the item (likely range 1.42 to 2.32).",
 "odds_ratio": 1.8075128467009125,
 "beta": 0.591951782467247,
 "ci95": [
@@ -1194,7 +1180,7 @@
 ]
 }
 ],
-"restated": "For \u201cmore opposed\u201d, quote the second line \u2014 1.81\u00d7 \u2014 not the first, which is about taking a position at all.",
+"restated": "Quote 1.81\u00d7 for \u201cmore opposed\u201d. The first line is about taking a side at all.",
 "why": "Behind the two steps: 83.7 % of public turns take a side rather than sitting in the neutral band, against 33.1 % of dais turns; of the turns that do take one, 53.4 % of public turns come out against the item against 36.4 % of dais ones. The two steps are separate fits on their own rows and do not multiply together. Almost all the dependence in this corpus is inside meetings rather than between bodies: on the second step the spread between stretches of meeting is 0.96 and between meetings 0.81 on the log-odds scale, while the spread between bodies is 0.00 once meeting is in the model. Which is why the model groups turns by meeting and not by city. Renter share does not move either step: its interval covers zero on both, and so does its interaction with role. Staff speakers are dropped from these rows altogether \u2014 they read reports rather than take positions \u2014 and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
 "table": [
 {
@@ -1240,7 +1226,6 @@
 "analysis/r/turn_profile.R"
 ]
 },
-"dot_caption": "In the plot above the dais half is a band pressed onto the neutral line, and the public half is two clouds pulled away from it, balanced above and below.",
 "role_audit": {
 "audit_version": "ra-1",
 "turns": 15961,
@@ -5420,272 +5405,12 @@
 ],
 "caveats": [
 {
-"name": "What n means on the bars, and why it does not add up to the other two numbers",
-"text": "On each bar label, n is the number of speaker clusters at that body that carry a stance at all \u2014 one cluster is one diarized voice inside one meeting. The two numbers after it are not parts of n: the episode count says how many stretches of meeting those clusters came from (one episode usually holds several speakers), and, where shown, the public count is the subset of n that the role audit calls public. The green and red bars are the YIMBY and NIMBY shares of n; the remainder is neutral and is not drawn, so the two bars do not sum to one either."
-},
-{
-"name": "How much data each body has, and why it is uneven",
-"text": "The collection aimed for roughly thirty regular meetings per organization over the year, which is about what a council that meets twice a month produces. Not every body got there: some archives could not be located, some meet monthly, and the YouTube bodies are still being downloaded at a fixed daily budget, so their counts are floors. A body with few clusters gets a wide interval and no star, not a zero."
-},
-{
 "name": "How a speaker gets a label, and what the label is not",
-"text": "A cluster's density stance is the mean of its turns' stance medians over the turns that carry a numeric stance: YIMBY at \u2265 +0.5, NIMBY at \u2264 \u22120.5, neutral between. Transit-family episodes are excluded, YIMBY/NIMBY being a housing construct. There is one table and one figure per locate route and they are never pooled, because the routes that read the same body can disagree about it. Corrected 2026-10-18 after the role audit: every figure and table on this panel is drawn under the audited speaker role, and the earlier cue-role versions are kept in the repo with a _cue suffix as a sensitivity."
+"text": "A speaker is YIMBY at a mean stance of \u2265 +0.5 toward the housing item, NIMBY at \u2264 \u22120.5, neutral between. Transit items are left out, YIMBY and NIMBY being about housing. Each route gets its own table and figure and nothing is pooled, because routes that read the same body can disagree."
 },
 {
-"name": "Petaluma star WITHDRAWN \u2014 it was dais speech in the public bucket",
-"text": "Corrected 2026-10-18 after role audit. Petaluma's Swagit-route YIMBY lean was one of only two starred results on this page, and it does not survive being audited against what the speakers say about themselves. Net YIMBY \u2212 NIMBY went +0.33 (+0.00, +0.63) \u2605 to +0.29 (-0.10, +0.67), interval across zero, on 24 \u2192 31 public clusters: four clusters leave the public bucket and thirteen join it. The single largest \u201cpublic\u201d cluster in that frame \u2014 1,083 words, YIMBY \u2014 is an elected member advocating housing near the SMART station, by their own self_id. Two more are NIMBY-side members. **Petaluma public-YIMBY is not a finding.** Oakland's star does survive, at +0.65 (+0.11, +0.85). The table below is the site's older heuristic flag, kept as history: it fired on the same bodies, flagging 86 of 947 cue-public clusters before the real audit existed.",
-"table": [
-{
-"body": "sanleandro",
-"route": "local_asr",
-"clusters_with_stance": 170,
-"flagged": 8,
-"flagged_yimby": 2,
-"flagged_nimby": 3,
-"yimby": 70,
-"nimby": 80
-},
-{
-"body": "vta",
-"route": "classifier",
-"clusters_with_stance": 34,
-"flagged": 8,
-"flagged_yimby": 6,
-"flagged_nimby": 0,
-"yimby": 16,
-"nimby": 13
-},
-{
-"body": "petaluma",
-"route": "swagit_transcript",
-"clusters_with_stance": 24,
-"flagged": 6,
-"flagged_yimby": 3,
-"flagged_nimby": 2,
-"yimby": 13,
-"nimby": 5
-},
-{
-"body": "sanleandro",
-"route": "fullasr",
-"clusters_with_stance": 29,
-"flagged": 6,
-"flagged_yimby": 4,
-"flagged_nimby": 1,
-"yimby": 16,
-"nimby": 9
-},
-{
-"body": "sausalito",
-"route": "fullasr",
-"clusters_with_stance": 66,
-"flagged": 6,
-"flagged_yimby": 1,
-"flagged_nimby": 0,
-"yimby": 11,
-"nimby": 39
-},
-{
-"body": "vallejo",
-"route": "classifier",
-"clusters_with_stance": 30,
-"flagged": 6,
-"flagged_yimby": 1,
-"flagged_nimby": 1,
-"yimby": 11,
-"nimby": 9
-},
-{
-"body": "sanjose",
-"route": "classifier",
-"clusters_with_stance": 193,
-"flagged": 5,
-"flagged_yimby": 3,
-"flagged_nimby": 2,
-"yimby": 60,
-"nimby": 122
-},
-{
-"body": "santaclara",
-"route": "classifier",
-"clusters_with_stance": 32,
-"flagged": 5,
-"flagged_yimby": 1,
-"flagged_nimby": 1,
-"yimby": 14,
-"nimby": 12
-},
-{
-"body": "losaltos",
-"route": "classifier",
-"clusters_with_stance": 16,
-"flagged": 4,
-"flagged_yimby": 3,
-"flagged_nimby": 0,
-"yimby": 5,
-"nimby": 6
-},
-{
-"body": "bart",
-"route": "classifier",
-"clusters_with_stance": 4,
-"flagged": 3,
-"flagged_yimby": 2,
-"flagged_nimby": 0,
-"yimby": 2,
-"nimby": 0
-},
-{
-"body": "napa",
-"route": "fullasr",
-"clusters_with_stance": 8,
-"flagged": 3,
-"flagged_yimby": 2,
-"flagged_nimby": 0,
-"yimby": 3,
-"nimby": 2
-},
-{
-"body": "samtrans",
-"route": "fullasr",
-"clusters_with_stance": 12,
-"flagged": 3,
-"flagged_yimby": 1,
-"flagged_nimby": 0,
-"yimby": 7,
-"nimby": 2
-}
-]
-},
-{
-"name": "The reported role is an audit, not a gold label",
-"text": "Added 2026-10-18. Every public/dais number on this page is role_audit (rule ra-1): where the speaker says who they are, that beats the cue-phrase label. In the cue-labelled public bucket 309 of 1125 adjudicable turns (28%) say `elected` or `staff`; in the dais bucket only 4.5% disagree, because that bucket is ~50\u00d7 larger. But SELF_ID is model output, not a human label, and 45% of turns say nothing about the speaker and keep the cue role \u2014 so the audited public bucket is still contaminated at an unknown rate. The audit also moves clusters *both* ways: the public base with a stance rises from 947 to 1050 clusters. It is a re-partition, not a cleanup, and a shift in the split is not 'contamination removed'. The cluster roll-up is majority rule, so a merged diarizer cluster carrying both a member and a resident still gets one label.",
-"table": [
-{
-"_body": "santaclara",
-"n_turns": 2697.0,
-"n_informative": 1627.0,
-"disagree": 97.0,
-"disagree_rate": 0.0596,
-"cue_public_self_dais": 39.0,
-"cue_dais_self_public": 58.0,
-"rationale_flagged": 10.0
-},
-{
-"_body": "sausalito",
-"n_turns": 1794.0,
-"n_informative": 872.0,
-"disagree": 59.0,
-"disagree_rate": 0.0677,
-"cue_public_self_dais": 32.0,
-"cue_dais_self_public": 27.0,
-"rationale_flagged": 8.0
-},
-{
-"_body": "sanleandro",
-"n_turns": 1622.0,
-"n_informative": 841.0,
-"disagree": 65.0,
-"disagree_rate": 0.0773,
-"cue_public_self_dais": 41.0,
-"cue_dais_self_public": 24.0,
-"rationale_flagged": 17.0
-},
-{
-"_body": "petaluma",
-"n_turns": 1548.0,
-"n_informative": 866.0,
-"disagree": 60.0,
-"disagree_rate": 0.0693,
-"cue_public_self_dais": 16.0,
-"cue_dais_self_public": 44.0,
-"rationale_flagged": 11.0
-},
-{
-"_body": "richmond",
-"n_turns": 972.0,
-"n_informative": 476.0,
-"disagree": 38.0,
-"disagree_rate": 0.0798,
-"cue_public_self_dais": 14.0,
-"cue_dais_self_public": 24.0,
-"rationale_flagged": 3.0
-},
-{
-"_body": "napa",
-"n_turns": 728.0,
-"n_informative": 463.0,
-"disagree": 44.0,
-"disagree_rate": 0.095,
-"cue_public_self_dais": 18.0,
-"cue_dais_self_public": 26.0,
-"rationale_flagged": 9.0
-},
-{
-"_body": "hayward",
-"n_turns": 672.0,
-"n_informative": 437.0,
-"disagree": 32.0,
-"disagree_rate": 0.0732,
-"cue_public_self_dais": 22.0,
-"cue_dais_self_public": 10.0,
-"rationale_flagged": 12.0
-},
-{
-"_body": "sanjose",
-"n_turns": 671.0,
-"n_informative": 410.0,
-"disagree": 29.0,
-"disagree_rate": 0.0707,
-"cue_public_self_dais": 18.0,
-"cue_dais_self_public": 11.0,
-"rationale_flagged": 5.0
-},
-{
-"_body": "bart",
-"n_turns": 576.0,
-"n_informative": 284.0,
-"disagree": 29.0,
-"disagree_rate": 0.1021,
-"cue_public_self_dais": 26.0,
-"cue_dais_self_public": 3.0,
-"rationale_flagged": 7.0
-},
-{
-"_body": "vta",
-"n_turns": 557.0,
-"n_informative": 299.0,
-"disagree": 23.0,
-"disagree_rate": 0.0769,
-"cue_public_self_dais": 13.0,
-"cue_dais_self_public": 10.0,
-"rationale_flagged": 6.0
-},
-{
-"_body": "paloalto",
-"n_turns": 532.0,
-"n_informative": 271.0,
-"disagree": 15.0,
-"disagree_rate": 0.0554,
-"cue_public_self_dais": 0.0,
-"cue_dais_self_public": 15.0,
-"rationale_flagged": 0.0
-},
-{
-"_body": "vallejo",
-"n_turns": 453.0,
-"n_informative": 261.0,
-"disagree": 28.0,
-"disagree_rate": 0.1073,
-"cue_public_self_dais": 12.0,
-"cue_dais_self_public": 16.0,
-"rationale_flagged": 5.0
-}
-]
-},
-{
-"name": "San Leandro sign flip",
-"text": "Stance is toward the agenda item, so on items that are restrictions the mapping inverts: a landlord opposing a rent-stabilisation ordinance is \u201copposed to the item\u201d and lands as NIMBY. 152 of San Leandro's 234 scored public turns and 144 of its 199 public clusters carry sub_topic = affordability_displacement, and San Leandro is 199 of 947 clusters under the site's own cue-role count. Re-quantified under role_audit over the whole scored frame: 146 of San Leandro's 203 public clusters (71.9 %) carry that sub-topic, and San Leandro is 203 of 1050 clusters (19.3 %). Dropping it moves the split from 40.1 / 47.6 / 12.3 to 39.2 / 47.6 / 13.2 (under the cue role it was 37.6 / 46.9 / 15.5 \u2192 36.1 / 47.5 / 16.4). On the larger S2 frame San Leandro is a fifth of the public base rather than a third, so dropping it barely moves the overall split \u2014 the inversion is diluted, not resolved. The role audit does not touch this either: it is a mapping problem, not a role problem. If the mapping is wrong for those turns the direction of this view is unresolved rather than merely noisy.",
+"name": "On restriction items the label inverts \u2014 San Leandro",
+"text": "A speaker is scored for or against the item in front of them, so where the item is a restriction the label turns over: a landlord against a rent-stabilisation ordinance reads as NIMBY. 146 of San Leandro's 203 public speakers are on items like that (71.9 % of them), and San Leandro is 19.3 % of all public speakers here. Dropping it moves the split from 40.1 / 47.6 / 12.3 to 39.2 / 47.6 / 13.2, so the direction of this panel is unresolved rather than merely noisy.",
 "table": [
 {
 "body": "sanleandro",
@@ -5786,8 +5511,8 @@
 ]
 },
 {
-"name": "Most cluster labels rest on one scored turn",
-"text": "Public clusters average 1.12 scored turns (1.22 among those with a stance) and 86.2 % of cluster labels rest on exactly one scored turn. Clusters are diarization output, not people: one speaker split across clusters counts twice, two speakers merged count once."
+"name": "Most speaker labels rest on one scored statement",
+"text": "86.2 % of labels rest on exactly one scored statement, and a speaker averages 1.12 of them. A speaker here is one voice inside one meeting, found by the machine: one person split in two counts twice, two people merged count once."
 }
 ],
 "figs": [
@@ -5833,9 +5558,8 @@
 "stamp": "EXPLORATORY \u2014 stance \u03ba gate not passed",
 "lede": "Does a body's renter share predict what gets said at its meetings? One correlation per outcome per route, against the ACS renter share.",
 "headline": [
-"I asked whether a body's renter share predicts what gets said at its meetings.",
-"Found nothing the data can resolve: every outcome tested leaves the direction open.",
-"Found the reason is how few bodies there are, not that renter share does not matter."
+"Renter share does not predict what gets said at a body's meetings: every outcome tested leaves the direction open.",
+"That is how few bodies there are, not evidence that renter share does not matter."
 ],
 "correlations": [
 {
@@ -8757,16 +8481,12 @@
 "text": "\u201cNo relationship\u201d here means \u201cno relationship this design could see\u201d. Each correlation rests on 15\u201320 bodies with a median of 18 scored public turns each, which could only have detected an effect several times larger than any plausible one. The 90 % interval on the NIMBY slope runs from a large negative effect to a moderate positive one, and so does every other outcome tested. Read the null as a statement about the sample size, not about renter share. And a sharp result here would still be a statement about cities rather than about the people who show up to speak at their meetings: the covariate is a body's whole renter share, not anything known about a speaker."
 },
 {
-"name": "Withdrawn claim",
-"text": "An earlier draft said the two rate correlations were \u201cdriven by\u201d BART and VTA and that \u201cdropping them leaves five councils and no usable correlation\u201d. That is withdrawn \u2014 it had the sign backwards. Dropping the two boards leaves Fremont, Hayward, Napa, Petaluma and Santa Clara, and on those five the density Pearson *rises* from +0.489 to +0.667 (p 0.22) while Spearman falls from +0.679 to +0.400; the transit-rate Pearson rises +0.198 to +0.592. The boards were diluting the Pearson correlation, not driving it. What is true is that nothing differs from zero at n = 5, as was already the case at n = 7. (One of those \u201cfive councils\u201d is Napa, which is a County Board of Supervisors.)"
-},
-{
 "name": "The rate correlations should not be quoted at all yet",
 "text": "Both rate rows are computed on the as-published 7-body complete-coverage set. The coverage test has since been fixed and the complete set is 5 bodies, so on a rerun today those rows fall to n = 3 on the classifier route. The local_asr and agenda_index rate figures drop below the 3-body floor entirely and have been moved to output/renter_share/_stale_pre_coverage_fix/."
 },
 {
 "name": "Transit boards are marked hollow, and a councils-only panel sits beside each figure",
-"text": "A transit board's topic time is close to a tautology, so every figure draws the boards with hollow markers and carries a councils-only panel wherever one can be drawn above the 3-body floor. Read the councils-only panel first."
+"text": "A transit board's topic time mostly measures what it exists to do, so every figure draws the boards with hollow markers and carries a councils-only panel wherever one can be drawn above the 3-body floor. Read the councils-only panel first."
 }
 ],
 "figs": [
@@ -8799,16 +8519,16 @@
 },
 "fig_caps": {
 "fig_beta_renter_forest.png": "One row per outcome: the posterior slope on renter share, per standard deviation of it, with its 90 % and 95 % intervals. Every interval crosses the dashed zero line, which is the whole result of this panel \u2014 and at this many bodies it is what the design could have produced either way.",
-"fig_rate_density_classifier.png": "One point per body, read on the classifier route only: its density minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_rate_transit_classifier.png": "One point per body, read on the classifier route only: its transit minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_gap_agenda_index.png": "One point per body, read on the agenda_index route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_gap_classifier.png": "One point per body, read on the classifier route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_net_agenda_index.png": "One point per body, read on the agenda_index route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_net_classifier.png": "One point per body, read on the classifier route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_nimby_agenda_index.png": "One point per body, read on the agenda_index route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_nimby_classifier.png": "One point per body, read on the classifier route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_yimby_agenda_index.png": "One point per body, read on the agenda_index route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
-"fig_stance_yimby_classifier.png": "One point per body, read on the classifier route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time is close to a tautology. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_rate_density_classifier.png": "One point per body, read on the classifier route only: its density minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_rate_transit_classifier.png": "One point per body, read on the classifier route only: its transit minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_gap_agenda_index.png": "One point per body, read on the agenda_index route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_gap_classifier.png": "One point per body, read on the classifier route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_net_agenda_index.png": "One point per body, read on the agenda_index route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_net_classifier.png": "One point per body, read on the classifier route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_nimby_agenda_index.png": "One point per body, read on the agenda_index route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_nimby_classifier.png": "One point per body, read on the classifier route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_yimby_agenda_index.png": "One point per body, read on the agenda_index route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
+"fig_stance_yimby_classifier.png": "One point per body, read on the classifier route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit; the rank correlation and its interval are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time mostly measures what it exists to do. With this few bodies the line describes the points on the chart and nothing beyond them.",
 "fig_ppc_binomial.png": "Posterior predictive check for the binomial NIMBY-count fit: the observed NIMBY count in each body-and-route cell against the band the fitted model replicates. Every cell lands inside its band, so the fit reproduces the data it was given \u2014 which is self-consistency, not evidence that renter share predicts anything."
 },
 "methods_anchor": "limitations"
@@ -8816,12 +8536,9 @@
 "rates": {
 "title": "Topic time per meeting-hour",
 "stamp": "Rates are a measurement, not a model estimate; intervals are 95 % episode bootstrap",
-"lede": "Minutes of on-topic episode per meeting-hour, by body and route, over the hours that route actually read.",
+"lede": "",
 "headline": [
-"I measured how many minutes of on-topic talk each body gives per meeting-hour.",
-"Found transit boards give the topic far more meeting time than any council does.",
-"Found most rates are floors: few bodies are completely read, and which route read a body moves its rate about as much as the body does.",
-"I marked which rate came off which route in the chart and table below, and kept the coverage rule on Methods."
+"Transit boards give housing density and transit far more of each meeting-hour than any council does."
 ],
 "complete": [
 {
@@ -12492,24 +12209,16 @@
 ],
 "caveats": [
 {
-"name": "The complete-coverage set fell from 11 bodies to 5, and why",
-"text": "The coverage test counted only two pending statuses as pending and silently dropped the rest: 42 meeting-groups sitting at `downloaded` and one `failed` were counted as neither located nor pending, which made six partial bodies look complete. The complete set is now bart, napa, samtrans, sausalito, vta; Fremont, Hayward, Petaluma, Richmond, San Leandro and Santa Clara are partial and their rates are floors, not estimates. Of the complete set only bart, napa, vta get a rate at all \u2014 samtrans, sausalito carry 0.0 meeting-hours because their Granicus listings publish no video duration, and with a zero exposure denominator there is no rate to compute."
+"name": "Most of these rates are floors",
+"text": "Only bart, napa, samtrans, sausalito, vta have had every meeting read. Fremont, Hayward, Petaluma, Richmond, San Leandro and Santa Clara are part-read, so their rates are floors. samtrans, sausalito publish no video length, so they get no rate at all."
 },
 {
-"name": "Locate route is a first-order effect, not a nuisance",
-"text": "The same meetings read by a different route give a different rate, of the same order as the differences between bodies: Hayward reads 0.65 min/h by classifier, 1.73 by agenda_index and 4.17 by the local Whisper pass. That is why route is a column in every table here and nothing is pooled across routes. For scale on the body differences: the two transit boards sit at BART 29.1 min/h and VTA 27.0, while Napa \u2014 the one complete council-type body with an exposure denominator \u2014 sits at 1.8\u20132.2 min/h on all three of its routes."
+"name": "Which route read a body moves its rate as much as the body does",
+"text": "Hayward reads 0.65 min/h one way, 1.73 another and 4.17 a third. The two transit boards sit at BART 29.1 min/h and VTA 27.0, and Napa at 1.8\u20132.2 on all three of its routes. So route is a column in every table here and nothing is pooled."
 },
 {
-"name": "Pad-bounds finding withdrawn \u2014 false positive, no row changed",
-"text": "A validation pass reported that 24 % of on-topic episodes carried an unremoved ~60 s pad and that BART and VTA were inflated by about 6 %. That is withdrawn and no core_* value was recomputed \u2014 recomputing them would have corrupted correct data. core_* are the merged *unpadded* window bounds, and episodes.start_s/end_s are the same bounds until the cutter replaces them with a padded, clamped, cue-snapped span. So core == start/end on exactly the rows that have not been cut, by design. Every cut row on every route carries its pad, the rate numerator uses core only, and it was never inflated."
-},
-{
-"name": "\u201cDensity outweighs transit on every council\u201d is false on the table's own numbers",
-"text": "Hayward on the classifier route is 0.1 density against 0.4 transit, and Petaluma's Swagit route is 7.2 against 8.2. The claim holds on every council on the classifier route except Hayward, and not on Petaluma's Swagit route."
-},
-{
-"name": "Seven episodes overrun their recording",
-"text": "Seven rows have core_end_s past the end of the media because the window grid overruns the recording \u2014 worth at most ~60 s each. Not fixed: it changes episode spans, which is the owner's call."
+"name": "Density does not outweigh transit everywhere",
+"text": "An earlier draft said it did. Hayward on the classifier route is 0.1 density against 0.4 transit, and Petaluma's Swagit route 7.2 against 8.2."
 }
 ],
 "figs": [],

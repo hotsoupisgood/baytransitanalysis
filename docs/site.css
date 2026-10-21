@@ -104,30 +104,13 @@ p.intro {
 }
 p.intro + p.intro { margin-top: -0.25rem; }
 
-/* TLDR block, his pattern: a literal label, then short bullets */
-.tldr-label {
-  margin: 0.75rem 0 0.25rem;
-  font-weight: 700;
-}
-ul.tldr::before {
-  content: "TLDR:";
-  display: block;
-  margin: 0 0 0.25rem -1.25rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-ul.tldr {
-  margin: 0 0 1rem;
-  padding-left: 1.25rem;
-  max-width: var(--fig-max);
-  font-size: 1rem;
-}
-ul.tldr li { margin: 0.25rem 0; line-height: 1.45; }
+/* The one visible exploratory stamp, under the intro's three sentences. */
+.stamp { margin: -0.25rem 0 1rem; max-width: var(--fig-max); font-weight: 600; }
 
-/* The data-as-of and total-spend line under the TLDR. Dated spend is visible by
+/* The data-as-of and total-spend line under the intro. Dated spend is visible by
    house rule, so it sits in the opening block rather than in a fold, but it is
    support rather than a finding -- hence the muted .sub treatment, one notch
-   smaller, with a rule above it to separate it from the bullets. */
+   smaller, with a rule above it to separate it from the sentences above. */
 .asof {
   margin: -0.5rem 0 1rem;
   padding-top: 0.5rem;
@@ -137,21 +120,14 @@ ul.tldr li { margin: 0.25rem 0; line-height: 1.45; }
 }
 .asof:empty { display: none; }
 
-/* Panel lede + headline bullets: his TLDR-first opening, label supplied here
-   so no panel content changes. */
+/* A panel's opening: one or two short sentences, then an optional line of
+   definition. This was a bulleted list under a literal "TLDR:" label until
+   2026-10-21; the label was the thing that made every panel read the same. */
 .lede { font-size: 0.9375rem; color: var(--muted); margin: 0 0 0.625rem; max-width: 76ch; line-height: 1.45; }
-ul.heads {
-  margin: 0 0 0.875rem; padding-left: 1.25rem;
-  font-size: 1rem; max-width: var(--fig-max);
+p.heads {
+  margin: 0 0 0.875rem;
+  font-size: 1rem; max-width: var(--fig-max); line-height: 1.45;
 }
-ul.heads::before {
-  content: "TLDR:";
-  display: block;
-  margin: 0 0 0.25rem -1.25rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-ul.heads li { margin: 0.25rem 0; line-height: 1.45; }
 
 /* Caveats: plain prose in the results body, his bolded run-in lead (§7), no box */
 .caveats { margin: 0.875rem 0 0; }
@@ -262,14 +238,6 @@ tr.fam-head td {
 .rolewas s { text-decoration-thickness: 1px; }
 .selfid { display: inline-block; font-size: 0.625rem; color: var(--muted); font-style: italic; }
 
-/* Panel TL;DR. The "corrected" provenance badge that used to sit beside it is no
-   longer rendered (readability review §7.6); the rule is kept for the stylesheet's
-   other callers, and every correction is written out in that panel's caveats. */
-.ptldr {
-  margin: 0 0 0.625rem; padding: 0.5rem 0.6875rem; max-width: 80ch;
-  font-size: 0.9375rem; line-height: 1.45;
-  background: transparent; border-left: 3px solid var(--border); border-radius: 0;
-}
 .corrected {
   display: inline-block; font-size: 0.6875rem; font-weight: 600; white-space: nowrap;
   padding: 0.0833em 0.3333em; border-radius: 0.25em;

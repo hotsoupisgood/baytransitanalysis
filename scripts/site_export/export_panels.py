@@ -84,6 +84,21 @@ def _pc(v, d="?"):
     return f"{v * 100:.1f}" if isinstance(v, (int, float)) else d
 
 
+def _p100(v):
+    """A share as whole statements in a hundred: 0.7404 -> '74'.
+
+    Owner's wording rule (2026-10-21): a share reads as "74 of 100", not "74.0 %".
+    Same value, rounded once, here rather than in the page.
+    """
+    return f"{round(v * 100):.0f}" if isinstance(v, (int, float)) else "?"
+
+
+def _zero(role):
+    """The share of that role's statements sitting at exactly neutral stance."""
+    z = ((ROLE_N.get("zero_stance") or {}).get("by_role")) or {}
+    return ((z.get(role) or {}).get("share_at_zero"))
+
+
 def _tr(s):
     """'46.0 / 42.9 / 11.2' from a site_numbers split dict."""
     s = s or {}
@@ -321,11 +336,11 @@ def panel_stance():
     return {
         "title": "Stance: the role gap",
         "stamp": STAMP,
-        # Concision pass, owner 2026-10-19 12:46: one line of definition, the rest of
-        # the instrument (the scales, the turn floor, the codebook) on Methods § stance.
-        "lede": ("Does public comment differ from the dais inside the same meeting? Three reads of "
-                 "every turn against one pinned codebook."),
-        "tldr": ("The public reads as more hostile than the dais."),
+        # Owner, 2026-10-21 07:14. The lede asked "does public comment differ from the
+        # dais?" directly under the two sentences that answer it, so it is empty: the
+        # panel states the finding once and index.html renders no second line. The
+        # scales, the turn floor and the codebook are on Methods § stance.
+        "lede": "",
         "corrected": "corrected 2026-10-18 after role audit",
         # TLDR rule (owner, 2026-10-18 21:16, docs/SITE-STYLE.md): vague, result-
         # pointing, no numbers at all. Every latent gap, share, interval and κ that used
@@ -338,11 +353,16 @@ def panel_stance():
         # Owner, 2026-10-20 22:02: the density half of the TLDR and of the second
         # bullet is deleted, not rewritten -- "not as more opposed on density"
         # contradicted this panel's own which-side odds ratio. Nothing replaces it.
+        # Owner, 2026-10-21 07:14: two short sentences. The second carries the two
+        # shares the removed role dot plot was drawn from, so dropping that chart loses
+        # no finding -- same source, same numbers, rounded to whole statements in 100.
         "headline": [
-            "I scored every turn for stance and hostility and compared public comment with the dais.",
-            "Found the public more hostile than the dais.",
-            "Found the public sits in both tails at once while the dais stays neutral, so quote the "
-            "tail shares below, not the gap.",
+            "The public reads as more hostile than the dais, and takes a side where the dais does "
+            "not.",
+            (f"{_p100(_zero('dais'))} of 100 dais statements sit exactly at neutral, against "
+             f"{_p100(_zero('public'))} of 100 of the public."
+             if _zero("dais") and _zero("public") else
+             "The dais mostly stays in the neutral band."),
         ],
         # Owner, 2026-10-19: "we also need to put the accuracy for that classification
         # of dai/not." It belongs in this panel rather than NIMBY/YIMBY, because it is a
@@ -370,14 +390,10 @@ def panel_stance():
         # stay in output/stance_s1/models_frame/ and output/analysis/models/tables/.
         "descriptives": num(rd(S1 / "s1_descriptives_by_role.csv")),
         "replicate_agreement": kappa.get("all") or kappa,
+        # Three caveats, short (owner, 2026-10-21 07:14). The dropped one described a
+        # misfit in the cumulative-logit fit, which came off this page 2026-10-20 -- the
+        # page reports the role gap from the two-step model in "Who takes a side" only.
         "caveats": [
-            {"name": "Proportional odds misfits the public stance distribution",
-             "text": ("A posterior predictive check of that fit puts 58 % of public turns at stance 0 "
-                      "against 23 % observed: a single shift"
-                      "of shared cutpoints cannot represent a distribution spread into both tails. The "
-                      "latent stance gap therefore averages two opposite effects. Quote the tail shares, "
-                      "not the gap. A two-part model (stance taken or not; direction given a stance) is the "
-                      "right next model.")},
             {"name": "The κ ≥ 0.6 hand-coding gate is not passed",
              "text": ("No human has coded any of these turns. The 0.98 replicate κ is the instrument "
                       "agreeing with itself (noise floor ≈ 2 %); the one cross-instrument check on record "
@@ -434,13 +450,11 @@ def role_accuracy():
     imp = rp.get("importance_cluster") or []
     return {
         "title": "How well content alone tells the dais from the public",
-        # Concision pass, owner 2026-10-19 12:46: one sentence visible. The ablation,
-        # the calibration slope and the circularity of the audited target were a fold
-        # here that repeated Methods § models almost word for word, so the fold is gone
-        # and the panel links Methods instead.
+        # One short sentence visible (owner, 2026-10-21 07:14). The ablation, the
+        # calibration slope and the circularity of the audited target are on Methods.
         "text": (
-            f"Given only what was said, a model picks the public speaker out of a pair about "
-            f"{cl['auc']:.2f} of the time — using not the position but its distance from neutral."),
+            f"From the words alone, a model tells a public speaker from a dais one about "
+            f"{cl['auc']:.2f} of the time — by how strong the opinion is, not which side it takes."),
         "detail": (
             "The features are stance, hostility, the twelve frames, sub-topic and length, and "
             "two of them do nearly all the work: dropping absolute stance costs "
@@ -506,8 +520,11 @@ def who_takes_a_side():
     took = steps.get("any_side")
 
     orx = lambda s: f"{s['odds_ratio']:.2f}"
-    orci = lambda s: (f"95 % {s['or_ci95'][0]:.2f} to {s['or_ci95'][1]:.2f}"
-                      if all(v is not None for v in s["or_ci95"]) else "95 % not bounded below")
+    orci = lambda s, bare=False: (
+        (f"{s['or_ci95'][0]:.2f} to {s['or_ci95'][1]:.2f}" if bare
+         else f"95 % {s['or_ci95'][0]:.2f} to {s['or_ci95'][1]:.2f}")
+        if all(v is not None for v in s["or_ci95"])
+        else ("not bounded below" if bare else "95 % not bounded below"))
     lo = lambda s: (f"{s['ci95'][0]:+.2f} to {s['ci95'][1]:+.2f}"
                     if all(v is not None for v in s["ci95"])
                     else f"up to {s['ci95'][1]:+.2f}, with no lower bound")
@@ -518,33 +535,28 @@ def who_takes_a_side():
     if took:
         vis_steps.append({
             "name": took["name"],
-            "text": f"{orx(took)}× in odds ({orci(took)}).",
+            "text": f"{orx(took)}× in odds (likely range {orci(took, bare=True)}).",
             "odds_ratio": took["odds_ratio"], "beta": took["beta"],
             "ci95": took["ci95"]})
     vis_steps.append({
         "name": side["name"],
-        "text": f"{orx(side)}× against the item ({orci(side)}).",
+        "text": f"{orx(side)}× against the item (likely range {orci(side, bare=True)}).",
         "odds_ratio": side["odds_ratio"], "beta": side["beta"],
         "ci95": side["ci95"]})
 
     headline = (
-        "Public speakers take a side far more often than the dais does, and when they do "
-        "they come out against the item somewhat more often."
+        "Public speakers take a side far more often than the dais. When they do, they are more "
+        "often against the item."
         if took else
-        "When public speakers take a side they come out against the item somewhat more "
-        "often than the dais does.")
+        "When public speakers take a side, they are more often against the item than the dais is.")
 
-    # The plain-words description of the estimator the owner asked for: a mixed
-    # model with meeting and episode intercepts, no package names.
-    model_line = (
-        "Both lines come from one mixed model, with its own baseline for every meeting "
-        "and every stretch of meeting."
-        if took else
-        "That line comes from a mixed model with its own baseline for every meeting and "
-        "every stretch of meeting.")
+    # Owner, 2026-10-21 07:14: no method name in a visible sentence where a plain
+    # phrase works. What the model is, and what it groups by, is one click down in
+    # the fold below and spelled out on Methods § the models, which this block links.
+    model_line = ""
 
-    restated = (f"For “more opposed”, quote the second line — {orx(side)}× — not the "
-                "first, which is about taking a position at all.")
+    restated = (f"Quote {orx(side)}× for “more opposed”. The first line is about taking a side "
+                "at all.")
 
     why_parts = []
     if took:
@@ -619,30 +631,6 @@ def who_takes_a_side():
     }
 
 
-def dot_plot_caption():
-    """The caption under the role dot plot, in house style.
-
-    docs/STYLE.md §3: the caption is the prose -- it names the figure and reads
-    it, rather than labelling it. The one number in it is the per-turn share
-    sitting at exactly neutral, which is the per-statement version of what the
-    two halves look like, and it comes from the DB via site_numbers_role.json.
-    The per-cluster counts under the figure are counted in the browser off the
-    dots actually drawn, so they follow the route selector.
-    """
-    z = ((ROLE_N.get("zero_stance") or {}).get("by_role")) or {}
-    dz = (z.get("dais") or {}).get("share_at_zero")
-    pz = (z.get("public") or {}).get("share_at_zero")
-    if dz is None or pz is None:
-        return None
-    # Concision pass, owner 2026-10-19 12:46: the caption reads the figure in two
-    # sentences. The per-statement share stays -- it is the number the shape is made
-    # of. What a dot is, and that most rest on one scored statement, is in the
-    # panel's "How to read this chart" fold and its caveats.
-    return (
-        "In the plot above the dais half is a band pressed onto the neutral line, and the "
-        "public half is two clouds pulled away from it, balanced above and below.")
-
-
 def panel_nimby():
     summary = json.loads((NIMBY / "summary.json").read_text(encoding="utf-8")) if (NIMBY / "summary.json").exists() else {}
     by_body = num(rd(NIMBY / "public_dais_shares_by_body_route.csv"))
@@ -679,24 +667,11 @@ def panel_nimby():
     return {
         "title": "YIMBY / NIMBY",
         "stamp": STAMP,
-        # Readability review §7.2: the construct definition used to open this panel --
-        # 103 words of jargon in the position that should be the hook. Two sentences
-        # stay, and index.html now renders the lede *below* the headline bullets; the
-        # thresholds, the transit exclusion and the no-pooling rule moved down into the
-        # caveat "How a speaker gets a label". The second sentence is the clause the
-        # reviewer asked for (§7, "anonymous"): the page says clusters are never linked
-        # across meetings while the quote cards show speakers naming themselves, and a
-        # general reader takes that as a contradiction unless both are said at once.
-        # Concision pass, owner 2026-10-19 12:46: one sentence of definition. The
-        # no-linking clause and the names-as-spoken clause are both said once on the
-        # page already, under the episode reader, so they are not repeated here.
-        "lede": ("No new scoring: a speaker is YIMBY if their turns lean toward the housing item, NIMBY "
-                 "if against."),
-        # Rewritten 2026-10-19 after the S2 top-up (plan/STANCE-S2.md): the frame
-        # roughly doubled the public base, the overall lean crossed to the against
-        # side, and three more bodies separated from an even split.
-        "tldr": ("Public speakers split close to evenly for and against the housing items, leaning "
-                 "slightly against."),
+        # One short line of definition (owner, 2026-10-21 07:14). Nothing is re-scored
+        # for this panel; the thresholds and the no-pooling rule are in the caveats.
+        "lede": ("A speaker is YIMBY if their turns lean toward the housing item, NIMBY if against."),
+        # The one-line TLDR is gone (owner, 2026-10-21 07:14); it is the first
+        # sentence of `headline` now, so the panel says it once.
         "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
         # TLDR rule (owner, 2026-10-18 21:16, docs/SITE-STYLE.md): vague, result-
         # pointing, no numbers at all. The splits, the stars, the intervals and the
@@ -706,20 +681,17 @@ def panel_nimby():
         # in the per-body table; the withdrawn Petaluma star keeps its own caveat; the
         # cell counts the old second bullet quoted are the stars on the chart.
         "headline": [
-            # "anonymous" dropped in the third pass: the quote cards show speakers naming
-            # themselves, and the word read as a contradiction (readability review §7).
-            "I rolled the per-turn stance up to speakers and asked how the public split YIMBY against "
-            "NIMBY on housing items.",
-            "Found the split close to even, with only a few bodies separating from it on their own.",
-            "Found the routes that read the same body can disagree, so nothing here is pooled.",
-            "I put the shares in the starred bars and the table below, and kept the limits "
-            "on Methods.",
+            "Public speakers split close to evenly for and against the housing items, leaning "
+            "slightly against.",
+            "Only a few bodies separate from that split on their own.",
         ],
         # Owner, 2026-10-19: the 8.2 goes on the dashboard. It goes on carrying its
         # own denominator and its own split -- see who_takes_a_side().
         "role_side": who_takes_a_side(),
-        # The dot plot's caption: prose, with its one number substituted here.
-        "dot_caption": dot_plot_caption(),
+        # The role dot plot came off the page 2026-10-21 (owner: "the last plot on the
+        # page can be removed as well"), so its caption goes with it. What it showed --
+        # the dais pressed onto the neutral line, the public pulled off it both ways --
+        # is the Stance panel's second sentence, with the same two shares.
         "role_audit": audit,
         "overall": {"n_turns": summary.get("n_turns"), "n_clusters": summary.get("n_clusters"),
                     "threshold": summary.get("threshold"), "bootstrap_reps": summary.get("bootstrap_reps"),
@@ -734,106 +706,32 @@ def panel_nimby():
         "by_body": by_body,
         "by_route_cue": by_route_cue,
         "by_body_cue": by_body_cue,
+        # Three caveats, short (owner, 2026-10-21 07:14). What n counts on the bars and
+        # how uneven the per-body data is were the two dropped: both describe the bar
+        # labels rather than limit the result, and the per-body table carries the counts.
+        # Who the public is stays reachable in its own disclosure above these.
         "caveats": [
-            # Owner, 2026-10-19 10:53: explain the n on the bars and the data-collection
-            # target. Both sit first because a reader hits the bar labels before anything else.
-            {"name": "What n means on the bars, and why it does not add up to the other two numbers",
-             "text": ("On each bar label, n is the number of speaker clusters at that body that carry a "
-                      "stance at all — one cluster is one diarized voice inside one meeting. The two "
-                      "numbers after it are not parts of n: the episode count says how many stretches of "
-                      "meeting those clusters came from (one episode usually holds several speakers), and, "
-                      "where shown, the public count is the subset of n that the role audit calls public. "
-                      "The green and red bars are the YIMBY and NIMBY shares of n; the remainder is "
-                      "neutral and is not drawn, so the two bars do not sum to one either.")},
-            {"name": "How much data each body has, and why it is uneven",
-             "text": ("The collection aimed for roughly thirty regular meetings per organization over the "
-                      "year, which is about what a council that meets twice a month produces. Not every "
-                      "body got there: some archives could not be located, some meet monthly, and the "
-                      "YouTube bodies are still being downloaded at a fixed daily budget, so their counts "
-                      "are floors. A body with few clusters gets a wide interval and no star, not a zero.")},
-            # Moved out of the lede (readability review §7.2). Nothing here is new; it is
-            # the construct definition that used to sit above the bullets, plus the note
-            # that the figures were redrawn under the audited role, which used to be a
-            # tail on every figure caption (§7.6).
             {"name": "How a speaker gets a label, and what the label is not",
-             "text": ("A cluster's density stance is the mean of its turns' stance medians over the turns "
-                      "that carry a numeric stance: YIMBY at ≥ +0.5, NIMBY at ≤ −0.5, neutral between. "
-                      "Transit-family episodes are excluded, YIMBY/NIMBY being a housing construct. There "
-                      "is one table and one figure per locate route and they are never pooled, because the "
-                      "routes that read the same body can disagree about it. "
-                      "Corrected 2026-10-18 after the role audit: every figure and table on this panel is "
-                      "drawn under the audited speaker role, and the earlier cue-role versions are kept in "
-                      "the repo with a _cue suffix as a sensitivity."),
-             },
-            {"name": "Petaluma star WITHDRAWN — it was dais speech in the public bucket",
-             "text": ("Corrected 2026-10-18 after role audit. Petaluma's Swagit-route YIMBY lean was one of "
-                      "only two starred results on this page, and it does not survive being audited against "
-                      "what the speakers say about themselves. Net YIMBY − NIMBY went "
-                      f"{pet_cue.get('net_yimby_minus_nimby', -0.53):+.2f} "
-                      f"({pet_cue.get('net_lo90', 0):+.2f}, {pet_cue.get('net_hi90', 0):+.2f}) ★ to "
-                      f"{pet_audit.get('net_yimby_minus_nimby', 0):+.2f} "
-                      f"({pet_audit.get('net_lo90', 0):+.2f}, {pet_audit.get('net_hi90', 0):+.2f}), "
-                      "interval across zero, on "
-                      f"{pet_cue.get('n_clusters', 17):.0f} → {pet_audit.get('n_clusters', 25):.0f} public "
-                      "clusters: four clusters leave the public bucket and thirteen join it. The single "
-                      "largest “public” cluster in that frame — 1,083 words, YIMBY — is an elected member "
-                      "advocating housing near the SMART station, by their own self_id. Two more are "
-                      "NIMBY-side members. **Petaluma public-YIMBY is not a finding.** Oakland's star does "
-                      f"survive, at {oak_audit.get('net_yimby_minus_nimby', 0):+.2f} "
-                      f"({oak_audit.get('net_lo90', 0):+.2f}, {oak_audit.get('net_hi90', 0):+.2f}). "
-                      "The table below is the site's older heuristic flag, kept as history: it fired on the "
-                      f"same bodies, flagging {mis['overall']['flagged']} of "
-                      f"{mis['overall']['clusters_with_stance']} cue-public clusters before the real audit "
-                      "existed."),
-             "table": [r for r in mis["rows"] if r["flagged"]][:12]},
-            {"name": "The reported role is an audit, not a gold label",
-             "text": ("Added 2026-10-18. Every public/dais number on this page is role_audit (rule "
-                      f"{audit['audit_version']}): where the speaker says who they are, that beats the "
-                      "cue-phrase label. In the cue-labelled public bucket "
-                      f"{audit['by_cue_role']['public']['disagree']} of "
-                      f"{audit['by_cue_role']['public']['informative']} adjudicable turns "
-                      f"({audit['by_cue_role']['public']['rate']:.0%}) say `elected` or `staff`; in the dais "
-                      f"bucket only {audit['by_cue_role']['dais']['rate']:.1%} disagree, because that bucket "
-                      "is ~50× larger. But SELF_ID is model output, not a human label, and "
-                      f"{audit['unknown_share']:.0%} of turns say nothing about the speaker and keep the cue "
-                      "role — so the audited public bucket is still contaminated at an unknown rate. The "
-                      "audit also moves clusters *both* ways: the public base with a stance rises from "
-                      f"{audit['public_clusters_with_stance']['cue']} to "
-                      f"{audit['public_clusters_with_stance']['audit']} clusters. It is a re-partition, not "
-                      "a cleanup, and a shift in the split is not 'contamination removed'. The cluster "
-                      "roll-up is majority rule, so a merged diarizer cluster carrying both a member and a "
-                      "resident still gets one label."),
-             "table": audit["disagreement_by_body"][:12]},
-            {"name": "San Leandro sign flip",
-             "text": ("Stance is toward the agenda item, so on items that are restrictions the mapping "
-                      "inverts: a landlord opposing a rent-stabilisation ordinance is “opposed to the "
-                      f"item” and lands as NIMBY. {sl.get('flip_turns', '?')} of San Leandro's "
-                      f"{sl.get('scored_public_turns', '?')} scored public turns and "
-                      f"{sl.get('flip_clusters', '?')} of its {sl.get('clusters', '?')} public clusters "
-                      "carry sub_topic = affordability_displacement, and San Leandro is "
-                      f"{sl.get('clusters', '?')} of {flip['total_public_clusters']} clusters under the "
-                      "site's own cue-role count. Re-quantified under role_audit over the whole "
-                      f"scored frame: {_sl.get('flip_clusters', '?')} of San Leandro's "
-                      f"{_sl.get('clusters', '?')} public clusters ({_pc(_sl.get('flip_share'))} %) carry "
-                      f"that sub-topic, and San Leandro is {_sl.get('clusters', '?')} of "
-                      f"{(SITE_N.get('split_audit') or {}).get('n', '?')} clusters "
-                      f"({_pc(_sl.get('share_of_public_base'))} %). Dropping it moves the split from "
-                      f"{_tr(SITE_N.get('split_audit'))} to {_tr(SITE_N.get('split_audit_drop_sanleandro'))} "
-                      f"(under the cue role it was {_tr(SITE_N.get('split_cue'))} → "
-                      f"{_tr(SITE_N.get('split_cue_drop_sanleandro'))}). "
-                      "On the larger S2 frame San Leandro is a fifth of the public base rather than a "
-                      "third, so dropping it barely moves the overall split — the inversion is diluted, "
-                      "not resolved. The role audit does not touch this either: it is a mapping problem, "
-                      "not a role problem. If the mapping is wrong for those turns the direction of this "
-                      "view is unresolved rather than merely noisy."),
+             "text": ("A speaker is YIMBY at a mean stance of ≥ +0.5 toward the housing item, NIMBY at "
+                      "≤ −0.5, neutral between. Transit items are left out, YIMBY and NIMBY being about "
+                      "housing. Each route gets its own table and figure and nothing is pooled, because "
+                      "routes that read the same body can disagree.")},
+            {"name": "On restriction items the label inverts — San Leandro",
+             "text": ("A speaker is scored for or against the item in front of them, so where the item is "
+                      "a restriction the label turns over: a landlord against a rent-stabilisation "
+                      f"ordinance reads as NIMBY. {_sl.get('flip_clusters', '?')} of San Leandro's "
+                      f"{_sl.get('clusters', '?')} public speakers are on items like that "
+                      f"({_pc(_sl.get('flip_share'))} % of them), and San Leandro is "
+                      f"{_pc(_sl.get('share_of_public_base'))} % of all public speakers here. Dropping it "
+                      f"moves the split from {_tr(SITE_N.get('split_audit'))} to "
+                      f"{_tr(SITE_N.get('split_audit_drop_sanleandro'))}, so the direction of this panel "
+                      "is unresolved rather than merely noisy."),
              "table": flip["rows"][:12]},
-            {"name": "Most cluster labels rest on one scored turn",
-             "text": (f"Public clusters average {_one.get('mean_all', 1.10)} scored turns "
-                      f"({_one.get('mean_with_stance', 1.23)} among those with a stance) and "
-                      f"{_pc(_one.get('share_one_numeric'), '83')} % "
-                      "of cluster labels rest on exactly one scored turn. Clusters are diarization output, "
-                      "not people: one speaker split across clusters counts twice, two speakers merged "
-                      "count once.")},
+            {"name": "Most speaker labels rest on one scored statement",
+             "text": (f"{_pc(_one.get('share_one_numeric'), '83')} % of labels rest on exactly one scored "
+                      f"statement, and a speaker averages {_one.get('mean_all', 1.10)} of them. A speaker "
+                      "here is one voice inside one meeting, found by the machine: one person split in two "
+                      "counts twice, two people merged count once.")},
         ],
         "figs": figs,
         # Figure titles are written, not derived from the filename (readability review
@@ -906,7 +804,7 @@ def renter_fig_cap(fname: str) -> str:
             "share of its occupied housing units. Point area is how much that body contributes and the "
             "dashed line is an ordinary least-squares fit; the rank correlation and its interval are in "
             "the figure's own title. Transit boards are drawn hollow, because a transit board's topic "
-            "time is close to a tautology. With this few bodies the line describes the points on the "
+            "time mostly measures what it exists to do. With this few bodies the line describes the points on the "
             "chart and nothing beyond them.")
 
 
@@ -938,9 +836,9 @@ def panel_renter():
         # Concision pass, owner 2026-10-19 12:46: three bullets, no numbers. That a
         # result here would be about cities rather than speakers is its own caveat.
         "headline": [
-            "I asked whether a body's renter share predicts what gets said at its meetings.",
-            "Found nothing the data can resolve: every outcome tested leaves the direction open.",
-            "Found the reason is how few bodies there are, not that renter share does not matter.",
+            "Renter share does not predict what gets said at a body's meetings: every outcome tested "
+            "leaves the direction open.",
+            "That is how few bodies there are, not evidence that renter share does not matter.",
         ],
         # The lexicon-pilot outcome rows come out with its figures: a correlation against a
         # rejected instrument is not a weaker result, it is not a result.
@@ -960,16 +858,6 @@ def panel_renter():
                       "would still be a statement about cities rather than about the people who show up "
                       "to speak at their meetings: the covariate is a body's whole renter share, not "
                       "anything known about a speaker.")},
-            {"name": "Withdrawn claim",
-             "text": ("An earlier draft said the two rate correlations were “driven by” BART and VTA and "
-                      "that “dropping them leaves five councils and no usable correlation”. That is "
-                      "withdrawn — it had the sign backwards. Dropping the two boards leaves Fremont, "
-                      "Hayward, Napa, Petaluma and Santa Clara, and on those five the density Pearson "
-                      "*rises* from +0.489 to +0.667 (p 0.22) while Spearman falls from +0.679 to +0.400; "
-                      "the transit-rate Pearson rises +0.198 to +0.592. The boards were diluting the "
-                      "Pearson correlation, not driving it. What is true is that nothing differs from zero "
-                      "at n = 5, as was already the case at n = 7. (One of those “five councils” is Napa, "
-                      "which is a County Board of Supervisors.)")},
             {"name": "The rate correlations should not be quoted at all yet",
              "text": ("Both rate rows are computed on the as-published 7-body complete-coverage set. The "
                       "coverage test has since been fixed and the complete set is 5 bodies, so on a rerun "
@@ -977,9 +865,9 @@ def panel_renter():
                       "agenda_index rate figures drop below the 3-body floor entirely and have been moved "
                       "to output/renter_share/_stale_pre_coverage_fix/.")},
             {"name": "Transit boards are marked hollow, and a councils-only panel sits beside each figure",
-             "text": ("A transit board's topic time is close to a tautology, so every figure draws the "
-                      "boards with hollow markers and carries a councils-only panel wherever one can be "
-                      "drawn above the 3-body floor. Read the councils-only panel first.")},
+             "text": ("A transit board's topic time mostly measures what it exists to do, so every figure "
+                      "draws the boards with hollow markers and carries a councils-only panel wherever one "
+                      "can be drawn above the 3-body floor. Read the councils-only panel first.")},
         ],
         "figs": figs,
         # Written titles and captions for every figure in this panel (readability review
@@ -1004,22 +892,15 @@ def panel_rates():
     return {
         "title": "Topic time per meeting-hour",
         "stamp": "Rates are a measurement, not a model estimate; intervals are 95 % episode bootstrap",
-        # Concision pass, owner 2026-10-19 12:46: one sentence. That a partly located
-        # body's rate is a floor is the second bullet and the first caveat.
-        "lede": ("Minutes of on-topic episode per meeting-hour, by body and route, over the hours that "
-                 "route actually read."),
-        # TLDR rule (owner, 2026-10-18 21:16, docs/SITE-STYLE.md): vague, result-
-        # pointing, no numbers at all. The per-body rates, the complete-coverage set, the
-        # bodies with no exposure denominator and the route spread are in the table and
-        # caveats of this panel's body.
-        # Concision pass, owner 2026-10-19 12:46: four bullets, no numbers.
+        # Owner, 2026-10-21 07:14: "no need for a graph on meeting hours". The bar
+        # chart and its caption came off index.html; this panel is a heading, one
+        # sentence and the collapsed table. The lede was a unit definition, which the
+        # table's own heading and columns already carry.
+        "lede": "",
+        # One sentence, the finding (owner, 2026-10-21 07:14).
         "headline": [
-            "I measured how many minutes of on-topic talk each body gives per meeting-hour.",
-            "Found transit boards give the topic far more meeting time than any council does.",
-            "Found most rates are floors: few bodies are completely read, and which route read a body "
-            "moves its rate about as much as the body does.",
-            "I marked which rate came off which route in the chart and table below, and kept "
-            "the coverage rule on Methods.",
+            "Transit boards give housing density and transit far more of each meeting-hour than any "
+            "council does.",
         ],
         "complete": complete,
         "all_rows": rows,
@@ -1027,43 +908,22 @@ def panel_rates():
         "complete_bodies": bodies,
         "rated_bodies": rated,
         "complete_without_exposure": no_exposure,
+        # Three caveats, short (owner, 2026-10-21 07:14). The dropped two were the
+        # withdrawn pad-bounds false positive and seven over-running episode spans,
+        # both worth at most ~60 s a row and neither of which moved a number here.
         "caveats": [
-            {"name": "The complete-coverage set fell from 11 bodies to "
-                     + str(len(bodies)) + ", and why",
-             "text": ("The coverage test counted only two pending statuses as pending and silently "
-                      "dropped the rest: 42 meeting-groups sitting at `downloaded` and one `failed` were "
-                      "counted as neither located nor pending, which made six partial bodies look "
-                      "complete. The complete set is now " + ", ".join(bodies) + "; Fremont, Hayward, "
-                      "Petaluma, Richmond, San Leandro and Santa Clara are partial and their rates are "
-                      "floors, not estimates. Of the complete set only " + ", ".join(rated) + " get a "
-                      "rate at all — " + ", ".join(no_exposure) + " carry 0.0 meeting-hours because "
-                      "their Granicus listings publish no video duration, and with a zero exposure "
-                      "denominator there is no rate to compute.")},
-            {"name": "Locate route is a first-order effect, not a nuisance",
-             "text": ("The same meetings read by a different route give a different rate, of the same "
-                      "order as the differences between bodies: Hayward reads 0.65 min/h by classifier, "
-                      "1.73 by agenda_index and 4.17 by the local Whisper pass. That is why route is a "
-                      "column in every table here and nothing is pooled across routes. For scale on the "
-                      "body differences: the two transit boards sit at BART 29.1 min/h and VTA 27.0, "
-                      "while Napa — the one complete council-type body with an exposure denominator — "
-                      "sits at 1.8–2.2 min/h on all three of its routes.")},
-            {"name": "Pad-bounds finding withdrawn — false positive, no row changed",
-             "text": ("A validation pass reported that 24 % of on-topic episodes carried an unremoved ~60 s "
-                      "pad and that BART and VTA were inflated by about 6 %. That is withdrawn and no "
-                      "core_* value was recomputed — recomputing them would have corrupted correct data. "
-                      "core_* are the merged *unpadded* window bounds, and episodes.start_s/end_s are the "
-                      "same bounds until the cutter replaces them with a padded, clamped, cue-snapped span. "
-                      "So core == start/end on exactly the rows that have not been cut, by design. Every "
-                      "cut row on every route carries its pad, the rate numerator uses core only, and it "
-                      "was never inflated.")},
-            {"name": "“Density outweighs transit on every council” is false on the table's own numbers",
-             "text": ("Hayward on the classifier route is 0.1 density against 0.4 transit, and Petaluma's "
-                      "Swagit route is 7.2 against 8.2. The claim holds on every council on the classifier "
-                      "route except Hayward, and not on Petaluma's Swagit route.")},
-            {"name": "Seven episodes overrun their recording",
-             "text": ("Seven rows have core_end_s past the end of the media because the window grid "
-                      "overruns the recording — worth at most ~60 s each. Not fixed: it changes episode "
-                      "spans, which is the owner's call.")},
+            {"name": "Most of these rates are floors",
+             "text": ("Only " + ", ".join(bodies) + " have had every meeting read. Fremont, Hayward, "
+                      "Petaluma, Richmond, San Leandro and Santa Clara are part-read, so their rates are "
+                      "floors. " + ", ".join(no_exposure) + " publish no video length, so they get no "
+                      "rate at all.")},
+            {"name": "Which route read a body moves its rate as much as the body does",
+             "text": ("Hayward reads 0.65 min/h one way, 1.73 another and 4.17 a third. The two transit "
+                      "boards sit at BART 29.1 min/h and VTA 27.0, and Napa at 1.8–2.2 on all three of "
+                      "its routes. So route is a column in every table here and nothing is pooled.")},
+            {"name": "Density does not outweigh transit everywhere",
+             "text": ("An earlier draft said it did. Hayward on the classifier route is 0.1 density "
+                      "against 0.4 transit, and Petaluma's Swagit route 7.2 against 8.2.")},
         ],
         "figs": [],
         "methods_anchor": "locate",
@@ -1136,51 +996,29 @@ def page_intro():
     # clause a later panel repeats. What the stance scale is, that no human has coded
     # it, and the no-linking and names rules are all said once further down the page.
     collected = (
-        f"I pulled a year of regular meetings from {fi(t.get('bodies'))} Bay Area city "
-        f"councils, county boards and transit boards: {fi(t.get('meetings'))} meetings, about "
-        f"{f1(t.get('meeting_hours'))} hours of video. An LLM marked the stretches about housing "
-        f"density or transit; those were cut out as {fi(t.get('episodes_done'))} episodes and "
-        f"transcribed, {f1(t.get('hours_done'))} hours of speech. A second pass scored "
-        f"{fi(t.get('stance_turns'))} statements for stance and hostility. No human has coded "
-        "any of it, so this is exploratory.")
+        f"A year of meetings from {fi(t.get('bodies'))} Bay Area city councils, county boards "
+        f"and transit boards: {fi(t.get('meetings'))} meetings, {f1(t.get('meeting_hours'))} hours "
+        f"of video, {fi(t.get('stance_turns'))} statements scored by an LLM.")
 
     # -- and what came out, briefly: the three the owner named ----------------
     dz = (z.get("dais") or {}).get("share_at_zero")
     pz = (z.get("public") or {}).get("share_at_zero")
     results = (
-        "Three things came out. Transit boards spend far more meeting time on the topic than "
-        "councils do, and which route found a body moves its rate almost as much as the body "
-        "does. Public speakers take positions where the dais does not: "
-        + (f"{_pc(dz)} % of scored dais statements sit at exactly neutral against "
-           f"{_pc(pz)} % of public ones" if dz and pz else
-           "the dais mostly stays in the neutral band")
-        + ". And of the statements that do take a side, public ones are about "
-        + (f"{dirn['odds_ratio']:.1f} times" if dirn.get("odds_ratio") else "one and a half times")
-        + " as likely in odds to be against the item.")
+        "Transit boards spend far more meeting time on housing density and transit than councils "
+        "do. Public speakers take sides where the dais stays neutral, and when they take one they "
+        "lean against the item.")
 
     return {
         "collected": collected,
         "results": results,
-        # No numbers, by house rule. These gesture at the three results above and
-        # hand off to the panels.
-        # Past tense throughout, 2026-10-20: three of these stated a finding in the
-        # present ("transit boards give", "the public takes sides") or had no first
-        # person at all ("The map ... are the results"), which is the one thing the rule
-        # above asks of a bullet. The claims are unchanged.
-        "tldr": [
-            "I collected a year of Bay Area council, county and transit-board meetings, "
-            "cut out the parts about housing density and transit, and had an LLM score "
-            "every statement in them.",
-            "I found that transit boards gave the topic far more of their meeting time "
-            "than councils did, and that which route read a body mattered nearly as much "
-            "as the body itself.",
-            "I found that the public took sides where the dais stayed neutral, and that "
-            "most of the gap between them was about who took a position at all rather "
-            "than which position they took.",
-            "I put the results in the map, the episode reader and the panels below, and "
-            "kept every instrument, number and limitation on the "
-            "<a href=\"methods.html\">Methods</a> page.",
-        ],
+        # Owner, 2026-10-21 07:14: the TLDR bullet lists and the first-person
+        # narration are gone from the dashboard -- "too much text for a dashboard
+        # should be short concise sentences. a lot of it reads like ai too". The
+        # three findings are the two sentences of `results` above; the panels say
+        # them again with their numbers. One visible exploratory stamp replaces the
+        # old closing clause of `collected` and the h1's "exploratory analysis".
+        "note": ("Early, exploratory look. Who took which side was judged by AI, not "
+                 "checked by people."),
         # Owner's dashboard rules: spend is visible and dated, and the page says how
         # current its data is. Both are rendered under the TLDR by index.html.
         "spend": spend_so_far(),

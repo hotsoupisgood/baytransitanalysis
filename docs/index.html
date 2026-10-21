@@ -3,31 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>thtrans — an exploratory analysis of who talks about density and transit at Bay Area public meetings</title>
+<title>thtrans — who talks about housing density and transit at Bay Area public meetings</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 <main>
-  <p class="nav">thtrans · Dashboard · <a href="#rates">Topic time</a> · <a href="#nimby">NIMBY/YIMBY</a> · <a href="#stance">Stance</a> · <a href="#more">More: renter share</a> · <a href="methods.html">Methods &amp; instruments</a> · <a href="methods.html#flow">How the data was made (flowchart)</a></p>
-  <h1>thtrans — an exploratory analysis of who talks about density and transit at Bay Area public meetings</h1>
-  <!-- Subtitle cut to two lines (readability review §3.8): it used to restate TLDR
-       bullets 1-2 in 48 words. What the pipeline does now lives on the Methods page
-       and in the flowchart, both linked from the TLDR's last bullet. -->
-  <p class="sub">A year of council, county-board and transit-board meetings, read for what gets said about housing density and transit.</p>
-  <!-- The intro paragraph (owner, 2026-10-19 12:02): what was collected, then a little
-       on the results, then the TLDR. Both paragraphs are rendered from panels.json's
-       `intro`, which export/export_panels.py builds from data/bodies.json's own corpus
-       totals and site_numbers_role.json -- no count in this paragraph is typed into
-       this file, so it cannot drift from the map beneath it. -->
+  <p class="nav">thtrans · Dashboard · <a href="#rates">Topic time</a> · <a href="#nimby">NIMBY/YIMBY</a> · <a href="#stance">Stance</a> · <a href="#more">Renter share</a> · <a href="methods.html">Methods</a> · <a href="methods.html#flow">Flowchart</a></p>
+  <h1>thtrans — who talks about housing density and transit at Bay Area public meetings</h1>
+  <!-- Owner, 2026-10-21 07:14: the dashboard opens with three short sentences and
+       nothing else. The standing subtitle restated the first of them, and the TLDR
+       bullet list under it restated all three in the first person, so both are gone.
+       The three sentences and the exploratory stamp are rendered from panels.json's
+       `intro`, which export_panels.py builds from data/bodies.json's own corpus totals
+       -- no count here is typed into this file, so it cannot drift from the map. -->
   <div id="intro"><p class="sub">Loading…</p></div>
-  <ul class="tldr" id="tldr"><li>Loading…</li></ul>
+  <p class="sub stamp" id="stamp"></p>
   <!-- Spend is visible and dated, and the page says how current its data is (owner's
        dashboard rules). Both strings come out of panels.json: the total is the same
        spend ledger the Methods flowchart reads, so the two pages cannot disagree. -->
   <p class="sub asof" id="asof"></p>
   <div class="wrap">
     <div class="panel"><svg id="map"></svg></div>
-    <div class="panel detail" id="detail"><h3>Click a body</h3><p>Its meetings appear here; click a meeting for its episodes, the source video at that timestamp, and the reader.</p></div>
+    <div class="panel detail" id="detail"><h3>Click a body</h3><p>Its meetings appear here.</p></div>
   </div>
   <!-- The legend reads better under the thing it describes, and moving it here is
        what puts the map on the first phone screen. -->
@@ -40,7 +37,7 @@
   <!-- The reader starts on an episode rather than empty (review §5.3): it is the one
        place a general reader hears an actual person at an actual meeting. -->
   <h2 id="reader-h">One episode, as it was read</h2>
-  <p class="sub">Click any meeting above to read a different one, turn by turn, with its stance scores.</p>
+  <p class="sub">Click any meeting above to read a different one.</p>
   <div class="panel" id="reader"></div>
 
   <!-- Panel order follows the review's suggested reading order (§5): the shortest,
@@ -60,7 +57,7 @@
        locate route landed, and the measured rates in the Rates panel are the live
        number. Its figures and tables stay in the repo; no page fetches them. -->
   <details class="fold more" id="more">
-    <summary>More: renter share</summary>
+    <summary>Renter share</summary>
     <div class="body">
       <h2 id="renter">Renter share</h2>
       <div id="p-renter"><p class="sub">Loading…</p></div>
@@ -68,7 +65,7 @@
   </details>
 
   <div class="methods" id="methods"><h2 style="margin-top:0">Methods and instrument versions</h2><p>Loading…</p></div>
-  <p class="sub" style="margin-top:0.75rem">Every instrument, number and limitation is on <a href="methods.html">Methods</a>; the corpus is built stage by stage in the <a href="methods.html#flow">flowchart</a>.</p>
+  <p class="sub" style="margin-top:0.75rem">Every instrument, number and limitation is on <a href="methods.html">Methods</a>, with a <a href="methods.html#flow">flowchart</a> of how the data was made.</p>
 </main>
 <div class="tip" id="tip"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
@@ -103,18 +100,14 @@ Promise.all([
   // numbers at all. Every count, share, interval and caveat that used to sit here is
   // now in the panel bodies, in the Corpus entry of the methods footer at the foot of
   // this page, and on the Methods page.
-  // The intro paragraphs and the page TLDR both come out of panels.json. The TLDR
-  // keeps its no-numbers house rule (docs/STYLE.md, owner 2026-10-18 21:16); the
-  // counts and the two result numbers are in the intro above it, which is where the
-  // rule says numbers belong. The literals that used to sit here are gone -- they are
-  // built in export/export_panels.py page_intro() from the corpus's own totals.
-  // The only markup allowed through from the exporter is the Methods link in the last
-  // bullet, so these two strings are inserted as HTML; everything numeric in them is
-  // formatted Python, never user or transcript text.
+  // The intro's three sentences come out of panels.json, built in
+  // export_panels.py page_intro() from the corpus's own totals -- no literal here.
+  // One visible exploratory stamp goes under them (owner, 2026-10-21): it is the
+  // clause that used to close the intro and the words that used to sit in the h1.
   if (panels && panels.intro) {
     d3.select("#intro").html(
       `<p class="intro">${panels.intro.collected}</p><p class="intro">${panels.intro.results}</p>`);
-    d3.select("#tldr").html(panels.intro.tldr.map(s => `<li>${s}</li>`).join(""));
+    d3.select("#stamp").text(panels.intro.note || "");
     // Both halves are exported strings, not typed here: the spend total carries the
     // date its newest account was measured, which is not always the export date.
     // When it is, the one date covers both and is said once — "Data as of 2026-10-20
@@ -127,7 +120,6 @@ Promise.all([
     ].filter(Boolean).join(" "));
   } else {
     d3.select("#intro").html(`<p class="note">The intro needs <code>data/panels.json</code> — run <code>export/export_panels.py</code>.</p>`);
-    d3.select("#tldr").html(`<li>Panels not loaded — see the message above.</li>`);
   }
 
   // ── map ────────────────────────────────────────────────────────────────
@@ -284,7 +276,7 @@ Promise.all([
       rd.html(`
         <div class="crumbs"><a data-b="${b.body}">${esc(b.name)}</a> › <a data-m="${esc(m.meeting_id)}">${esc(m.date)}</a> › episode ${esc(e.episode_id)}</div>
         ${lead ? `<blockquote class="leadturn"><p>${render(lead)}</p></blockquote>
-        <p class="leadsrc">${{public: "A member of the public", dais: "A speaker on the dais", staff: "A staff speaker", unknown: "A speaker whose role the labeller could not tell"}[lead.role] || "A speaker"}, ${esc(b.name)}, ${esc(m.date)}, <a class="src" href="${esc(linkAt(m, lead.t_s))}" target="_blank" rel="noopener">${hms(lead.t_s)} in the recording ↗</a>. The whole episode is below.</p>` : ""}
+        <p class="leadsrc">${{public: "A member of the public", dais: "A speaker on the dais", staff: "A staff speaker", unknown: "A speaker whose role the labeller could not tell"}[lead.role] || "A speaker"}, ${esc(b.name)}, ${esc(m.date)}, <a class="src" href="${esc(linkAt(m, lead.t_s))}" target="_blank" rel="noopener">${hms(lead.t_s)} in the recording ↗</a>.</p>` : ""}
         <details class="fold"><summary>About this excerpt</summary><div class="body">
         <h3 style="margin-top:0">${esc(b.name)}, ${esc(m.date)} — ${hms(e.start_s)}–${hms(e.end_s)} (${mins(e.hours)} min), <span class="pill ${e.tags}">${e.tags}</span> <span class="pill">${esc(e.route)}</span> ${e.label ? `<span class="pill">${esc(e.label)}</span>` : ""} ${e.qa_status ? `<span class="pill ${e.qa_status}">QA ${e.qa_status}</span>` : ""} ${nScored ? `<span class="pill s1">stance: ${nScored} of ${x.turns.length} turns</span>` : `<span class="pill">stance: none in frame</span>`}</h3>
         <p class="meta"><a class="src" href="${esc(e.link)}" target="_blank" rel="noopener">▶ source video at ${hms(e.start_s)} ↗</a>${tsNote} · located by <i>${esc(e.route)}</i>${e.agenda_item ? ` (agenda item ${esc(e.agenda_item)})` : ""} · ASR ${esc(x.asr?.model)} + ${esc(x.asr?.diarization)} · speakers: ${roles.dais} dais, ${roles.public} public, ${roles.unknown} unknown · ${fi(x.words)} words${x.roles_source ? ` · role instrument <i>${esc(x.roles_source)}</i>` : ""}</p>
@@ -337,7 +329,7 @@ Promise.all([
   // second caption for a thing the reader cannot see yet. Pass a lede only when it
   // says something the summary does not; an empty one renders nothing.
   const numbers = (lede, title, inner) => `${lede ? `<p class="numlede">${lede}</p>` : ""}
-    <details class="fold numbers"><summary>Show the numbers — ${esc(title)}</summary>
+    <details class="fold numbers"><summary>Show the numbers</summary>
     <div class="body"><h4>${esc(title)}</h4>${inner}</div></details>`;
   // One figure per panel above the fold, the rest behind a disclosure (§3.3).
   // Readability review §7.3 and §7.6: the heading is a written title from panels.json,
@@ -355,16 +347,17 @@ Promise.all([
   // The caveats are the honest part of the panel, and they are also the longest.
   // They stay, every sentence of them, one click away rather than in front of the
   // figure (readability review §2: the wall arrives before the result).
-  const caveats = cs => `<details class="fold"><summary>What is wrong with this result — ${cs.length} ${cs.length === 1 ? "point" : "points"}, in full</summary><div class="body caveats">${cs.map(c => `<p class="caveat-prose"><b>${esc(c.name)}.</b> ${esc(c.text)}</p>${
-    c.table && c.table.length ? `<details class="fold"><summary>Show the numbers behind this point</summary><div class="body">${
+  const caveats = cs => `<details class="fold"><summary>What is wrong with this result (${cs.length})</summary><div class="body caveats">${cs.map(c => `<p class="caveat-prose"><b>${esc(c.name)}.</b> ${esc(c.text)}</p>${
+    c.table && c.table.length ? `<details class="fold"><summary>Show the numbers</summary><div class="body">${
       tbl(Object.keys(c.table[0]).map(k => ({h: k.replace(/_/g," "), num: typeof c.table[0][k] === "number", f: r => esc(r[k])})), c.table)}</div></details>` : ""}`).join("")}</div></details>`;
-  // Readability review §7.2: the bullets come before the lede. The lede is a
-  // definition of what the panel's unit is, which is the right thing to read second
-  // and the wrong thing to read first. The `corrected` badge that used to sit beside
-  // the panel TLDR is gone (§7.6) -- it is a note to self, and the correction itself
-  // is written out in the caveats, where the numbers it moved are.
-  const head = p => `${p.tldr ? `<p class="ptldr"><b>In one line.</b> ${esc(p.tldr)}</p>` : ""
-    }<ul class="heads">${p.headline.map(h => `<li>${esc(h)}</li>`).join("")}</ul><p class="lede">${esc(p.lede)}</p>`;
+  // Owner, 2026-10-21 07:14: a panel opens with its heading and one or two short
+  // sentences, as prose. It used to open with a bulleted list under a literal
+  // "TLDR:" label (site.css), above a one-line restatement of the same finding and
+  // a definition of the panel's unit. The bullets are sentences now, the "In one
+  // line" restatement is gone from the exporter, and a panel that has nothing to
+  // define leaves `lede` empty and renders no second line.
+  const head = p => `<p class="heads">${p.headline.map(esc).join(" ")}</p>${
+    p.lede ? `<p class="lede">${esc(p.lede)}</p>` : ""}`;
   // The role column every public/dais number on the page uses. role_audit (rule ra-1) is the
   // reported one since 2026-10-18; the cue role is kept as a sensitivity in the repo (_cue).
   // One copy, on the first panel that uses it. Both panels' public/dais numbers rest
@@ -372,15 +365,15 @@ Promise.all([
   // the concision pass found repeated verbatim across panels (owner, 2026-10-19 12:46);
   // the second panel links the first instead, and the hashchange handler below opens
   // a closed disclosure the link lands in.
-  const roleAuditLink = a => !a ? "" : `<p class="src-note">Which speaker is “the public” here, and how that was decided: <a href="#who-is-public">on the NIMBY / YIMBY panel</a>.</p>`;
-  const roleAuditNote = a => !a ? "" : `<details class="fold" id="who-is-public"><summary>Which speaker is “the public” here, and how that was decided</summary><div class="body"><p class="note rolenote"><b>Reported role: <code>role_audit</code> (${
+  const roleAuditLink = a => !a ? "" : `<p class="src-note"><a href="#who-is-public">Which speaker is “the public”, and how that was decided</a>.</p>`;
+  const roleAuditNote = a => !a ? "" : `<details class="fold" id="who-is-public"><summary>Which speaker is “the public”, and how that was decided</summary><div class="body"><p class="note rolenote"><b>Reported role: <code>role_audit</code> (${
     esc(a.audit_version)})</b> — not the diarization-cue role. Where a speaker says who they are, that beats a cue-phrase label: ${
     fi(a.by_cue_role.public.disagree)} of ${fi(a.by_cue_role.public.informative)} adjudicable turns in the cue-labelled <i>public</i> bucket (${
     pc(a.by_cue_role.public.rate)}) say <code>elected</code> or <code>staff</code>, against ${pc(a.by_cue_role.dais.rate)} in the dais bucket. ${
     fi(a.disagree)} of ${fi(a.informative)} informative turns disagree overall (${pc(a.disagree_rate_informative)}); ${
     pc(a.unknown_share)} of all ${fi(a.turns)} turns say nothing about the speaker and keep the cue role. <b>This is an audit, not a gold set</b> — the self-identification is another model's output, no human has checked it, and the audit moves clusters <i>both</i> ways: the public base with a stance rises ${
     fi(a.public_clusters_with_stance.cue)} → ${fi(a.public_clusters_with_stance.audit)} clusters, so a shift in these numbers is a re-partition, not contamination removed. <code>${esc(a.source)}</code></p></div></details>`;
-  const mlink = p => `<p class="src-note">Instrument, prompt and validation numbers: <a href="methods.html#${esc(p.methods_anchor)}">Methods § ${esc(p.methods_anchor)}</a>.</p>`;
+  const mlink = p => `<p class="src-note">How this was measured, and how well: <a href="methods.html#${esc(p.methods_anchor)}">Methods</a>.</p>`;
 
   // ── "Who takes a side": the role gap, in a headline and two steps ──
   // Owner, 2026-10-19: one model carries this result -- "lets keep that lme4
@@ -404,9 +397,9 @@ Promise.all([
       <p class="sidelead">${esc(rs.headline)}</p>
       <div class="sidesteps">${rs.steps.map((s, i) => `
         <div><h5>${i + 1}. ${esc(s.name)}</h5><p>${esc(s.text)}</p></div>`).join("")}</div>
-      <p class="sidemodel note">${esc(rs.model_line)}</p>
-      <p class="sideres"><b>What to quote.</b> ${esc(rs.restated)}</p>
-      <details class="fold"><summary>The two steps in full, and what is wrong with this</summary>
+      ${rs.model_line ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
+      <p class="sideres">${esc(rs.restated)}</p>
+      <details class="fold"><summary>The numbers, and what is wrong with this</summary>
         <div class="body">
         <p class="sidewhy" style="margin-top:0">${esc(rs.why)}</p>
         <h4>Public against dais, on both steps of the same model</h4>
@@ -419,7 +412,7 @@ Promise.all([
         <p class="caveat-prose">${esc(rs.limits)}</p>
         <p class="note">${(rs.sources || []).filter(Boolean).map(s => `<code>${esc(s)}</code>`).join(" · ")}</p>
         </div></details>
-      <p class="src-note">The model: <a href="methods.html#models">Methods § the models</a>.</p>
+      <p class="src-note">How this was measured: <a href="methods.html#models">Methods</a>.</p>
     </div>`;
 
   // ── one speaker cluster, described: shared by both dot charts ─────────────
@@ -664,250 +657,18 @@ Promise.all([
     draw();
   }
 
-  // ── The role dot plot: stance up the page, the two benches side by side ──
-  // Owner, 2026-10-19: "also add the vertical dot plot with the dai/public
-  // left/right, neutral center."
-  //
-  // This is the picture behind "Who takes a side". Stance runs up the vertical
-  // axis from -2 (against the item) to +2 (for it) with the neutral line through
-  // the middle; the dais occupies the left half of the frame and public comment
-  // the right, each with its own horizontal jitter. What a reader should see
-  // immediately is that the left half is a dense bar sitting on the centre line
-  // and the right half is two clouds away from it -- which is the whole finding,
-  // before any odds ratio.
-  //
-  // Unit: one speaker cluster inside one meeting, the same unit and the same
-  // labels as the scatter above and the bars below, read from the same
-  // data/nimby_points.json. Faceting is by locate route, one at a time, never
-  // pooled (plan/DECISIONS.md) -- the selector is the facet.
-  function buildRoleDots(NP) {
-    const PTS = NP.points;
-    const RB = NP.meta.routes_by_role || {};
-    // Routes ordered by how much they carry overall, biggest first.
-    const routes = Object.keys(RB).sort((a, b) =>
-      d3.sum(Object.values(RB[b]), v => v.n) - d3.sum(Object.values(RB[a]), v => v.n));
-    if (!routes.length) return;
-    const LCOL = { YIMBY: cssVar("--yimby"), NIMBY: cssVar("--nimby"), neutral: cssVar("--nstance") };
-    const SIDES = [{ role: "dais", label: "The dais" }, { role: "public", label: "Public comment" }];
-    let route = routes[0], pinned = null, pinnedNode = null;
+  // The role dot plot that stood here -- stance up the page, the dais half beside
+  // the public half, one route at a time -- came off the page 2026-10-21 (owner:
+  // "the last plot on the page can be removed as well"). Its finding is the Stance
+  // panel's second sentence, from the same two shares. data/nimby_points.json still
+  // carries meta.routes_by_role; nothing reads it now.
 
-    // Same stable hash-nudge the scatter uses: a dot's horizontal offset inside
-    // its half is a function of its id, so it does not move between renders and
-    // is never read off an axis. Stance means land on whole and half steps, so
-    // without this the halves would be a few vertical lines of overplotting.
-    const jit = (id, salt) => { let h = 2166136261 ^ salt;
-      for (let i = 0; i < id.length; i++) { h = Math.imul(h ^ id.charCodeAt(i), 16777619); }
-      return ((h >>> 0) / 4294967295) - 0.5; };
-
-    const svgEl = document.getElementById("rdp");
-    if (!svgEl) return;
-    const svg = d3.select(svgEl);
-    const gax = svg.append("g"), gpt = svg.append("g");
-    let W, H, M, y, xMid, halfW, rr, jy, narrow;
-
-    function layout() {
-      const cw = Math.round(svgEl.getBoundingClientRect().width) || 640;
-      narrow = cw < 560;
-      W = narrow ? Math.max(280, cw) : 640;
-      H = narrow ? 420 : 460;
-      M = narrow ? { t: 26, r: 10, b: 40, l: 30 } : { t: 28, r: 16, b: 44, l: 46 };
-      y = d3.scaleLinear([-2.3, 2.3], [H - M.b, M.t]);
-      halfW = (W - M.l - M.r) / 2;
-      xMid = d => M.l + halfW * (d === "dais" ? 0.5 : 1.5);
-      rr = d3.scaleSqrt(d3.extent(PTS, p => p.words), narrow ? [3, 7] : [2.4, 8]).clamp(true);
-      jy = 0.012 * H;                 // a whisker of vertical nudge, so ties at 0 spread
-      svg.attr("viewBox", [0, 0, W, H]).classed("narrow", narrow);
-    }
-
-    function drawAxes() {
-      gax.selectAll("*").remove();
-      // the neutral line: the one reference the whole figure is about
-      gax.append("line").attr("class", "zero")
-        .attr("x1", M.l).attr("x2", W - M.r).attr("y1", y(0)).attr("y2", y(0));
-      // the two label thresholds, so a reader can see which band a dot is in
-      gax.selectAll("line.thr").data([-0.5, 0.5]).join("line").attr("class", "thr")
-        .attr("x1", M.l).attr("x2", W - M.r).attr("y1", d => y(d)).attr("y2", d => y(d));
-      // the divider between the benches
-      gax.append("line").attr("class", "ax").attr("x1", M.l + halfW).attr("x2", M.l + halfW)
-        .attr("y1", M.t - 10).attr("y2", H - M.b);
-      gax.selectAll("text.yt").data(narrow ? [-2, -1, 0, 1, 2] : [-2, -1, 0, 1, 2])
-        .join("text").attr("class", "yt").attr("x", M.l - 7).attr("y", d => y(d))
-        .attr("dy", "0.32em").attr("text-anchor", "end").text(d => sg(d, 0));
-      gax.selectAll("text.side").data(SIDES).join("text").attr("class", "side")
-        .attr("x", d => xMid(d.role)).attr("y", M.t - 14).attr("text-anchor", "middle")
-        .text(d => d.label);
-      gax.append("text").attr("class", "yl")
-        .attr("transform", `translate(${narrow ? 10 : 13},${(M.t + H - M.b) / 2}) rotate(-90)`)
-        .attr("text-anchor", "middle").text(narrow ? "against ← stance → for" : "against the item ← stance → for the item");
-      gax.append("text").attr("class", "zl").attr("x", W - M.r).attr("y", y(0) - 5)
-        .attr("text-anchor", "end").text("neutral");
-    }
-
-    const qtip = d3.select("#rdp-tip");
-    const tipHtml = (d, pin) => `<blockquote>“${esc(d.quote)}”</blockquote>
-      <p class="qmeta">${esc(d.role === "dais" ? "dais" : "public comment")} · ${meta1(d)}<br>${meta2(d)}${
-        pin ? `<br><b>pinned</b> — click or tap the dot again to release` : ""}</p>`;
-    function showQtip(d, pin, cx, cy) {
-      qtip.attr("class", `qtip ${d.label.toLowerCase()}${pin ? " pinned" : ""}`)
-        .style("display", "block").html(tipHtml(d, pin));
-      placeFloating(qtip, cx, cy);
-    }
-    const hideQtip = () => qtip.style("display", "none");
-    function unpin() { pinned = null; pinnedNode = null; hideQtip(); draw(); }
-
-    const shown = () => PTS.filter(d => d.route === route);
-    let touchArmed = null, swallowClick = false;
-
-    function draw() {
-      const rows = shown();
-      const c = gpt.selectAll("circle.pt").data(rows, d => d.id)
-        .join(enter => enter.append("circle").attr("class", "pt"));
-      c.attr("cx", d => xMid(d.role) + jit(d.id, 7) * (halfW - 16))
-        .attr("cy", d => y(d.mean_stance) + jit(d.id, 23) * jy)
-        .attr("r", d => rr(d.words))
-        .attr("fill", d => LCOL[d.label])
-        .attr("fill-opacity", 0.6)
-        .classed("on", d => pinned && d.id === pinned.id)
-        .on("pointerenter", function (ev, d) {
-          if (ev.pointerType !== "mouse" || pinned) return;
-          showQtip(d, false, ev.clientX, ev.clientY);
-        })
-        .on("pointermove", function (ev) {
-          if (ev.pointerType !== "mouse" || pinned) return;
-          placeFloating(qtip, ev.clientX, ev.clientY);
-        })
-        .on("pointerleave", function (ev) {
-          if (ev.pointerType !== "mouse" || pinned) return;
-          hideQtip();
-        })
-        // Touch follows the scatter exactly: tap to open, tap again to pin, again
-        // to release. Pinning is what makes the "watch at" link inside reachable.
-        .on("pointerdown", function (ev, d) {
-          if (ev.pointerType === "mouse") return;
-          swallowClick = true;
-          if (pinned && pinned.id === d.id) { unpin(); return; }
-          if (touchArmed === d.id) { pinned = d; pinnedNode = this; showQtip(d, true, ...dotCentre(this)); draw(); return; }
-          touchArmed = d.id; pinned = null;
-          showQtip(d, false, ...dotCentre(this)); draw();
-        })
-        .on("click", function (ev, d) {
-          if (swallowClick) { swallowClick = false; return; }
-          if (pinned && pinned.id === d.id) { unpin(); return; }
-          pinned = d; pinnedNode = this; showQtip(d, true, ...dotCentre(this)); draw();
-        });
-      if (pinned && !rows.some(d => d.id === pinned.id)) unpin();
-      // The counts under the figure are counted off the drawn rows, so the caption
-      // cannot claim a speaker the chart is not showing.
-      const cnt = ro => { const s = rows.filter(d => d.role === ro);
-        const at0 = s.filter(d => d.mean_stance === 0).length;
-        return { n: s.length, at0,
-                 Y: s.filter(d => d.label === "YIMBY").length,
-                 N: s.filter(d => d.label === "NIMBY").length,
-                 U: s.filter(d => d.label === "neutral").length }; };
-      const D = cnt("dais"), P2 = cnt("public");
-      const pcOf = (a, b) => b ? `${Math.round(100 * a / b)} %` : "—";
-      d3.select("#rdp-counts").html(
-        `On this route: <b>${fi(D.n)}</b> dais clusters (${pcOf(D.U, D.n)} neutral) `
-        + `and <b>${fi(P2.n)}</b> public ones (${pcOf(P2.U, P2.n)} neutral). `
-        + `Sitting exactly on the neutral line, counted per speaker: ${pcOf(D.at0, D.n)} of `
-        + `the dais against ${pcOf(P2.at0, P2.n)} of the public.`);
-    }
-
-    const sel = d3.select("#rdp-route").on("change", function () {
-      // A route change redraws against a different set of speakers, so anything
-      // pinned on the old route has to go with them -- it may not exist here.
-      route = this.value; unpin();
-    });
-    sel.selectAll("option").data(routes).join("option").attr("value", d => d)
-      .text(d => `${d} — ${d3.sum(Object.values(RB[d]), v => v.n)} speakers`);
-    sel.property("value", route);
-
-    let rt = null;
-    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => {
-      layout(); drawAxes(); draw();
-      if (pinned && pinnedNode) showQtip(pinned, true, ...dotCentre(pinnedNode));
-    }, 150); });
-    window.addEventListener("scroll", () => {
-      if (pinned && pinnedNode) placeFloating(qtip, ...dotCentre(pinnedNode));
-    }, { passive: true });
-    layout(); drawAxes(); draw();
-  }
-
-  // ── Topic time: the panel's own figure ─────────────────────────────────
-  // Readability review §7.4: this was the one panel on the page with no figure of
-  // its own, and it is the panel the TLDR's first finding comes from. Nothing here
-  // is computed: every bar and whisker is a row of panels.json's `rates.complete`,
-  // the same rows the table under it prints. Drawn here rather than exported as a
-  // PNG so it stays legible at 390 px, where a matplotlib figure is a thumbnail.
-  function buildRatesBars(p) {
-    const rows = [];
-    for (const r of p.complete.filter(d => d.family === "any")) {
-      const of = fam => p.complete.find(d => d.body === r.body && d.route === r.route && d.family === fam) || {};
-      rows.push({ body: r.body, route: r.route, any: r.rate_min_per_h,
-                  transit: of("transit"), density: of("density") });
-    }
-    rows.sort((a, b) => d3.descending(a.any, b.any) || d3.ascending(a.route, b.route));
-    const FAM = ["transit", "density"];
-    const svgEl = document.getElementById("rtb");
-    if (!svgEl || !rows.length) return;
-
-    function render() {
-      const narrow = svgEl.getBoundingClientRect().width < 460;
-      const W = narrow ? Math.max(300, Math.round(svgEl.getBoundingClientRect().width)) : 640;
-      const M = { t: 18, r: 10, b: 34, l: narrow ? 92 : 132 };
-      const rowH = narrow ? 36 : 40, pad = 3;
-      const H = M.t + rows.length * rowH + M.b;
-      const hi = d3.max(rows, d => d3.max(FAM, f => d[f].ci95_hi ?? d[f].rate_min_per_h ?? 0)) || 1;
-      const x = d3.scaleLinear([0, hi], [M.l, W - M.r]).nice();
-      const yb = d3.scaleBand().domain(rows.map(d => d.body + "/" + d.route))
-        .range([M.t, H - M.b]).paddingInner(0.3);
-      const yf = d3.scaleBand().domain(FAM).range([0, yb.bandwidth()]).paddingInner(0.18);
-      const svg = d3.select(svgEl).attr("viewBox", [0, 0, W, H]).attr("height", null);
-      svg.selectAll("*").remove();
-      svg.append("g").selectAll("line.g").data(x.ticks(narrow ? 4 : 6)).join("line").attr("class", "g")
-        .attr("x1", x).attr("x2", x).attr("y1", M.t - 6).attr("y2", H - M.b);
-      svg.append("g").selectAll("text.xt").data(x.ticks(narrow ? 4 : 6)).join("text").attr("class", "xt")
-        .attr("x", x).attr("y", H - M.b + 14).attr("text-anchor", "middle").text(d => d);
-      svg.append("text").attr("class", "xl").attr("x", (M.l + W - M.r) / 2).attr("y", H - 4)
-        .attr("text-anchor", "middle").text("minutes of on-topic talk per meeting-hour");
-      const g = svg.append("g").selectAll("g.row").data(rows).join("g").attr("class", "row")
-        .attr("transform", d => `translate(0,${yb(d.body + "/" + d.route)})`);
-      g.append("text").attr("class", "rl").attr("x", M.l - 8).attr("y", yb.bandwidth() / 2 - 5)
-        .attr("dy", "0.32em").attr("text-anchor", "end").text(d => d.body);
-      g.append("text").attr("class", "rl rt").attr("x", M.l - 8).attr("y", yb.bandwidth() / 2 + 8)
-        .attr("dy", "0.32em").attr("text-anchor", "end").text(d => d.route);
-      FAM.forEach(f => {
-        const sub = g.append("g").attr("transform", `translate(0,${yf(f)})`);
-        sub.append("rect").attr("x", x(0)).attr("y", pad).attr("height", Math.max(6, yf.bandwidth() - pad))
-          .attr("width", d => Math.max(0, x(d[f].rate_min_per_h || 0) - x(0)))
-          .attr("fill", cssVar("--" + f)).attr("fill-opacity", 0.85);
-        sub.append("line").attr("class", "ci")
-          .attr("x1", d => x(d[f].ci95_lo ?? d[f].rate_min_per_h ?? 0))
-          .attr("x2", d => x(d[f].ci95_hi ?? d[f].rate_min_per_h ?? 0))
-          .attr("y1", d => pad + Math.max(6, yf.bandwidth() - pad) / 2)
-          .attr("y2", d => pad + Math.max(6, yf.bandwidth() - pad) / 2);
-        sub.append("text").attr("class", "bv").attr("dy", "0.32em")
-          .attr("y", pad + Math.max(6, yf.bandwidth() - pad) / 2)
-          .attr("x", d => x(d[f].ci95_hi ?? d[f].rate_min_per_h ?? 0) + 5)
-          .text(d => `${f} ${f2(d[f].rate_min_per_h || 0)}`)
-          .each(function (d) {                       // a label that would run off the right edge goes inside the bar
-            const b = this.getBBox();
-            if (b.x + b.width > W - M.r) {
-              d3.select(this).attr("text-anchor", "end").attr("fill", "var(--white)")
-                .attr("x", x(d[f].rate_min_per_h || 0) - 5);
-            }
-          });
-      });
-    }
-    render();
-    let rrt = null;
-    window.addEventListener("resize", () => { clearTimeout(rrt); rrt = setTimeout(render, 150); });
-    // The caption is the prose (docs/STYLE.md §3): it names the figure and reads it.
-    d3.select("#rates-fig p").html(
-      `In the chart above the two transit boards give transit many times more of each meeting-hour than `
-      + `they give density — close to a tautology, and why they are never read as evidence about `
-      + `councils. Napa is the only body two routes have read, and they disagree about it.`);
-  }
+  // The minutes-per-meeting-hour bar chart that stood here came off the page
+  // 2026-10-21 (owner: "no need for a graph on meeting hours"), and its caption with
+  // it -- the caption was the sentence calling a transit board's topic time "close to
+  // a tautology", which the owner named as the thing to delete outright. Every bar it
+  // drew was a row of panels.json `rates.complete`, which the collapsed table under
+  // the panel still prints in full.
 
   if (panels) {
     const P = panels;
@@ -923,7 +684,7 @@ Promise.all([
       // ("Predicting the role from content") almost word for word -- the ablation, the
       // calibration slope and the circularity of the audited target are all there --
       // so it is a link now rather than a second copy of the same paragraph.
-      const rolePred = rp => !rp ? "" : `<p class="rolepred"><b>${esc(rp.title)}.</b> ${esc(rp.text)} <a href="methods.html#models">What carries that, and why it is not a classifier</a>.</p>`;
+      const rolePred = rp => !rp ? "" : `<p class="rolepred">${esc(rp.text)} <a href="methods.html#models">How that works</a>.</p>`;
       d3.select("#p-stance").html(`${head(p)}${rolePred(p.role_pred)}${leadFig(p)}
         ${numbers("",
           "Tail shares, public / dais — the numbers to quote", `
@@ -962,17 +723,6 @@ Promise.all([
           <div id="nsc-ex"></div>
         </div>` : `<p class="note">The per-speaker scatter and the examples need <code>data/nimby_points.json</code> — run <code>export/export_nimby_points.py</code>.</p>`}
         ${roleSide(p.role_side)}
-        ${nimbyPts && nimbyPts.meta.routes_by_role ? `<div class="panel" id="rdp-panel">
-          <h4 style="margin:0 0 2px">The same speakers, the dais beside the public</h4>
-          <p class="numlede">Stance runs up the page; the two benches are the two halves.</p>
-          <details class="fold"><summary>How to read this chart</summary><div class="body"><p class="note" style="margin-top:0">One dot is one speaker cluster inside one meeting — the same unit, labels and threshold as the scatter above and the bars below, read from the same file, so the three cannot disagree. It is a speaker at one meeting, never a person followed between them, and most dots rest on a single scored statement. Vertical position is the mean of that speaker's scored turns. Dots are nudged sideways inside their own half, and a little vertically, so that ties do not hide each other: sideways position carries no meaning at all, and the tooltip always reads the unrounded value. Dot area is how much the speaker said. One locate route is drawn at a time and nothing is pooled across them, because the routes that read the same body can disagree about it.</p></div></details>
-          <p class="sctl">Route <select id="rdp-route"></select></p>
-          <svg id="rdp" role="img" aria-label="Vertical dot plot of speaker clusters by mean stance from minus two to plus two, dais clusters on the left half and public comment on the right, coloured green for YIMBY, red for NIMBY and grey for neutral"></svg>
-          <p class="skey"><i style="background:var(--yimby)"></i>YIMBY (mean ≥ +0.5) &nbsp; <i style="background:var(--nimby)"></i>NIMBY (≤ −0.5) &nbsp; <i style="background:var(--nstance)"></i>neutral between &nbsp;· larger dot = more words</p>
-          <p class="cap" id="rdp-counts"></p>
-          ${p.dot_caption ? `<p class="cap">${esc(p.dot_caption)}</p>` : ""}
-          <div class="qtip" id="rdp-tip" role="tooltip"></div>
-        </div>` : ""}
         ${numbers("",
           "Public speaker clusters by body and route", `
         ${tbl([{h:"route",f:r=>esc(r.route)},{h:"body",f:r=>esc(r.body)},
@@ -999,9 +749,8 @@ Promise.all([
               the same chart came off the page 2026-10-20: it was drawn before the data
               freeze and nothing in the repo regenerates it. */
           p.figs && p.figs.length > 1
-            ? `<details class="fold"><summary>More figures — the other routes, and the dais included (${p.figs.length - 1})</summary><div class="body pfigs">${p.figs.slice(1).map(f => figOne(p, f)).join("")}</div></details>` : ""}${roleAuditNote(p.role_audit)}${caveats(p.caveats)}${mlink(p)}`);
+            ? `<details class="fold"><summary>More figures — the other routes, and the dais beside the public (${p.figs.length - 1})</summary><div class="body pfigs">${p.figs.slice(1).map(f => figOne(p, f)).join("")}</div></details>` : ""}${roleAuditNote(p.role_audit)}${caveats(p.caveats)}${mlink(p)}`);
       if (nimbyPts) buildScatter(nimbyPts);
-      if (nimbyPts && nimbyPts.meta.routes_by_role) buildRoleDots(nimbyPts);
     }
     // renter
     {
@@ -1019,10 +768,6 @@ Promise.all([
     {
       const p = P.rates, any = p.complete.filter(r => r.family === "any");
       d3.select("#p-rates").html(`${head(p)}${leadFig(p)}
-        ${p.complete.length ? `<div class="fig" id="rates-fig">
-          <h4>Minutes per meeting-hour, for the completely located bodies</h4>
-          <svg id="rtb" role="img" aria-label="Horizontal bars of transit and density minutes of on-topic talk per meeting-hour, one pair per body and locate route, with 95 percent intervals"></svg>
-          <p></p></div>` : ""}
         ${numbers("",
           `Complete-coverage bodies, minutes per meeting-hour — ${p.rated_bodies.join(", ")}`, `
         ${tbl([{h:"body",f:r=>esc(r.body)},{h:"route",f:r=>esc(r.route)},{h:"meetings",num:1,f:r=>fi(r.meetings)},
@@ -1035,7 +780,6 @@ Promise.all([
           p.complete_without_exposure.length ? `${p.complete_without_exposure.map(esc).join(" and ")} are complete too but publish no video duration, so they have no exposure denominator and no rate. ` : ""}${
           fi(p.all_rows.length)} rows in all, including the partial bodies whose rates are floors: <code>output/wave1/rates_by_body_route.csv</code>.</p>`)}
         ${restFigs(p)}${caveats(p.caveats)}${mlink(p)}`);
-      if (p.complete.length) buildRatesBars(p);
     }
   } else {
     ["stance","nimby","renter","rates"].forEach(k => d3.select("#p-"+k).html(`<p class="loadfail">This panel is empty because <code>data/panels.json</code> is missing: run <code>export/export_panels.py</code> to build it.</p>`));
@@ -1049,8 +793,8 @@ Promise.all([
   const roleV = I.roles[0] || {};
   d3.select("#methods").html(`
     <h2 style="margin-top:0" id="methods-h">Methods and instrument versions</h2>
-    <p>Read from the pipeline database at export time (${meta.generated.slice(0,16).replace("T"," ")}), not typed in. The four LLM instruments are quoted in full on <a href="methods.html"><b>Methods</b></a>.</p>
-    <details class="fold"><summary>The corpus and every instrument version, as exported</summary><div class="body">
+    <p>Read from the pipeline database at export time (${meta.generated.slice(0,16).replace("T"," ")}), not typed in.</p>
+    <details class="fold"><summary>The corpus and every instrument version</summary><div class="body">
     <dl>
       <dt>Corpus</dt><dd>${fi(T.bodies)} bodies — ${T.meetings_by_platform.youtube} meetings on YouTube, ${T.meetings_by_platform.granicus} on Granicus, ${T.meetings_by_platform.swagit} on Swagit — ${fi(T.meetings)} regular meetings in all, ${fi(Math.round(T.meeting_hours))} meeting-hours of video found. ${fi(T.episodes)} episodes flagged; ${fi(T.episodes_done)} transcribed (${f1(T.hours_done)} h) across ${withHours.length} bodies, ${fi(T.episodes_by_status.mention || 0)} mention-only and ${fi(T.episodes_by_status.cut || 0)} cut and waiting for the next GPU batch. ${noText.length} bodies have nothing transcribed yet (San Francisco and SFMTA are registered but have no transcripts). Five locate routes, by readable episodes: ${Object.entries(T.gated_by_route).sort((a,b) => b[1]-a[1]).map(([r,n]) => `<i>${esc(r)}</i> ${fi(n)}`).join(", ")}; <i>fullasr</i> is the newest — whole meetings transcribed end to end, with no caption screen in front of it. Hours are uneven: ${short(top[0].name)} ${f1(top[0].hours_done)} h, ${short(top[1].name)} ${f1(top[1].hours_done)} h … ${short(top[top.length-1].name)} ${f1(top[top.length-1].hours_done)} h, and the role-gap sample is capped at 8 h per body. ${fi(T.episodes_with_text)} episodes are readable here after the QA gate: ${fi(meta.text.turns)} turns, ${fi(meta.text.words)} words, text as loaded. Stance and hostility are scored per turn on ${fi(T.stance_turns)} turns in ${fi(T.episodes_scored)} episodes at k=3. Exported ${meta.generated.slice(0,16).replace("T"," ")}; ${esc(meta.published_note)}.</dd>
       <dt>Topic classifier</dt><dd>${clsRows || "—"}. Calls audited in <code>classifier_calls</code>: ${callRows}. Haiku was rejected at 0.758 agreement with the hand labels.</dd>
@@ -1086,7 +830,6 @@ Promise.all([
   // console saying why (readability review §3, point 7). Say it on the page.
   const msg = `<b>The dashboard could not load its data.</b> ${esc(err.message)}. Nothing below this line is showing results. This folder has to be served over HTTP (<code>python3 -m http.server 8766</code> in the site directory) — browsers block <code>file://</code> fetches — and the export scripts in <code>export/</code> have to have been run.`;
   d3.select("main").insert("p", ".nav + *").attr("class", "loadfail").html(msg);
-  d3.select("#tldr").html(`<li>Data not loaded — see the message above.</li>`);
   d3.select("#detail").html(`<h3>Data not loaded</h3><p>See the message at the top of the page.</p>`);
   ["stance","nimby","renter","rates"].forEach(k => d3.select("#p-"+k).html(`<p class="loadfail">This panel has no data: the dashboard's data load failed. ${esc(err.message)}.</p>`));
   d3.select("#asof").text("");
