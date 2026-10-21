@@ -1017,8 +1017,9 @@ def page_intro():
         # three findings are the two sentences of `results` above; the panels say
         # them again with their numbers. One visible exploratory stamp replaces the
         # old closing clause of `collected` and the h1's "exploratory analysis".
-        "note": ("Early, exploratory look. Who took which side was judged by AI, not "
-                 "checked by people."),
+        # Owner, 2026-10-21 08:29: "make 'judged by ai' more formal".
+        "note": ("Exploratory analysis. Stance and tone were coded by a large language "
+                 "model and have not been validated against human coders."),
         # Owner's dashboard rules: spend is visible and dated, and the page says how
         # current its data is. Both are rendered under the TLDR by index.html.
         "spend": spend_so_far(),
