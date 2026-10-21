@@ -124,10 +124,9 @@ second, independent instrument — so I audited one against the other. Where the
 speaker says who they are, **one in five to two in five turns in the "public"
 bucket say they are an elected member or staff.** Switching the reported role
 to that audit moves the per-family stance gap on density from **−0.38 (90%
-−0.62 to −0.13) to −0.06 (−0.30 to +0.20)**: *the "public is more opposed on
-density" result largely was dais speech sitting in the public bucket.* The
-model-free tail shares go the other way and get wider, because the clusters
-leaving the public bucket are long hedged member speeches and the ones
+−0.62 to −0.13) to −0.06 (−0.30 to +0.20)**. The model-free tail shares go the
+other way and get wider, because the clusters leaving the public bucket are
+long hedged member speeches and the ones
 arriving from the dais side are short and opinionated. Both facts are the same
 fact.
 

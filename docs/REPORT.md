@@ -257,10 +257,9 @@ overdispersion prior at the re-run.
 > since been audited (`plan/ROLE-AUDIT-2026-10-18.md`), which is now the
 > reported role. On the frame, under `role_audit`: the **stance** gap on
 > density is **−0.06 (90 % −0.30, +0.20)** — indistinguishable from zero, where
-> the cue-role fit on the same input gives −0.38 (−0.62, −0.13). *The "public
-> is more opposed on density" reading was largely dais speech sitting in the
-> public bucket.* The **hostility** gap is **+2.15 (1.85, 2.46)**, larger than
-> the cue-role +1.80 (1.49, 2.09): the mislabelled dais speech had been
+> the cue-role fit on the same input gives −0.38 (−0.62, −0.13). The
+> **hostility** gap is **+2.15 (1.85, 2.46)**, larger than the cue-role +1.80
+> (1.49, 2.09): the mislabelled dais speech had been
 > diluting it. For stance the number to quote is not the latent gap at all but
 > the model-free tail shares — the public is more opposed by **33 points on
 > density (90 % 27 to 40)** and more supportive by **31 (25 to 37)** — because

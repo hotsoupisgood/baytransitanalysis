@@ -136,7 +136,7 @@ def figure_shares(res, route, thresh, path, stars):
     fig.tight_layout(); fig.savefig(path, dpi=140); plt.close(fig)
 
 
-def figure_public_vs_dais(rows, route, path, tag):
+def figure_public_vs_dais(rows, route, path):
     plt = _plt()
     bodies = sorted({r["body"] for r in rows if r["role"] == "public"} & {r["body"] for r in rows if r["role"] == "dais"},
                     key=lambda b: -next(r["n_clusters"] for r in rows if r["role"] == "public" and r["body"] == b))
@@ -155,7 +155,10 @@ def figure_public_vs_dais(rows, route, path, tag):
         [f"{b} (pub n={idx[('public', b)]['n_clusters']}, dais n={idx[('dais', b)]['n_clusters']})" for b in bodies], fontsize=8)
     ax.set_xlim(-1, 1); ax.invert_yaxis(); ax.legend(loc="lower right", fontsize=8)
     ax.set_xlabel("net share: YIMBY − NIMBY among speaker clusters with a stance", fontsize=8)
-    ax.set_title(f"thtrans: public vs dais by body, route={route} [{tag}]. {STAMP}", fontsize=9)
+    # Owner, 2026-10-20 22:02: no internal role-audit code in a published title. The
+    # role column is still stated on the panel and in summary.json; the EXPLORATORY
+    # stamp stays on the figure.
+    ax.set_title(f"thtrans: public vs dais by body, route={route}. {STAMP}", fontsize=9)
     fig.tight_layout(); fig.savefig(path, dpi=140); plt.close(fig)
     return True
 
@@ -203,7 +206,7 @@ def main(argv=None):
                 print(f"   {r['body']:<12} n={r['n_clusters']:<4} YIMBY {r['YIMBY_share']:.2f}  NIMBY {r['NIMBY_share']:.2f}  "
                       f"net {r['net_yimby_minus_nimby']:+.2f} ({r['net_lo90']:+.2f},{r['net_hi90']:+.2f})"
                       f"{'  *' if r['star'] else ''}", flush=True)
-        if figure_public_vs_dais(rows_pub + rows_dais, route, out / f"fig_public_vs_dais_{route}{sfx}.png", tag):
+        if figure_public_vs_dais(rows_pub + rows_dais, route, out / f"fig_public_vs_dais_{route}{sfx}.png"):
             summ["figures"].append(f"fig_public_vs_dais_{route}{sfx}.png")
     pd.DataFrame(all_rows).to_csv(out / f"public_dais_shares_by_body_route{sfx}.csv", index=False)
     wide = []

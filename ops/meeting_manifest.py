@@ -26,7 +26,7 @@ import unicodedata
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DB = Path(os.environ.get("STATE_DB_PATH", Path.home() / ".local/share/ytpt/state.sqlite"))
+DB = Path(os.environ.get("STATE_DB_PATH", Path.home() / ".local/share/ytpt/state.sqlite")).expanduser()
 PREFIX = "transit_bay"
 
 # Audio extensions that can hold a whole meeting, best quality first. m4a is the
