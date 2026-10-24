@@ -5556,10 +5556,10 @@
 "renter": {
 "title": "Renter share",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
-"lede": "This panel tests whether a body's renter share predicts what gets said at its meetings. Renter share is the renter-occupied share of a body's occupied housing units, from the American Community Survey. One correlation per outcome per locate route.",
+"lede": "Renter share is the renter-occupied share of a body's occupied housing units, from the American Community Survey, correlated one outcome per locate route.",
 "headline": [
-"Renter share does not predict what gets said at a body's meetings.",
-"On every outcome tested, the likely range on the slope includes zero. Each correlation rests on 15 to 20 bodies. That sample size is the finding here, not evidence that renter share does not matter."
+"Renter share showed no clear correlation with any outcome tested.",
+"A staff member in a California county government suggested testing renter share as a main predictor, as a lead for future work. Across all 10 outcomes tested, the likely range of the correlation includes zero. Each correlation rests on 3 to 13 bodies, so a small real link could still be missed."
 ],
 "correlations": [
 {

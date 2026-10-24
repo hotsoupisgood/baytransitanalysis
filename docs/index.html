@@ -548,7 +548,7 @@ Promise.all([
   // One route at a time, never pooled (plan/DECISIONS.md: the routes that read
   // the same body can disagree about it). Speaker clusters mean nothing outside
   // their own episode (#15), so a dot is "a speaker at this meeting", never a
-  // person tracked across meetings, and the card says so.
+  // person tracked across meetings, and the tooltip says so.
   function buildScatter(NP) {
     const PTS = NP.points.filter(d => (d.role || "public") === "public");
     const routes = Object.keys(NP.meta.routes)
@@ -558,7 +558,7 @@ Promise.all([
 
     // Stance means land on whole and half steps, so dots stack. The nudge is a
     // hash of the cluster id -- stable across renders, and never read off the
-    // axis: the card always shows the unrounded value.
+    // axis: the tooltip always shows the unrounded value.
     const jit = (id, salt) => { let h = 2166136261 ^ salt;
       for (let i = 0; i < id.length; i++) { h = Math.imul(h ^ id.charCodeAt(i), 16777619); }
       return ((h >>> 0) / 4294967295) - 0.5; };
@@ -606,35 +606,25 @@ Promise.all([
     }
 
     const sel = d3.select("#nsc-route").on("change", function () {
-      // Readability review §7, "the card goes stale": a route change redraws the dots
+      // Readability review §7, "the quote goes stale": a route change redraws the dots
       // against a different set of speakers, so anything hovered or pinned on the old
       // route has to go with them -- it may not exist on the new one.
-      route = this.value; pinned = null; pinnedNode = null; touchArmed = null;
-      hideQtip(); showCard(null); draw();
+      route = this.value; pinned = null; pinnedNode = null;
+      hideQtip(); draw();
     });
     sel.selectAll("option").data(routes).join("option").attr("value", d => d)
       .text(d => `${d}: ${NP.meta.routes[d].n} speakers`);
     sel.property("value", route);
-    const card = d3.select("#nsc-card");
     const shown = () => PTS.filter(d => d.route === route);
 
-    function showCard(d, pin) {
-      if (!d) { card.attr("class", "qcard")
-          .html(`<p class="qhint">Hover or tap a dot to read that speaker; tap again to keep it.</p>`); return; }
-      card.attr("class", `qcard ${d.label.toLowerCase()}${pin ? " pinned" : ""}`).html(`
-        <blockquote>“${esc(d.quote)}”</blockquote>
-        <p class="qmeta">${meta1(d)} · ${esc(d.route)} · ${meta2(d)}${
-          pin ? ` · <b>pinned</b>, click or tap the dot again to release` : ""}</p>`);
-    }
-
     // ── the dot tooltip (Puck, 2026-10-18 22:37: "tooltips on the dots with text") ──
-    // The card below the chart stays -- it is where a thumb can read a long quote
-    // without covering it -- but the dot now also carries a real tooltip: it opens on
-    // hover with no click and no delay, follows the pointer, and closes on mouse-out.
-    // Pinning (a click, or a second tap) anchors it to its dot and makes it clickable,
-    // which is what lets anyone reach the "watch at" link inside it.
+    // It opens on hover with no click and no delay, follows the pointer, and closes on
+    // mouse-out. Pinning (a click, or any tap) anchors it to its dot and makes it
+    // clickable, which is what lets anyone reach the "watch at" link inside it.
+    // Since 2026-10-24 this is the only place the quote is shown, so a touch no longer
+    // needs two taps to reach the link: the first tap pins.
     const qtip = d3.select("#nsc-tip");
-    let touchArmed = null, swallowClick = false, pinnedNode = null;
+    let swallowClick = false, pinnedNode = null;
 
     const tipHtml = (d, pin) => `<blockquote>“${esc(d.quote)}”</blockquote>
       <p class="qmeta">${meta1(d)}<br>${meta2(d)}${
@@ -647,8 +637,14 @@ Promise.all([
       placeTip(cx, cy);
     }
     function hideQtip() { qtip.style("display", "none"); }
-    function pinTo(d, node) { pinned = d; pinnedNode = node; showQtip(d, true, ...dotCentre(node)); showCard(d, true); draw(); }
-    function unpin() { pinned = null; pinnedNode = null; touchArmed = null; hideQtip(); showCard(null); draw(); }
+    function pinTo(d, node) { pinned = d; pinnedNode = node; showQtip(d, true, ...dotCentre(node)); draw(); }
+    function unpin() { pinned = null; pinnedNode = null; hideQtip(); draw(); }
+    // A tap anywhere that is not a dot and not the tooltip itself puts it away. The
+    // tooltip is excluded so the "watch at" link inside it stays reachable.
+    document.addEventListener("pointerdown", ev => {
+      if (pinned && ev.pointerType !== "mouse"
+          && !ev.target.closest("#nsc circle.pt") && !ev.target.closest("#nsc-tip")) unpin();
+    }, true);
 
     function draw() {
       const rows = shown();
@@ -662,7 +658,7 @@ Promise.all([
         .classed("on", d => pinned && d.id === pinned.id)
         .on("pointerenter", function (ev, d) {
           if (ev.pointerType !== "mouse" || pinned) return;
-          showQtip(d, false, ev.clientX, ev.clientY); showCard(d, false);
+          showQtip(d, false, ev.clientX, ev.clientY);
         })
         .on("pointermove", function (ev) {
           if (ev.pointerType !== "mouse" || pinned) return;
@@ -670,18 +666,18 @@ Promise.all([
         })
         .on("pointerleave", function (ev) {
           if (ev.pointerType !== "mouse" || pinned) return;
-          hideQtip(); showCard(null);
+          hideQtip();
         })
-        // Touch: one tap opens the tooltip on that dot, a second tap on the same dot
-        // pins it, a third releases. The click that follows the tap is swallowed so
-        // the mouse path below cannot pin on the first tap.
+        // Touch: one tap opens the tooltip pinned to that dot, so the link inside it
+        // is clickable straight away; a second tap on the same dot closes it, and so
+        // does a tap anywhere else. The click that follows the tap is swallowed so the
+        // mouse path below cannot immediately undo the pin.
         .on("pointerdown", function (ev, d) {
           if (ev.pointerType === "mouse") return;
+          ev.preventDefault();
           swallowClick = true;
           if (pinned && pinned.id === d.id) { unpin(); return; }
-          if (touchArmed === d.id) { pinTo(d, this); return; }
-          touchArmed = d.id; pinned = null;
-          showQtip(d, false, ...dotCentre(this)); showCard(d, false); draw();
+          pinTo(d, this);
         })
         .on("click", function (ev, d) {
           if (swallowClick) { swallowClick = false; return; }
@@ -689,7 +685,7 @@ Promise.all([
         });
       d3.select("#nsc-filter").text(`${fi(rows.length)} public speakers at `
         + `${fi(new Set(rows.map(d => d.body)).size)} bodies, on this route`);
-      if (pinned && !rows.some(d => d.id === pinned.id)) { pinned = null; pinnedNode = null; hideQtip(); showCard(null); }
+      if (pinned && !rows.some(d => d.id === pinned.id)) { pinned = null; pinnedNode = null; hideQtip(); }
     }
 
     // The examples strip stood here: the longest turn from each public speaker on
@@ -698,8 +694,8 @@ Promise.all([
     // 2026-10-21 08:45), and the two example comments at the top of the page replace
     // it: one NIMBY comment beside one YIMBY comment, chosen for being short, civil
     // and on the same zoning question. data/nimby_points.json still carries every
-    // speaker's quote, and the scatter's own card and tooltip still show the quote
-    // for whichever dot is clicked.
+    // speaker's quote, and the scatter's tooltip still shows the quote for whichever
+    // dot is hovered or tapped.
 
     // Clicking a body on the map used to filter this scatter to that body, moving
     // to the route that read it most. The map has no click handler any more (owner,
@@ -722,7 +718,6 @@ Promise.all([
     }, { passive: true });
     layout();
     drawAxes();
-    showCard(null);
     draw();
   }
 
@@ -773,12 +768,16 @@ Promise.all([
       d3.select("#p-nimby").html(`${head(p, {h2: "nimby", defs: false})}${leadFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
-          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the item) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Click a dot for that speaker's longest statement.</p>
+          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the item) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
           <p class="sctl">Route <select id="nsc-route"></select>
             <span id="nsc-filter" class="note"></span></p>
           <svg id="nsc" role="img" aria-label="Public speaker clusters by mean stance and mean hostility, one dot each"></svg>
           <p class="skey"><i style="background:var(--yimby)"></i>YIMBY: mean stance score +0.5 or higher &nbsp; <i style="background:var(--nimby)"></i>NIMBY: -0.5 or lower &nbsp; <i style="background:var(--nstance)"></i>neutral: between the two &nbsp;· larger dot = more words said</p>
-          <div class="qcard" id="nsc-card"></div>
+          <!-- The quote card that stood under this chart is gone (owner, 2026-10-24
+               16:32: "keep tool tip. remove the under graph quote"). It repeated the
+               quote and the metadata line the tooltip already carries. The tooltip is
+               now the only place the quote is shown, and on a phone one tap opens it
+               pinned so the "watch at" link inside it can be reached. -->
           <div class="qtip" id="nsc-tip" role="tooltip"></div>
         </div>` : `<p class="note">The per-speaker scatter needs <code>data/nimby_points.json</code>. Run <code>export/export_nimby_points.py</code> to build it.</p>`}
         ${roleSide(p.role_side)}${mlink(p)}`);

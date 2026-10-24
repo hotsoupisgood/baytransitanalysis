@@ -611,6 +611,9 @@ svg#nsc.narrow circle.pt { stroke-width: 1; }
   box-shadow: 0 2px 10px rgba(0,0,0,.14);
 }
 .qtip.pinned { pointer-events: auto; border-left-color: var(--accent); }
+/* With the card gone the tooltip is the only place the quote is shown, so it has
+   to hold a long one on a 390 px phone without running off the screen. */
+.qtip { max-height: calc(100vh - 1rem); overflow-y: auto; overscroll-behavior: contain; }
 .qtip.yimby { border-left-color: var(--yimby); }
 .qtip.nimby { border-left-color: var(--nimby); }
 .qtip blockquote { margin: 0 0 0.375rem; padding: 0; font-size: 0.9375rem; line-height: 1.4; }
@@ -677,18 +680,9 @@ svg#nsc circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
 .skey { font-size: 0.8125rem; color: var(--muted); margin: 0.25rem 0 0; }
 .skey i { display: inline-block; width: 0.625rem; height: 0.625rem; border-radius: 50%; margin-right: 0.25rem; vertical-align: -0.0625rem; }
 
-/* The quote card under the scatter: a quotation first, the metadata as its
-   caption. It is a block in the flow, not a floating tooltip, so a tap on a
-   phone puts it somewhere a thumb has not covered. */
-.qcard {
-  margin: 0.5rem 0 0; padding: 0.5rem 0 0;
-  border-top: 1px solid var(--border); min-height: 7rem; max-width: var(--fig-max);
-}
-.qcard.pinned { border-top-color: var(--accent); }
-.qcard blockquote { margin: 0 0 0.375rem; padding: 0 0 0 0.75rem; border-left: 3px solid var(--border); line-height: 1.45; }
-.qcard.yimby blockquote { border-left-color: var(--yimby); }
-.qcard.nimby blockquote { border-left-color: var(--nimby); }
-.qcard .qmeta, .qcard .qhint { font-size: 0.8125rem; color: var(--muted); margin: 0; }
+/* The quote card under the scatter stood here. It is gone (owner, 2026-10-24
+   16:32: "keep tool tip. remove the under graph quote"): it repeated the quote
+   and the metadata line the tooltip already carries. */
 
 /* The examples strip. Each quote is a disclosure, closed at every width
    (readability review §7.1): rendering them open on desktop put 521 words of
@@ -721,7 +715,6 @@ svg#nsc circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
   /* Phone: the two steps of "Who takes a side" stack, and the quoted-number rule
      loses its indent so the paragraph keeps its full measure. */
   .sidesteps { grid-template-columns: 1fr; }
-  .qcard { min-height: 0; }
   /* Phone: nothing may widen the page, and the head has to be short enough that
      the map is on the first screen (readability review §3.1). */
   h1 { font-size: 1.25rem; }
