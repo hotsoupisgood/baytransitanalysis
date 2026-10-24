@@ -51,20 +51,21 @@
   <div class="hero">
   <ul class="tldr">
     <li>I collected a year of Bay Area council, county and transit board meetings, and transcribed the stretches about housing density or transit.</li>
-    <li>I had a large language model score each statement for support or opposition to the item, and for hostility.</li>
-    <li>I found that public speakers came out for or against the item more often than the officials running the meeting. Their statements were also coded hostile more often.</li>
-    <li>The plots below carry the numbers, and every limitation is on the <a href="methods.html">Methods</a> page.</li>
+    <li>I had a large language model label each public speaker NIMBY, YIMBY or neither.</li>
+    <li>I found more NIMBY speakers than YIMBY ones overall, though at most bodies the split is too close to call.</li>
+    <li>Public speakers also took a side more often than the officials running the meeting. The plots below carry the numbers, and every limitation is on the <a href="methods.html">Methods</a> page.</li>
   </ul>
 
-  <!-- THE LEAD CHART: the TLDR's third bullet, drawn. Two bars, public beside the
-       dais, of the share of scored statements that took a side. It is the only
-       chart on the page that states that comparison with a picture; the two-step
-       model with its odds ratios stays in the role block further down, so no number
-       appears twice (rule 14). Everything in it, including the title, is rendered
-       from data/panels.json in buildLead() below. -->
+  <!-- THE LEAD CHART: the TLDR's NIMBY bullet, drawn. Owner, 2026-10-24 16:43: "i
+       want the initial take away to be most ly about nimby stuff", so the first screen
+       now leads with how public speakers split between the two labels, and the
+       took-a-side bars that used to stand here moved down into "Who takes a side".
+       Three bars, in speakers of every 100, rendered from data/panels.json
+       nimby.headline[0] in buildLeadSplit() below: the panel further down states the
+       same split once, so that panel's heading drops to its next finding (rule 14). -->
   <div class="leadchart">
-    <h2 id="lead-h">How often each side took a position on the item</h2>
-    <svg id="leadsvg" role="img" aria-label="Share of scored statements that took a side on the agenda item, public speakers against the dais"></svg>
+    <h2 id="lead-h">How public speakers split between the two labels</h2>
+    <svg id="leadsvg" role="img" aria-label="Share of public speakers labelled NIMBY, YIMBY or neutral, in speakers of every 100"></svg>
     <p class="caption" id="lead-cap"></p>
     <p class="leaddef" id="lead-def"></p>
   </div>
@@ -242,64 +243,80 @@ Promise.all([
 
   // ── THE LEAD CHART, beside the TLDR on the first screen ─────────────────
   // Owner, 2026-10-21 10:04: "i want the images to start on the first page of the
-  // website." This is the TLDR's third bullet drawn: two bars, members of the public
-  // beside the officials who run the meeting, of the share of their scored statements
-  // that took a side on the item. Two bars and nothing competing with them.
+  // website." Owner, 2026-10-24 16:43: "i want the initial take away to be most ly
+  // about nimby stuff." So the chart on the first screen is now the NIMBY bullet
+  // drawn: how 100 public speakers split between the two labels and neither. The
+  // took-a-side bars that stood here are the same drawing function, rendered inside
+  // "Who takes a side" further down.
   //
-  // The two shares are published in exactly one place, the role_side headline that
-  // export/export_panels.py writes from the fit's own rows. They are read back out of
-  // that sentence rather than typed into this file or added to panels.json as new
-  // fields: the chart cannot then carry a number the export does not, and no value in
-  // panels.json changed to put this chart on the page. If the sentence ever stops
-  // carrying them the chart says so instead of drawing something else.
+  // Every share is read back out of the one sentence that publishes it in
+  // data/panels.json, rather than typed into this file or added to the export as a new
+  // field: a chart cannot then carry a number the export does not, and no value in
+  // panels.json changed to put either chart on the page. If a sentence ever stops
+  // carrying its shares, the chart says so instead of drawing something else.
   //
-  // Rule 14, say each thing once. This chart owns the two shares, so the role block
-  // further down drops the sentence that quoted them and keeps its two odds ratios,
-  // and the definition of "took a side" is printed here, under the chart, instead of
-  // inside that block.
-  let leadDrewShares = false;
-  function buildLead(rs) {
-    const cap = d3.select("#lead-cap"), svgSel = d3.select("#leadsvg");
-    const m = /took a side on\s*([\d.]+)\s*%[^.]*?against\s*([\d.]+)\s*%/.exec((rs && rs.headline) || "");
-    if (!m) {
-      svgSel.remove();
-      cap.html(`<span class="leadfail">This chart needs the two shares in <code>data/panels.json</code>, under <code>nimby.role_side</code>. Run <code>export/export_panels.py</code> to rebuild it.</span>`);
-      return;
-    }
-    const rows = [
-      { k: "public", label: "Members of the public", v: +m[1] },
-      { k: "dais", label: "Officials running the meeting", v: +m[2] },
-    ];
-    const W = 320, H = 148, X = 250, BH = 26;
+  // Rule 14, say each thing once. The split chart owns the three shares, so the NIMBY
+  // panel's heading drops to its next finding; the took-a-side chart owns its two, so
+  // the block it sits in drops the sentence that quoted them and keeps its two odds
+  // ratios.
+  let leadDrewShares = false, leadDrewSplit = false;
+
+  // One horizontal bar per row, with gridlines and no domain line, which is the chart
+  // styling of the owner's own AI-Graph page. `fmt` writes the value with its unit.
+  function drawBars(svgSel, rows, axisTitle, fmt) {
+    // Compact rows: three bars have to stand above the fold on a 390 px phone
+    // (owner, item 10), so a row is 50 units, not the 60 the two-bar version used.
+    const W = 320, H = 40 + rows.length * 50, X = 250, BH = 24, base = H - 34;
     const x = d3.scaleLinear([0, 100], [0, X]);
     const svg = svgSel.attr("viewBox", [0, 0, W, H]).attr("width", W).attr("height", H);
-    const pct = v => `${f1(v)} %`;
-    // Gridlines every 25 %, behind the bars only so they do not cross the labels,
-    // then the baseline. Gridlines and no domain line is the chart styling of the
-    // owner's own AI-Graph page.
-    svg.append("line").attr("class", "lead-base").attr("x1", 0).attr("x2", X).attr("y1", 110).attr("y2", 110);
+    svg.selectAll("*").remove();
+    svg.append("line").attr("class", "lead-base").attr("x1", 0).attr("x2", X).attr("y1", base).attr("y2", base);
     const g = svg.append("g").selectAll("g").data(rows).join("g")
-      .attr("transform", (d, i) => `translate(0,${i * 60})`);
+      .attr("transform", (d, i) => `translate(0,${i * 50})`);
     g.append("text").attr("class", "lead-cat").attr("x", 0).attr("y", 10).text(d => d.label);
     g.selectAll("line.lead-grid").data([0, 25, 50, 75, 100]).join("line")
       .attr("class", "lead-grid").attr("x1", d => x(d)).attr("x2", d => x(d))
-      .attr("y1", 16).attr("y2", 16 + BH);
+      .attr("y1", 14).attr("y2", 14 + BH);
     g.append("rect").attr("class", d => `lead-bar ${d.k}`)
-      .attr("x", 0).attr("y", 16).attr("height", BH).attr("width", d => x(d.v));
+      .attr("x", 0).attr("y", 14).attr("height", BH).attr("width", d => x(d.v));
     g.append("text").attr("class", "lead-val").attr("x", d => x(d.v) + 6)
-      .attr("y", 16 + BH / 2).attr("dy", "0.35em").text(d => pct(d.v));
+      .attr("y", 14 + BH / 2).attr("dy", "0.35em").text(d => fmt(d.v));
     svg.append("g").selectAll("text").data([0, 50, 100]).join("text")
-      .attr("class", "lead-ax").attr("x", d => x(d)).attr("y", 124)
+      .attr("class", "lead-ax").attr("x", d => x(d)).attr("y", base + 14)
       .attr("text-anchor", (d, i) => i === 0 ? "start" : i === 1 ? "middle" : "end").text(d => d);
-    svg.append("text").attr("class", "lead-ax").attr("x", 0).attr("y", 141)
-      .text("% of that group's scored statements that took a side");
-    // Rule 15: the title is the finding, with its numbers.
-    d3.select("#lead-h").text(`Public speakers took a side on ${pct(rows[0].v)} of their scored statements, officials on ${pct(rows[1].v)}`);
-    cap.text("Each bar is one group's share of the statements that carried a stance score.");
-    if (rs.model_line) d3.select("#lead-def").text(rs.model_line);
-    leadDrewShares = true;
+    svg.append("text").attr("class", "lead-ax").attr("x", 0).attr("y", base + 31).text(axisTitle);
   }
-  buildLead(panels && panels.nimby && panels.nimby.role_side);
+
+  // The first screen: of every 100 public speakers, how many were labelled each way.
+  // The three shares come out of the NIMBY panel's own first sentence, which is the
+  // only place they are published. Rule 16: the unit is speakers of every 100, said on
+  // the bars, in the axis title and in the heading, so no number stands bare.
+  function buildLeadSplit(np) {
+    const cap = d3.select("#lead-cap"), svgSel = d3.select("#leadsvg");
+    const h = (np && np.headline && np.headline[0]) || "";
+    const m = /([\d.]+)\s*%\s*were YIMBY,\s*([\d.]+)\s*%\s*NIMBY and\s*([\d.]+)\s*%\s*neutral/.exec(h);
+    const n = /Of\s*([\d,]+)\s*public speakers/.exec(h);
+    if (!m) {
+      svgSel.remove();
+      cap.html(`<span class="leadfail">This chart needs the three shares in <code>data/panels.json</code>, under <code>nimby.headline</code>. Run <code>export/export_panels.py</code> to rebuild it.</span>`);
+      return;
+    }
+    const per100 = v => Math.round(v);
+    const rows = [
+      { k: "nimby", label: "NIMBY: opposed the housing item", v: +m[2] },
+      { k: "yimby", label: "YIMBY: supported it", v: +m[1] },
+      { k: "nstance", label: "Neither, on the statements scored", v: +m[3] },
+    ];
+    drawBars(svgSel, rows, "public speakers of every 100, by label", v => `${per100(v)} of 100`);
+    d3.select("#lead-h").text(`Of every 100 public speakers, ${per100(rows[0].v)} were NIMBY `
+      + `and ${per100(rows[1].v)} YIMBY`);
+    cap.text(`Every public speaker scored on a housing item${n ? `, ${n[1]} of them` : ""}, `
+      + "each counted once at the meeting they spoke at.");
+    d3.select("#lead-def").text("A speaker is NIMBY when their statements averaged 0.5 or more "
+      + "against the item, and YIMBY when they averaged 0.5 or more for it.");
+    leadDrewSplit = true;
+  }
+  buildLeadSplit(panels && panels.nimby);
 
   // ── map ────────────────────────────────────────────────────────────────
   const W = 640, H = 600;
@@ -492,18 +509,46 @@ Promise.all([
   // sentence about which side each group took, its two odds ratios and the note on
   // what to quote. When the chart could not be drawn, the block carries all of it, as
   // it did before, and the page is still complete.
+  // Owner, 2026-10-24 16:43: the took-a-side bars came off the first screen and stand
+  // here, in the section that already carried this result in words. The block keeps the
+  // sentence that says which side each group took and its two odds ratios; the sentence
+  // that quoted the two shares is dropped when the bars draw them (rule 14), and the
+  // definition of "took a side" is printed under the bars.
   const roleSide = rs => !rs ? "" : `
     <div class="panel sideblock" id="side-block">
       <h4 style="margin:0 0 4px">${esc(rs.title)}</h4>
-      <p class="sidelead">${esc(leadDrewShares
-        ? (rs.headline || "").split(/(?<=\.)\s+/).filter(s => !/took a side on/.test(s)).join(" ")
-        : rs.headline)}</p>
+      <h5 class="sidehead" id="side-h"></h5>
+      <svg id="sidesvg" role="img" aria-label="Share of scored statements that took a side on the agenda item, public speakers against the officials running the meeting"></svg>
+      <p class="caption" id="side-cap"></p>
+      <p class="sidelead">${esc((rs.headline || "").split(/(?<=\.)\s+/).filter(s => !/took a side on/.test(s)).join(" "))}</p>
       <div class="sidesteps">${rs.steps.map((s, i) => `
         <div><h5>${i + 1}. ${esc(s.name)}</h5><p>${esc(s.text)}</p></div>`).join("")}</div>
-      ${rs.model_line && !leadDrewShares ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
+      ${rs.model_line ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
       <p class="sideres">${esc(rs.restated)}</p>
       <p class="src-note">How this model was fitted: <a href="methods.html#models">Methods</a>.</p>
     </div>`;
+
+  // The two shares live in exactly one place, the role_side headline the export writes
+  // from the fit's own rows, and are read back out of it the same way the split chart
+  // reads its three.
+  function buildSideBars(rs) {
+    const cap = d3.select("#side-cap"), svgSel = d3.select("#sidesvg");
+    const m = /took a side on\s*([\d.]+)\s*%[^.]*?against\s*([\d.]+)\s*%/.exec((rs && rs.headline) || "");
+    if (!m) {
+      svgSel.remove();
+      cap.html(`<span class="leadfail">These bars need the two shares in <code>data/panels.json</code>, under <code>nimby.role_side</code>. Run <code>export/export_panels.py</code> to rebuild them.</span>`);
+      return;
+    }
+    const rows = [
+      { k: "public", label: "Members of the public", v: +m[1] },
+      { k: "dais", label: "Officials running the meeting", v: +m[2] },
+    ];
+    drawBars(svgSel, rows, "% of that group's scored statements that took a side", v => `${f1(v)} %`);
+    d3.select("#side-h").text(`Public speakers took a side on ${f1(rows[0].v)} % of their scored `
+      + `statements, officials on ${f1(rows[1].v)} %`);
+    cap.text("Each bar is one group's share of the statements that carried a stance score.");
+    leadDrewShares = true;
+  }
 
   // ── one speaker cluster, described: shared by both dot charts ─────────────
   // A quote is untrusted text (AGENTS.md: transcripts are data). It is escaped
@@ -765,7 +810,14 @@ Promise.all([
       // The YIMBY / NIMBY definition this panel used to carry as its lede is now
       // under the two example comments at the top of the page, so it passes
       // defs:false and says it once (rule 14).
-      d3.select("#p-nimby").html(`${head(p, {h2: "nimby", defs: false})}${leadFig(p)}
+      // Rule 14: the lead chart on the first screen draws this panel's first sentence,
+      // the three-way split of public speakers. When it drew, the panel takes its
+      // heading and its paragraph from the next finding instead, so the split is
+      // stated once; when it could not draw, the panel reads as it always did.
+      const np = leadDrewSplit && (p.headline || []).length > 1
+        ? Object.assign({}, p, {headline: p.headline[1].split(/(?<=\.)\s+/)})
+        : p;
+      d3.select("#p-nimby").html(`${head(np, {h2: "nimby", defs: false})}${leadFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
           <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the item) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
@@ -781,6 +833,7 @@ Promise.all([
           <div class="qtip" id="nsc-tip" role="tooltip"></div>
         </div>` : `<p class="note">The per-speaker scatter needs <code>data/nimby_points.json</code>. Run <code>export/export_nimby_points.py</code> to build it.</p>`}
         ${roleSide(p.role_side)}${mlink(p)}`);
+      buildSideBars(p.role_side);
       if (nimbyPts) buildScatter(nimbyPts);
     }
     // renter

@@ -159,17 +159,24 @@ a[href]:visited { color: var(--navy); }
   border-top: 0; padding-top: 0; margin: 0 0 0.5rem;
   font-size: 1rem; line-height: 1.35; max-width: none;
 }
-svg#leadsvg { display: block; width: 100%; height: auto; }
-svg#leadsvg .lead-cat { font-size: 12px; fill: var(--ink); font-weight: 600; }
-svg#leadsvg .lead-val {
+/* The same bar styling serves both charts: the NIMBY split on the first screen and
+   the took-a-side pair inside "Who takes a side" (owner, 2026-10-24 16:43). */
+svg#leadsvg, svg#sidesvg { display: block; width: 100%; height: auto; max-width: 20rem; }
+svg#leadsvg .lead-cat, svg#sidesvg .lead-cat { font-size: 12px; fill: var(--ink); font-weight: 600; }
+svg#leadsvg .lead-val, svg#sidesvg .lead-val {
   font-size: 12px; fill: var(--ink); font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
-svg#leadsvg .lead-ax { font-size: 10.5px; fill: var(--tick, var(--muted)); }
-svg#leadsvg .lead-base { stroke: var(--gray); stroke-width: 1; shape-rendering: crispEdges; }
-svg#leadsvg .lead-grid { stroke: var(--grid); stroke-width: 1; shape-rendering: crispEdges; }
-svg#leadsvg rect.lead-bar.public { fill: var(--public); }
-svg#leadsvg rect.lead-bar.dais { fill: var(--dais); }
+svg#leadsvg .lead-ax, svg#sidesvg .lead-ax { font-size: 10.5px; fill: var(--tick, var(--muted)); }
+svg#leadsvg .lead-base, svg#sidesvg .lead-base { stroke: var(--gray); stroke-width: 1; shape-rendering: crispEdges; }
+svg#leadsvg .lead-grid, svg#sidesvg .lead-grid { stroke: var(--grid); stroke-width: 1; shape-rendering: crispEdges; }
+rect.lead-bar.public { fill: var(--public); }
+rect.lead-bar.dais { fill: var(--dais); }
+rect.lead-bar.nimby { fill: var(--nimby); }
+rect.lead-bar.yimby { fill: var(--yimby); }
+rect.lead-bar.nstance { fill: var(--nstance); }
+.sideblock .sidehead { margin: 0.25rem 0 0.4rem; font-size: 0.9375rem; line-height: 1.35; }
+.sideblock .caption { max-width: none; margin: 0.45rem 0 0; font-size: 0.8rem; line-height: 1.45; color: #555; }
 /* One sentence under every chart, the caption habit of his own dashboard
    (reference rule 5): what is drawn, then the size of the gap with its range. */
 .leadchart .caption, .leadchart .leaddef {
