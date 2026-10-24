@@ -3,12 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>thtrans: who talks about housing density and transit at Bay Area public meetings</title>
+<title>Bay Area Transit Analysis: who talks about housing density and transit at public meetings</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
+<!-- THIN APP BAR, reference rule 2 (style/DASHBOARD-REFERENCE.md, taken off
+     hsereport.ie): the site name at the left, the two views at the right, the
+     current one marked. It replaces the uppercase nav line of seven in-page
+     anchors that stood inside <main>: reference rule 3 allows at most three tabs
+     of one word each, the anchors were a second table of contents for a page
+     that now fits in a few screens, and the line they took is the line the lead
+     chart needs on the first screen (owner, 2026-10-21 10:04).
+     Owner, 2026-10-21 10:04: the project's working title is internal, so nothing
+     published carries it. The public name is the repository's own, Bay Area Transit
+     Analysis, and the page title says what the analysis is about. -->
+<div class="appbar"><a class="name" href="index.html">Bay Area Transit Analysis</a><nav class="tabs"><a href="index.html" aria-current="page">Dashboard</a><a href="methods.html">Methods</a></nav></div>
 <main>
-  <p class="nav">thtrans · <a href="#examples">Examples</a> · <a href="#map-h">Map</a> · <a href="#rates">Topic time</a> · <a href="#nimby">YIMBY/NIMBY</a> · <a href="#stance">Stance</a> · <a href="#renter">Renter share</a> · <a href="methods.html">Methods</a></p>
   <!-- Owner, 2026-10-21 08:46: "titles should be takeaways". Every heading below the
        h1 is a sentence stating a finding, and the four panel headings are rendered
        from each panel's own first headline sentence, with its number, so the title
@@ -16,7 +26,7 @@
        14). The goal block, the two links and the "why it matters" sentences carry no
        heading at all: a label like "What this measures" is not a takeaway, and a
        takeaway there would only restate the sentence under it. -->
-  <h1>thtrans: who talks about housing density and transit at Bay Area public meetings</h1>
+  <h1>Who talks about housing density and transit at Bay Area public meetings</h1>
 
   <!-- PAGE ORDER, owner 2026-10-21 08:45, codified as "Page order" in
        style/DASHBOARD-LANGUAGE.md: the TLDR, then the goal with the links that
@@ -28,14 +38,38 @@
        The TLDR replaces the opening paragraph (owner, 08:40) and is the one place on
        the page where the first person is allowed (rule 7). It carries no numbers:
        each bullet is a finding in words, and its panel states it once with the
-       number (rule 14). -->
+       number (rule 14).
+
+       THE FIRST SCREEN, owner 2026-10-21 10:04: "i want the images to start on the
+       first page of the website ... so either remove some text or put it to the
+       right of the text." So the TLDR, the goal block and the lead chart are one
+       band: on a desktop the chart stands in its own column to the right of both,
+       and on a phone it comes straight after the TLDR, with the goal, the links and
+       the examples below it and the chart never shrunk to fit. The four TLDR bullets
+       were tightened on 2026-10-21 to one sentence each, which is what makes room
+       for the chart above the fold on a 390 px phone; no finding was dropped. -->
+  <div class="hero">
   <ul class="tldr">
-    <li>I collected a year of city council, county board and transit board meetings from around the Bay Area. I transcribed the stretches where housing density or transit was the item on the agenda.</li>
-    <li>I had a large language model score each statement from its transcribed words. Each score says whether the speaker supported or opposed the item, and whether the speaker was hostile.</li>
-    <li>I found that public speakers came out for or against the item more often than the officials who ran the meeting. Their statements were also coded hostile more often.</li>
-    <li>The plots below carry the numbers. Every instrument, limitation and version is on the <a href="methods.html">Methods</a> page.</li>
+    <li>I collected a year of Bay Area council, county and transit board meetings, and transcribed the stretches about housing density or transit.</li>
+    <li>I had a large language model score each statement for support or opposition to the item, and for hostility.</li>
+    <li>I found that public speakers came out for or against the item more often than the officials running the meeting. Their statements were also coded hostile more often.</li>
+    <li>The plots below carry the numbers, and every limitation is on the <a href="methods.html">Methods</a> page.</li>
   </ul>
 
+  <!-- THE LEAD CHART: the TLDR's third bullet, drawn. Two bars, public beside the
+       dais, of the share of scored statements that took a side. It is the only
+       chart on the page that states that comparison with a picture; the two-step
+       model with its odds ratios stays in the role block further down, so no number
+       appears twice (rule 14). Everything in it, including the title, is rendered
+       from data/panels.json in buildLead() below. -->
+  <div class="leadchart">
+    <h2 id="lead-h">How often each side took a position on the item</h2>
+    <svg id="leadsvg" role="img" aria-label="Share of scored statements that took a side on the agenda item, public speakers against the dais"></svg>
+    <p class="caption" id="lead-cap"></p>
+    <p class="leaddef" id="lead-def"></p>
+  </div>
+
+  <div class="herorest">
   <!-- The goal block: two sentences on what the classification decides, the corpus
        scope with its counts, then the one exploratory sentence (rule 12). All three
        strings come out of panels.json, built in export_panels.py page_intro() from
@@ -52,6 +86,8 @@
   <!-- Why it matters: the owner's view, two sentences, each naming a cost and a harm
        (08:45: "be brief"). The cost claim carries its source. -->
   <p class="said why">Blocking housing density and transit keeps the next generation out of the places with the jobs, and <a href="https://lao.ca.gov/reports/2015/finance/housing-costs/housing-costs.aspx" target="_blank" rel="noopener">keeps housing costs high</a>. It also locks in car dependence: longer journeys, higher household travel costs, more traffic deaths and more tailpipe pollution.</p>
+  </div>
+  </div>
 
   <!-- The two example comments (08:45: "then example of a nimby comment next to a
        yimby comment"). Both are public speakers on a zoning item, lifted from
@@ -69,15 +105,21 @@
     <div class="exq nimby">
       <h5>NIMBY (against the housing item)</h5>
       <blockquote class="quote">“Mayor and council members, reject the missing middle framework recommendation in the general plan for your review. San Jose residents do not want three-story apartment complexes by right in residential neighborhoods without parking. Smart growth means concentrating density along commercial corridors, transit hubs, not quiet residential streets. …”</blockquote>
-      <p class="qmeta">A member of the public, San José City Council, 2026-08-18. This speaker's statements average -2.0, on the scale from -2 to +2.</p>
+      <p class="qmeta">A member of the public, San José City Council, 2026-08-18. Every statement by this speaker was coded strongly opposed to the housing item. The stance scale runs from -2, strongly opposed, through 0, neutral, to +2, strongly supportive. This speaker's statements average -2.0 on it.</p>
     </div>
     <div class="exq yimby">
       <h5>YIMBY (for it)</h5>
       <blockquote class="quote">“… I'm somebody who is very interested in housing in Fremont, and from what I can tell, this changing with the zoning does improve the ability for us to actually create more housing …”</blockquote>
-      <p class="qmeta">A member of the public, Fremont City Council, 2026-05-05. This speaker's statements average +1.0, on the same scale.</p>
+      <p class="qmeta">A member of the public, Fremont City Council, 2026-05-05. This speaker's statements average +1.0 on the same scale, where +1 is supportive. A supportive statement favours the item, perhaps with reservations or conditions.</p>
     </div>
   </div>
-  <p class="note">Transcribed speech, quoted as it was transcribed. Names, home addresses and contact details are removed. Cuts are marked “…”.</p>
+  <!-- The note "Transcribed speech, quoted as it was transcribed. Names, home
+       addresses and contact details are removed. Cuts are marked …" stood here and
+       came off on 2026-10-21 (owner, 10:05: "and you can remove this"). The same
+       statement is made once, on the Methods page, under the page's opening
+       paragraph (rule 14: say each thing once). Nothing about the quotes changed:
+       they are still the transcribed words, still redacted by pipeline/redact.py,
+       and every cut is still marked with an ellipsis. -->
 
   <!-- THE PLOTS. Each one gets a takeaway title and one short paragraph of two or
        three sentences with its numbers (rule 8). The paragraph is the panel's own
@@ -86,17 +128,24 @@
        what is left of the Corpus entry that used to sit in the footer disclosure. -->
   <h2 id="map-h">Transcribed hours are concentrated in a few bodies</h2>
   <p class="heads" id="map-sum"></p>
-  <div class="wrap">
-    <div class="panel"><svg id="map"></svg></div>
-    <div class="panel detail" id="detail"><h3>Click a body</h3><p>Its meetings appear here.</p></div>
-  </div>
+  <!-- THE MAP, owner 2026-10-21 10:06: "for the map. just use all the same shape.
+       size based on n data. no need to have the clickable panel on the right. its
+       too much. keep info in the hover." So every body is a circle, the circle's
+       area is how much of that body was transcribed, and the panel that used to
+       stand to the right of the map is gone with its click handler. Everything it
+       showed is in the hover text, which also opens on a tap.
+       Circle area is transcribed episode-hours, not scored statements: the exported
+       data carries no per-body statement count, only per-body episode counts
+       (data/bodies.json: n_done, n_text, n_scored are all episodes), and no
+       exporter was re-run to add one. The legend says which it is. -->
+  <div class="panel"><svg id="map"></svg></div>
   <!-- The legend reads better under the thing it describes, and moving it here is
        what puts the map on the first phone screen. -->
   <div class="key">
-    <span>marker area = transcribed episode-hours</span>
-    <span>colour: <i class="ramp"></i> transit share ↔ density share</span>
-    <span class="sw" style="--c:var(--pending)">dashed = nothing transcribed yet</span>
-    <span>■ council &nbsp; ▲ transit board &nbsp; ◆ county</span>
+    <span>circle area = hours of that body's meetings transcribed</span>
+    <span>colour: <i class="ramp"></i> share of those hours on transit, through to share on housing density</span>
+    <span class="sw" style="--c:var(--pending)">dashed circle = nothing transcribed yet</span>
+    <span>hover a circle, or tap it on a phone, for that body's counts</span>
   </div>
 
   <h2 id="rates">Topic time per meeting-hour</h2>
@@ -131,21 +180,21 @@ const showTip = (ev, html) => tip.style("display","block").html(html).style("lef
 const hideTip = () => tip.style("display","none");
 const esc = t => String(t ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
 const f1 = d3.format(".1f"), f2 = d3.format(".2f"), fi = d3.format(",d");
-const hms = s => { s = Math.round(s); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; return (h ? h+":" : "") + String(m).padStart(h?2:1,"0") + ":" + String(x).padStart(2,"0"); };
-const mins = h => Math.round(h*60);
-const SHAPE = { council: d3.symbolSquare, transit: d3.symbolTriangle, county: d3.symbolDiamond };
 
+// data/meetings.json (349 KB), data/episodes.json (3.1 MB) and data/terms.json
+// (28 KB) were fetched here until 2026-10-21. The first two fed the meeting and
+// episode tables of the detail panel beside the map, which the owner removed
+// ("no need to have the clickable panel on the right"), and nothing had read
+// terms.json since the episode reader came off the page. Dropping the three
+// fetches takes 3.5 MB off every page load, which is most of what the first
+// screen was waiting for. Both files are still exported and still published.
 Promise.all([
   d3.json("data/bayarea_counties.json"), d3.json("data/bodies.json"),
-  d3.json("data/meetings.json"), d3.json("data/episodes.json"), d3.json("data/terms.json"),
   d3.json("data/panels.json").catch(() => null),
   d3.json("data/nimby_points.json").catch(() => null),
-]).then(([topo, bj, meetings, episodes, terms, panels, nimbyPts]) => {
+]).then(([topo, bj, panels, nimbyPts]) => {
   const bodies = bj.bodies, meta = bj.meta;
   const byBody = new Map(bodies.map(b => [b.body, b]));
-  const epById = new Map(episodes.map(e => [e.episode_id, e]));
-  const meetingsOf = d3.group(meetings, m => m.body);
-  const mById = new Map(meetings.map(m => [m.meeting_id, m]));
   const withHours = bodies.filter(b => b.hours_done > 0);
   const top = withHours.slice().sort((a,b) => b.hours_done - a.hours_done);
   const short = n => n.replace(/ City Council| Board.*| County.*/, "");
@@ -171,10 +220,11 @@ Promise.all([
     // carry, read from bodies.json so they cannot drift from the markers.
     if (top.length) {
       d3.select("#map-h").text(`Only ${fi(withHours.length)} of the ${fi(bodies.length)} bodies have transcribed hours`);
-      d3.select("#map-sum").text(`The hours are uneven: ${short(top[0].name)} has `
-        + `${f1(top[0].hours_done)} h and ${short(top[top.length - 1].name)} has `
-        + `${f1(top[top.length - 1].hours_done)} h. The dashed markers have nothing `
-        + `transcribed yet.`);
+      d3.select("#map-sum").text(`The transcribed hours are uneven: `
+        + `${short(top[0].name)} has ${f1(top[0].hours_done)} hours of its meetings `
+        + `transcribed and ${short(top[top.length - 1].name)} has `
+        + `${f1(top[top.length - 1].hours_done)} hours. The dashed circles have `
+        + `nothing transcribed yet.`);
     }
     // Both halves are exported strings, not typed here: the spend total carries the
     // date its newest account was measured, which is not always the export date.
@@ -189,6 +239,67 @@ Promise.all([
   } else {
     d3.select("#intro").html(`<p class="note">The intro needs <code>data/panels.json</code>. Run <code>export/export_panels.py</code> to build it.</p>`);
   }
+
+  // ── THE LEAD CHART, beside the TLDR on the first screen ─────────────────
+  // Owner, 2026-10-21 10:04: "i want the images to start on the first page of the
+  // website." This is the TLDR's third bullet drawn: two bars, members of the public
+  // beside the officials who run the meeting, of the share of their scored statements
+  // that took a side on the item. Two bars and nothing competing with them.
+  //
+  // The two shares are published in exactly one place, the role_side headline that
+  // export/export_panels.py writes from the fit's own rows. They are read back out of
+  // that sentence rather than typed into this file or added to panels.json as new
+  // fields: the chart cannot then carry a number the export does not, and no value in
+  // panels.json changed to put this chart on the page. If the sentence ever stops
+  // carrying them the chart says so instead of drawing something else.
+  //
+  // Rule 14, say each thing once. This chart owns the two shares, so the role block
+  // further down drops the sentence that quoted them and keeps its two odds ratios,
+  // and the definition of "took a side" is printed here, under the chart, instead of
+  // inside that block.
+  let leadDrewShares = false;
+  function buildLead(rs) {
+    const cap = d3.select("#lead-cap"), svgSel = d3.select("#leadsvg");
+    const m = /took a side on\s*([\d.]+)\s*%[^.]*?against\s*([\d.]+)\s*%/.exec((rs && rs.headline) || "");
+    if (!m) {
+      svgSel.remove();
+      cap.html(`<span class="leadfail">This chart needs the two shares in <code>data/panels.json</code>, under <code>nimby.role_side</code>. Run <code>export/export_panels.py</code> to rebuild it.</span>`);
+      return;
+    }
+    const rows = [
+      { k: "public", label: "Members of the public", v: +m[1] },
+      { k: "dais", label: "Officials running the meeting", v: +m[2] },
+    ];
+    const W = 320, H = 148, X = 250, BH = 26;
+    const x = d3.scaleLinear([0, 100], [0, X]);
+    const svg = svgSel.attr("viewBox", [0, 0, W, H]).attr("width", W).attr("height", H);
+    const pct = v => `${f1(v)} %`;
+    // Gridlines every 25 %, behind the bars only so they do not cross the labels,
+    // then the baseline. Gridlines and no domain line is the chart styling of the
+    // owner's own AI-Graph page.
+    svg.append("line").attr("class", "lead-base").attr("x1", 0).attr("x2", X).attr("y1", 110).attr("y2", 110);
+    const g = svg.append("g").selectAll("g").data(rows).join("g")
+      .attr("transform", (d, i) => `translate(0,${i * 60})`);
+    g.append("text").attr("class", "lead-cat").attr("x", 0).attr("y", 10).text(d => d.label);
+    g.selectAll("line.lead-grid").data([0, 25, 50, 75, 100]).join("line")
+      .attr("class", "lead-grid").attr("x1", d => x(d)).attr("x2", d => x(d))
+      .attr("y1", 16).attr("y2", 16 + BH);
+    g.append("rect").attr("class", d => `lead-bar ${d.k}`)
+      .attr("x", 0).attr("y", 16).attr("height", BH).attr("width", d => x(d.v));
+    g.append("text").attr("class", "lead-val").attr("x", d => x(d.v) + 6)
+      .attr("y", 16 + BH / 2).attr("dy", "0.35em").text(d => pct(d.v));
+    svg.append("g").selectAll("text").data([0, 50, 100]).join("text")
+      .attr("class", "lead-ax").attr("x", d => x(d)).attr("y", 124)
+      .attr("text-anchor", (d, i) => i === 0 ? "start" : i === 1 ? "middle" : "end").text(d => d);
+    svg.append("text").attr("class", "lead-ax").attr("x", 0).attr("y", 141)
+      .text("% of that group's scored statements that took a side");
+    // Rule 15: the title is the finding, with its numbers.
+    d3.select("#lead-h").text(`Public speakers took a side on ${pct(rows[0].v)} of their scored statements, officials on ${pct(rows[1].v)}`);
+    cap.text("Each bar is one group's share of the statements that carried a stance score.");
+    if (rs.model_line) d3.select("#lead-def").text(rs.model_line);
+    leadDrewShares = true;
+  }
+  buildLead(panels && panels.nimby && panels.nimby.role_side);
 
   // ── map ────────────────────────────────────────────────────────────────
   const W = 640, H = 600;
@@ -212,72 +323,84 @@ Promise.all([
   d3.forceSimulation(nodes).force("x", d3.forceX(d => d.x0).strength(.6)).force("y", d3.forceY(d => d.y0).strength(.6))
     .force("c", d3.forceCollide(d => d.r).iterations(3)).stop().tick(120);
 
+  // One shape for every body, a circle, with its area set by how many hours of that
+  // body's meetings were transcribed (owner, 2026-10-21 10:06: "just use all the same
+  // shape. size based on n data"). The square, triangle and diamond that carried
+  // council / transit board / county are gone, and so is their legend line: the body
+  // type is a word in the hover text instead.
   const g = svg.append("g");
   const mk = g.selectAll("g.mk").data(nodes.sort((a,b) => b.r - a.r)).join("g").attr("class","mk").attr("transform", d => `translate(${d.x},${d.y})`);
-  mk.append("path").attr("class", d => "body" + (d.b.hours_done ? "" : " empty"))
-    .attr("d", d => d3.symbol(SHAPE[d.b.kind] || d3.symbolCircle, Math.PI * Math.pow(Math.max(4.5, r(d.b.hours_done)), 2))())
-    .attr("fill", d => colour(d.b))
-    .on("mousemove", (ev,d) => showTip(ev, tipHtml(d.b))).on("mouseleave", hideTip)
-    .on("click", (ev,d) => selectBody(d.b));
+  mk.append("circle").attr("class", d => "body" + (d.b.hours_done ? "" : " empty"))
+    .attr("r", d => Math.max(4.5, r(d.b.hours_done)))
+    .attr("fill", d => colour(d.b));
   mk.filter(d => d.b.hours_done >= 2).append("text").attr("class","lbl").attr("text-anchor","middle").attr("dy", d => r(d.b.hours_done) + 11)
     .style("pointer-events","none").text(d => short(d.b.name));
 
+  // THE HOVER TEXT, now the only way into a body's numbers (owner: "keep info in the
+  // hover"). It carries everything the detail panel used to show above its meeting
+  // table: the body's name, what kind of body it is, where it meets, how many
+  // meetings and hours of video there are, how much of that was transcribed and how
+  // far each episode got, and how the transcribed hours split between the two topics.
+  // Every number names what it counts (rule 16). Episode counts say "episodes": the
+  // exported per-body counts are episodes, never statements.
   function tipHtml(b){
-    const share = b.density_share == null ? "no transcribed episodes" : `${Math.round(b.density_share*100)}% density · ${Math.round((1-b.density_share)*100)}% transit`;
-    return `<b>${esc(b.name)}</b><br>${b.kind} · ${esc(b.county)} County · ${b.platforms.join("/")}<br>${b.n_meetings} meetings · ${f1(b.meeting_hours)} h of video<br><b>${f2(b.hours_done)} h</b> transcribed in ${b.n_done} episodes · ${b.n_text} readable · ${b.n_scored} with stance<br>${share}`;
+    const share = b.density_share == null
+      ? "nothing transcribed yet, so no topic split"
+      : `${Math.round(b.density_share*100)}% of the transcribed hours were on housing density, ${Math.round((1-b.density_share)*100)}% on transit`;
+    return `<b>${esc(b.name)}</b><br>`
+      + `${esc(b.kind === "transit" ? "transit board" : b.kind)}, ${esc(b.county)} County, video on ${esc(b.platforms.join(" and ")) || "no known platform"}<br>`
+      + `${fi(b.n_meetings)} meetings in the window, ${f1(b.meeting_hours)} hours of video<br>`
+      + `<b>${f2(b.hours_done)} hours</b> transcribed, in ${fi(b.n_done)} episodes<br>`
+      + `${fi(b.n_text)} of those episodes passed the quality gate, ${fi(b.n_scored)} were scored for stance<br>`
+      + `${share}`;
   }
+
+  // Hover for a mouse, tap for a touch screen (owner, item 13c: "Make the tooltip
+  // work on tap on a phone"). A tap opens the hover text anchored to the circle and
+  // leaves it open; the next tap anywhere else closes it. placeFloating keeps it
+  // inside the viewport, which a thumb at the edge of a 390 px screen needs.
+  let tapped = null;
+  mk.select("circle")
+    .on("pointerenter", function (ev, d) { if (ev.pointerType === "mouse") showTip(ev, tipHtml(d.b)); })
+    .on("pointermove", function (ev, d) { if (ev.pointerType === "mouse") showTip(ev, tipHtml(d.b)); })
+    .on("pointerleave", function (ev) { if (ev.pointerType === "mouse") hideTip(); })
+    .on("pointerdown", function (ev, d) {
+      if (ev.pointerType === "mouse") return;
+      ev.preventDefault();
+      if (tapped === d.b.body) { tapped = null; hideTip(); return; }
+      tapped = d.b.body;
+      tip.style("display", "block").html(tipHtml(d.b));
+      const r = this.getBoundingClientRect();
+      placeFloating(tip, r.left + r.width / 2, r.top + r.height / 2);
+    });
+  // A tap anywhere else puts the hover text away.
+  document.addEventListener("pointerdown", ev => {
+    if (tapped && ev.pointerType !== "mouse" && !ev.target.closest("#map circle.body")) { tapped = null; hideTip(); }
+  }, true);
 
   // The per-body text loader stood here. It fetched data/episodes/<body>.json for the
   // episode reader; with the reader gone nothing on this page reads turn text, so the
   // page no longer pulls a 3 MB shard when a body is clicked.
 
-  // ── detail: body → meetings → episodes ─────────────────────────────────
-  const detail = d3.select("#detail");
-  let curBody = null, curMeeting = null;
-
-  // Clicking the map also filters the NIMBY/YIMBY scatter to that body, if the
-  // scatter has been built. The hook is set there; until then it does nothing.
-  let onBodySelect = () => {};
-
-  function selectBody(b){
-    curBody = b; curMeeting = null;
-    onBodySelect(b.body);
-    mk.select("path").classed("selected", d => d.b.body === b.body);
-    history.replaceState(null, "", "#" + b.body);
-    const ms = (meetingsOf.get(b.body) || []).slice().sort((x,y) => d3.descending(x.date, y.date));
-    const share = b.density_share == null ? "no transcribed episodes" : `${Math.round(b.density_share*100)}% density / ${Math.round((1-b.density_share)*100)}% transit (by episode-hours)`;
-    detail.html(`
-      <h3>${esc(b.name)}</h3>
-      <p>${b.kind} · ${esc(b.county)} County · video on ${b.platforms.join(" and ") || "no known platform"} · ${esc(b.site)} at ${b.lat.toFixed(3)}, ${b.lon.toFixed(3)}</p>
-      <p><b>${b.n_meetings}</b> regular meetings (${f1(b.meeting_hours)} h) ${b.date_min ? `from ${b.date_min} to ${b.date_max}` : ""}.
-         <b>${f2(b.hours_done)} h</b> transcribed in ${b.n_done} episodes, ${b.n_text} readable after QA, ${b.n_scored} with stance; ${f1(b.hours_mention)} h mention-only (not transcribed by design).<br>Mix: ${share}.</p>
-      <div class="tscroll"><table><thead><tr><th>date</th><th>title</th><th>src</th><th class="num">h</th><th class="num">eps</th><th class="num">done h</th><th class="num">read</th></tr></thead>
-      <tbody>${ms.map(m => `<tr class="row" data-m="${esc(m.meeting_id)}"><td>${esc(m.date)}</td><td>${esc(shortTitle(m.title))}</td><td>${m.platform === "youtube" ? "YT" : m.platform === "granicus" ? "Gr" : "Sw"}</td><td class="num">${f1(m.duration_h)}</td><td class="num">${m.episodes.length}</td><td class="num">${m.hours_done ? f2(m.hours_done) : "·"}</td><td class="num">${m.n_text || "·"}</td></tr>`).join("")}</tbody></table></div>
-      <p class="note" style="margin-top:8px">eps = episodes of any status (done / cut / located / mention); read = episodes past the QA gate, with text. Click a meeting.</p>`);
-    detail.selectAll("tr.row").on("click", function(){ selectMeeting(mById.get(this.dataset.m)); });
-  }
-  const shortTitle = t => (t || "").replace(/\s+/g," ").trim().slice(0, 48);
-
-  function selectMeeting(m){
-    curMeeting = m;
-    const b = byBody.get(m.body);
-    const eps = m.episodes.map(id => epById.get(id)).filter(Boolean);
-    const linkNote = m.platform === "youtube" ? "▶ opens YouTube at the episode start (<code>&amp;t=</code>)."
-      : m.platform === "granicus" ? "▶ opens the Granicus player with <code>&amp;entrytime=</code> at the episode start. That is the parameter the player's own embed-code generator uses. Seeking has not yet been verified in a browser."
-      : "▶ opens the Swagit player page; no timestamp parameter is known for it, so scrub to the time shown.";
-    detail.html(`
-      <div class="crumbs"><a data-b="${b.body}">${esc(b.name)}</a> › ${esc(m.date)}</div>
-      <h3>${esc(m.title)}</h3>
-      <p>${m.platform} · ${f1(m.duration_h)} h · <a class="src" href="${esc(m.source_url)}" target="_blank" rel="noopener">source video ↗</a></p>
-      <div class="tscroll"><table><thead><tr><th>start</th><th class="num">min</th><th>topic</th><th>route</th><th>status</th><th>QA</th></tr></thead>
-      <tbody>${eps.map(e => `<tr><td><a class="src" href="${esc(e.link)}" target="_blank" rel="noopener" title="open the source video at this timestamp">▶ ${hms(e.start_s)}</a></td>
-        <td class="num">${mins(e.hours)}</td><td><span class="pill ${e.tags}">${e.tags}</span></td><td class="note">${esc(e.route)}</td>
-        <td><span class="pill ${e.status}">${e.status}</span>${e.label ? `<br><span class="note">${esc(e.label)}</span>` : ""}</td>
-        <td>${e.qa_status ? `<span class="pill ${e.qa_status}">${e.qa_status}</span>` : "<span class='note'>·</span>"}</td></tr>`).join("")}</tbody></table></div>
-      <p class="note" style="margin-top:8px">${linkNote} Route: <i>classifier</i> = captions, then keyword windows, then Claude; <i>agenda_index</i> = Granicus agenda item times; <i>swagit_transcript</i> = Swagit's own transcript; <i>local_asr</i> = Mac Whisper where captions were missing; <i>fullasr</i> = the whole meeting transcribed end to end, with no caption screen in front of it.</p>`);
-    detail.select(".crumbs a").on("click", function(){ selectBody(byBody.get(this.dataset.b)); });
-  }
-
+  // ── the detail panel beside the map stood here until 2026-10-21 ────────
+  // Owner, 10:06: "no need to have the clickable panel on the right. its too much.
+  // keep info in the hover." It was a sticky panel that filled in on a click: the
+  // body's own counts and date range, then a sortable table of that body's meetings,
+  // and a second view per meeting with one row per episode, its timestamp link into
+  // the public recording, its topic, its route and its QA status. selectBody,
+  // selectMeeting, shortTitle, the hash deep link that opened a body, and the
+  // meeting and episode indexes they read are all gone with it, as is the click
+  // handler on the markers. What a reader needs about a body is in the hover text
+  // above, which now also opens on a tap.
+  //
+  // Nothing was deleted from the data: data/meetings.json and data/episodes.json are
+  // still exported and still published, each episode still carries its own
+  // timestamped link into the source video, and Methods still describes every route
+  // and status. The page simply no longer downloads 3.5 MB to show them.
+  //
+  // Clicking a body also used to filter the NIMBY/YIMBY scatter to that body. With no
+  // click on the map there is nothing to set that filter, so the scatter's
+  // body filter went too; it always draws every body on the selected route.
   // ── the episode reader stood here until 2026-10-21 ─────────────────────
   // It was a transcript pane: one lead turn, a disclosure of excerpt metadata, and a
   // second disclosure holding the whole episode turn by turn, with per-turn stance
@@ -363,13 +486,21 @@ Promise.all([
   // sits and the limitations. All four are on Methods, section "The models behind
   // the role results", which reads the same fit; the two odds ratios a reader
   // would quote are the two step lines themselves.
+  // Rule 14, 2026-10-21: the lead chart on the first screen draws the two shares in
+  // this block's first sentence and prints the definition of "took a side" under
+  // itself. So when that chart was drawn, this block renders neither: it keeps the
+  // sentence about which side each group took, its two odds ratios and the note on
+  // what to quote. When the chart could not be drawn, the block carries all of it, as
+  // it did before, and the page is still complete.
   const roleSide = rs => !rs ? "" : `
     <div class="panel sideblock" id="side-block">
       <h4 style="margin:0 0 4px">${esc(rs.title)}</h4>
-      <p class="sidelead">${esc(rs.headline)}</p>
+      <p class="sidelead">${esc(leadDrewShares
+        ? (rs.headline || "").split(/(?<=\.)\s+/).filter(s => !/took a side on/.test(s)).join(" ")
+        : rs.headline)}</p>
       <div class="sidesteps">${rs.steps.map((s, i) => `
         <div><h5>${i + 1}. ${esc(s.name)}</h5><p>${esc(s.text)}</p></div>`).join("")}</div>
-      ${rs.model_line ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
+      ${rs.model_line && !leadDrewShares ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
       <p class="sideres">${esc(rs.restated)}</p>
       <p class="src-note">How this model was fitted: <a href="methods.html#models">Methods</a>.</p>
     </div>`;
@@ -385,9 +516,11 @@ Promise.all([
     ? `<a href="${esc(d.link)}" target="_blank" rel="noopener">open the recording</a> and scrub to ${esc(d.at_hms)}`
     : `<a href="${esc(d.link)}" target="_blank" rel="noopener">watch at ${esc(d.at_hms)}</a>`;
   const meta1 = d => `${esc(d.body_name)} · ${esc(d.date)} · <b>${esc(d.label)}</b>`;
+  // Rule 16: each of these three numbers says what it is on and what it counts.
   const meta2 = d => `${esc(d.sub_topic || "no sub-topic recorded").replace(/_/g, " ")}`
-    + ` · mean stance ${f2(d.mean_stance)}, hostility ${f2(d.mean_hostility)} over `
-    + `${d.n_scored} scored ${d.n_scored === 1 ? "turn" : "turns"} of ${d.n_turns} · ${watch(d)}`;
+    + ` · mean stance ${sg(d.mean_stance, 2)} on the -2 to +2 scale, mean hostility `
+    + `${f2(d.mean_hostility)} on the 0 to 4 scale, over ${d.n_scored} scored `
+    + `${d.n_scored === 1 ? "statement" : "statements"} of ${d.n_turns} · ${watch(d)}`;
   // Viewport centre of a rendered dot, so a pinned tooltip can be anchored to it.
   const dotCentre = node => { const r = node.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
   // Keep a floating panel beside (cx, cy) and inside the viewport: flip to the
@@ -421,7 +554,7 @@ Promise.all([
     const routes = Object.keys(NP.meta.routes)
       .sort((a, b) => NP.meta.routes[b].n - NP.meta.routes[a].n);
     const LCOL = { YIMBY: cssVar("--yimby"), NIMBY: cssVar("--nimby"), neutral: cssVar("--nstance") };
-    let route = routes[0], bodyFilter = null, pinned = null;
+    let route = routes[0], pinned = null;
 
     // Stance means land on whole and half steps, so dots stack. The nudge is a
     // hash of the cluster id -- stable across renders, and never read off the
@@ -463,10 +596,12 @@ Promise.all([
         .attr("x", d => x(d)).attr("y", H - M.b + 14).attr("text-anchor", "middle").text(d => sg(d, 0));
       gax.selectAll("text.yt").data(narrow ? [0, 2, 4] : [0, 1, 2, 3, 4]).join("text").attr("class", "yt")
         .attr("x", M.l - 6).attr("y", d => y(d)).attr("dy", "0.32em").attr("text-anchor", "end").text(d => d);
-      gax.append("text").attr("x", M.l - (narrow ? 20 : 0)).attr("y", H - 4).text("← opposed");
-      gax.append("text").attr("x", W - M.r).attr("y", H - 4).attr("text-anchor", "end").text("supportive →");
+      // Rule 16: the ends of both scales are named, in the codebook's own words, so
+      // the tick numbers are not bare numbers on a page.
+      gax.append("text").attr("x", M.l - (narrow ? 20 : 0)).attr("y", H - 4).text("← -2 strongly opposed");
+      gax.append("text").attr("x", W - M.r).attr("y", H - 4).attr("text-anchor", "end").text("+2 strongly supportive →");
       gax.append("text").attr("transform", `translate(${narrow ? 9 : 11},${(M.t + y(0)) / 2}) rotate(-90)`)
-        .attr("text-anchor", "middle").text(narrow ? "hostility →" : "hostility of delivery →");
+        .attr("text-anchor", "middle").text(narrow ? "hostility 0 to 4 →" : "hostility of delivery, 0 civil to 4 →");
       gax.append("text").attr("x", x(0)).attr("y", M.t + 10).attr("text-anchor", "middle").text("neutral band");
     }
 
@@ -481,7 +616,7 @@ Promise.all([
       .text(d => `${d}: ${NP.meta.routes[d].n} speakers`);
     sel.property("value", route);
     const card = d3.select("#nsc-card");
-    const shown = () => PTS.filter(d => d.route === route && (!bodyFilter || d.body === bodyFilter));
+    const shown = () => PTS.filter(d => d.route === route);
 
     function showCard(d, pin) {
       if (!d) { card.attr("class", "qcard")
@@ -552,11 +687,8 @@ Promise.all([
           if (swallowClick) { swallowClick = false; return; }
           if (pinned && pinned.id === d.id) unpin(); else pinTo(d, this);
         });
-      d3.select("#nsc-filter").html(bodyFilter
-        ? `${esc((byBody.get(bodyFilter) || {}).name || bodyFilter)} only, ${rows.length} of ${
-            PTS.filter(d => d.route === route).length} on this route. <button id="nsc-clear">show every body</button>`
-        : `every body on this route: ${rows.length} speakers in ${new Set(rows.map(d => d.body)).size} bodies`);
-      d3.select("#nsc-clear").on("click", () => { bodyFilter = null; draw(); });
+      d3.select("#nsc-filter").text(`${fi(rows.length)} public speakers at `
+        + `${fi(new Set(rows.map(d => d.body)).size)} bodies, on this route`);
       if (pinned && !rows.some(d => d.id === pinned.id)) { pinned = null; pinnedNode = null; hideQtip(); showCard(null); }
     }
 
@@ -569,18 +701,12 @@ Promise.all([
     // speaker's quote, and the scatter's own card and tooltip still show the quote
     // for whichever dot is clicked.
 
-    // Clicking a body on the map filters the scatter to it. A body is often read
-    // by only one route, so if the selected route has nothing for it, move to the
-    // route that read it most -- still one route at a time, never pooled.
-    onBodySelect = b => {
-      const mine = PTS.filter(d => d.body === b);
-      if (!mine.length) return;
-      if (!mine.some(d => d.route === route)) {
-        route = [...d3.rollup(mine, v => v.length, d => d.route)].sort((a, c) => c[1] - a[1])[0][0];
-        sel.property("value", route);
-      }
-      bodyFilter = b; draw();
-    };
+    // Clicking a body on the map used to filter this scatter to that body, moving
+    // to the route that read it most. The map has no click handler any more (owner,
+    // 2026-10-21 10:06), so nothing could set that filter, and it is gone with the
+    // "show every body" button it needed. The chart draws every body on the selected
+    // route, one route at a time, never pooled.
+
     // The frame is a width decision, so it has to be re-made when the width changes:
     // a phone turned sideways, or a window dragged wider, otherwise keeps the dot
     // radius and the label sizes it was built with.
@@ -647,11 +773,11 @@ Promise.all([
       d3.select("#p-nimby").html(`${head(p, {h2: "nimby", defs: false})}${leadFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
-          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: support for the item. Up: hostility. Dot size: words said. Click a dot for that speaker's longest statement.</p>
+          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the item) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Click a dot for that speaker's longest statement.</p>
           <p class="sctl">Route <select id="nsc-route"></select>
             <span id="nsc-filter" class="note"></span></p>
           <svg id="nsc" role="img" aria-label="Public speaker clusters by mean stance and mean hostility, one dot each"></svg>
-          <p class="skey"><i style="background:var(--yimby)"></i>YIMBY: mean stance +0.5 or higher &nbsp; <i style="background:var(--nimby)"></i>NIMBY: −0.5 or lower &nbsp; <i style="background:var(--nstance)"></i>neutral: between the two &nbsp;· larger dot = more words</p>
+          <p class="skey"><i style="background:var(--yimby)"></i>YIMBY: mean stance score +0.5 or higher &nbsp; <i style="background:var(--nimby)"></i>NIMBY: -0.5 or lower &nbsp; <i style="background:var(--nstance)"></i>neutral: between the two &nbsp;· larger dot = more words said</p>
           <div class="qcard" id="nsc-card"></div>
           <div class="qtip" id="nsc-tip" role="tooltip"></div>
         </div>` : `<p class="note">The per-speaker scatter needs <code>data/nimby_points.json</code>. Run <code>export/export_nimby_points.py</code> to build it.</p>`}
@@ -693,17 +819,17 @@ Promise.all([
   // The two counts the Corpus entry carried that nothing else said, how many bodies
   // are mapped and how many have transcribed hours, are in the map's summary line.
 
-  // deep link
-  const hb = location.hash.slice(1);
-  if (hb && byBody.has(hb)) selectBody(byBody.get(hb));
+  // The #body deep link stood here. It opened that body in the detail panel beside
+  // the map; with the panel gone there is nothing for it to open, and the map's
+  // hover text is not a page location that can be linked to.
 
-  window.__site = { selectBody, selectMeeting, bodies, meetings, episodes, byBody, mById, epById, meta };
+  window.__site = { bodies, byBody, meta, panels };
 }).catch(err => {
   // A failed data load used to leave the panels silently empty, with only the
   // console saying why (readability review §3, point 7). Say it on the page.
   const msg = `<b>The dashboard could not load its data.</b> ${esc(err.message)}. Nothing below this line is showing results. This folder has to be served over HTTP, because browsers block <code>file://</code> fetches: run <code>python3 -m http.server 8766</code> in the site directory. The export scripts in <code>export/</code> also have to have been run.`;
-  d3.select("main").insert("p", ".nav + *").attr("class", "loadfail").html(msg);
-  d3.select("#detail").html(`<h3>Data not loaded</h3><p>See the message at the top of the page.</p>`);
+  d3.select("main").insert("p", ":first-child").attr("class", "loadfail").html(msg);
+  d3.select("#lead-cap").html(`<span class="leadfail">The chart above the goal has no data: ${esc(err.message)}.</span>`);
   ["stance","nimby","renter","rates"].forEach(k => d3.select("#p-"+k).html(`<p class="loadfail">This panel has no data: the dashboard's data load failed. ${esc(err.message)}.</p>`));
   d3.select("#asof").text("");
   console.error(err);

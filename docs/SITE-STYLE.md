@@ -250,5 +250,71 @@ sentence under it.
 "the yellow exploratory does not need to be there. just title the dashboard
 something exploratory analysis." So: remove the cream EXPLORATORY banner and
 the per-panel EXPLORATORY pills; put the word in the page title and h1
-("thtrans — an exploratory analysis of …"); the limitations stay in the
+("an exploratory analysis of ..."); the limitations stay in the
 Methods page and in each panel's results body, not as warning boxes.
+
+Superseded in part, 2026-10-21 10:04: the h1 no longer carries the word, and
+the exploratory sentence is stated once under the goal block instead (rule 12
+of DASHBOARD-LANGUAGE.md). The title quoted above also carried the project's
+internal working name, which is dropped from everything published; see
+"Public name" below.
+
+## Public name (owner, 2026-10-21 10:04 PDT)
+
+"[the working name] is the internal name. drop it for the live site." Nothing
+published carries the project's internal name: not the title tag, the h1, the
+app bar, the footer, the Methods page, or text baked into a figure. Where a
+name is needed, the site is "Bay Area Transit Analysis", which matches the
+repository. Repo-relative file paths on Methods may still contain the
+directory name: rule 10 makes provenance the Methods exception.
+`copy_rules.json` carries a FAIL rule, `internal-name`, whose lookarounds
+spare those paths.
+
+## The first screen (owner, 2026-10-21 10:04 PDT)
+
+"i want the images to start on the first page of the website. like when i load
+it it should be there. so either remove some text or put it to the right of
+the text." The TLDR, the goal block and a lead chart are one band: the chart
+stands in a second column to the right of the text on a desktop, and comes
+straight after the TLDR on a phone, with the goal, the links and the examples
+below it. The chart is never shrunk to fit; the TLDR's four bullets were cut
+to one sentence each instead. Measured on first load, with no scrolling: at
+1280x800 the chart occupies 236 to 399 px, and at 390x844 it occupies 544 to
+710 px, so it is whole on both, and whole at 390x720 as well.
+
+The chart is the TLDR's third bullet drawn: two bars, members of the public
+beside the officials, of the share of scored statements that took a side. Its
+two shares are read back out of the `role_side` headline in `panels.json`
+rather than typed into the page or added to the export, so the chart cannot
+carry a number the export does not. The role block further down drops the
+sentence that quoted those two shares, so each number is said once (rule 14).
+
+## The map (owner, 2026-10-21 10:06 PDT)
+
+"for the map. just use all the same shape. size based on n data. no need to
+have the clickable panel on the right. its too much. keep info in the hover."
+Every body is a circle whose area is the hours of that body's meetings that
+were transcribed, which the legend says; the exported data carries no per-body
+count of scored statements, only per-body episode counts, and no exporter was
+re-run to add one. The square, triangle and diamond for council, transit board
+and county are gone, and the body type is a word in the hover text. The detail
+panel beside the map, its click handler, the `#body` deep link and the
+scatter's body filter went with it, and so did the fetches of
+`data/meetings.json` and `data/episodes.json`, which were 3.5 MB of every page
+load. The hover text carries the body's name and type, its meetings and hours,
+how much was transcribed, how many episodes passed the quality gate and were
+scored, and the topic split, each with its unit. It opens on hover with a
+mouse and on a tap on a touch screen.
+
+## App bar and card (reference, 2026-10-21 09:54)
+
+`style/DASHBOARD-REFERENCE.md` describes how the owner builds his own
+dashboards. Applied here: one centred white card on a light grey page, prose
+capped narrower than the card with figures running wider (rule 1); a thin
+coloured app bar with the site name at the left and the views at the right,
+the current one marked (rules 2 and 3); a one-sentence caption under each
+chart (rule 5); one colour per series, defined once as a CSS variable read by
+both the stylesheet and the chart code (rule 7); the value printed inside the
+thing it describes rather than in a tile (rule 12); a closing sentence naming
+the data, the sources and the code (rule 14); and a phone layout of one
+column whose app bar wraps rather than scrolling off (rule 15).

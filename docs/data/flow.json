@@ -1,7 +1,7 @@
 {
  "generated": "2026-10-20T22:22-07:00",
  "generated_by": "ytpt-site/export/export_flow.py",
- "meta_line": "33 bodies \u00b7 692 meetings \u00b7 4,954 located episodes over 5 routes \u00b7 270.2 h transcribed \u00b7 15,961 turns scored \u00b7 $16.92, measured 2026-10-20 of GPU",
+ "meta_line": "33 bodies \u00b7 692 meetings \u00b7 4,954 located episodes over 5 routes \u00b7 270.2 audio hours transcribed \u00b7 15,961 turns scored \u00b7 $16.92 of GPU time, measured 2026-10-20",
  "lede": "Nine stages, in the order they ran. Each box says what was decided at that step; the dashed ones are the two places where something is judged rather than processed. Click a box for the detail and the files behind it.",
  "key": [
   {
@@ -76,7 +76,7 @@
      "1,821"
     ],
     [
-     "waiting",
+     "clips waiting",
      "164"
     ],
     [
@@ -84,7 +84,7 @@
      "270.2"
     ],
     [
-     "bodies at 0 h",
+     "bodies at 0 audio hours",
      "6"
     ]
    ],
@@ -109,19 +109,19 @@
      "4,954"
     ],
     [
-     "screened route",
+     "episodes, screened",
      "1,491"
     ],
     [
-     "whole-meeting",
+     "episodes, whole-meeting",
      "2,674"
     ],
     [
-     "recall, screened",
+     "screened recall, 0 to 1",
      "0.725"
     ]
    ],
-   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-20, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 654 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $59.99, measured 2026-10-20.</p>",
+   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is a share of the reference's about-minutes: 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit, on the same share of about-minutes. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-20, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 654 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $59.99, measured 2026-10-20.</p>",
    "docs": [
     "pipeline/classify.py",
     "scripts/fullasr.py",
@@ -135,7 +135,7 @@
    "title": "GPU transcription with diarization",
    "state": "done",
    "gate": true,
-   "badge": "270.2 H \u00b7 20 BATCHES",
+   "badge": "270.2 AUDIO HOURS \u00b7 20 BATCHES",
    "line": "Nothing starts until the owner approves that batch: the estimate is written first, the pod only runs after a yes, and it is torn down after.",
    "nums": [
     [
@@ -151,7 +151,7 @@
      "20"
     ],
     [
-     "$/audio-h, measured 2026-10-20",
+     "$ per audio hour, 2026-10-20",
      "$0.0217"
     ]
    ],
@@ -168,23 +168,23 @@
    "title": "QA gate: whether the transcript holds up",
    "state": "done",
    "decision": true,
-   "badge": "1,545 PASS \u00b7 135 WARN",
+   "badge": "1,545 EPISODES PASS \u00b7 135 WARN",
    "line": "A transcript is compared with the caption track for the same span, and a failing one is never loaded rather than being loaded with a warning.",
    "nums": [
     [
-     "pass",
+     "episodes pass",
      "1,545"
     ],
     [
-     "warn",
+     "episodes warn",
      "135"
     ],
     [
-     "fail",
+     "episodes fail",
      "0"
     ],
     [
-     "loaded",
+     "episodes loaded",
      "1,680"
     ]
    ],
@@ -217,11 +217,11 @@
      "3"
     ],
     [
-     "replicate \u03ba",
+     "replicate \u03ba, 0 to 1",
      "0.98"
     ]
    ],
-   "detail": "<p>Every turn of at least five words inside a located episode is coded for stance toward the agenda item. Stance runs on a scale from \u22122 for opposing it to +2 for supporting it. The same read scores hostility on a scale from 0 to 4, a frame set, a sub-topic and whether the speaker said who they are. The codebook is hashed into the prompt version recorded on every row, thinking is disabled, and each turn is read three times with the median kept and the spread stored. This is a census of the gated corpus, not a sample: 15,961 turns in 1,239 episodes.</p><p>The three readings agree at weighted \u03ba 0.980 / 0.982 / 0.979 and are identical on 97.6 % of turns. That is the instrument agreeing with <i>itself</i>. <b>No human has coded any turn</b>, so the \u03ba \u2265 0.6 validity gate is unpassed and everything downstream of here is exploratory. That is the single most important sentence on this page.</p><p>Cost: $67.93, measured 2026-10-20 for the pass, $0.00426, measured 2026-10-20 per turn, read three times.</p>",
+   "detail": "<p>Every turn of at least five words inside a located episode is coded for stance toward the agenda item. Stance runs on a scale from \u22122 for opposing it to +2 for supporting it. The same read scores hostility on a scale from 0 to 4, a frame set, a sub-topic and whether the speaker said who they are. The codebook is hashed into the prompt version recorded on every row, thinking is disabled, and each turn is read three times with the median kept and the spread stored. This is a census of the gated corpus, not a sample: 15,961 turns in 1,239 episodes.</p><p>The three readings agree at weighted \u03ba 0.980 / 0.982 / 0.979, one value per pair of readings. Weighted \u03ba runs from 0, the agreement chance would give, to 1, perfect agreement. The three readings are identical on 97.6 % of turns. That is the instrument agreeing with <i>itself</i>. <b>No human has coded any turn</b>, so the \u03ba \u2265 0.6 validity gate is unpassed and everything downstream of here is exploratory. That is the single most important sentence on this page.</p><p>Cost: $67.93, measured 2026-10-20 for the pass, $0.00426, measured 2026-10-20 per turn, read three times.</p>",
    "docs": [
     "pipeline/stance.py",
     "plan/STANCE-CODEBOOK.md",
@@ -234,7 +234,7 @@
    "n": "7",
    "title": "Role audit: public or dais",
    "state": "done",
-   "badge": "RA-1 \u00b7 7 % MOVED",
+   "badge": "RA-1 \u00b7 7 % OF INFORMATIVE TURNS MOVED",
    "line": "Who counts as the public was decided by what a speaker says about themselves, which overrides the cue-phrase label it started with.",
    "nums": [
     [
@@ -242,19 +242,19 @@
      "15,961"
     ],
     [
-     "informative",
+     "informative turns",
      "8,842"
     ],
     [
-     "disagree",
+     "turns that disagree",
      "655"
     ],
     [
-     "no signal",
+     "no signal, share of all turns",
      "45 %"
     ]
    ],
-   "detail": "<p>Roles start from cue phrases in the diarized transcript, \u201cmy name is, I live at\u201d against \u201cthe motion carries\u201d, never from names. That labeller assigns the wrong role often enough to matter: a council member who chairs an item can pick up a public cue, and a staff planner presenting a report matches neither cue set. So the role is re-decided from what the speaker says about who they are, and that overrides the cue.</p><p>Of 8,842 turns that say anything about the speaker, 655 disagree with the cue label (7.4 %); 44.6 % of all turns say nothing and keep the cue. The audit moves clusters <i>both</i> ways, so a shift in these numbers is a re-partition and not contamination removed.</p><p><b>This is an audit, not a gold set.</b> The self-identification is another model's output and no human has checked it, so the audited public bucket is still mixed at an unknown rate.</p>",
+   "detail": "<p>Roles start from cue phrases in the diarized transcript, \u201cmy name is, I live at\u201d against \u201cthe motion carries\u201d, never from names. That labeller assigns the wrong role often enough to matter: a council member who chairs an item can pick up a public cue, and a staff planner presenting a report matches neither cue set. So the role is re-decided from what the speaker says about who they are, and that overrides the cue.</p><p>Of 8,842 turns that say anything about the speaker, 655 disagree with the cue label (7.4 % of those turns); 44.6 % of all turns say nothing and keep the cue. The audit moves clusters <i>both</i> ways, so a shift in these numbers is a re-partition and not contamination removed.</p><p><b>This is an audit, not a gold set.</b> The self-identification is another model's output and no human has checked it, so the audited public bucket is still mixed at an unknown rate.</p>",
    "docs": [
     "pipeline/roles.py",
     "plan/ROLE-AUDIT-2026-10-18.md"
@@ -277,11 +277,11 @@
      "15,961"
     ],
     [
-     "threshold",
+     "threshold, \u22122 to +2",
      "0.50"
     ],
     [
-     "public, with a stance",
+     "public clusters with a stance",
      "1,050"
     ]
    ],
@@ -301,11 +301,11 @@
    "line": "The grouping was decided by the data: turns nest inside stretches of meeting inside meetings, and once that is modelled the body level is empty.",
    "nums": [
     [
-     "took a side at all",
+     "times the odds, public vs dais: took a side at all",
      "10.39\u00d7"
     ],
     [
-     "which side, given a side",
+     "times the odds, public vs dais: which side, given a side",
      "1.81\u00d7"
     ]
    ],

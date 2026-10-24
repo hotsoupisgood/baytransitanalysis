@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Methods and instruments: thtrans, an exploratory analysis of who talks about density and transit at Bay Area public meetings</title>
+<title>Methods and instruments: an exploratory analysis of who talks about housing density and transit at Bay Area public meetings</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
+<div class="appbar"><a class="name" href="index.html">Bay Area Transit Analysis</a><nav class="tabs"><a href="index.html">Dashboard</a><a href="methods.html" aria-current="page">Methods</a></nav></div>
 <main>
-  <p class="nav"><a href="index.html">Dashboard</a> · <a href="#flow">How the data was made (flowchart)</a> · Methods</p>
   <h1>Methods and instruments</h1>
   <!-- Banner rule (owner, 2026-10-18 21:18, docs/STYLE.md): no cream warning box. The
        word itself stays, as plain prose, on the page where the limitations live --
        analysis/test_pipeline.py §33 checks that it is still here. -->
   <p class="sub" id="banner"><b>EXPLORATORY</b>. Loading the stamp…</p>
   <p class="sub">The four LLM instruments this study runs on, quoted in full, with their hashes, the model behind each one, what was measured about them, and what is wrong with those measurements. Every block on this page is read out of the repo at build time by <code>export/export_methods.py</code>, not typed here. A test recomputes each block's hash from the source, so the page cannot drift from the instrument.</p>
+  <!-- Owner, 2026-10-21 10:05:50: this note came off the front page, and rule 14 says
+       each thing is said once, so Methods is where it lives now. -->
+  <p class="note">Transcript quotations on this site are transcribed speech, with names, home addresses and contact details removed by <code>pipeline/redact.py</code>, and cuts inside a quotation marked “…”.</p>
   <!-- TLDR rule (owner, 2026-10-18 21:16, docs/STYLE.md): vague, result-pointing, no
        numbers at all. This page is where the detail belongs, so the TLDR only says what
        is here and where to start. -->
@@ -266,16 +269,17 @@ d3.json("data/methods.json").then(M => {
     <p class="note">The whole difference between v2.1 and v2 is this one sentence at the top of the transit definition. <code>classify.py</code> asserts every other byte is identical:</p>
     <div class="panel"><pre class="verbatim" style="border:none;background:none;padding:0">${esc(L.v21_delta.text)}</pre></div>
 
-    <h3>Recall and precision</h3>
+    <h3>Recall rises from v1 to v2, and the reference it rises against is not independent of v2</h3>
     <p>Measured by transcribing whole meetings on the GPU, labelling <em>every</em> 60-s window with the codebook and no keyword screen, and asking what fraction of the "about" minutes the pipeline actually located. Each row is <b>one arm scored on the same family under both references</b>, so the pairs are like-for-like; the two references are described below the table.</p>
+    <p class="note">Recall and precision are both shares on a scale from 0, none, to 1, all. Recall is the share of the reference's about-minutes that the pipeline located. Precision is the share of the minutes it located that the reference calls about.</p>
     <div class="panel"><table>
       <thead><tr>
         <th>arm</th>
-        <th class="num" colspan="1">recall<br><span class="note">v1 ref</span></th>
-        <th class="num">recall<br><span class="note">adjudicated ref</span></th>
-        <th class="num">precision<br><span class="note">v1 ref</span></th>
-        <th class="num">precision<br><span class="note">adjudicated ref</span></th>
-        <th class="num">about-min<br><span class="note">v1 → adj</span></th>
+        <th class="num" colspan="1">recall, 0 to 1<br><span class="note">v1 reference</span></th>
+        <th class="num">recall, 0 to 1<br><span class="note">adjudicated reference</span></th>
+        <th class="num">precision, 0 to 1<br><span class="note">v1 reference</span></th>
+        <th class="num">precision, 0 to 1<br><span class="note">adjudicated reference</span></th>
+        <th class="num">about-minutes in the reference<br><span class="note">v1 → adjudicated</span></th>
       </tr></thead>
       <tbody>${recallRows}</tbody>
     </table></div>
@@ -284,9 +288,9 @@ d3.json("data/methods.json").then(M => {
     <div class="caveat crit"><b>The circularity, stated plainly</b>${esc(R.circularity)}</div>
     <p class="note"><b>Power.</b> ${esc(R.power)}</p>
     ${R.local_asr_arm ? `
-      <h3>A separate arm: the v1 pipeline's own recall on the Mac-ASR route</h3>
+      <h3>On the Mac-ASR route the keyword screen caused most of the misses, not the classifier</h3>
       <div class="panel"><table>
-        <thead><tr><th>family</th><th class="num">about-min</th><th class="num">located-min</th><th class="num">recall</th><th class="num">likely range</th><th class="num">screen alone</th></tr></thead>
+        <thead><tr><th>family</th><th class="num">about-minutes</th><th class="num">located minutes</th><th class="num">recall, 0 to 1</th><th class="num">likely range</th><th class="num">recall of the screen alone, 0 to 1</th></tr></thead>
         <tbody>${Object.entries(R.local_asr_arm.families).map(([f, v]) => `<tr>
           <td>${esc(f)}</td><td class="num">${fi(v.about_min)}</td><td class="num">${fi(v.located_min)}</td>
           <td class="num"><b>${pct(v.recall)}</b></td><td class="num">${ci(v.recall_ci)}</td><td class="num">${pct(v.screen_recall)}</td></tr>`).join("")}</tbody>
@@ -296,7 +300,7 @@ d3.json("data/methods.json").then(M => {
   // ── 3. stance ──────────────────────────────────────────────────────────
   const S = M.stance, rep = S.replicates;
   d3.select("#s-stance").html(`
-    <p>Every transcript turn of at least five words inside a located episode is coded by a second pinned instrument. It scores stance toward the agenda item on a scale from −2 for opposing it to +2 for supporting it, hostility on a scale from 0 to 4, a multi-label frame set, a sub-topic, and whether the speaker self-identified. A statement took a side when its median stance score is 0.5 or more away from neutral. Staff speakers are excluded from that measure.</p>
+    <p>Every transcript turn of at least five words inside a located episode is coded by a second pinned instrument. It scores stance toward the agenda item on a scale from −2 for strongly opposing it to +2 for strongly supporting it. The same read records a multi-label frame set, a sub-topic, and whether the speaker self-identified. It also scores hostility on a scale from 0, civil, to 4, a sustained personal attack. That scale counts speech aimed at people rather than strength of disagreement. A statement took a side when its median stance score is 0.5 or more away from neutral on that stance scale. Staff speakers are excluded from that measure.</p>
     <dl class="kv">
       <dt>Model</dt><dd><code>${esc(S.model)}</code>, thinking disabled, no sampling parameters, JSON-schema output, Message Batches API</dd>
       <dt>prompt_version</dt><dd><code>${esc(S.prompt_version)}</code>. The codebook version <code>${esc(S.codebook_version)}</code> is the SHA-256 of the block below, and is recorded on every row</dd>
@@ -304,28 +308,28 @@ d3.json("data/methods.json").then(M => {
       <dt>Replicates</dt><dd>k = ${S.k}, median kept, spread recorded</dd>
     </dl>
     ${verbatim("The stance codebook", S.codebook, `the block below <code>--- CODEBOOK ---</code>`)}
-    <h3>Replicate agreement (k = ${S.k})</h3>
+    <h3>The three replicate readings agree with each other, which measures the instrument against itself</h3>
     <div class="panel"><table>
-      <thead><tr><th>subset</th><th class="num">turns</th><th class="num">stance κ<sub>w</sub>, pairwise</th></tr></thead>
+      <thead><tr><th>subset</th><th class="num">turns scored</th><th class="num">stance κ<sub>w</sub>, one per replicate pair</th></tr></thead>
       <tbody>
         <tr><td><b>all</b></td><td class="num">${fi(rep.n_turns)}</td><td class="num">${(rep.stance_kappa_w || []).map(f3).join(" / ")}</td></tr>
         ${Object.entries(rep.by_role || {}).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${fi(v.n_turns)}</td><td class="num">${(v.stance_kappa_w || []).map(f3).join(" / ")}</td></tr>`).join("")}
       </tbody>
     </table></div>
-    <p class="note">All three replicates identical on ${f3(rep.all3_identical_stance * 100)} % of turns. ${esc(rep.note)}</p>
+    <p class="note">All three replicates identical on ${f3(rep.all3_identical_stance * 100)} % of turns. Weighted κ runs from 0, the agreement chance would give, to 1, perfect agreement. ${esc(rep.note)}</p>
     <div class="caveat crit"><b>The κ ≥ 0.6 gate has not been passed</b>${esc(S.kappa_gate)}</div>`);
 
   // ── 4. speakers ────────────────────────────────────────────────────────
   const K = M.speakers, pil = K.pilot, D = K.derivation;
   d3.select("#s-speakers").html(`
-    <p>A speaker whose statements average 0.5 or higher in support of the housing item is YIMBY, and -0.5 or lower is NIMBY. A speaker here is one voice at one meeting, never a person followed from one meeting to the next.</p>
+    <p>Stance runs on a scale from −2 for strongly opposing the housing item to +2 for strongly supporting it. A speaker whose statements average 0.5 or higher in support of that item is YIMBY, and −0.5 or lower is NIMBY. A speaker here is one voice at one meeting, never a person followed from one meeting to the next.</p>
     <p>Two different things carry those labels, and they must not be confused. One is a direct prompt, piloted on 300 turns, quoted in full below. The other is <b>derived</b> from the stance pass by a threshold rule, and it is the one the dashboard's per-cluster figures use.</p>
     <h3>The pilot prompt</h3>
     <dl class="kv">
       <dt>Model</dt><dd><code>${esc(K.model)}</code></dd>
       <dt>prompt_version</dt><dd><code>${esc(K.prompt_version)}</code> (run as <code>${esc(pil.prompt_version_run)}</code>)</dd>
       <dt>Labels</dt><dd>${K.labels.map(l => `<code>${esc(l)}</code>`).join(", ")}</dd>
-      <dt>Pilot</dt><dd>${fi(pil.n_labelled)} turns, $${f2(pil.actual_usd)}${pil.date ? ", measured " + esc(pil.date) : ""}; the model returned ${Object.entries(pil.label_counts || {}).map(([k, v]) => `${esc(k)} ${v}`).join(", ")}</dd>
+      <dt>Pilot</dt><dd>${fi(pil.n_labelled)} turns, $${f2(pil.actual_usd)}${pil.date ? ", measured " + esc(pil.date) : ""}; the model returned ${Object.entries(pil.label_counts || {}).map(([k, v]) => `${esc(k)} on ${v} turns`).join(", ")}</dd>
     </dl>
     ${verbatim("The NIMBY / YIMBY prompt", K.prompt)}
     <p class="note">${esc(pil.note)}</p>
@@ -333,9 +337,9 @@ d3.json("data/methods.json").then(M => {
     <h3>The derivation rule used on the dashboard</h3>
     <p>${esc(D.rule)}</p>
     <dl class="kv">
-      <dt>Threshold</dt><dd>YIMBY if mean cluster stance ≥ <b>+${D.threshold}</b>, NIMBY if ≤ <b>−${D.threshold}</b>, neutral in between (half a codebook step)</dd>
+      <dt>Threshold</dt><dd>YIMBY if mean cluster stance ≥ <b>+${D.threshold}</b> on the −2 to +2 stance scale, NIMBY if ≤ <b>−${D.threshold}</b>, neutral in between, which is half a codebook step</dd>
       <dt>Unit</dt><dd>episode × anonymous diarized cluster; bodies shown only with ≥ ${D.min_clusters_per_body} public clusters</dd>
-      <dt>Scope</dt><dd>${fi(D.n_turns)} turns → ${fi(D.n_clusters)} clusters${D.clusters_by_role_label ? ` (public: ${["YIMBY","NIMBY","neutral","no stance"].map(l => `${l} ${D.clusters_by_role_label["public/" + l] ?? 0}`).join(", ")})` : ""}</dd>
+      <dt>Scope</dt><dd>${D.n_turns ? fi(D.n_turns) + " scored turns rolled up into " : ""}${fi(D.n_clusters)} clusters${D.clusters_by_role_label ? ` (public clusters: ${["YIMBY","NIMBY","neutral","no stance"].map(l => `${l} ${D.clusters_by_role_label["public/" + l] ?? 0}`).join(", ")})` : ""}</dd>
       <dt>Code</dt><dd><code>${esc(D.source)}</code> · stamp: ${esc(D.stamp)}</dd>
       <dt>No linking</dt><dd>${esc(D.no_linking)}</dd>
     </dl>
@@ -377,7 +381,7 @@ d3.json("data/methods.json").then(M => {
         <td class="note">${esc(v.status)}</td></tr>`).join("")}</tbody>
     </table></div>`);
 
-  d3.select("#foot").html(`Built ${esc(M.generated.slice(0, 16).replace("T", " "))} UTC by <code>${esc(M.generated_by)}</code> and <code>export/export_flow.py</code> from the ytpt repo. Every verbatim block carries the SHA-256 of its own text, and <code>analysis/test_pipeline.py</code> recomputes those hashes from the sources on every <code>make test</code>. If an instrument is edited and this page is not rebuilt, the test fails.`);
+  d3.select("#foot").html(`Built ${esc(M.generated.slice(0, 16).replace("T", " "))} UTC by <code>${esc(M.generated_by)}</code> and <code>export/export_flow.py</code> from the pipeline repo. Every verbatim block carries the SHA-256 of its own text, and <code>analysis/test_pipeline.py</code> recomputes those hashes from the sources on every <code>make test</code>. If an instrument is edited and this page is not rebuilt, the test fails.`);
 
 }).catch(err => {
   d3.select("#s-locate").html(`<p>Could not load <code>data/methods.json</code>: ${esc(err.message)}. Run <code>cd ~/ytpt && .venv/bin/python ~/ytpt-site/export/export_methods.py</code>, and serve this folder over HTTP (<code>python3 -m http.server</code>): browsers block <code>file://</code> fetches.</p>`);

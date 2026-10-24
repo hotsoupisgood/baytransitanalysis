@@ -1,5 +1,5 @@
 ---
-title: "thtrans: what Bay Area councils and transit boards say about housing and transit"
+title: "Bay Area Transit Analysis: what Bay Area councils and transit boards say about housing and transit"
 date: 2026-10-18
 tags: ["statistics", "bayesian", "llm", "python"]
 description: "Transcribing only the housing-density and transit stretches of a year of Bay Area public meetings, then measuring how much time each body gives the topic and whether public comment reads differently from the dais."
