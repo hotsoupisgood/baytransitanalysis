@@ -5556,10 +5556,10 @@
 "renter": {
 "title": "Renter share",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
-"lede": "Renter share is the renter-occupied share of a body's occupied housing units, from the American Community Survey, correlated one outcome per locate route.",
+"lede": "Renter share is the renter-occupied share of a body's occupied housing units, from the American Community Survey.",
 "headline": [
-"Renter share showed no clear correlation with any outcome tested.",
-"A staff member in a California county government suggested testing renter share as a main predictor, as a lead for future work. Across all 10 outcomes tested, the likely range of the correlation includes zero. Each correlation rests on 3 to 13 bodies, so a small real link could still be missed."
+"Renter share showed no clear link to what gets said at meetings.",
+"A staff member in a California county government suggested renter share as a main predictor, as a lead for future work. Each body's NIMBY share was regressed on renter share, with median household income and population density as covariates. No predictor showed a clear effect: every likely range is a 95 % interval, and all three include zero. Renter share also showed no clear link to YIMBY share or to meeting time on housing density and transit. With 18 bodies in the fit, a small real effect could still be missed."
 ],
 "correlations": [
 {
@@ -8489,48 +8489,9 @@
 "text": "A transit board's topic time mostly measures what it exists to do, so every figure draws the boards with hollow markers and carries a councils-only panel wherever one can be drawn above the 3-body floor. Read the councils-only panel first."
 }
 ],
-"figs": [
-"fig_beta_renter_forest.png",
-"fig_rate_density_classifier.png",
-"fig_rate_transit_classifier.png",
-"fig_stance_gap_agenda_index.png",
-"fig_stance_gap_classifier.png",
-"fig_stance_net_agenda_index.png",
-"fig_stance_net_classifier.png",
-"fig_stance_nimby_agenda_index.png",
-"fig_stance_nimby_classifier.png",
-"fig_stance_yimby_agenda_index.png",
-"fig_stance_yimby_classifier.png",
-"fig_ppc_binomial.png"
-],
-"fig_titles": {
-"fig_beta_renter_forest.png": "Renter share as a body-level predictor, every outcome tested",
-"fig_rate_density_classifier.png": "Density topic time against renter share: classifier route",
-"fig_rate_transit_classifier.png": "Transit topic time against renter share: classifier route",
-"fig_stance_gap_agenda_index.png": "Public \u2212 dais stance gap against renter share: agenda_index route",
-"fig_stance_gap_classifier.png": "Public \u2212 dais stance gap against renter share: classifier route",
-"fig_stance_net_agenda_index.png": "Net YIMBY \u2212 NIMBY against renter share: agenda_index route",
-"fig_stance_net_classifier.png": "Net YIMBY \u2212 NIMBY against renter share: classifier route",
-"fig_stance_nimby_agenda_index.png": "NIMBY share against renter share: agenda_index route",
-"fig_stance_nimby_classifier.png": "NIMBY share against renter share: classifier route",
-"fig_stance_yimby_agenda_index.png": "YIMBY share against renter share: agenda_index route",
-"fig_stance_yimby_classifier.png": "YIMBY share against renter share: classifier route",
-"fig_ppc_binomial.png": "Does the NIMBY-count fit reproduce what was observed?"
-},
-"fig_caps": {
-"fig_beta_renter_forest.png": "One row per outcome: the posterior slope on renter share, per standard deviation of it, with its 90 % and 95 % intervals. Every interval crosses the dashed zero line, which is the whole result of this panel. At this many bodies it is what the design could have produced either way.",
-"fig_rate_density_classifier.png": "One point per body, read on the classifier route only: its density minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_rate_transit_classifier.png": "One point per body, read on the classifier route only: its transit minutes per meeting-hour against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_gap_agenda_index.png": "One point per body, read on the agenda_index route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_gap_classifier.png": "One point per body, read on the classifier route only: the public \u2212 dais stance gap against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_net_agenda_index.png": "One point per body, read on the agenda_index route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_net_classifier.png": "One point per body, read on the classifier route only: its net YIMBY minus NIMBY share against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_nimby_agenda_index.png": "One point per body, read on the agenda_index route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_nimby_classifier.png": "One point per body, read on the classifier route only: the NIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_yimby_agenda_index.png": "One point per body, read on the agenda_index route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_stance_yimby_classifier.png": "One point per body, read on the classifier route only: the YIMBY share of its public speakers against the renter-occupied share of its occupied housing units. Point area is how much that body contributes and the dashed line is an ordinary least-squares fit. The rank correlation and its likely range are in the figure's own title. Transit boards are drawn hollow, because a transit board's topic time largely measures what it exists to do. With this few bodies the line describes the dots on the chart and nothing beyond them.",
-"fig_ppc_binomial.png": "Posterior predictive check for the binomial NIMBY-count fit: the observed NIMBY count in each body-and-route cell against the band the fitted model replicates. Every cell lands inside its band, so the fit reproduces the data it was given. That is self-consistency, not evidence that renter share predicts anything."
-},
+"figs": [],
+"fig_titles": {},
+"fig_caps": {},
 "methods_anchor": "limitations"
 },
 "rates": {
