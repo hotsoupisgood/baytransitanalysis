@@ -69,6 +69,12 @@
 "neutral": 6
 }
 },
+"public_all": {
+"n": 525,
+"YIMBY": 231,
+"NIMBY": 230,
+"neutral": 64
+},
 "route_names": {
 "agenda_index": "agenda index",
 "classifier": "captions",

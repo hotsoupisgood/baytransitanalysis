@@ -72,6 +72,11 @@
        (nimby.fullset_note) from the two frame CSVs and the two view runs, so no number is
        typed into this file. -->
   <div id="s-fullset"></div>
+  <!-- Added 2026-10-25 (owner, WhatsApp 00:26, "Pool"): the public chart combines a body's
+       transcript sources, and the per-source detail moved here. Written by
+       export/export_panels.py into data/panels.json (nimby.pooled_note) from the two CSVs
+       the view writes, so no number is typed into this file. plan/DECISIONS.md #21. -->
+  <div id="s-pooled"></div>
 
   <!-- Added 2026-10-19 (owner): the statistical work behind the role results, as short
        entries complementing the dashboard's bullets rather than restating their tables.
@@ -257,7 +262,17 @@ d3.json("data/panels.json").then(P => {
   // 2026-10-24 23:54 ("Update"): the note on the move to the full statement set.
   const FN = P.nimby && P.nimby.fullset_note;
   d3.select("#s-fullset").html(FN ? `<h3>${esc(FN.title)}</h3>${FN.paragraphs.map(t => `<p>${esc(t)}</p>`).join("")}` : "");
-}).catch(() => { d3.select("#s-a4").html(""); d3.select("#s-fullset").html(""); });
+  // 2026-10-25 00:26 ("Pool"): the note on combining a body's transcript sources,
+  // with the per-source table the front page no longer carries.
+  const PN = P.nimby && P.nimby.pooled_note;
+  const cols = PN && PN.table && PN.table.length ? Object.keys(PN.table[0]) : [];
+  d3.select("#s-pooled").html(!PN ? "" : `<h3>${esc(PN.title)}</h3>`
+    + PN.paragraphs.map(t => `<p>${esc(t)}</p>`).join("")
+    + (cols.length ? `<div class="panel"><table>
+        <thead><tr>${cols.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+        <tbody>${PN.table.map(r => `<tr>${cols.map(c => `<td>${esc(String(r[c]))}</td>`).join("")}</tr>`).join("")}</tbody>
+      </table></div>${PN.table_caption ? `<p class="note">${esc(PN.table_caption)}</p>` : ""}` : ""));
+}).catch(() => { d3.select("#s-a4").html(""); d3.select("#s-fullset").html(""); d3.select("#s-pooled").html(""); });
 
 d3.json("data/methods.json").then(M => {
   d3.select("#banner").html(esc(M.exploratory)

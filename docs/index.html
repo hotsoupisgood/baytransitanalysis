@@ -640,16 +640,17 @@ Promise.all([
   // The file carries both roles since 2026-10-19 (the dot plot below needs the
   // dais half); this chart is about public comment, so it filters to it.
   //
-  // One route at a time, never pooled (plan/DECISIONS.md: the routes that read
-  // the same body can disagree about it). Speaker clusters mean nothing outside
-  // their own episode (#15), so a dot is "a speaker at this meeting", never a
-  // person tracked across meetings, and the tooltip says so.
+  // Every public speaker at once, with no route picker (owner, 2026-10-25 00:26,
+  // "Pool"; plan/DECISIONS.md #21). It used to draw one route at a time behind a
+  // <select>, which no longer matched the bars above it: those now combine a
+  // body's transcript sources. The per-source tables are on Methods.
+  // Speaker clusters mean nothing outside their own episode (#15), so a dot is
+  // "a speaker at this meeting", never a person tracked across meetings, and the
+  // tooltip says so.
   function buildScatter(NP) {
     const PTS = NP.points.filter(d => (d.role || "public") === "public");
-    const routes = Object.keys(NP.meta.routes)
-      .sort((a, b) => NP.meta.routes[b].n - NP.meta.routes[a].n);
     const LCOL = { YIMBY: cssVar("--yimby"), NIMBY: cssVar("--nimby"), neutral: cssVar("--nstance") };
-    let route = routes[0], pinned = null;
+    let pinned = null;
 
     // Stance means land on whole and half steps, so dots stack. The nudge is a
     // hash of the cluster id -- stable across renders, and never read off the
@@ -700,21 +701,12 @@ Promise.all([
       gax.append("text").attr("x", x(0)).attr("y", M.t + 10).attr("text-anchor", "middle").text("neutral band");
     }
 
-    const sel = d3.select("#nsc-route").on("change", function () {
-      // Readability review §7, "the quote goes stale": a route change redraws the dots
-      // against a different set of speakers, so anything hovered or pinned on the old
-      // route has to go with them -- it may not exist on the new one.
-      route = this.value; pinned = null; pinnedNode = null;
-      hideQtip(); draw();
-    });
-    // The option value stays the internal route key, which is the join key on every
-    // point; the label is the public name the rest of the page uses for that route
-    // (nimby_points.json meta.route_names, written from the exporter's one map).
-    const routeName = r => ((NP.meta.route_names || {})[r] || r);
-    sel.selectAll("option").data(routes).join("option").attr("value", d => d)
-      .text(d => `${routeName(d)} route: ${NP.meta.routes[d].n} public speakers`);
-    sel.property("value", route);
-    const shown = () => PTS.filter(d => d.route === route);
+    // The route <select> stood here and is gone with the pooling (owner,
+    // 2026-10-25, "Pool"): the chart draws every public speaker at once, so there
+    // is nothing to switch between and the "quote goes stale on a route change"
+    // handler has nothing left to guard. Each point still carries its route key,
+    // and data/nimby_points.json still carries the per-route counts.
+    const shown = () => PTS;
 
     // ── the dot tooltip (Puck, 2026-10-18 22:37: "tooltips on the dots with text") ──
     // It opens on hover with no click and no delay, follows the pointer, and closes on
@@ -783,7 +775,7 @@ Promise.all([
           if (pinned && pinned.id === d.id) unpin(); else pinTo(d, this);
         });
       d3.select("#nsc-filter").text(`${fi(rows.length)} public speakers at `
-        + `${fi(new Set(rows.map(d => d.body)).size)} bodies, on this route`);
+        + `${fi(new Set(rows.map(d => d.body)).size)} bodies`);
       if (pinned && !rows.some(d => d.id === pinned.id)) { pinned = null; pinnedNode = null; hideQtip(); }
     }
 
@@ -874,9 +866,12 @@ Promise.all([
       d3.select("#p-nimby").html(`${head(np, {h2: "nimby", defs: false})}${leadFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
-          <p class="numlede">${fi(nimbyPts.meta.n_points_public)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the proposal) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
-          <p class="sctl">Route <select id="nsc-route"></select>
-            <span id="nsc-filter" class="note"></span></p>
+          <p class="numlede">${fi(nimbyPts.meta.n_points_public)} public speakers, all of them at once. Across: that speaker's mean stance score, from -2 (strongly opposed to the proposal) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
+          <!-- The route <select> that stood here is gone (owner, 2026-10-25, "Pool"):
+               the chart drew one transcript source at a time, and the bars above it
+               now combine a body's sources, so the two disagreed about how many
+               speakers there were. The per-source tables are on Methods. -->
+          <p class="sctl"><span id="nsc-filter" class="note"></span></p>
           <svg id="nsc" role="img" aria-label="Public speaker clusters by mean stance and mean hostility, one dot each"></svg>
           <p class="skey"><i style="background:var(--yimby)"></i>YIMBY: mean stance score +0.5 or higher &nbsp; <i style="background:var(--nimby)"></i>NIMBY: -0.5 or lower &nbsp; <i style="background:var(--nstance)"></i>neutral: between the two &nbsp;· larger dot = more words said</p>
           <!-- The quote card that stood under this chart is gone (owner, 2026-10-24
