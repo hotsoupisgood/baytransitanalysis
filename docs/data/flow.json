@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-20T22:22-07:00",
+ "generated": "2026-10-25T00:58-07:00",
  "generated_by": "ytpt-site/export/export_flow.py",
- "meta_line": "33 bodies \u00b7 692 meetings \u00b7 4,954 located episodes over 5 routes \u00b7 270.2 audio hours transcribed \u00b7 15,961 turns scored \u00b7 $16.92 of GPU time, measured 2026-10-20",
+ "meta_line": "33 bodies \u00b7 709 meetings \u00b7 4,959 located episodes over 5 routes \u00b7 302.3 audio hours transcribed \u00b7 15,961 turns scored \u00b7 $17.64 of GPU time, measured 2026-10-23",
  "lede": "Nine stages, in the order they ran. Each box says what was decided at that step; the dashed ones are the two places where something is judged rather than processed. Click a box for the detail and the files behind it.",
  "key": [
   {
@@ -36,7 +36,7 @@
    "n": "1",
    "title": "Meeting discovery",
    "state": "done",
-   "badge": "33 BODIES \u00b7 692 MEETINGS",
+   "badge": "33 BODIES \u00b7 709 MEETINGS",
    "line": "What counts as a meeting was decided by a per-body title pattern: regular sessions only, inside one twelve-month window.",
    "nums": [
     [
@@ -45,18 +45,18 @@
     ],
     [
      "meetings",
-     "692"
+     "709"
     ],
     [
      "video hours",
-     "2,285"
+     "2,332"
     ],
     [
      "platforms",
      "3"
     ]
    ],
-   "detail": "<p>Three archives, one row per body in the channel list: 385 meetings found on YouTube, 294 on Granicus and 13 on Swagit. That is 33 bodies in all: city councils, one board of supervisors and three transit boards. Metadata only at this stage: a playlist listing and an agenda page, no media.</p><p>The decision that shapes everything downstream is what a <i>regular</i> meeting is. Each body gets a title pattern that keeps its ordinary sessions and drops special sessions, study sessions and committees, and the window runs 2025-09-20 to 2026-09-20 and is closed. That gives 2,285.3 hours of video as the frame. Bodies whose archive could not be located at all are a known selection limit and are listed in the plan, not silently dropped.</p>",
+   "detail": "<p>Three archives, one row per body in the channel list: 402 meetings found on YouTube, 294 on Granicus and 13 on Swagit. That is 33 bodies in all: city councils, one board of supervisors and three transit boards. Metadata only at this stage: a playlist listing and an agenda page, no media.</p><p>The decision that shapes everything downstream is what a <i>regular</i> meeting is. Each body gets a title pattern that keeps its ordinary sessions and drops special sessions, study sessions and committees, and the window runs 2025-09-20 to 2026-09-20 and is closed. That gives 2,331.8 hours of video as the frame. Bodies whose archive could not be located at all are a known selection limit and are listed in the plan, not silently dropped.</p>",
    "docs": [
     "plan/channels.tsv",
     "plan/T2-PLAN.md",
@@ -73,22 +73,22 @@
    "nums": [
     [
      "clips transcoded",
-     "1,821"
+     "1,982"
     ],
     [
      "clips waiting",
-     "164"
+     "5"
     ],
     [
      "audio hours",
-     "270.2"
+     "302.3"
     ],
     [
      "bodies at 0 audio hours",
      "6"
     ]
    ],
-   "detail": "<p>Captions come first and cost nothing. The platform caption tracks are YouTube auto-captions, Granicus VTT and Swagit transcripts. They are fetched slowly by a background worker, and they decide <i>where</i> to look before any audio is pulled. Only then is audio downloaded and cut to the located spans, two or three at a time, from this one machine.</p><p>The constraint is a daily YouTube budget that this project does not set. A \u201cconfirm you\u2019re not a bot\u201d page or an HTTP 429 stops the downloader and pages the owner; nothing retries in a loop, and no personal account cookies are ever used. 164 clips are cut or queued and waiting for their turn, which is why some bodies' hours are floors rather than totals.</p>",
+   "detail": "<p>Captions come first and cost nothing. The platform caption tracks are YouTube auto-captions, Granicus VTT and Swagit transcripts. They are fetched slowly by a background worker, and they decide <i>where</i> to look before any audio is pulled. Only then is audio downloaded and cut to the located spans, two or three at a time, from this one machine.</p><p>The constraint is a daily YouTube budget that this project does not set. A \u201cconfirm you\u2019re not a bot\u201d page or an HTTP 429 stops the downloader and pages the owner; nothing retries in a loop, and no personal account cookies are ever used. 5 clips are cut or queued and waiting for their turn, which is why some bodies' hours are floors rather than totals.</p>",
    "docs": [
     "pipeline/captions.py",
     "pipeline/episodes.py",
@@ -101,16 +101,16 @@
    "title": "Locate: which stretches are about the topic",
    "state": "done",
    "decision": true,
-   "badge": "4,954 EPISODES \u00b7 2 ROUTES",
+   "badge": "4,959 EPISODES \u00b7 2 ROUTES",
    "line": "Decided twice over, by two routes with measured recall: a keyword screen with an LLM behind it, and whole-meeting transcription read with no screen at all.",
    "nums": [
     [
      "episodes",
-     "4,954"
+     "4,959"
     ],
     [
      "episodes, screened",
-     "1,491"
+     "1,496"
     ],
     [
      "episodes, whole-meeting",
@@ -121,7 +121,7 @@
      "0.725"
     ]
    ],
-   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is a share of the reference's about-minutes: 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit, on the same share of about-minutes. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-20, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 654 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $59.99, measured 2026-10-20.</p>",
+   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is a share of the reference's about-minutes: 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit, on the same share of about-minutes. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-20, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 654 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $60.09, measured 2026-10-24.</p>",
    "docs": [
     "pipeline/classify.py",
     "scripts/fullasr.py",
@@ -135,12 +135,12 @@
    "title": "GPU transcription with diarization",
    "state": "done",
    "gate": true,
-   "badge": "270.2 AUDIO HOURS \u00b7 20 BATCHES",
+   "badge": "302.3 AUDIO HOURS \u00b7 23 BATCHES",
    "line": "Nothing starts until the owner approves that batch: the estimate is written first, the pod only runs after a yes, and it is torn down after.",
    "nums": [
     [
      "audio hours",
-     "270.2"
+     "302.3"
     ],
     [
      "episodes",
@@ -148,14 +148,14 @@
     ],
     [
      "batches",
-     "20"
+     "23"
     ],
     [
-     "$ per audio hour, 2026-10-20",
-     "$0.0217"
+     "$ per audio hour, 2026-10-23",
+     "$0.0218"
     ]
    ],
-   "detail": "<p>Clip audio is batched on the Mac with a cost estimate attached; the owner approves the batch; only then does a pod start. It runs WhisperX <code>large-v3</code> with <code>pyannote/speaker-diarization-community-1</code>, so the output is not just words but words attributed to separate voices. It uploads one JSON per episode and is torn down. An orphan-pod check pages the owner if anything is still billing with no batch running.</p><p>Measured rather than estimated: $0.0217, measured 2026-10-20 with diarization on, over 334.1 audio-hours in 20 finished batches, $7.25, measured 2026-10-20 in all. Every GPU pod this project has ever run comes to $16.92, measured 2026-10-20. Dropping diarization roughly halves the rate, to $0.0093, measured 2026-10-20, which is what the whole-meeting route in step 3 does.</p><p>The estimate is frozen onto the batch row when it is written, so a later measured throughput does not rewrite what was approved.</p>",
+   "detail": "<p>Clip audio is batched on the Mac with a cost estimate attached; the owner approves the batch; only then does a pod start. It runs WhisperX <code>large-v3</code> with <code>pyannote/speaker-diarization-community-1</code>, so the output is not just words but words attributed to separate voices. It uploads one JSON per episode and is torn down. An orphan-pod check pages the owner if anything is still billing with no batch running.</p><p>Measured rather than estimated: $0.0218, measured 2026-10-23 with diarization on, over 366.4 audio-hours in 23 finished batches, $7.97, measured 2026-10-23 in all. Every GPU pod this project has ever run comes to $17.64, measured 2026-10-23. Dropping diarization roughly halves the rate, to $0.0093, measured 2026-10-20, which is what the whole-meeting route in step 3 does.</p><p>The estimate is frozen onto the batch row when it is written, so a later measured throughput does not rewrite what was approved.</p>",
    "docs": [
     "pipeline/gpu_batch.py",
     "pipeline/spend.py",
@@ -168,16 +168,16 @@
    "title": "QA gate: whether the transcript holds up",
    "state": "done",
    "decision": true,
-   "badge": "1,545 EPISODES PASS \u00b7 135 WARN",
+   "badge": "1,692 EPISODES PASS \u00b7 149 WARN",
    "line": "A transcript is compared with the caption track for the same span, and a failing one is never loaded rather than being loaded with a warning.",
    "nums": [
     [
      "episodes pass",
-     "1,545"
+     "1,692"
     ],
     [
      "episodes warn",
-     "135"
+     "149"
     ],
     [
      "episodes fail",
@@ -188,7 +188,7 @@
      "1,680"
     ]
    ],
-   "detail": "<p>Every transcript is checked against the captions for the same span, for coverage gaps, duplicated segments and diarization collapse. 1,545 episodes pass, 135 carry a warning and 0 fail. A failing transcript is never loaded: the row is requeued instead, which is the one loop in this chart.</p><p>Whole meetings need one special case. A long recording trips the repeated-phrase rule on runs of \u201cyou\u201d and \u201cThank you.\u201d across a recess, which is silence rather than a decoder loop, so those are re-gated with filler runs collapsed. A genuine coverage failure stays failed.</p><p>What came through the gate is 27,358 turns and 2,187,676 words of speech. Names are kept, by owner decision: these are public meetings and every turn on the dashboard links to the recording at its own timestamp.</p>",
+   "detail": "<p>Every transcript is checked against the captions for the same span, for coverage gaps, duplicated segments and diarization collapse. 1,692 episodes pass, 149 carry a warning and 0 fail. A failing transcript is never loaded: the row is requeued instead, which is the one loop in this chart.</p><p>Whole meetings need one special case. A long recording trips the repeated-phrase rule on runs of \u201cyou\u201d and \u201cThank you.\u201d across a recess, which is silence rather than a decoder loop, so those are re-gated with filler runs collapsed. A genuine coverage failure stays failed.</p><p>What came through the gate is 27,358 turns and 2,187,676 words of speech. Names are kept, by owner decision: these are public meetings and every turn on the dashboard links to the recording at its own timestamp.</p>",
    "docs": [
     "analysis/qa_transcripts.py",
     "docs/TESTING.md",
@@ -265,12 +265,12 @@
    "n": "8",
    "title": "Speaker clusters, and a label for each",
    "state": "done",
-   "badge": "4,765 CLUSTERS",
+   "badge": "2,509 CLUSTERS",
    "line": "A speaker is one diarized voice inside one meeting and nothing wider: clusters are never linked across meetings, by design.",
    "nums": [
     [
      "clusters",
-     "4,765"
+     "2,509"
     ],
     [
      "turns rolled up",
@@ -282,10 +282,10 @@
     ],
     [
      "public clusters with a stance",
-     "1,050"
+     "525"
     ]
    ],
-   "detail": "<p>The turn scores are rolled up per diarized voice per episode. A cluster is YIMBY if its mean stance is at or above +0.50, and NIMBY if at or below \u22120.50. Between the two it is neutral, which is half a codebook step either side. Transit-family episodes are left out of that label, YIMBY and NIMBY being a housing construct.</p><p>A cluster is a voice in one meeting, not a person. There are no voice embeddings, no persistent speaker ids and no name extraction into a field, so a cluster label means nothing outside its own episode. The same person at two meetings is two clusters, and the analysis cannot tell. Most public clusters rest on a single scored turn, which is why the per-body intervals are wide and why one table and one figure exist per locate route, never pooled.</p>",
+   "detail": "<p>The turn scores are rolled up per diarized voice per episode. A cluster is YIMBY if its mean stance is at or above +0.50, and NIMBY if at or below \u22120.50. Between the two it is neutral, which is half a codebook step either side. Housing, transit and mixed episodes all carry the label since the direction pass went in on 2026-10-24: the sign on each statement follows whether its proposal would add or restrict housing or transit, so the label is support for more of either.</p><p>A cluster is a voice in one meeting, not a person. There are no voice embeddings, no persistent speaker ids and no name extraction into a field, so a cluster label means nothing outside its own episode. The same person at two meetings is two clusters, and the analysis cannot tell. Most public clusters rest on a single scored turn, which is why the per-body intervals are wide and why one table and one figure exist per locate route, never pooled.</p>",
    "docs": [
     "analysis/stance_s1_nimby_view.py",
     "plan/DECISIONS.md",
@@ -302,14 +302,14 @@
    "nums": [
     [
      "times the odds, public vs dais: took a side at all",
-     "10.39\u00d7"
+     "9.19\u00d7"
     ],
     [
      "times the odds, public vs dais: which side, given a side",
-     "1.81\u00d7"
+     "1.60\u00d7"
     ]
    ],
-   "detail": "<p>One row per scored turn. The fit is a mixed logistic regression that gives every stretch of meeting, every meeting and every body its own baseline. Speaker role, renter share, their interaction and the locate route are fixed terms. It is fitted twice on the same frame: did a turn take a side at all, and, among the turns that took one, which side.</p><p><b>Took a side at all</b>: 10.39\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 8.48 to 12.85). <b>Which side, given a side</b>: 1.81\u00d7 the odds of opposing the item rather than supporting it, for a public statement against a dais one (likely range 1.42 to 2.32).</p><p>Quote 1.81\u00d7 for \u201cmore opposed\u201d. Step 1 measures whether a statement took a side at all, not which side.</p><p>The reason the model groups turns by meeting rather than by city is that the spread between bodies is zero once meeting is in it, because meeting is nested inside body and absorbs it entirely. Earlier fits grouped by body, which is the wrong level; they are kept in the repo and agree with this one to within a few thousandths of a log-odds. The role block on the dashboard reports this model and nothing else.</p>",
+   "detail": "<p>One row per scored turn. The fit is a mixed logistic regression that gives every stretch of meeting, every meeting and every body its own baseline. Speaker role, renter share, their interaction and the locate route are fixed terms. It is fitted twice on the same frame: did a turn take a side at all, and, among the turns that took one, which side.</p><p><b>Took a side at all</b>: 9.19\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 6.93 to 12.32). <b>Which side, given a side</b>: 1.60\u00d7 the odds of opposing more housing or transit rather than supporting it, for a public statement against a dais one (likely range 1.15 to 2.22).</p><p>A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.</p><p>The reason the model groups turns by meeting rather than by city is that the spread between bodies is zero once meeting is in it, because meeting is nested inside body and absorbs it entirely. Earlier fits grouped by body, which is the wrong level; they are kept in the repo and agree with this one to within a few thousandths of a log-odds. The role block on the dashboard reports this model and nothing else.</p>",
    "docs": [
     "plan/RENTER-SHARE-6-R.md",
     "plan/REGRESSION-REVIEW-2026-10-19.md"
@@ -324,11 +324,11 @@
  ],
  "money": {
   "gpu": {
-   "usd": 7.252799999999999,
-   "hours": 334.14099999999996,
-   "batches": 20,
-   "per_hour": 0.021705806830050786,
-   "as_of": "2026-10-20",
+   "usd": 7.973199999999999,
+   "hours": 366.36899999999997,
+   "batches": 23,
+   "per_hour": 0.021762758311975085,
+   "as_of": "2026-10-23",
    "what": "transcription with diarization, per audio-hour"
   },
   "gpu_nodiar": {
@@ -347,15 +347,23 @@
    "as_of": "2026-10-20",
    "what": "stance coding, per turn at k = 3"
   },
+  "direction": {
+   "usd": 9.976365,
+   "stretches": 1212,
+   "calls": 4881,
+   "per_stretch": 0.008231324257425742,
+   "as_of": "2026-10-25",
+   "what": "the proposal direction pass, per stretch at k = 3"
+  },
   "classifier": {
-   "usd": 59.991142,
-   "calls": 30618,
-   "as_of": "2026-10-20",
+   "usd": 60.093116,
+   "calls": 30648,
+   "as_of": "2026-10-24",
    "what": "the locate classifier, whole pass"
   },
   "runpod_total": {
-   "usd": 16.9159,
-   "as_of": "2026-10-20",
+   "usd": 17.6419,
+   "as_of": "2026-10-23",
    "what": "every GPU pod this project has run"
   }
  }

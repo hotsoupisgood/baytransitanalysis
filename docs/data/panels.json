@@ -1,9 +1,9 @@
 {
-"generated": "2026-10-25T00:08-07:00",
+"generated": "2026-10-25T00:55-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
 "goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. A second pass recorded whether that proposal would add or restrict housing or transit. Each was scored three times and the median calculated. This is an exploratory analysis used to better understand the data and inspire future planned analysis.",
-"scope": "Corpus: 692 meetings of 33 Bay Area bodies, 2,285 hours of video, and 15,961 scored statements, a statement being one speaker turn.",
+"scope": "Corpus: 709 meetings of 33 Bay Area bodies, 2,332 hours of video, and 15,961 scored statements, a statement being one speaker turn.",
 "note": "",
 "spend": {
 "usd": 155.64,
@@ -16,16 +16,16 @@
 },
 "text": "Total spend to date $156: GPU transcription $18, stance coding $68, topic classifier $60, proposal direction $10"
 },
-"as_of": "2026-10-20",
+"as_of": "2026-10-25",
 "totals": {
 "bodies": 33,
 "bodies_with_hours": 27,
-"meetings": 692,
-"meeting_hours": 2285.3,
-"episodes": 4954,
-"episodes_done": 1821,
+"meetings": 709,
+"meeting_hours": 2331.8,
+"episodes": 4959,
+"episodes_done": 1982,
 "episodes_scored": 1239,
-"hours_done": 270.22,
+"hours_done": 302.29,
 "stance_turns": 15961
 },
 "source": "data/bodies.json meta.totals, output/stance_s2/site_numbers_role.json, output/renter_share_6/"

@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generated": "2026-10-20T22:18-07:00",
+  "generated": "2026-10-25T00:55-07:00",
   "exploratory": true,
   "redacted": true,
   "published": true,
@@ -11,15 +11,15 @@
    "turns": 27358,
    "words": 2187676,
    "from_corpus": 1680,
-   "gated_no_corpus_text": 0,
+   "gated_no_corpus_text": 161,
    "stance_turns_matched": 15961,
    "stance_matched_by_position": 183,
    "stance_turns_unmatched": 0,
    "redaction": "redact-1.3: names, street addresses and contact details removed from every published turn (2030 replacements), before the keyword spans were computed"
   },
   "qa": {
-   "episode_OK": 1545,
-   "episode_WARN": 135,
+   "episode_OK": 1692,
+   "episode_WARN": 149,
    "show_OK": 125,
    "show_WARN": 18,
    "validation_OK": 9,
@@ -36,7 +36,7 @@
      {
       "model": "claude-sonnet-4-6",
       "prompt_version": "v2.1-9e052492e4/claude-sonnet-4-6/mr120",
-      "n": 2674
+      "n": 2679
      },
      {
       "model": "claude-sonnet-4-6",
@@ -58,7 +58,7 @@
      {
       "model": "claude-sonnet-4-6",
       "prompt_version": "v2.1-9e052492e4/claude-sonnet-4-6/mr120",
-      "n": 22024
+      "n": 22054
      },
      {
       "model": "claude-sonnet-4-6",
@@ -117,27 +117,27 @@
     {
      "cues_version": "cues-df383f750b",
      "method": "prior",
-     "n": 3224
+     "n": 3548
     },
     {
      "cues_version": "cues-df383f750b",
      "method": "cue_phrase",
-     "n": 2938
+     "n": 3327
     },
     {
      "cues_version": "cues-df383f750b",
      "method": "structure",
-     "n": 1208
+     "n": 1383
     },
     {
      "cues_version": "cues-df383f750b",
      "method": "none",
-     "n": 299
+     "n": 351
     },
     {
      "cues_version": "cues-df383f750b",
      "method": "recurrence",
-     "n": 219
+     "n": 244
     }
    ],
    "stance": {
@@ -179,21 +179,21 @@
    "bodies": 33,
    "bodies_with_hours": 27,
    "bodies_with_text": 27,
-   "meetings": 692,
+   "meetings": 709,
    "meetings_by_platform": {
-    "youtube": 385,
+    "youtube": 402,
     "granicus": 294,
     "swagit": 13
    },
-   "episodes": 4954,
+   "episodes": 4959,
    "episodes_by_status": {
-    "done": 1821,
-    "mention": 2959,
-    "failed": 10,
-    "located": 164
+    "done": 1982,
+    "mention": 2961,
+    "failed": 11,
+    "located": 5
    },
    "episodes_by_route": {
-    "classifier": 1491,
+    "classifier": 1496,
     "agenda_index": 53,
     "local_asr": 564,
     "swagit_transcript": 172,
@@ -206,14 +206,14 @@
     "swagit_transcript": 101,
     "fullasr": 612
    },
-   "episodes_done": 1821,
-   "episodes_located": 164,
+   "episodes_done": 1982,
+   "episodes_located": 5,
    "episodes_with_text": 1680,
    "episodes_scored": 1239,
    "stance_turns": 15961,
-   "hours_done": 270.22,
-   "hours_located": 29.75,
-   "meeting_hours": 2285.3
+   "hours_done": 302.29,
+   "hours_located": 1.08,
+   "meeting_hours": 2331.8
   },
   "episode_files": {
    "n": 27,
@@ -236,16 +236,16 @@
    "n_meetings": 35,
    "meeting_hours": 121.47,
    "n_episodes": 110,
-   "n_done": 29,
-   "n_text": 29,
+   "n_done": 44,
+   "n_text": 44,
    "n_scored": 29,
    "routes": [
     "classifier"
    ],
-   "hours_done": 9.268,
-   "hours_located": 2.351,
+   "hours_done": 11.867,
+   "hours_located": 0,
    "hours_mention": 4.871,
-   "density_share": 0.894,
+   "density_share": 0.896,
    "date_min": "2025-09-23",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/sanjose.json",
@@ -265,16 +265,16 @@
    "n_meetings": 18,
    "meeting_hours": 56.15,
    "n_episodes": 41,
-   "n_done": 17,
-   "n_text": 17,
+   "n_done": 21,
+   "n_text": 21,
    "n_scored": 12,
    "routes": [
     "classifier"
    ],
-   "hours_done": 1.866,
-   "hours_located": 0.4,
+   "hours_done": 2.331,
+   "hours_located": 0,
    "hours_mention": 1.301,
-   "density_share": 0.443,
+   "density_share": 0.511,
    "date_min": "2025-10-06",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/sanrafael.json",
@@ -294,16 +294,16 @@
    "n_meetings": 16,
    "meeting_hours": 67.71,
    "n_episodes": 218,
-   "n_done": 54,
-   "n_text": 54,
+   "n_done": 172,
+   "n_text": 172,
    "n_scored": 40,
    "routes": [
     "classifier"
    ],
-   "hours_done": 9.478,
-   "hours_located": 24.301,
+   "hours_done": 35.589,
+   "hours_located": 0,
    "hours_mention": 3.087,
-   "density_share": 0.075,
+   "density_share": 0.044,
    "date_min": "2025-09-25",
    "date_max": "2026-09-10",
    "text_file": "data/episodes/bart.json",
@@ -383,16 +383,16 @@
    "n_meetings": 21,
    "meeting_hours": 98.05,
    "n_episodes": 40,
-   "n_done": 18,
-   "n_text": 18,
+   "n_done": 20,
+   "n_text": 20,
    "n_scored": 16,
    "routes": [
     "classifier"
    ],
-   "hours_done": 5.655,
-   "hours_located": 0.266,
+   "hours_done": 5.955,
+   "hours_located": 0,
    "hours_mention": 1.169,
-   "density_share": 0.587,
+   "density_share": 0.582,
    "date_min": "2025-09-30",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/santarosa.json",
@@ -528,16 +528,16 @@
    "n_meetings": 12,
    "meeting_hours": 46.06,
    "n_episodes": 35,
-   "n_done": 18,
-   "n_text": 18,
+   "n_done": 25,
+   "n_text": 25,
    "n_scored": 18,
    "routes": [
     "classifier"
    ],
-   "hours_done": 3.195,
-   "hours_located": 1.033,
+   "hours_done": 4.345,
+   "hours_located": 0,
    "hours_mention": 0.633,
-   "density_share": 0.872,
+   "density_share": 0.86,
    "date_min": "2026-01-26",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/sanmateo.json",
@@ -557,16 +557,16 @@
    "n_meetings": 18,
    "meeting_hours": 56.42,
    "n_episodes": 16,
-   "n_done": 5,
-   "n_text": 5,
+   "n_done": 7,
+   "n_text": 7,
    "n_scored": 5,
    "routes": [
     "classifier"
    ],
-   "hours_done": 1.05,
-   "hours_located": 0.617,
+   "hours_done": 1.5,
+   "hours_located": 0.2,
    "hours_mention": 0.384,
-   "density_share": 1.0,
+   "density_share": 0.7,
    "date_min": "2025-11-10",
    "date_max": "2026-09-14",
    "text_file": "data/episodes/dalycity.json",
@@ -586,16 +586,16 @@
    "n_meetings": 11,
    "meeting_hours": 20.86,
    "n_episodes": 26,
-   "n_done": 14,
-   "n_text": 14,
+   "n_done": 16,
+   "n_text": 16,
    "n_scored": 14,
    "routes": [
     "classifier"
    ],
-   "hours_done": 1.668,
-   "hours_located": 0.134,
+   "hours_done": 1.835,
+   "hours_located": 0,
    "hours_mention": 0.619,
-   "density_share": 1.0,
+   "density_share": 0.954,
    "date_min": "2025-10-09",
    "date_max": "2026-09-10",
    "text_file": "data/episodes/concord.json",
@@ -644,16 +644,16 @@
    "n_meetings": 19,
    "meeting_hours": 53.27,
    "n_episodes": 31,
-   "n_done": 20,
-   "n_text": 20,
+   "n_done": 26,
+   "n_text": 26,
    "n_scored": 20,
    "routes": [
     "classifier"
    ],
-   "hours_done": 3.409,
-   "hours_located": 0.333,
+   "hours_done": 3.844,
+   "hours_located": 0,
    "hours_mention": 0.25,
-   "density_share": 0.989,
+   "density_share": 0.99,
    "date_min": "2025-09-30",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/losaltos.json",
@@ -674,18 +674,18 @@
    "n_meetings": 31,
    "meeting_hours": 138.74,
    "n_episodes": 430,
-   "n_done": 200,
-   "n_text": 185,
+   "n_done": 205,
+   "n_text": 190,
    "n_scored": 155,
    "routes": [
     "classifier",
     "fullasr",
     "swagit_transcript"
    ],
-   "hours_done": 24.566,
-   "hours_located": 0.317,
+   "hours_done": 24.965,
+   "hours_located": 0,
    "hours_mention": 14.469,
-   "density_share": 0.528,
+   "density_share": 0.536,
    "date_min": "2025-09-29",
    "date_max": "2026-09-14",
    "text_file": "data/episodes/petaluma.json",
@@ -702,19 +702,21 @@
    "platforms": [
     "youtube"
    ],
-   "n_meetings": 3,
-   "meeting_hours": 7.99,
-   "n_episodes": 0,
+   "n_meetings": 20,
+   "meeting_hours": 54.45,
+   "n_episodes": 5,
    "n_done": 0,
    "n_text": 0,
    "n_scored": 0,
-   "routes": [],
+   "routes": [
+    "classifier"
+   ],
    "hours_done": 0.0,
-   "hours_located": 0,
-   "hours_mention": 0,
+   "hours_located": 0.883,
+   "hours_mention": 0.05,
    "density_share": null,
-   "date_min": "2026-01-27",
-   "date_max": "2026-03-24",
+   "date_min": "2025-09-23",
+   "date_max": "2026-09-08",
    "text_file": null,
    "text_bytes": 0
   },

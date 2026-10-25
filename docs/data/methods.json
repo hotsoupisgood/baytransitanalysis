@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24T23:23:09+00:00",
+ "generated": "2026-10-25T08:04:18+00:00",
  "generated_by": "ytpt-site/export/export_methods.py",
  "exploratory": "Exploratory analysis. Stance and tone were coded by a large language model and have not been validated against human coders. No human-coded reference set exists in this chain. Every recall, precision and agreement number on this page compares one large language model against another, or a model against itself. The owner's decision of 2026-10-18 keeps this project in an exploratory phase. No result on this page is confirmatory.",
  "locate": {
@@ -574,30 +574,30 @@
    "threshold": 0.5,
    "min_clusters_per_body": 10,
    "source": "analysis/stance_s1_nimby_view.py",
-   "rule": "The per-cluster YIMBY/NIMBY view is DERIVED from the stance pass, not from the prompt above. Unit: one anonymous diarized speaker cluster inside one episode (episode × cluster). A cluster needs at least one turn carrying a numeric stance. The mean of its turns' median stance is its density stance, on the −2 to +2 stance scale. A cluster is YIMBY if that mean is ≥ +0.5, NIMBY if ≤ −0.5, neutral in between. The threshold is half a codebook step. Only episodes tagged density or both are in scope, since YIMBY/NIMBY is a housing construct. Shares are reported per body with an episode-cluster bootstrap, per locate route, never pooled across routes.",
+   "rule": "The per-cluster YIMBY/NIMBY view is DERIVED from the stance pass, not from the prompt above. Unit: one anonymous diarized speaker cluster inside one episode (episode × cluster). A cluster needs at least one turn carrying a numeric stance. The mean of its turns' median stance is its stance toward more housing or transit, on the −2 to +2 stance scale. A cluster is YIMBY if that mean is ≥ +0.5, NIMBY if ≤ −0.5, neutral in between. The threshold is half a codebook step. Episodes tagged density, both or transit are in scope, and the second pass's direction labels decide the sign on each statement, so support means support for more housing or transit rather than support for whatever proposal was on the agenda. Shares are reported per body with an episode-cluster bootstrap, per locate route, never pooled across routes.",
    "no_linking": "plan/DECISIONS.md #15. The cluster key is (episode_id, cluster), so a speaker is never linked across meetings, and no names or persistent speaker ids are extracted, stored or indexed. A person who speaks at three meetings is three clusters here. A person split across two clusters inside one episode counts twice, and two people merged into one cluster count once.",
    "n_turns": null,
-   "n_clusters": 4765,
+   "n_clusters": 2509,
    "clusters_by_role_label": {
-    "dais/NIMBY": 242,
-    "dais/YIMBY": 530,
-    "dais/neutral": 1798,
-    "dais/no stance": 1047,
-    "public/NIMBY": 500,
-    "public/YIMBY": 421,
-    "public/neutral": 129,
-    "public/no stance": 98
+    "dais/NIMBY": 139,
+    "dais/YIMBY": 324,
+    "dais/neutral": 1034,
+    "dais/no stance": 463,
+    "public/NIMBY": 230,
+    "public/YIMBY": 231,
+    "public/neutral": 64,
+    "public/no stance": 24
    },
    "stamp": "EXPLORATORY, stance κ gate not passed"
   },
   "caveats": [
    {
     "name": "Sign flip on restriction items",
-    "text": "Stance is coded toward the agenda item, not toward housing. Some items are restrictions: a moratorium, rent stabilisation, a height limit. On those items a supportive statement is the NIMBY side and the mapping inverts, so a landlord opposing rent stabilisation is coded +1 on the −2 to +2 stance scale and is counted as YIMBY. This is not a rare edge: 146 of San Leandro's 203 public clusters, 71.9 %, carry sub_topic = affordability_displacement, where the inversion applies. San Leandro is 203 of 1050 public clusters, 19.3 % of the whole public base. Dropping it moves the split of public clusters from 40.1 / 47.6 / 12.3 to 39.2 / 47.6 / 13.2. Each triple is YIMBY, NIMBY and neutral out of 100. Those two splits are recomputed under the audited role over the whole scored frame. When the frame was smaller San Leandro was over a third of the public base and dropping it moved the split, so the near-tie then was partly a San Leandro artefact. On the current frame it is a fifth of the base. The inversion is still wrong for those clusters. It is diluted, not resolved."
+    "text": "Stance is coded toward the agenda item, not toward housing. Some items are restrictions: a moratorium, rent stabilisation, a height limit. On those items a supportive statement is the NIMBY side and the mapping inverts, so a landlord opposing rent stabilisation is coded +1 on the −2 to +2 stance scale and is counted as YIMBY. This is not a rare edge: 1 of San Leandro's 6 public clusters, 16.7 %, carry sub_topic = affordability_displacement, where the inversion applies. San Leandro is 6 of 525 public clusters, 1.1 % of the whole public base. Dropping it moves the split of public clusters from 44.0 / 43.8 / 12.2 to 44.1 / 44.1 / 11.8. Each triple is YIMBY, NIMBY and neutral out of 100. Those two splits are recomputed under the audited role over the whole scored frame. When the frame was smaller San Leandro was over a third of the public base and dropping it moved the split, so the near-tie then was partly a San Leandro artefact. On the current frame it is a fifth of the base. The inversion is still wrong for those clusters. It is diluted, not resolved."
    },
    {
     "name": "Most labels rest on one turn",
-    "text": "Public clusters average 1.12 scored turns, and 1.22 among those with a stance. 86.2 % of cluster labels rest on exactly one scored turn. The mean stance of a speaker is therefore usually the stance of a single utterance, with none of the averaging the word mean implies."
+    "text": "Public clusters average 1.21 scored turns, and 1.26 among those with a stance. 83.8 % of cluster labels rest on exactly one scored turn. The mean stance of a speaker is therefore usually the stance of a single utterance, with none of the averaging the word mean implies."
    }
   ]
  },
@@ -606,7 +606,7 @@
   "entries": [
    {
     "name": "The one model the role gap is reported from",
-    "text": "One row per scored transcript turn, and one outcome per step. The fit is a mixed logistic regression with a separate baseline for every stretch of meeting, every meeting and every body they belong to. Renter share, its interaction with role and the locate route are fixed terms. Intervals are the likely range at 95 %, taken from the likelihood rather than from a standard error. Where the likelihood bounds a term at neither end, the standard-error interval is given and labelled as one. Step one, did a turn take a side at all: over 5,106 stance-bearing turns in 186 meetings, a public turn against a dais one is +2.34 log-odds (+2.14 to +2.55), an odds ratio of 10.39. Step two, which side given a side: over the 2,337 turns that took one, in 180 meetings, public against dais is +0.59 log-odds (+0.35 to +0.84), an odds ratio of 1.81. Where the dependence lies, on step two: the spread between stretches of meeting is 0.96 on the log-odds scale and between meetings 0.81, against 0.00 between bodies. The body variance is zero once meeting is in the model, because meeting is nested inside body and absorbs it. That is why the model groups turns by meeting and not by city, and why the interval on step two is taken from the identical fit with the empty body term dropped. On step one the same three spreads are 0.82, 0.44 and 0.23 on the log-odds scale, and that fit needs no such reparameterisation. Both steps are large in the same direction. What separates them is what they measure. Step one is mostly speech act: 70 % of stance-bearing dais clusters are neutral against 12 % of public ones and chairing, moving and reading a report are all neutral by construction. Step two is the one to quote for a difference in position.",
+    "text": "One row per scored transcript turn, and one outcome per step. The fit is a mixed logistic regression with a separate baseline for every stretch of meeting, every meeting and every body they belong to. Renter share, its interaction with role and the locate route are fixed terms. Intervals are the likely range at 95 %, taken from the likelihood rather than from a standard error. Where the likelihood bounds a term at neither end, the standard-error interval is given and labelled as one. Step one, did a turn take a side at all: over 2,814 stance-bearing turns in 94 meetings, a public turn against a dais one is +2.22 log-odds (+1.94 to +2.51), an odds ratio of 9.19. Step two, which side given a side: over the 1,177 turns that took one, in 84 meetings, public against dais is +0.47 log-odds (+0.14 to +0.80), an odds ratio of 1.60. Where the dependence lies, on step two: the spread between stretches of meeting is 0.96 on the log-odds scale and between meetings 0.81, against 0.00 between bodies. The body variance is zero once meeting is in the model, because meeting is nested inside body and absorbs it. That is why the model groups turns by meeting and not by city, and why the interval on step two is taken from the identical fit with the empty body term dropped. On step one the same three spreads are 0.78, 0.28 and 0.38 on the log-odds scale, and that fit needs no such reparameterisation. Both steps are large in the same direction. What separates them is what they measure. Step one is mostly speech act: 70 % of stance-bearing dais clusters are neutral against 12 % of public ones and chairing, moving and reading a report are all neutral by construction. Step two is the one to quote for a difference in position.",
     "docs": [
      "plan/RENTER-SHARE-6-R.md",
      "analysis/r/export_anyside.py",
@@ -617,7 +617,7 @@
    },
    {
     "name": "The covariates in it",
-    "text": "Renter share does not move either step: on step two its likely range in log-odds runs -0.21 to +0.23, and on step one from -0.03 up, with no upper end the likelihood could bound. The step-two interval is a standard-error one: the likelihood bounded that term at neither end. Both cover zero, and so does its interaction with role. Besides role, one covariate's 95 % likely range excludes zero in this run: transit commute share, at -0.62 log-odds (-0.93 to -0.25). That fit is on body-level rows rather than on turns, because commute share is a property of a city and the turn model does not carry it. It is not the role result and is not on the dashboard. Nothing else in the covariate set survives: the honest summary of that part of the work is negative, and one body, Santa Clara, decides the sign of the renter slope by itself.",
+    "text": "Renter share does not move either step: on step two its likely range in log-odds runs -0.05 to +0.44, and on step one -0.25 to +0.24. Both cover zero, and so does its interaction with role. Besides role, one covariate's 95 % likely range excludes zero in this run: transit commute share, at -0.62 log-odds (-0.93 to -0.25). That fit is on body-level rows rather than on turns, because commute share is a property of a city and the turn model does not carry it. It is not the role result and is not on the dashboard. Nothing else in the covariate set survives: the honest summary of that part of the work is negative, and one body, Santa Clara, decides the sign of the renter slope by itself.",
     "docs": [
      "plan/RENTER-SHARE-6-R.md",
      "plan/RENTER-SHARE-4-SUBSETS.md"
@@ -666,7 +666,7 @@
   ],
   "stamp": "EXPLORATORY. The stance κ ≥ 0.6 hand-coding gate is not passed, and role is an AUDIT (ra-1) whose self-identification is another model's output that no human has checked.",
   "available": true,
-  "source": "output/renter_share_6/"
+  "source": "output/renter_share_6_direction/ (turn outcomes), output/renter_share_6/"
  },
  "limitations": {
   "owner_response": {

@@ -707,8 +707,12 @@ Promise.all([
       route = this.value; pinned = null; pinnedNode = null;
       hideQtip(); draw();
     });
+    // The option value stays the internal route key, which is the join key on every
+    // point; the label is the public name the rest of the page uses for that route
+    // (nimby_points.json meta.route_names, written from the exporter's one map).
+    const routeName = r => ((NP.meta.route_names || {})[r] || r);
     sel.selectAll("option").data(routes).join("option").attr("value", d => d)
-      .text(d => `${d}: ${NP.meta.routes[d].n} speakers`);
+      .text(d => `${routeName(d)} route: ${NP.meta.routes[d].n} public speakers`);
     sel.property("value", route);
     const shown = () => PTS.filter(d => d.route === route);
 
@@ -870,7 +874,7 @@ Promise.all([
       d3.select("#p-nimby").html(`${head(np, {h2: "nimby", defs: false})}${leadFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
-          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the proposal) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
+          <p class="numlede">${fi(nimbyPts.meta.n_points_public)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the proposal) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
           <p class="sctl">Route <select id="nsc-route"></select>
             <span id="nsc-filter" class="note"></span></p>
           <svg id="nsc" role="img" aria-label="Public speaker clusters by mean stance and mean hostility, one dot each"></svg>

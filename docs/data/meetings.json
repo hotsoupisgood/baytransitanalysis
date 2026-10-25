@@ -32,10 +32,10 @@
 "0enI1cmTA2w_m7",
 "0enI1cmTA2w_e16"
 ],
-"hours_done": 0,
-"hours_located": 2.401,
+"hours_done": 2.517,
+"hours_located": 0,
 "n_mention": 7,
-"n_text": 0
+"n_text": 15
 },
 {
 "meeting_id": "bart:2025-10-09",
@@ -55,10 +55,10 @@
 "Ch4gHAtwICg_m2",
 "Ch4gHAtwICg_e14"
 ],
-"hours_done": 0,
-"hours_located": 1.801,
+"hours_done": 1.915,
+"hours_located": 0,
 "n_mention": 1,
-"n_text": 0
+"n_text": 7
 },
 {
 "meeting_id": "bart:2025-10-23",
@@ -84,10 +84,10 @@
 "EducEuZSxs8_m1",
 "EducEuZSxs8_e13"
 ],
-"hours_done": 0,
-"hours_located": 3.316,
+"hours_done": 3.534,
+"hours_located": 0,
 "n_mention": 1,
-"n_text": 0
+"n_text": 13
 },
 {
 "meeting_id": "bart:2025-11-13",
@@ -115,10 +115,10 @@
 "2Tm_r_cPsKY_m4",
 "2Tm_r_cPsKY_e12"
 ],
-"hours_done": 0,
-"hours_located": 3.316,
+"hours_done": 3.514,
+"hours_located": 0,
 "n_mention": 4,
-"n_text": 0
+"n_text": 12
 },
 {
 "meeting_id": "bart:2025-12-18",
@@ -139,10 +139,10 @@
 "tL4EXHZgov4_m4",
 "tL4EXHZgov4_e5"
 ],
-"hours_done": 0,
-"hours_located": 0.667,
+"hours_done": 0.742,
+"hours_located": 0,
 "n_mention": 4,
-"n_text": 0
+"n_text": 5
 },
 {
 "meeting_id": "bart:2026-01-08",
@@ -161,10 +161,10 @@
 "0J6llGb3T0E_e5",
 "0J6llGb3T0E_e6"
 ],
-"hours_done": 0,
-"hours_located": 0.817,
+"hours_done": 0.916,
+"hours_located": 0,
 "n_mention": 1,
-"n_text": 0
+"n_text": 6
 },
 {
 "meeting_id": "bart:2026-01-22",
@@ -192,10 +192,10 @@
 "xiPvwPUGvgA_e14",
 "xiPvwPUGvgA_m2"
 ],
-"hours_done": 0,
-"hours_located": 3.1,
+"hours_done": 3.332,
+"hours_located": 0,
 "n_mention": 2,
-"n_text": 0
+"n_text": 14
 },
 {
 "meeting_id": "bart:2026-03-26",
@@ -215,10 +215,10 @@
 "cQR8bUkc__Y_e9",
 "cQR8bUkc__Y_e6"
 ],
-"hours_done": 0,
-"hours_located": 2.3,
+"hours_done": 2.4,
+"hours_located": 0,
 "n_mention": 2,
-"n_text": 0
+"n_text": 6
 },
 {
 "meeting_id": "bart:2026-04-09",
@@ -237,10 +237,10 @@
 "GG_6X9kzmws_m1",
 "GG_6X9kzmws_e8"
 ],
-"hours_done": 0,
-"hours_located": 1.483,
+"hours_done": 1.585,
+"hours_located": 0,
 "n_mention": 1,
-"n_text": 0
+"n_text": 6
 },
 {
 "meeting_id": "bart:2026-05-14",
@@ -265,10 +265,10 @@
 "B9tKu7RJRlE_e7",
 "B9tKu7RJRlE_e8"
 ],
-"hours_done": 0,
-"hours_located": 1.318,
+"hours_done": 1.449,
+"hours_located": 0,
 "n_mention": 5,
-"n_text": 0
+"n_text": 8
 },
 {
 "meeting_id": "bart:2026-05-28",
@@ -299,10 +299,10 @@
 "h8eBcK77Aus_e20",
 "h8eBcK77Aus_m1"
 ],
-"hours_done": 0,
-"hours_located": 2.066,
+"hours_done": 2.365,
+"hours_located": 0,
 "n_mention": 1,
-"n_text": 0
+"n_text": 18
 },
 {
 "meeting_id": "bart:2026-06-11",
@@ -324,10 +324,10 @@
 "IE3_3Rc6EFc_e9",
 "IE3_3Rc6EFc_m2"
 ],
-"hours_done": 0,
-"hours_located": 1.716,
+"hours_done": 1.842,
+"hours_located": 0,
 "n_mention": 2,
-"n_text": 0
+"n_text": 8
 },
 {
 "meeting_id": "bart:2026-06-25",
@@ -583,10 +583,10 @@
 "MQdQfuoE2Uo_m3",
 "MQdQfuoE2Uo_e3"
 ],
-"hours_done": 0,
-"hours_located": 0.134,
+"hours_done": 0.167,
+"hours_located": 0,
 "n_mention": 2,
-"n_text": 0
+"n_text": 2
 },
 {
 "meeting_id": "concord:2026-08-13",
@@ -641,6 +641,82 @@
 "n_text": 13
 },
 {
+"meeting_id": "cotati:2025-09-23",
+"body": "cotati",
+"date": "2025-09-23",
+"title": "September 23, 2025 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=dGIbQaRA3Io",
+"duration_h": 2.315,
+"episodes": [
+"dGIbQaRA3Io_e1",
+"dGIbQaRA3Io_e2",
+"dGIbQaRA3Io_m1",
+"dGIbQaRA3Io_e3",
+"dGIbQaRA3Io_m2"
+],
+"hours_done": 0,
+"hours_located": 0.883,
+"n_mention": 2,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2025-10-14",
+"body": "cotati",
+"date": "2025-10-14",
+"title": "October 14, 2025 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=Dz_3_ofFEPA",
+"duration_h": 2.141,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2025-10-28",
+"body": "cotati",
+"date": "2025-10-28",
+"title": "October 28, 2025 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=Xm9sLFH61tk",
+"duration_h": 2.264,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2025-12-09",
+"body": "cotati",
+"date": "2025-12-09",
+"title": "December 9, 2025 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=_2tcBNlmUPE",
+"duration_h": 3.542,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-01-13",
+"body": "cotati",
+"date": "2026-01-13",
+"title": "January 13, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=9kBhoJqUllI",
+"duration_h": 4.129,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
 "meeting_id": "cotati:2026-01-27",
 "body": "cotati",
 "date": "2026-01-27",
@@ -669,6 +745,34 @@
 "n_text": 0
 },
 {
+"meeting_id": "cotati:2026-02-24",
+"body": "cotati",
+"date": "2026-02-24",
+"title": "February 24, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=WaOWilgVVCY",
+"duration_h": 2.388,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-03-10",
+"body": "cotati",
+"date": "2026-03-10",
+"title": "March 10, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=6G3Ys48a9DA",
+"duration_h": 2.391,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
 "meeting_id": "cotati:2026-03-24",
 "body": "cotati",
 "date": "2026-03-24",
@@ -676,6 +780,146 @@
 "platform": "youtube",
 "source_url": "https://www.youtube.com/watch?v=ZbLp2nvvNbs",
 "duration_h": 1.495,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-04-14",
+"body": "cotati",
+"date": "2026-04-14",
+"title": "April 14, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=QzGq9NF_Htc",
+"duration_h": 3.74,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-04-28",
+"body": "cotati",
+"date": "2026-04-28",
+"title": "April 28, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=Q9MZDzqCNTs",
+"duration_h": 2.283,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-05-12",
+"body": "cotati",
+"date": "2026-05-12",
+"title": "May 12, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=WrjmJF1gim0",
+"duration_h": 4.533,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-05-26",
+"body": "cotati",
+"date": "2026-05-26",
+"title": "May 26, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=2OlMxCW_Drg",
+"duration_h": 1.918,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-06-09",
+"body": "cotati",
+"date": "2026-06-09",
+"title": "June 9, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=f3x-s6QqS2c",
+"duration_h": 2.922,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-06-23",
+"body": "cotati",
+"date": "2026-06-23",
+"title": "June 23, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=URWLGp5P5xo",
+"duration_h": 3.67,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-07-28",
+"body": "cotati",
+"date": "2026-07-28",
+"title": "July 28, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=Y1Kzry7hbxg",
+"duration_h": 1.867,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-08-11",
+"body": "cotati",
+"date": "2026-08-11",
+"title": "August 11, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=AEfufIINJi4",
+"duration_h": 1.472,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-08-25",
+"body": "cotati",
+"date": "2026-08-25",
+"title": "August 25, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=F8fWcuMgVTE",
+"duration_h": 1.669,
+"episodes": [],
+"hours_done": 0,
+"hours_located": 0,
+"n_mention": 0,
+"n_text": 0
+},
+{
+"meeting_id": "cotati:2026-09-08",
+"body": "cotati",
+"date": "2026-09-08",
+"title": "September 8, 2026 City Council Meeting",
+"platform": "youtube",
+"source_url": "https://www.youtube.com/watch?v=_q199hGYSqc",
+"duration_h": 3.212,
 "episodes": [],
 "hours_done": 0,
 "hours_located": 0,
@@ -1357,10 +1601,10 @@
 "FuUJp_ogD_Y_e3",
 "FuUJp_ogD_Y_e4"
 ],
-"hours_done": 0,
-"hours_located": 0.417,
+"hours_done": 0.45,
+"hours_located": 0,
 "n_mention": 0,
-"n_text": 0
+"n_text": 2
 },
 {
 "meeting_id": "dalycity:2026-07-27",
@@ -3594,10 +3838,10 @@
 "8UMqPdwVHkw_e5",
 "8UMqPdwVHkw_e6"
 ],
-"hours_done": 0,
-"hours_located": 0.333,
+"hours_done": 0.435,
+"hours_located": 0,
 "n_mention": 3,
-"n_text": 0
+"n_text": 6
 },
 {
 "meeting_id": "losaltos:2026-08-25",
@@ -6943,10 +7187,10 @@
 "D5PLaHE9MMk_m3",
 "D5PLaHE9MMk_e2"
 ],
-"hours_done": 0,
-"hours_located": 0.133,
+"hours_done": 0.166,
+"hours_located": 0,
 "n_mention": 4,
-"n_text": 0
+"n_text": 2
 },
 {
 "meeting_id": "petaluma:2026-08-03",
@@ -6966,10 +7210,10 @@
 "U1Pva1fkJRw_m7",
 "U1Pva1fkJRw_m3"
 ],
-"hours_done": 0,
-"hours_located": 0.184,
+"hours_done": 0.233,
+"hours_located": 0,
 "n_mention": 5,
-"n_text": 0
+"n_text": 3
 },
 {
 "meeting_id": "petaluma:2026-09-14",
@@ -9548,10 +9792,10 @@
 "KgVr19ciQ1c_e2",
 "KgVr19ciQ1c_m3"
 ],
-"hours_done": 0,
-"hours_located": 0.1,
+"hours_done": 0.117,
+"hours_located": 0,
 "n_mention": 1,
-"n_text": 0
+"n_text": 1
 },
 {
 "meeting_id": "sanjose:2025-09-30",
@@ -9573,10 +9817,10 @@
 "P0rxq42sckU_e6",
 "P0rxq42sckU_m10"
 ],
-"hours_done": 0,
-"hours_located": 1.117,
+"hours_done": 1.166,
+"hours_located": 0,
 "n_mention": 7,
-"n_text": 0
+"n_text": 3
 },
 {
 "meeting_id": "sanjose:2025-10-07",
@@ -9591,10 +9835,10 @@
 "aCgt28zoi4A_e1",
 "aCgt28zoi4A_m3"
 ],
-"hours_done": 0,
-"hours_located": 0.067,
+"hours_done": 0.083,
+"hours_located": 0,
 "n_mention": 2,
-"n_text": 0
+"n_text": 1
 },
 {
 "meeting_id": "sanjose:2025-10-21",
@@ -9613,10 +9857,10 @@
 "A993VSuqNtY_e3",
 "A993VSuqNtY_m6"
 ],
-"hours_done": 0,
-"hours_located": 0.134,
+"hours_done": 0.166,
+"hours_located": 0,
 "n_mention": 5,
-"n_text": 0
+"n_text": 2
 },
 {
 "meeting_id": "sanjose:2025-10-28",
@@ -9640,10 +9884,10 @@
 "ZyT3Y6RgxYo_e6",
 "ZyT3Y6RgxYo_e7"
 ],
-"hours_done": 0,
-"hours_located": 0.85,
+"hours_done": 0.967,
+"hours_located": 0,
 "n_mention": 5,
-"n_text": 0
+"n_text": 7
 },
 {
 "meeting_id": "sanjose:2025-11-04",
@@ -9680,10 +9924,10 @@
 "4mvGLqa-G70_m3",
 "4mvGLqa-G70_m4"
 ],
-"hours_done": 0,
-"hours_located": 0.083,
+"hours_done": 0.1,
+"hours_located": 0,
 "n_mention": 5,
-"n_text": 0
+"n_text": 1
 },
 {
 "meeting_id": "sanjose:2025-12-02",
@@ -11201,10 +11445,10 @@
 "qybbBlBiTzg_e7",
 "qybbBlBiTzg_m3"
 ],
-"hours_done": 0,
-"hours_located": 1.033,
+"hours_done": 1.15,
+"hours_located": 0,
 "n_mention": 4,
-"n_text": 0
+"n_text": 7
 },
 {
 "meeting_id": "sanmateo:2026-08-17",
@@ -11276,10 +11520,10 @@
 "MpxrGRb16HQ_e3",
 "MpxrGRb16HQ_m3"
 ],
-"hours_done": 0,
-"hours_located": 0.333,
+"hours_done": 0.382,
+"hours_located": 0,
 "n_mention": 3,
-"n_text": 0
+"n_text": 3
 },
 {
 "meeting_id": "sanrafael:2025-10-20",
@@ -11300,10 +11544,10 @@
 "gy1u-FH_WBI_e1",
 "gy1u-FH_WBI_m8"
 ],
-"hours_done": 0,
-"hours_located": 0.067,
+"hours_done": 0.083,
+"hours_located": 0,
 "n_mention": 8,
-"n_text": 0
+"n_text": 1
 },
 {
 "meeting_id": "sanrafael:2025-11-03",
@@ -13155,10 +13399,10 @@
 "3ADva8kemRA_m3",
 "3ADva8kemRA_m6"
 ],
-"hours_done": 0,
-"hours_located": 0.266,
+"hours_done": 0.3,
+"hours_located": 0,
 "n_mention": 6,
-"n_text": 0
+"n_text": 2
 },
 {
 "meeting_id": "santarosa:2026-07-28",
