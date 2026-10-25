@@ -1,0 +1,35 @@
+body,name,county,kind,lat,lon,site
+sanjose,San José City Council,Santa Clara,council,37.3382,-121.8863,City Hall
+sanrafael,San Rafael City Council,Marin,council,37.9735,-122.5311,City Hall
+bart,BART Board of Directors,Alameda,transit,37.8059,-122.2661,HQ (Oakland)
+oakland,Oakland City Council,Alameda,council,37.8052,-122.2727,City Hall
+sunnyvale,Sunnyvale City Council,Santa Clara,council,37.3688,-122.0363,City Hall
+santarosa,Santa Rosa City Council,Sonoma,council,38.4405,-122.7144,City Hall
+healdsburg,Healdsburg City Council,Sonoma,council,38.6102,-122.8694,City Hall
+rohnertpark,Rohnert Park City Council,Sonoma,council,38.3396,-122.7011,City Hall
+paloalto,Palo Alto City Council,Santa Clara,council,37.4443,-122.1598,City Hall
+cupertino,Cupertino City Council,Santa Clara,council,37.3230,-122.0322,City Hall
+sanmateo,San Mateo City Council,San Mateo,council,37.5630,-122.3255,City Hall
+dalycity,Daly City City Council,San Mateo,council,37.6879,-122.4702,City Hall
+concord,Concord City Council,Contra Costa,council,37.9780,-122.0311,City Hall
+milpitas,Milpitas City Council,Santa Clara,council,37.4323,-121.8996,City Hall
+losaltos,Los Altos City Council,Santa Clara,council,37.3852,-122.1141,City Hall
+petaluma,Petaluma City Council,Sonoma,council,38.2324,-122.6367,City Hall
+cotati,Cotati City Council,Sonoma,council,38.3277,-122.7072,City Hall
+vta,VTA Board of Directors,Santa Clara,transit,37.4005,-121.9336,HQ (San José)
+sanfrancisco,San Francisco Board of Supervisors,San Francisco,council,37.7793,-122.4193,City Hall
+mountainview,Mountain View City Council,Santa Clara,council,37.3894,-122.0819,City Hall
+fremont,Fremont City Council,Alameda,council,37.5485,-121.9886,City Hall
+santaclara,Santa Clara City Council,Santa Clara,council,37.3541,-121.9552,City Hall
+alameda,Alameda City Council,Alameda,council,37.7652,-122.2416,City Hall
+richmond,Richmond City Council,Contra Costa,council,37.9358,-122.3477,City Hall
+hayward,Hayward City Council,Alameda,council,37.6688,-122.0808,City Hall
+sanleandro,San Leandro City Council,Alameda,council,37.7249,-122.1561,City Hall
+walnutcreek,Walnut Creek City Council,Contra Costa,council,37.9101,-122.0652,City Hall
+sausalito,Sausalito City Council,Marin,council,37.8591,-122.4853,City Hall
+napa,Napa County Board of Supervisors,Napa,county,38.2975,-122.2869,County Administration
+samtrans,SamTrans Board of Directors,San Mateo,transit,37.5072,-122.2605,HQ (San Carlos)
+pleasanton,Pleasanton City Council,Alameda,council,37.6624,-121.8747,City Hall
+livermore,Livermore City Council,Alameda,council,37.6819,-121.7680,City Hall
+vallejo,Vallejo City Council,Solano,council,38.1041,-122.2566,City Hall
+sfmta,SFMTA Board of Directors,San Francisco,transit,37.7752,-122.4189,HQ (San Francisco)

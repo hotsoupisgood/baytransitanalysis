@@ -28691,8 +28691,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 33,
+"n_scored_turns": 0,
+"words": 2051
 },
 {
 "episode_id": "0J6llGb3T0E_e2",
@@ -28715,8 +28718,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.6 s from the start, speech until -0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 26,
+"n_scored_turns": 0,
+"words": 1773
 },
 {
 "episode_id": "0J6llGb3T0E_e3",
@@ -28739,8 +28745,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 5,
+"n_scored_turns": 0,
+"words": 747
 },
 {
 "episode_id": "0J6llGb3T0E_e4",
@@ -28763,8 +28772,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 24,
+"n_scored_turns": 0,
+"words": 1903
 },
 {
 "episode_id": "0J6llGb3T0E_e5",
@@ -28787,8 +28799,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.8 s from the start, speech until 2.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 28,
+"n_scored_turns": 0,
+"words": 1012
 },
 {
 "episode_id": "0J6llGb3T0E_e6",
@@ -28811,8 +28826,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 19,
+"n_scored_turns": 0,
+"words": 677
 },
 {
 "episode_id": "0J6llGb3T0E_m1",
@@ -29270,8 +29288,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 40,
+"n_scored_turns": 0,
+"words": 2150
 },
 {
 "episode_id": "0enI1cmTA2w_e2",
@@ -29294,8 +29315,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 4.3 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 21,
+"n_scored_turns": 0,
+"words": 1333
 },
 {
 "episode_id": "0enI1cmTA2w_e3",
@@ -29318,8 +29342,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 2.7 s from the start, speech until 0.8 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 1500
 },
 {
 "episode_id": "0enI1cmTA2w_e4",
@@ -29342,8 +29369,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "1 gaps >30s (longest 48s at 1.9 min) | info: edge: speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 1341
 },
 {
 "episode_id": "0enI1cmTA2w_e5",
@@ -29366,8 +29396,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 2082
 },
 {
 "episode_id": "0enI1cmTA2w_e6",
@@ -29390,8 +29423,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 2.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 3,
+"n_scored_turns": 0,
+"words": 322
 },
 {
 "episode_id": "0enI1cmTA2w_e7",
@@ -29414,8 +29450,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 704
 },
 {
 "episode_id": "0enI1cmTA2w_e8",
@@ -29438,8 +29477,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until 0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 816
 },
 {
 "episode_id": "0enI1cmTA2w_e9",
@@ -29462,8 +29504,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.9 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 12,
+"n_scored_turns": 0,
+"words": 592
 },
 {
 "episode_id": "0enI1cmTA2w_e10",
@@ -29510,8 +29555,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 18,
+"n_scored_turns": 0,
+"words": 764
 },
 {
 "episode_id": "0enI1cmTA2w_e12",
@@ -29534,8 +29582,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.0 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 11,
+"n_scored_turns": 0,
+"words": 414
 },
 {
 "episode_id": "0enI1cmTA2w_e13",
@@ -29558,8 +29609,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.6 s from the start, speech until 0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 41,
+"n_scored_turns": 0,
+"words": 5167
 },
 {
 "episode_id": "0enI1cmTA2w_e14",
@@ -29582,8 +29636,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 1.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 42,
+"n_scored_turns": 0,
+"words": 3111
 },
 {
 "episode_id": "0enI1cmTA2w_m1",
@@ -29774,8 +29831,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "1 gaps >30s (longest 45s at 0.9 min) | info: edge: speech until -0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 45,
+"n_scored_turns": 0,
+"words": 1975
 },
 {
 "episode_id": "2Tm_r_cPsKY_e2",
@@ -29798,8 +29858,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 28,
+"n_scored_turns": 0,
+"words": 1855
 },
 {
 "episode_id": "2Tm_r_cPsKY_e3",
@@ -29822,8 +29885,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 29,
+"n_scored_turns": 0,
+"words": 1939
 },
 {
 "episode_id": "2Tm_r_cPsKY_e4",
@@ -29846,8 +29912,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "1 gaps >30s (longest 32s at 1.0 min) | info: edge: speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 113,
+"n_scored_turns": 0,
+"words": 9434
 },
 {
 "episode_id": "2Tm_r_cPsKY_e7",
@@ -29870,8 +29939,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 836
 },
 {
 "episode_id": "2Tm_r_cPsKY_e8",
@@ -29894,8 +29966,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.7 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 21,
+"n_scored_turns": 0,
+"words": 1116
 },
 {
 "episode_id": "2Tm_r_cPsKY_e9",
@@ -29918,8 +29993,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 45,
+"n_scored_turns": 0,
+"words": 3447
 },
 {
 "episode_id": "2Tm_r_cPsKY_e10",
@@ -29942,8 +30020,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 375
 },
 {
 "episode_id": "2Tm_r_cPsKY_e11",
@@ -29966,8 +30047,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until -0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 765
 },
 {
 "episode_id": "2Tm_r_cPsKY_e12",
@@ -29990,8 +30074,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 20,
+"n_scored_turns": 0,
+"words": 1406
 },
 {
 "episode_id": "2Tm_r_cPsKY_m1",
@@ -30701,8 +30788,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "2 gaps >30s (longest 47s at 0.4 min) | info: edge: speech at 0.1 s from the start, speech until 3.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 6,
+"n_scored_turns": 0,
+"words": 650
 },
 {
 "episode_id": "4mvGLqa-G70_m1",
@@ -31454,8 +31544,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 2,
+"n_scored_turns": 0,
+"words": 362
 },
 {
 "episode_id": "8UMqPdwVHkw_e3",
@@ -31478,8 +31571,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until -0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 4,
+"n_scored_turns": 0,
+"words": 465
 },
 {
 "episode_id": "8UMqPdwVHkw_e4",
@@ -31502,8 +31598,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 1.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 16,
+"n_scored_turns": 0,
+"words": 772
 },
 {
 "episode_id": "8UMqPdwVHkw_e5",
@@ -31526,8 +31625,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.2 s from the start, speech until -0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 9,
+"n_scored_turns": 0,
+"words": 564
 },
 {
 "episode_id": "8UMqPdwVHkw_e6",
@@ -31546,12 +31648,15 @@
 "dais": 6,
 "public": 0,
 "staff": 0,
-"unknown": 0
+"unknown": 1
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 25,
+"n_scored_turns": 0,
+"words": 996
 },
 {
 "episode_id": "8UMqPdwVHkw_m1",
@@ -31694,8 +31799,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 11,
+"n_scored_turns": 0,
+"words": 697
 },
 {
 "episode_id": "A993VSuqNtY_m1",
@@ -31766,8 +31874,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 519
 },
 {
 "episode_id": "B9tKu7RJRlE_e2",
@@ -31790,8 +31901,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.0 s from the start, speech until 3.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 15,
+"n_scored_turns": 0,
+"words": 723
 },
 {
 "episode_id": "B9tKu7RJRlE_e3",
@@ -31810,12 +31924,15 @@
 "dais": 3,
 "public": 1,
 "staff": 0,
-"unknown": 1
+"unknown": 2
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 28,
+"n_scored_turns": 0,
+"words": 1233
 },
 {
 "episode_id": "B9tKu7RJRlE_e4",
@@ -31838,8 +31955,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until -0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 20,
+"n_scored_turns": 0,
+"words": 1973
 },
 {
 "episode_id": "B9tKu7RJRlE_e6",
@@ -31862,8 +31982,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 11,
+"n_scored_turns": 0,
+"words": 1313
 },
 {
 "episode_id": "B9tKu7RJRlE_e7",
@@ -31886,8 +32009,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 11,
+"n_scored_turns": 0,
+"words": 472
 },
 {
 "episode_id": "B9tKu7RJRlE_e8",
@@ -31910,8 +32036,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 1.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 58,
+"n_scored_turns": 0,
+"words": 3835
 },
 {
 "episode_id": "B9tKu7RJRlE_m1",
@@ -32723,8 +32852,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until -0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 360
 },
 {
 "episode_id": "Ch4gHAtwICg_e5",
@@ -32747,8 +32879,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until -0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 308
 },
 {
 "episode_id": "D5PLaHE9MMk_e1",
@@ -32771,8 +32906,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until -0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 4,
+"n_scored_turns": 0,
+"words": 823
 },
 {
 "episode_id": "D5PLaHE9MMk_e2",
@@ -32795,8 +32933,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 22,
+"n_scored_turns": 0,
+"words": 540
 },
 {
 "episode_id": "D5PLaHE9MMk_m2",
@@ -33074,8 +33215,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 28,
+"n_scored_turns": 0,
+"words": 1288
 },
 {
 "episode_id": "EducEuZSxs8_e2",
@@ -33098,8 +33242,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 19,
+"n_scored_turns": 0,
+"words": 1891
 },
 {
 "episode_id": "EducEuZSxs8_e3",
@@ -33122,8 +33269,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.7 s from the start, speech until 2.8 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 564
 },
 {
 "episode_id": "EducEuZSxs8_e4",
@@ -33146,8 +33296,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until -0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 38,
+"n_scored_turns": 0,
+"words": 2349
 },
 {
 "episode_id": "EducEuZSxs8_e5",
@@ -33170,8 +33323,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "9 identical segments in a row (13.8 s) at 55.1 min | info: edge: speech at 0.1 s from the start (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 116,
+"n_scored_turns": 0,
+"words": 8999
 },
 {
 "episode_id": "EducEuZSxs8_e6",
@@ -33190,12 +33346,15 @@
 "dais": 4,
 "public": 0,
 "staff": 0,
-"unknown": 1
+"unknown": 2
 },
 "qa_status": "WARN",
 "qa_issues": "1 gaps >30s (longest 30s at 0.8 min) | info: edge: speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 15,
+"n_scored_turns": 0,
+"words": 2237
 },
 {
 "episode_id": "EducEuZSxs8_e7",
@@ -33218,8 +33377,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 34,
+"n_scored_turns": 0,
+"words": 5443
 },
 {
 "episode_id": "EducEuZSxs8_e8",
@@ -33242,8 +33404,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.7 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 21,
+"n_scored_turns": 0,
+"words": 2107
 },
 {
 "episode_id": "EducEuZSxs8_e9",
@@ -33266,8 +33431,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 1.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 9,
+"n_scored_turns": 0,
+"words": 1058
 },
 {
 "episode_id": "EducEuZSxs8_e10",
@@ -33290,8 +33458,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 688
 },
 {
 "episode_id": "EducEuZSxs8_e11",
@@ -33314,8 +33485,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 6,
+"n_scored_turns": 0,
+"words": 614
 },
 {
 "episode_id": "EducEuZSxs8_e13",
@@ -33338,8 +33512,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 1.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 6,
+"n_scored_turns": 0,
+"words": 303
 },
 {
 "episode_id": "EducEuZSxs8_m1",
@@ -33460,12 +33637,15 @@
 "dais": 7,
 "public": 2,
 "staff": 0,
-"unknown": 0
+"unknown": 1
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 67,
+"n_scored_turns": 0,
+"words": 4290
 },
 {
 "episode_id": "GG_6X9kzmws_e8",
@@ -33488,8 +33668,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 59,
+"n_scored_turns": 0,
+"words": 2049
 },
 {
 "episode_id": "GG_6X9kzmws_m1",
@@ -33725,8 +33908,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 57,
+"n_scored_turns": 0,
+"words": 4683
 },
 {
 "episode_id": "IE3_3Rc6EFc_e3",
@@ -33749,8 +33935,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.7 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 1249
 },
 {
 "episode_id": "IE3_3Rc6EFc_e6",
@@ -33773,8 +33962,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 928
 },
 {
 "episode_id": "IE3_3Rc6EFc_e7",
@@ -33797,8 +33989,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 666
 },
 {
 "episode_id": "IE3_3Rc6EFc_e8",
@@ -33821,8 +34016,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 556
 },
 {
 "episode_id": "IE3_3Rc6EFc_e9",
@@ -33845,8 +34043,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.8 s from the start, speech until 2.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 36,
+"n_scored_turns": 0,
+"words": 2677
 },
 {
 "episode_id": "IE3_3Rc6EFc_m1",
@@ -34775,8 +34976,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 5,
+"n_scored_turns": 0,
+"words": 596
 },
 {
 "episode_id": "MpxrGRb16HQ_e3",
@@ -34799,8 +35003,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.0 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 30,
+"n_scored_turns": 0,
+"words": 2007
 },
 {
 "episode_id": "MpxrGRb16HQ_m1",
@@ -34847,8 +35054,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until -0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 4,
+"n_scored_turns": 0,
+"words": 972
 },
 {
 "episode_id": "P0rxq42sckU_e3",
@@ -34871,8 +35081,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 297
 },
 {
 "episode_id": "P0rxq42sckU_m2",
@@ -35480,8 +35693,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 3,
+"n_scored_turns": 0,
+"words": 683
 },
 {
 "episode_id": "U1Pva1fkJRw_e2",
@@ -35504,8 +35720,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.8 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 681
 },
 {
 "episode_id": "U1Pva1fkJRw_e3",
@@ -35528,8 +35747,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.8 s from the start, speech until 0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 3,
+"n_scored_turns": 0,
+"words": 636
 },
 {
 "episode_id": "U1Pva1fkJRw_m3",
@@ -35576,8 +35798,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 2.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 4,
+"n_scored_turns": 0,
+"words": 477
 },
 {
 "episode_id": "ZyT3Y6RgxYo_e2",
@@ -35600,8 +35825,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until -0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 12,
+"n_scored_turns": 0,
+"words": 482
 },
 {
 "episode_id": "ZyT3Y6RgxYo_e3",
@@ -35624,8 +35852,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 1.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 813
 },
 {
 "episode_id": "ZyT3Y6RgxYo_e6",
@@ -35648,8 +35879,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 2.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 30,
+"n_scored_turns": 0,
+"words": 4064
 },
 {
 "episode_id": "ZyT3Y6RgxYo_e7",
@@ -35672,8 +35906,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until -0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 772
 },
 {
 "episode_id": "ZyT3Y6RgxYo_m1",
@@ -36053,8 +36290,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until -0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 4,
+"n_scored_turns": 0,
+"words": 985
 },
 {
 "episode_id": "bO6F7ESU5CU_e1",
@@ -36284,8 +36524,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 45,
+"n_scored_turns": 0,
+"words": 2048
 },
 {
 "episode_id": "cQR8bUkc__Y_e2",
@@ -36308,8 +36551,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 32,
+"n_scored_turns": 0,
+"words": 1261
 },
 {
 "episode_id": "cQR8bUkc__Y_e3",
@@ -36332,8 +36578,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 21,
+"n_scored_turns": 0,
+"words": 1377
 },
 {
 "episode_id": "cQR8bUkc__Y_e4",
@@ -36356,8 +36605,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 2.1 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 26,
+"n_scored_turns": 0,
+"words": 2207
 },
 {
 "episode_id": "cQR8bUkc__Y_m1",
@@ -36902,8 +37154,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until -0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 6,
+"n_scored_turns": 0,
+"words": 737
 },
 {
 "episode_id": "gy1u-FH_WBI_m1",
@@ -37094,8 +37349,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 15,
+"n_scored_turns": 0,
+"words": 617
 },
 {
 "episode_id": "h8eBcK77Aus_e6",
@@ -37118,8 +37376,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 12,
+"n_scored_turns": 0,
+"words": 489
 },
 {
 "episode_id": "h8eBcK77Aus_e7",
@@ -37142,8 +37403,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 1.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 12,
+"n_scored_turns": 0,
+"words": 612
 },
 {
 "episode_id": "h8eBcK77Aus_e8",
@@ -37166,8 +37430,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until -0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 900
 },
 {
 "episode_id": "h8eBcK77Aus_e9",
@@ -37190,8 +37457,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.4 s from the start, speech until 2.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 4,
+"n_scored_turns": 0,
+"words": 621
 },
 {
 "episode_id": "h8eBcK77Aus_e10",
@@ -37214,8 +37484,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until -0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 15,
+"n_scored_turns": 0,
+"words": 860
 },
 {
 "episode_id": "h8eBcK77Aus_e12",
@@ -37238,8 +37511,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 332
 },
 {
 "episode_id": "h8eBcK77Aus_e13",
@@ -37262,8 +37538,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until -0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 5,
+"n_scored_turns": 0,
+"words": 696
 },
 {
 "episode_id": "h8eBcK77Aus_e14",
@@ -37286,8 +37565,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 1.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 14,
+"n_scored_turns": 0,
+"words": 697
 },
 {
 "episode_id": "h8eBcK77Aus_e15",
@@ -37310,8 +37592,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 14,
+"n_scored_turns": 0,
+"words": 526
 },
 {
 "episode_id": "h8eBcK77Aus_e16",
@@ -37334,8 +37619,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 433
 },
 {
 "episode_id": "h8eBcK77Aus_e17",
@@ -37358,8 +37646,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until -0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 1283
 },
 {
 "episode_id": "h8eBcK77Aus_e20",
@@ -37382,8 +37673,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 37,
+"n_scored_turns": 0,
+"words": 1605
 },
 {
 "episode_id": "h8eBcK77Aus_m1",
@@ -38384,8 +38678,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "4 repetitive segments (gzip ratio >2.4), first at 1.6 min -- listen: likely a decoder loop | info: edge: speech at 0.0 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 1590
 },
 {
 "episode_id": "qybbBlBiTzg_e3",
@@ -38408,8 +38705,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "3 repetitive segments (gzip ratio >2.4), first at 1.2 min -- listen: likely a decoder loop | info: edge: speech at 0.9 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 6,
+"n_scored_turns": 0,
+"words": 1355
 },
 {
 "episode_id": "qybbBlBiTzg_e4",
@@ -38432,8 +38732,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "1 repetitive segments (gzip ratio >2.4), first at 8.8 min -- listen: likely a decoder loop | 2 segments >35 chars/s, first at 9.7 min | info: edge: speech at 0.3 s from the start, speech until 0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 2643
 },
 {
 "episode_id": "qybbBlBiTzg_e5",
@@ -38456,8 +38759,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 9,
+"n_scored_turns": 0,
+"words": 585
 },
 {
 "episode_id": "qybbBlBiTzg_e6",
@@ -38480,8 +38786,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 1.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 40,
+"n_scored_turns": 0,
+"words": 1271
 },
 {
 "episode_id": "qybbBlBiTzg_e7",
@@ -38504,8 +38813,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.7 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 1548
 },
 {
 "episode_id": "qybbBlBiTzg_m2",
@@ -39283,12 +39595,15 @@
 "dais": 2,
 "public": 0,
 "staff": 0,
-"unknown": 0
+"unknown": 1
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 1.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 19,
+"n_scored_turns": 0,
+"words": 2014
 },
 {
 "episode_id": "tL4EXHZgov4_e2",
@@ -39311,8 +39626,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 16,
+"n_scored_turns": 0,
+"words": 1010
 },
 {
 "episode_id": "tL4EXHZgov4_e3",
@@ -39335,8 +39653,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "4 minutes with >2x the captions' words (possible hallucination) at 2m, 4m, 8m, 9m | info: edge: speech at 0.1 s from the start, speech until 1.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 34,
+"n_scored_turns": 0,
+"words": 1338
 },
 {
 "episode_id": "tL4EXHZgov4_e4",
@@ -39359,8 +39680,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.9 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 24,
+"n_scored_turns": 0,
+"words": 592
 },
 {
 "episode_id": "tL4EXHZgov4_e5",
@@ -39383,8 +39707,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 3.8 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 12,
+"n_scored_turns": 0,
+"words": 827
 },
 {
 "episode_id": "tL4EXHZgov4_m1",
@@ -39818,8 +40145,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 2.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 28,
+"n_scored_turns": 0,
+"words": 1518
 },
 {
 "episode_id": "xiPvwPUGvgA_e2",
@@ -39842,8 +40172,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 1431
 },
 {
 "episode_id": "xiPvwPUGvgA_e4",
@@ -39866,8 +40199,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 2.5 s from the start, speech until -0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 11,
+"n_scored_turns": 0,
+"words": 478
 },
 {
 "episode_id": "xiPvwPUGvgA_e5",
@@ -39890,8 +40226,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 989
 },
 {
 "episode_id": "xiPvwPUGvgA_e6",
@@ -39914,8 +40253,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 3.9 s from the start, speech until 1.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 20,
+"n_scored_turns": 0,
+"words": 1949
 },
 {
 "episode_id": "xiPvwPUGvgA_e7",
@@ -39938,8 +40280,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 10,
+"n_scored_turns": 0,
+"words": 2280
 },
 {
 "episode_id": "xiPvwPUGvgA_e8",
@@ -39962,8 +40307,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 9,
+"n_scored_turns": 0,
+"words": 1619
 },
 {
 "episode_id": "xiPvwPUGvgA_e9",
@@ -39986,8 +40334,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.6 s from the start, speech until 1.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 42,
+"n_scored_turns": 0,
+"words": 3784
 },
 {
 "episode_id": "xiPvwPUGvgA_e10",
@@ -40010,8 +40361,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.9 s from the start, speech until 0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 540
 },
 {
 "episode_id": "xiPvwPUGvgA_e11",
@@ -40034,8 +40388,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.6 s from the start, speech until 1.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 57,
+"n_scored_turns": 0,
+"words": 3358
 },
 {
 "episode_id": "xiPvwPUGvgA_e12",
@@ -40058,8 +40415,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 850
 },
 {
 "episode_id": "xiPvwPUGvgA_e13",
@@ -40082,8 +40442,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 1.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 42,
+"n_scored_turns": 0,
+"words": 4727
 },
 {
 "episode_id": "xiPvwPUGvgA_e14",
@@ -40106,8 +40469,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 2.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 25,
+"n_scored_turns": 0,
+"words": 1866
 },
 {
 "episode_id": "xiPvwPUGvgA_m1",
@@ -41432,8 +41798,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "1 gaps >30s (longest 32s at 0.4 min) | info: edge: speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 1379
 },
 {
 "episode_id": "3ADva8kemRA_m4",
@@ -41528,8 +41897,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 670
 },
 {
 "episode_id": "8UMqPdwVHkw_m2",
@@ -41600,8 +41972,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until 1.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 17,
+"n_scored_turns": 0,
+"words": 989
 },
 {
 "episode_id": "FuUJp_ogD_Y_e4",
@@ -41624,8 +41999,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 32,
+"n_scored_turns": 0,
+"words": 2762
 },
 {
 "episode_id": "gr-sanleandro-3188_m3",
@@ -44114,8 +44492,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 41,
+"n_scored_turns": 0,
+"words": 2694
 },
 {
 "episode_id": "gr-napa-5713_e1",
@@ -44561,8 +44942,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 4,
+"n_scored_turns": 0,
+"words": 594
 },
 {
 "episode_id": "-12hHY34G_8_e10",
@@ -47513,8 +47897,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 2.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 334
 },
 {
 "episode_id": "2Tm_r_cPsKY_e13",
@@ -47537,8 +47924,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 39,
+"n_scored_turns": 0,
+"words": 6093
 },
 {
 "episode_id": "2Tm_r_cPsKY_e14",
@@ -47561,8 +47951,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 1,
+"n_scored_turns": 0,
+"words": 638
 },
 {
 "episode_id": "3ADva8kemRA_e2",
@@ -47585,8 +47978,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 1.0 s from the start, speech until 1.6 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 1224
 },
 {
 "episode_id": "3ADva8kemRA_m7",
@@ -48164,8 +48560,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 1.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 32,
+"n_scored_turns": 0,
+"words": 737
 },
 {
 "episode_id": "A993VSuqNtY_m4",
@@ -48284,8 +48683,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until -0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 6,
+"n_scored_turns": 0,
+"words": 2137
 },
 {
 "episode_id": "BG_HcK9lZ4Y_e13",
@@ -48701,8 +49103,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 102,
+"n_scored_turns": 0,
+"words": 5713
 },
 {
 "episode_id": "Ch4gHAtwICg_e11",
@@ -48725,8 +49130,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 1.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 9,
+"n_scored_turns": 0,
+"words": 699
 },
 {
 "episode_id": "Ch4gHAtwICg_e12",
@@ -48749,8 +49157,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until 0.8 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 591
 },
 {
 "episode_id": "Ch4gHAtwICg_e13",
@@ -48769,12 +49180,15 @@
 "dais": 13,
 "public": 0,
 "staff": 0,
-"unknown": 0
+"unknown": 1
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 1.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 125,
+"n_scored_turns": 0,
+"words": 7739
 },
 {
 "episode_id": "Ch4gHAtwICg_e14",
@@ -48797,8 +49211,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 26,
+"n_scored_turns": 0,
+"words": 1882
 },
 {
 "episode_id": "Ch4gHAtwICg_m2",
@@ -49322,8 +49739,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until -0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 22,
+"n_scored_turns": 0,
+"words": 1500
 },
 {
 "episode_id": "GG_6X9kzmws_e10",
@@ -49346,8 +49766,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 12,
+"n_scored_turns": 0,
+"words": 967
 },
 {
 "episode_id": "GG_6X9kzmws_e11",
@@ -49370,8 +49793,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 40,
+"n_scored_turns": 0,
+"words": 2914
 },
 {
 "episode_id": "GG_6X9kzmws_e12",
@@ -49394,8 +49820,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.2 s from the start, speech until -0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 47,
+"n_scored_turns": 0,
+"words": 2465
 },
 {
 "episode_id": "GdHeZnb59iw_e17",
@@ -49523,8 +49952,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.6 s from the start, speech until 0.2 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 5,
+"n_scored_turns": 0,
+"words": 586
 },
 {
 "episode_id": "IE3_3Rc6EFc_e11",
@@ -49547,8 +49979,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "1 minutes with <1/2 the captions' words (possible dropped speech) at 29m | info: edge: speech at 0.3 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 36,
+"n_scored_turns": 0,
+"words": 4844
 },
 {
 "episode_id": "Iq3oosyneaM_m4",
@@ -49850,8 +50285,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 8,
+"n_scored_turns": 0,
+"words": 1193
 },
 {
 "episode_id": "KgVr19ciQ1c_m3",
@@ -49898,8 +50336,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until -0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 13,
+"n_scored_turns": 0,
+"words": 599
 },
 {
 "episode_id": "MQdQfuoE2Uo_e3",
@@ -49922,8 +50363,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.9 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 934
 },
 {
 "episode_id": "MQdQfuoE2Uo_m2",
@@ -50090,8 +50534,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 3,
+"n_scored_turns": 0,
+"words": 935
 },
 {
 "episode_id": "MpxrGRb16HQ_m2",
@@ -50332,12 +50779,15 @@
 "dais": 5,
 "public": 11,
 "staff": 0,
-"unknown": 2
+"unknown": 3
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.5 s from the start, speech until 1.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 71,
+"n_scored_turns": 0,
+"words": 8631
 },
 {
 "episode_id": "P0rxq42sckU_m6",
@@ -51068,8 +51518,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.3 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 5,
+"n_scored_turns": 0,
+"words": 965
 },
 {
 "episode_id": "ZyT3Y6RgxYo_e9",
@@ -51092,8 +51545,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.3 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 7,
+"n_scored_turns": 0,
+"words": 1100
 },
 {
 "episode_id": "ZyT3Y6RgxYo_m6",
@@ -51578,8 +52034,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 74,
+"n_scored_turns": 0,
+"words": 8616
 },
 {
 "episode_id": "cQR8bUkc__Y_e6",
@@ -51602,8 +52061,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start, speech until 0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 80,
+"n_scored_turns": 0,
+"words": 6282
 },
 {
 "episode_id": "d29-b82BSHg_e4",
@@ -57980,8 +58442,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 43,
+"n_scored_turns": 0,
+"words": 2206
 },
 {
 "episode_id": "h8eBcK77Aus_e22",
@@ -58004,8 +58469,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.4 s from the start, speech until -0.0 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 50,
+"n_scored_turns": 0,
+"words": 5483
 },
 {
 "episode_id": "h8eBcK77Aus_e23",
@@ -58028,8 +58496,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "3 identical segments in a row (4.4 s) at 1.0 min | info: edge: speech at 0.0 s from the start, speech until 0.5 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 10,
+"n_scored_turns": 0,
+"words": 1082
 },
 {
 "episode_id": "h8eBcK77Aus_e24",
@@ -58052,8 +58523,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.1 s from the start, speech until 0.1 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 15,
+"n_scored_turns": 0,
+"words": 1286
 },
 {
 "episode_id": "h8eBcK77Aus_e25",
@@ -58076,8 +58550,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.0 s from the start (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 24,
+"n_scored_turns": 0,
+"words": 1363
 },
 {
 "episode_id": "hZ04_fO0htU_e8",
@@ -58898,8 +59375,11 @@
 },
 "qa_status": "WARN",
 "qa_issues": "1 gaps >30s (longest 53s at 1.7 min) | info: edge: speech at 0.9 s from the start, speech until 0.7 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 10,
+"n_scored_turns": 0,
+"words": 1762
 },
 {
 "episode_id": "qybbBlBiTzg_m4",
@@ -59693,8 +60173,11 @@
 },
 "qa_status": "OK",
 "qa_issues": "info: edge: speech at 0.7 s from the start, speech until -0.4 s before the end (pad in continuous speech; core window unaffected)",
-"has_text": false,
-"stance_coverage": "none"
+"has_text": true,
+"stance_coverage": "none",
+"n_turns": 30,
+"n_scored_turns": 0,
+"words": 3567
 },
 {
 "episode_id": "gr-richmond-6013_e4",

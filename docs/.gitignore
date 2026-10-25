@@ -28,6 +28,17 @@ data/*
 !data/flow.json
 !data/methods.json
 
+# An INPUT to export_site_data.py and export_nimby_points.py, not fetched by any
+# page. A11, 2026-10-25: committed after all. It is 2 KB of hand-entered public
+# reference data (body, display name, county, kind, coordinates), not exported
+# data, and it is the list the published body count and meeting-hour total are
+# built from. While it stayed local, a body added to `sources` and not added here
+# fell inside the meeting total and outside the body list: that is how "709
+# meetings of 33 bodies" came to be 709 of 34 (SFMTA, review GAP 7).
+# export_site_data.py now refuses to export while the two disagree, and the file
+# its guard names has to be in version control to help any machine but this one.
+!data/bodies_geo.csv
+
 # index.html hard-codes LEAD_EPISODE = "gr-fremont-21_e4" and loads that body's
 # turns on first paint, so this one shard (0.43 MB) is part of the landing view.
 # Without it the published page logs a 404 before anyone clicks anything.
@@ -40,9 +51,6 @@ data/episodes/*
 #                       fetched only when a reader opens that body. They 404 on
 #                       the published site; loadText() catches it and shows an
 #                       empty text pane. See README.md "Dashboard".
-#   data/bodies_geo.csv an INPUT to export_site_data.py and
-#                       export_nimby_points.py, not loaded by any page. Keep a
-#                       local copy or the exporters cannot run.
 #   data/site_numbers.json  written by export_panels.py, read by no page today.
 #   data/tables/        copied from output/analysis/models/, read by no page today.
 

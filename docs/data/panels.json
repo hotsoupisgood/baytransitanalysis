@@ -1,9 +1,9 @@
 {
-"generated": "2026-10-25T02:47-07:00",
+"generated": "2026-10-25T10:40-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
 "goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. A second pass recorded whether that proposal would add or restrict housing or transit. Each was scored three times and the median calculated. This is an exploratory analysis used to better understand the data and inspire future planned analysis.",
-"scope": "Corpus: 709 meetings of 33 Bay Area bodies, 2,332 hours of video, and 15,961 scored statements, a statement being one speaker turn.",
+"scope": "Discovered: 709 meetings of 34 Bay Area bodies, 2,412 hours of video. Transcribed and scored: 15,961 statements from 1,841 transcribed stretches, a statement being one speaker turn.",
 "note": "",
 "spend": {
 "usd": 155.64,
@@ -18,10 +18,10 @@
 },
 "as_of": "2026-10-25",
 "totals": {
-"bodies": 33,
+"bodies": 34,
 "bodies_with_hours": 27,
 "meetings": 709,
-"meeting_hours": 2331.8,
+"meeting_hours": 2412.4,
 "episodes": 4959,
 "episodes_done": 1982,
 "episodes_scored": 1239,
@@ -42,25 +42,25 @@
 "role_pred": {
 "title": "Telling officials from the public, without reading the transcript",
 "text": "A second model is given 35 coded measures of what each speaker said, and none of the transcript. Its task is to pick the member of the public out of one public and one dais speaker. It picks correctly 8 times out of 10, against 5 times out of 10 for chance. What separates the two is how strong an opinion a statement carries, not which side it is on.",
-"detail": "The features are stance, hostility, the twelve frames, sub-topic and length, and two of them do nearly all the work: dropping absolute stance costs 0.14 of AUC and dropping length 0.04, with nothing else over 0.02. Signed stance on its own is at chance: 0.44 by cluster, against 0.50 for a coin. So the model is not learning who is a NIMBY, it is learning who holds a position at all. Two caveats. Calibration does not travel: the ranking holds between bodies but the probabilities do not, at a slope of 0.63 out of body, so this is a measurement of how separable the two roles are and not a classifier anyone should point at a new city. And the target here is the diarization-cue role. Fitted against the audited role the same model reaches 0.86, but that number is circular. The audit is itself built from what a speaker says about who they are, so the model is partly predicting its own input.",
-"auc_cluster": 0.8019794842347703,
-"auc_turn": 0.7751403513289657,
-"cal_slope_cluster": 0.626481400462586,
-"signed_stance_only": 0.43504610758310136,
-"n_clusters": 2813,
-"n_turns": 13123,
+"detail": "The features are stance, hostility, the twelve frames, sub-topic and length, and two of them do nearly all the work: dropping absolute stance costs 0.14 of AUC and dropping length 0.04, with nothing else over 0.02. Signed stance on its own is at chance: 0.45 by cluster, against 0.50 for a coin. So the model is not learning who is a NIMBY, it is learning who holds a position at all. Two caveats. Calibration does not travel: the ranking holds between bodies but the probabilities do not, at a slope of 0.54 out of body, so this is a measurement of how separable the two roles are and not a classifier anyone should point at a new city. And the target here is the diarization-cue role. Fitted against the audited role the same model reaches 0.85, but that number is circular. The audit is itself built from what a speaker says about who they are, so the model is partly predicting its own input.",
+"auc_cluster": 0.7863484503112986,
+"auc_turn": 0.7661222194277861,
+"cal_slope_cluster": 0.5420992110318541,
+"signed_stance_only": 0.4530697785186949,
+"n_clusters": 2022,
+"n_turns": 15961,
 "holdout": "leave-one-body-out (every meeting of a body held out together)",
 "top_features": [
 {
 "feature": "stance_median_f",
-"auc_drop": 0.1449
+"auc_drop": 0.1359
 },
 {
 "feature": "log_words",
-"auc_drop": 0.0356
+"auc_drop": 0.0395
 }
 ],
-"audited_auc_cluster": 0.8649659183945468,
+"audited_auc_cluster": 0.8508572700957472,
 "audited_note": "The audited role is itself derived from what the speaker says about who they are, so a content model predicting it is partly predicting its own input. These AUCs are not comparable to the cue-role ones.",
 "source": "output/role_prediction/cv_performance.csv, perm_importance_*.csv"
 },
@@ -1167,70 +1167,70 @@
 ],
 "role_side": {
 "title": "Who takes a side",
-"headline": "Public speakers took a side on 81.4 % of the statements that carried a stance, against 32.3 % of dais statements. Public statements that took a side opposed more housing or transit significantly more often than dais ones: 52.0 % against 37.2 %.",
+"headline": "Public speakers took a side on 81.9 % of the statements that carried a stance, against 34.0 % of dais statements. Public statements that took a side opposed more housing or transit significantly more often than dais ones: 49.6 % against 35.6 %.",
 "model_line": "A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.",
 "steps": [
 {
 "name": "Took a side at all",
-"text": "9.19\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 6.93 to 12.32).",
-"odds_ratio": 9.186383936613431,
-"beta": 2.21772238087314,
+"text": "8.57\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 6.63 to 11.19).",
+"odds_ratio": 8.568090451497833,
+"beta": 2.14804488998723,
 "ci95": [
-1.93652860438856,
-2.51091533789346
+1.89184333539976,
+2.41457648090501
 ]
 },
 {
 "name": "Which side, given a side",
-"text": "1.60\u00d7 the odds of opposing more housing or transit rather than supporting it, for a public statement against a dais one (likely range 1.15 to 2.22).",
-"odds_ratio": 1.5966867446344917,
-"beta": 0.467930697603307,
+"text": "1.64\u00d7 the odds of opposing more housing or transit rather than supporting it, for a public statement against a dais one (likely range 1.21 to 2.22).",
+"odds_ratio": 1.6388863888229677,
+"beta": 0.494016979984494,
 "ci95": [
-0.136811422880306,
-0.799127928679659
+0.19447273320494,
+0.796919481609381
 ]
 }
 ],
 "restated": "",
-"why": "Behind the two steps: 81.4 % of public turns take a side rather than scoring inside the neutral band, against 32.3 % of dais turns; of the turns that do take one, 52.0 % of public turns come out against more housing or transit against 37.2 % of dais ones. The two steps are separate fits on their own rows and do not multiply together. Almost all the dependence in this corpus is inside meetings rather than between bodies: on the second step the spread between stretches of meeting is 0.96 and between meetings 0.81 on the log-odds scale, while the spread between bodies is 0.00 once meeting is in the model. Which is why the model groups turns by meeting and not by city. Renter share does not move either step: its interval covers zero on both, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
+"why": "Behind the two steps: 81.9 % of public turns take a side rather than scoring inside the neutral band, against 34.0 % of dais turns; of the turns that do take one, 49.6 % of public turns come out against more housing or transit against 35.6 % of dais ones. The two steps are separate fits on their own rows and do not multiply together. Almost all the dependence in this corpus is inside meetings rather than between bodies: on the second step the spread between stretches of meeting is 0.96 and between meetings 0.81 on the log-odds scale, while the spread between bodies is 0.00 once meeting is in the model. Which is why the model groups turns by meeting and not by city. Renter share does not move either step: its interval covers zero on both, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
 "table": [
 {
 "what": "Took a side at all, of every turn with a stance",
-"odds_ratio": 9.186383936613431,
+"odds_ratio": 8.568090451497833,
 "or_ci95": [
-6.934636273100648,
-12.316198385646912
+6.631581650498183,
+11.185032279541804
 ],
-"delta": 2.21772238087314,
+"delta": 2.14804488998723,
 "ci95": [
-1.93652860438856,
-2.51091533789346
+1.89184333539976,
+2.41457648090501
 ],
-"turns": 2814,
-"episodes": 335,
-"meetings": 94
+"turns": 3251,
+"episodes": 408,
+"meetings": 116
 },
 {
 "what": "Against more housing or transit rather than for it, of the turns that took a side",
-"odds_ratio": 1.5966867446344917,
+"odds_ratio": 1.6388863888229677,
 "or_ci95": [
-1.1466119033614517,
-2.2236009441018068
+1.2146703622656656,
+2.218695657637785
 ],
-"delta": 0.467930697603307,
+"delta": 0.494016979984494,
 "ci95": [
-0.136811422880306,
-0.799127928679659
+0.19447273320494,
+0.796919481609381
 ],
-"turns": 1177,
-"episodes": 273,
-"meetings": 84
+"turns": 1422,
+"episodes": 340,
+"meetings": 108
 }
 ],
 "table_note": "Odds ratios are for a public turn against a dais one, with renter share, its interaction with role and the locate route also in the model, and with a baseline per body, per meeting and per stretch of meeting. Each likely range is a 95 % interval taken from the likelihood rather than from a standard error, which is why it is not symmetric around the estimate.",
 "limits": "The unit here is a scored turn, not a person, and both the stance score and the public/dais label are model output that no human has checked. The role label comes from what a speaker says about who they are. The first step is largely a measure of speech act rather than opinion: chairing, moving and reading a report are all neutral by construction, and they are things only the dais does. The second step's interval is slightly wider than the data require, because the optimiser stops just short of the likelihood's peak and the interval was taken at a loosened tolerance. And the permutation test once quoted for this gap has been withdrawn; the evidence here is this model and nothing else.",
 "sources": [
-"output/renter_share_6_direction/ (turn outcomes), output/renter_share_6/",
+"output/renter_share_6_fullset_direction_loose/ (turn outcomes), output/renter_share_6/",
 "analysis/r/export_anyside.py",
 "analysis/r/export_for_r.py",
 "analysis/r/turn_anyside.R",
@@ -5929,7 +5929,7 @@
 "paragraphs": [
 "On 2026-10-24, at the owner's request, the published YIMBY and NIMBY view moved from the frame of 2026-10-18 to the full statement set. The old frame held 9,358 statements. It left out 3,680 statements scored on 2026-10-19 and 20 and all 2,923 statements on the full recording route. The full set holds every scored statement, 15,961 in all. By route: 7,161 on the captions route, 2,923 on the full recording route, 2,572 on the own audio route, 2,153 on the agenda index route and 1,152 on the transcript route. After the direction pass's exclusions, 6,657 of them carry a speaker label, against 4,235 before.",
 "A route is which transcript source a meeting came from. The captions route uses YouTube captions. The transcript route uses a city's own transcript. The agenda index route cuts the meeting at the agenda item's time stamp. The own audio route is audio this project transcribed itself. The full recording route transcribed the whole meeting from its audio and checked every 2-minute window for the topic, with no keyword screen. Its statements come from housing stretches only. From 2026-10-25 the public YIMBY and NIMBY chart combines a body's routes. The before-and-after below is per route, as it was written. The note on the combined view gives both.",
-"Before and after. Public speakers with a stance: 274 before, 525 after. Of every 100, YIMBY 46.7 and NIMBY 39.4 before, YIMBY 44.0 and NIMBY 43.8 after. Body and route groups with at least 10 public speakers: 8 before, 16 after. Groups with a significant difference: 1 before (Petaluma on the transcript route) and 1 after (Petaluma on the transcript route). The star rule, the direction rule and the seed did not change. The role test and the renter regression were fit again on the full set. Their entries in section 5 give both results.",
+"Before and after. Public speakers with a stance: 274 before, 525 after. Of every 100, YIMBY 46.7 and NIMBY 39.4 before, YIMBY 44.0 and NIMBY 43.8 after. Body and route groups with at least 10 public speakers: 8 before, 16 after. Groups with a significant difference: 1 before (Petaluma on the transcript route) and 1 after (Petaluma on the transcript route). The star rule, the direction rule and the seed did not change. The role test and the renter regression were fit again on the full set. Their entries in section 5 give both results. On 2026-10-25 the last two findings on the old frames followed it. The two turn-level odds, taking a side and which side, went from 2,814 and 1,177 statements to 3,251 and 1,422: the odds of a public statement taking a side moved from 9.19 to 8.57 times the dais odds, and the odds of opposing from 1.60 to 1.64. Telling officials from the public went from 2,813 speakers and 13,123 statements to 2,022 and 15,961. No conclusion changed.",
 "Code: analysis/build_full_frame.py writes the frame, output/stance_s1/full_frame_2026-10-24.csv. analysis/stance_s1_role_audit_view.py runs on it and writes output/stance_s1/nimby_view_fullset/. The 2026-10-18 frame, output/stance_s1/s1_frame.csv, and its outputs are kept. analysis/fullset_before_after.py prints the full table. plan/DECISIONS.md records it as a dated note under decision 20. Spend on 2026-10-24: $0."
 ],
 "counts": {
@@ -10359,7 +10359,7 @@
 "stamp": "Rates are a measurement, not a model estimate. Each likely range is a 95 % episode bootstrap.",
 "lede": "",
 "headline": [
-"The two transit boards gave housing density and transit the most meeting time: BART 29.14 and VTA 27.00 minutes of each meeting-hour.",
+"Of the transit boards with a measurable rate, BART and VTA gave housing density and transit the most meeting time: 29.14 and 27.00 minutes of each meeting-hour.",
 "Napa County gave them 1.78 to 2.48 minutes, depending on which route read the meeting."
 ],
 "complete": [
