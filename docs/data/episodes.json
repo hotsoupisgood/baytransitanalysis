@@ -78,7 +78,7 @@
 "stance_coverage": "s1",
 "n_turns": 31,
 "n_scored_turns": 25,
-"words": 3446
+"words": 3445
 },
 {
 "episode_id": "EqZPNTTUr8A_e4",
@@ -945,7 +945,7 @@
 "stance_coverage": "s1",
 "n_turns": 21,
 "n_scored_turns": 17,
-"words": 3357
+"words": 3356
 },
 {
 "episode_id": "l-xT4ramOmU_m1",
@@ -1350,7 +1350,7 @@
 "stance_coverage": "s1",
 "n_turns": 26,
 "n_scored_turns": 19,
-"words": 1430
+"words": 1428
 },
 {
 "episode_id": "qIlAln3uR7U_e6",
@@ -1458,7 +1458,7 @@
 "stance_coverage": "s1",
 "n_turns": 13,
 "n_scored_turns": 5,
-"words": 257
+"words": 256
 },
 {
 "episode_id": "qIlAln3uR7U_e10",
@@ -1593,7 +1593,7 @@
 "stance_coverage": "s1",
 "n_turns": 119,
 "n_scored_turns": 67,
-"words": 8405
+"words": 8404
 },
 {
 "episode_id": "qIlAln3uR7U_e15",
@@ -1974,7 +1974,7 @@
 "stance_coverage": "s1",
 "n_turns": 23,
 "n_scored_turns": 22,
-"words": 1790
+"words": 1789
 },
 {
 "episode_id": "sU-D8Y6cC7w_e7",
@@ -2001,7 +2001,7 @@
 "stance_coverage": "s1",
 "n_turns": 10,
 "n_scored_turns": 9,
-"words": 1126
+"words": 1125
 },
 {
 "episode_id": "sU-D8Y6cC7w_e8",
@@ -2154,7 +2154,7 @@
 "stance_coverage": "s1",
 "n_turns": 23,
 "n_scored_turns": 13,
-"words": 2296
+"words": 2295
 },
 {
 "episode_id": "bZYmKjlkr9U_e2",
@@ -2262,7 +2262,7 @@
 "stance_coverage": "s1",
 "n_turns": 41,
 "n_scored_turns": 35,
-"words": 2425
+"words": 2424
 },
 {
 "episode_id": "bZYmKjlkr9U_e6",
@@ -2424,7 +2424,7 @@
 "stance_coverage": "s1",
 "n_turns": 25,
 "n_scored_turns": 24,
-"words": 2803
+"words": 2802
 },
 {
 "episode_id": "bZYmKjlkr9U_e12",
@@ -2451,7 +2451,7 @@
 "stance_coverage": "s1",
 "n_turns": 51,
 "n_scored_turns": 30,
-"words": 3632
+"words": 3631
 },
 {
 "episode_id": "bZYmKjlkr9U_e13",
@@ -2658,7 +2658,7 @@
 "stance_coverage": "s1",
 "n_turns": 14,
 "n_scored_turns": 11,
-"words": 562
+"words": 561
 },
 {
 "episode_id": "gr-oakland-7576_m1",
@@ -2991,7 +2991,7 @@
 "stance_coverage": "s1",
 "n_turns": 63,
 "n_scored_turns": 56,
-"words": 8054
+"words": 8053
 },
 {
 "episode_id": "BKKMX16na0k_e7",
@@ -3093,7 +3093,7 @@
 "stance_coverage": "s1",
 "n_turns": 9,
 "n_scored_turns": 9,
-"words": 1350
+"words": 1349
 },
 {
 "episode_id": "GB1Kt-RfyjY_e2",
@@ -3411,7 +3411,7 @@
 "stance_coverage": "s1",
 "n_turns": 66,
 "n_scored_turns": 51,
-"words": 4213
+"words": 4209
 },
 {
 "episode_id": "GdHeZnb59iw_e2",
@@ -3465,7 +3465,7 @@
 "stance_coverage": "s1",
 "n_turns": 33,
 "n_scored_turns": 24,
-"words": 3535
+"words": 3532
 },
 {
 "episode_id": "GdHeZnb59iw_e4",
@@ -3921,7 +3921,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 6,
-"words": 1232
+"words": 1231
 },
 {
 "episode_id": "MvfG35JeCwA_e2",
@@ -4569,7 +4569,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 6,
-"words": 1973
+"words": 1972
 },
 {
 "episode_id": "UEV2mj4Qf-s_e10",
@@ -4785,7 +4785,7 @@
 "stance_coverage": "s1",
 "n_turns": 6,
 "n_scored_turns": 5,
-"words": 558
+"words": 557
 },
 {
 "episode_id": "UEV2mj4Qf-s_e18",
@@ -5112,7 +5112,7 @@
 "stance_coverage": "s1",
 "n_turns": 5,
 "n_scored_turns": 5,
-"words": 833
+"words": 831
 },
 {
 "episode_id": "ag678vV_olc_e3",
@@ -5166,7 +5166,7 @@
 "stance_coverage": "s1",
 "n_turns": 57,
 "n_scored_turns": 45,
-"words": 7819
+"words": 7818
 },
 {
 "episode_id": "ag678vV_olc_m2",
@@ -6030,7 +6030,7 @@
 "stance_coverage": "s1",
 "n_turns": 2,
 "n_scored_turns": 2,
-"words": 701
+"words": 700
 },
 {
 "episode_id": "gr-fremont-13_e3",
@@ -6108,7 +6108,7 @@
 "stance_coverage": "s1",
 "n_turns": 62,
 "n_scored_turns": 44,
-"words": 4148
+"words": 4147
 },
 {
 "episode_id": "gr-fremont-16_e2",
@@ -8196,7 +8196,7 @@
 "stance_coverage": "s1",
 "n_turns": 5,
 "n_scored_turns": 4,
-"words": 650
+"words": 648
 },
 {
 "episode_id": "gr-oakland-7506_e2",
@@ -8346,7 +8346,7 @@
 "stance_coverage": "s1",
 "n_turns": 27,
 "n_scored_turns": 20,
-"words": 1822
+"words": 1821
 },
 {
 "episode_id": "WIGr3Mc7kvw_m1",
@@ -8445,7 +8445,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 6,
-"words": 557
+"words": 556
 },
 {
 "episode_id": "mpbBPvyGNMo_e2",
@@ -8472,7 +8472,7 @@
 "stance_coverage": "s1",
 "n_turns": 15,
 "n_scored_turns": 11,
-"words": 1500
+"words": 1494
 },
 {
 "episode_id": "mpbBPvyGNMo_e3",
@@ -8838,7 +8838,7 @@
 "stance_coverage": "s1",
 "n_turns": 46,
 "n_scored_turns": 27,
-"words": 3432
+"words": 3430
 },
 {
 "episode_id": "gr-napa-5792_a1",
@@ -8865,7 +8865,7 @@
 "stance_coverage": "s1",
 "n_turns": 39,
 "n_scored_turns": 30,
-"words": 2192
+"words": 2191
 },
 {
 "episode_id": "gr-napa-5753_a1",
@@ -8892,7 +8892,7 @@
 "stance_coverage": "s1",
 "n_turns": 49,
 "n_scored_turns": 40,
-"words": 9384
+"words": 9383
 },
 {
 "episode_id": "gr-napa-5749_a1",
@@ -8946,7 +8946,7 @@
 "stance_coverage": "s1",
 "n_turns": 30,
 "n_scored_turns": 24,
-"words": 7930
+"words": 7929
 },
 {
 "episode_id": "gr-napa-5691_a1",
@@ -8973,7 +8973,7 @@
 "stance_coverage": "s1",
 "n_turns": 39,
 "n_scored_turns": 33,
-"words": 8888
+"words": 8887
 },
 {
 "episode_id": "gr-napa-5691_a2",
@@ -9054,7 +9054,7 @@
 "stance_coverage": "s1",
 "n_turns": 26,
 "n_scored_turns": 20,
-"words": 4357
+"words": 4356
 },
 {
 "episode_id": "gr-samtrans-1532_a3",
@@ -9135,7 +9135,7 @@
 "stance_coverage": "s1",
 "n_turns": 66,
 "n_scored_turns": 48,
-"words": 8776
+"words": 8768
 },
 {
 "episode_id": "gr-samtrans-1467_a2",
@@ -9189,7 +9189,7 @@
 "stance_coverage": "s1",
 "n_turns": 15,
 "n_scored_turns": 12,
-"words": 1226
+"words": 1224
 },
 {
 "episode_id": "gr-santaclara-2592_a1",
@@ -9297,7 +9297,7 @@
 "stance_coverage": "s1",
 "n_turns": 25,
 "n_scored_turns": 14,
-"words": 8317
+"words": 8315
 },
 {
 "episode_id": "gr-santaclara-2561_a2",
@@ -9351,7 +9351,7 @@
 "stance_coverage": "s1",
 "n_turns": 66,
 "n_scored_turns": 52,
-"words": 2856
+"words": 2855
 },
 {
 "episode_id": "gr-santaclara-2556_a1",
@@ -9432,7 +9432,7 @@
 "stance_coverage": "s1",
 "n_turns": 75,
 "n_scored_turns": 38,
-"words": 5985
+"words": 5984
 },
 {
 "episode_id": "gr-santaclara-2517_a1",
@@ -9513,7 +9513,7 @@
 "stance_coverage": "s1",
 "n_turns": 154,
 "n_scored_turns": 113,
-"words": 7767
+"words": 7766
 },
 {
 "episode_id": "gr-santaclara-2497_a1",
@@ -9567,7 +9567,7 @@
 "stance_coverage": "s1",
 "n_turns": 43,
 "n_scored_turns": 33,
-"words": 3579
+"words": 3578
 },
 {
 "episode_id": "gr-santaclara-2482_a1",
@@ -9621,7 +9621,7 @@
 "stance_coverage": "s1",
 "n_turns": 60,
 "n_scored_turns": 47,
-"words": 5205
+"words": 5199
 },
 {
 "episode_id": "gr-santaclara-2452_a1",
@@ -9648,7 +9648,7 @@
 "stance_coverage": "s1",
 "n_turns": 32,
 "n_scored_turns": 23,
-"words": 8029
+"words": 8028
 },
 {
 "episode_id": "gr-santaclara-2447_a1",
@@ -9675,7 +9675,7 @@
 "stance_coverage": "s1",
 "n_turns": 55,
 "n_scored_turns": 48,
-"words": 2253
+"words": 2250
 },
 {
 "episode_id": "gr-santaclara-2425_a1",
@@ -9702,7 +9702,7 @@
 "stance_coverage": "s1",
 "n_turns": 41,
 "n_scored_turns": 33,
-"words": 7408
+"words": 7404
 },
 {
 "episode_id": "gr-santaclara-2425_a2",
@@ -9729,7 +9729,7 @@
 "stance_coverage": "s1",
 "n_turns": 108,
 "n_scored_turns": 79,
-"words": 5811
+"words": 5806
 },
 {
 "episode_id": "gr-santaclara-2404_a1",
@@ -9756,7 +9756,7 @@
 "stance_coverage": "s1",
 "n_turns": 57,
 "n_scored_turns": 42,
-"words": 8180
+"words": 8178
 },
 {
 "episode_id": "gr-santaclara-2398_a1",
@@ -9783,7 +9783,7 @@
 "stance_coverage": "s1",
 "n_turns": 40,
 "n_scored_turns": 31,
-"words": 6238
+"words": 6236
 },
 {
 "episode_id": "gr-santaclara-2398_a2",
@@ -9864,7 +9864,7 @@
 "stance_coverage": "s1",
 "n_turns": 150,
 "n_scored_turns": 106,
-"words": 8456
+"words": 8455
 },
 {
 "episode_id": "gr-sausalito-1867_a1",
@@ -9918,7 +9918,7 @@
 "stance_coverage": "s1",
 "n_turns": 102,
 "n_scored_turns": 88,
-"words": 9462
+"words": 9461
 },
 {
 "episode_id": "gr-sausalito-1834_a1",
@@ -9945,7 +9945,7 @@
 "stance_coverage": "s1",
 "n_turns": 143,
 "n_scored_turns": 121,
-"words": 9544
+"words": 9543
 },
 {
 "episode_id": "gr-sausalito-1826_a1",
@@ -9999,7 +9999,7 @@
 "stance_coverage": "s1",
 "n_turns": 332,
 "n_scored_turns": 234,
-"words": 16423
+"words": 16419
 },
 {
 "episode_id": "gr-sausalito-1817_a1",
@@ -10161,7 +10161,7 @@
 "stance_coverage": "s1",
 "n_turns": 16,
 "n_scored_turns": 13,
-"words": 3643
+"words": 3641
 },
 {
 "episode_id": "gr-santaclara-2398_e2",
@@ -10320,7 +10320,7 @@
 "stance_coverage": "s1",
 "n_turns": 25,
 "n_scored_turns": 17,
-"words": 2346
+"words": 2345
 },
 {
 "episode_id": "gr-santaclara-2404_e2",
@@ -10374,7 +10374,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 7,
-"words": 568
+"words": 567
 },
 {
 "episode_id": "gr-santaclara-2404_m1",
@@ -10572,7 +10572,7 @@
 "stance_coverage": "s1",
 "n_turns": 4,
 "n_scored_turns": 3,
-"words": 474
+"words": 473
 },
 {
 "episode_id": "gr-santaclara-2412_m1",
@@ -10881,7 +10881,7 @@
 "stance_coverage": "s1",
 "n_turns": 8,
 "n_scored_turns": 7,
-"words": 1557
+"words": 1555
 },
 {
 "episode_id": "gr-santaclara-2425_e2",
@@ -10962,7 +10962,7 @@
 "stance_coverage": "s1",
 "n_turns": 17,
 "n_scored_turns": 16,
-"words": 1691
+"words": 1690
 },
 {
 "episode_id": "gr-santaclara-2425_e5",
@@ -11016,7 +11016,7 @@
 "stance_coverage": "s1",
 "n_turns": 29,
 "n_scored_turns": 24,
-"words": 2134
+"words": 2133
 },
 {
 "episode_id": "gr-santaclara-2425_e7",
@@ -11070,7 +11070,7 @@
 "stance_coverage": "s1",
 "n_turns": 13,
 "n_scored_turns": 11,
-"words": 1626
+"words": 1625
 },
 {
 "episode_id": "gr-santaclara-2425_e9",
@@ -11097,7 +11097,7 @@
 "stance_coverage": "s1",
 "n_turns": 15,
 "n_scored_turns": 12,
-"words": 661
+"words": 659
 },
 {
 "episode_id": "gr-santaclara-2425_e10",
@@ -12039,7 +12039,7 @@
 "stance_coverage": "s1",
 "n_turns": 22,
 "n_scored_turns": 15,
-"words": 1207
+"words": 1203
 },
 {
 "episode_id": "gr-santaclara-2468_e2",
@@ -12066,7 +12066,7 @@
 "stance_coverage": "s1",
 "n_turns": 45,
 "n_scored_turns": 30,
-"words": 4105
+"words": 4102
 },
 {
 "episode_id": "gr-santaclara-2468_e3",
@@ -12174,7 +12174,7 @@
 "stance_coverage": "s1",
 "n_turns": 9,
 "n_scored_turns": 8,
-"words": 683
+"words": 681
 },
 {
 "episode_id": "gr-santaclara-2482_e4",
@@ -12324,7 +12324,7 @@
 "stance_coverage": "s1",
 "n_turns": 18,
 "n_scored_turns": 14,
-"words": 2855
+"words": 2854
 },
 {
 "episode_id": "gr-santaclara-2497_e2",
@@ -12351,7 +12351,7 @@
 "stance_coverage": "s1",
 "n_turns": 8,
 "n_scored_turns": 6,
-"words": 538
+"words": 537
 },
 {
 "episode_id": "gr-santaclara-2497_e3",
@@ -12879,7 +12879,7 @@
 "stance_coverage": "s1",
 "n_turns": 52,
 "n_scored_turns": 45,
-"words": 2428
+"words": 2427
 },
 {
 "episode_id": "gr-santaclara-2507_e2",
@@ -13317,7 +13317,7 @@
 "stance_coverage": "s1",
 "n_turns": 20,
 "n_scored_turns": 17,
-"words": 1884
+"words": 1883
 },
 {
 "episode_id": "gr-santaclara-2517_e10",
@@ -14652,7 +14652,7 @@
 "stance_coverage": "s1",
 "n_turns": 25,
 "n_scored_turns": 20,
-"words": 1315
+"words": 1314
 },
 {
 "episode_id": "gr-santaclara-2592_e2",
@@ -14985,7 +14985,7 @@
 "stance_coverage": "s1",
 "n_turns": 57,
 "n_scored_turns": 30,
-"words": 2193
+"words": 2192
 },
 {
 "episode_id": "gr-richmond-6025_e2",
@@ -15117,7 +15117,7 @@
 "stance_coverage": "s1",
 "n_turns": 10,
 "n_scored_turns": 9,
-"words": 669
+"words": 668
 },
 {
 "episode_id": "gr-sanleandro-3195_e2",
@@ -15423,7 +15423,7 @@
 "stance_coverage": "s1",
 "n_turns": 92,
 "n_scored_turns": 75,
-"words": 7796
+"words": 7794
 },
 {
 "episode_id": "gr-sanleandro-3186_m2",
@@ -16221,7 +16221,7 @@
 "stance_coverage": "s1",
 "n_turns": 56,
 "n_scored_turns": 42,
-"words": 2465
+"words": 2464
 },
 {
 "episode_id": "gr-richmond-6000_m1",
@@ -16626,7 +16626,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 6,
-"words": 804
+"words": 803
 },
 {
 "episode_id": "gr-napa-5753_e5",
@@ -16833,7 +16833,7 @@
 "stance_coverage": "s1",
 "n_turns": 8,
 "n_scored_turns": 6,
-"words": 1441
+"words": 1440
 },
 {
 "episode_id": "gr-napa-5786_e2",
@@ -16986,7 +16986,7 @@
 "stance_coverage": "s1",
 "n_turns": 6,
 "n_scored_turns": 4,
-"words": 525
+"words": 524
 },
 {
 "episode_id": "gr-napa-5792_e2",
@@ -17652,7 +17652,7 @@
 "stance_coverage": "s1",
 "n_turns": 3,
 "n_scored_turns": 3,
-"words": 634
+"words": 633
 },
 {
 "episode_id": "gr-napa-5860_e5",
@@ -17679,7 +17679,7 @@
 "stance_coverage": "s1",
 "n_turns": 1,
 "n_scored_turns": 1,
-"words": 613
+"words": 611
 },
 {
 "episode_id": "gr-napa-5860_e6",
@@ -18552,7 +18552,7 @@
 "stance_coverage": "s1",
 "n_turns": 2,
 "n_scored_turns": 2,
-"words": 565
+"words": 561
 },
 {
 "episode_id": "gr-richmond-5984_e2",
@@ -18579,7 +18579,7 @@
 "stance_coverage": "s1",
 "n_turns": 5,
 "n_scored_turns": 3,
-"words": 570
+"words": 569
 },
 {
 "episode_id": "gr-richmond-5984_e3",
@@ -19017,7 +19017,7 @@
 "stance_coverage": "s1",
 "n_turns": 24,
 "n_scored_turns": 22,
-"words": 4955
+"words": 4954
 },
 {
 "episode_id": "gr-napa-5691_e4",
@@ -19071,7 +19071,7 @@
 "stance_coverage": "s1",
 "n_turns": 34,
 "n_scored_turns": 30,
-"words": 3856
+"words": 3855
 },
 {
 "episode_id": "gr-napa-5691_e6",
@@ -19962,7 +19962,7 @@
 "stance_coverage": "s1",
 "n_turns": 10,
 "n_scored_turns": 10,
-"words": 1067
+"words": 1066
 },
 {
 "episode_id": "gr-sanleandro-3089_m1",
@@ -21090,7 +21090,7 @@
 "stance_coverage": "s1",
 "n_turns": 35,
 "n_scored_turns": 30,
-"words": 4113
+"words": 4112
 },
 {
 "episode_id": "gr-sanleandro-3063_e5",
@@ -21417,7 +21417,7 @@
 "stance_coverage": "s1",
 "n_turns": 32,
 "n_scored_turns": 31,
-"words": 3375
+"words": 3373
 },
 {
 "episode_id": "gr-sanleandro-3047_e4",
@@ -22113,7 +22113,7 @@
 "stance_coverage": "s1",
 "n_turns": 35,
 "n_scored_turns": 30,
-"words": 4234
+"words": 4233
 },
 {
 "episode_id": "sw-petalumaca-359732_e5",
@@ -22374,7 +22374,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 6,
-"words": 759
+"words": 758
 },
 {
 "episode_id": "sw-petalumaca-361182_e4",
@@ -22428,7 +22428,7 @@
 "stance_coverage": "s1",
 "n_turns": 43,
 "n_scored_turns": 37,
-"words": 5101
+"words": 5099
 },
 {
 "episode_id": "sw-petalumaca-361182_e6",
@@ -22509,7 +22509,7 @@
 "stance_coverage": "s1",
 "n_turns": 10,
 "n_scored_turns": 9,
-"words": 1066
+"words": 1065
 },
 {
 "episode_id": "sw-petalumaca-361182_e9",
@@ -22590,7 +22590,7 @@
 "stance_coverage": "s1",
 "n_turns": 1,
 "n_scored_turns": 1,
-"words": 796
+"words": 795
 },
 {
 "episode_id": "sw-petalumaca-361182_e12",
@@ -22842,7 +22842,7 @@
 "stance_coverage": "s1",
 "n_turns": 6,
 "n_scored_turns": 5,
-"words": 3254
+"words": 3253
 },
 {
 "episode_id": "sw-petalumaca-364602_e3",
@@ -22896,7 +22896,7 @@
 "stance_coverage": "s1",
 "n_turns": 17,
 "n_scored_turns": 16,
-"words": 2028
+"words": 2027
 },
 {
 "episode_id": "sw-petalumaca-364602_e5",
@@ -22923,7 +22923,7 @@
 "stance_coverage": "s1",
 "n_turns": 313,
 "n_scored_turns": 250,
-"words": 16529
+"words": 16526
 },
 {
 "episode_id": "sw-petalumaca-364602_e6",
@@ -22950,7 +22950,7 @@
 "stance_coverage": "s1",
 "n_turns": 140,
 "n_scored_turns": 75,
-"words": 6627
+"words": 6626
 },
 {
 "episode_id": "sw-petalumaca-364602_e7",
@@ -22977,7 +22977,7 @@
 "stance_coverage": "s1",
 "n_turns": 20,
 "n_scored_turns": 17,
-"words": 662
+"words": 660
 },
 {
 "episode_id": "sw-petalumaca-364602_e8",
@@ -23106,7 +23106,7 @@
 "stance_coverage": "s1",
 "n_turns": 60,
 "n_scored_turns": 30,
-"words": 1432
+"words": 1431
 },
 {
 "episode_id": "sw-petalumaca-382841_e3",
@@ -23286,7 +23286,7 @@
 "stance_coverage": "s1",
 "n_turns": 34,
 "n_scored_turns": 20,
-"words": 3491
+"words": 3488
 },
 {
 "episode_id": "sw-petalumaca-384810_e4",
@@ -23589,7 +23589,7 @@
 "stance_coverage": "s1",
 "n_turns": 4,
 "n_scored_turns": 3,
-"words": 514
+"words": 513
 },
 {
 "episode_id": "sw-petalumaca-387386_e2",
@@ -23643,7 +23643,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 6,
-"words": 579
+"words": 578
 },
 {
 "episode_id": "sw-petalumaca-387386_m1",
@@ -23820,7 +23820,7 @@
 "stance_coverage": "s1",
 "n_turns": 2,
 "n_scored_turns": 2,
-"words": 1191
+"words": 1189
 },
 {
 "episode_id": "sw-petalumaca-388303_e4",
@@ -23847,7 +23847,7 @@
 "stance_coverage": "s1",
 "n_turns": 2,
 "n_scored_turns": 2,
-"words": 1216
+"words": 1215
 },
 {
 "episode_id": "sw-petalumaca-388303_e5",
@@ -23874,7 +23874,7 @@
 "stance_coverage": "s1",
 "n_turns": 4,
 "n_scored_turns": 4,
-"words": 1460
+"words": 1456
 },
 {
 "episode_id": "sw-petalumaca-388303_e6",
@@ -23901,7 +23901,7 @@
 "stance_coverage": "s1",
 "n_turns": 23,
 "n_scored_turns": 22,
-"words": 1167
+"words": 1166
 },
 {
 "episode_id": "sw-petalumaca-388303_e7",
@@ -23982,7 +23982,7 @@
 "stance_coverage": "s1",
 "n_turns": 41,
 "n_scored_turns": 35,
-"words": 3366
+"words": 3365
 },
 {
 "episode_id": "sw-petalumaca-388303_e10",
@@ -24009,7 +24009,7 @@
 "stance_coverage": "s1",
 "n_turns": 32,
 "n_scored_turns": 27,
-"words": 4652
+"words": 4651
 },
 {
 "episode_id": "sw-petalumaca-388303_m1",
@@ -24378,7 +24378,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 5,
-"words": 570
+"words": 569
 },
 {
 "episode_id": "sw-petalumaca-390963_m3",
@@ -24552,7 +24552,7 @@
 "stance_coverage": "s1",
 "n_turns": 2,
 "n_scored_turns": 2,
-"words": 5077
+"words": 5076
 },
 {
 "episode_id": "sw-petalumaca-392762_e2",
@@ -24714,7 +24714,7 @@
 "stance_coverage": "s1",
 "n_turns": 4,
 "n_scored_turns": 4,
-"words": 1827
+"words": 1825
 },
 {
 "episode_id": "sw-petalumaca-392762_e8",
@@ -25482,7 +25482,7 @@
 "stance_coverage": "s1",
 "n_turns": 9,
 "n_scored_turns": 7,
-"words": 795
+"words": 794
 },
 {
 "episode_id": "gr-hayward-2403_e2",
@@ -25689,7 +25689,7 @@
 "stance_coverage": "s1",
 "n_turns": 36,
 "n_scored_turns": 31,
-"words": 6576
+"words": 6575
 },
 {
 "episode_id": "gr-hayward-2374_e2",
@@ -25743,7 +25743,7 @@
 "stance_coverage": "s1",
 "n_turns": 14,
 "n_scored_turns": 7,
-"words": 2255
+"words": 2254
 },
 {
 "episode_id": "gr-hayward-2374_m1",
@@ -26370,7 +26370,7 @@
 "stance_coverage": "s1",
 "n_turns": 3,
 "n_scored_turns": 3,
-"words": 617
+"words": 616
 },
 {
 "episode_id": "gr-hayward-2311_e2",
@@ -27006,7 +27006,7 @@
 "stance_coverage": "s1",
 "n_turns": 19,
 "n_scored_turns": 7,
-"words": 514
+"words": 513
 },
 {
 "episode_id": "gr-richmond-5924_m1",
@@ -27231,7 +27231,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 7,
-"words": 611
+"words": 610
 },
 {
 "episode_id": "gr-sanleandro-2992_m1",
@@ -27570,7 +27570,7 @@
 "stance_coverage": "s1",
 "n_turns": 24,
 "n_scored_turns": 20,
-"words": 2474
+"words": 2471
 },
 {
 "episode_id": "gr-sanleandro-2996_e10",
@@ -27624,7 +27624,7 @@
 "stance_coverage": "s1",
 "n_turns": 18,
 "n_scored_turns": 12,
-"words": 2666
+"words": 2665
 },
 {
 "episode_id": "gr-sanleandro-2996_e12",
@@ -27651,7 +27651,7 @@
 "stance_coverage": "s1",
 "n_turns": 29,
 "n_scored_turns": 14,
-"words": 1951
+"words": 1947
 },
 {
 "episode_id": "gr-sanleandro-2996_e13",
@@ -27906,7 +27906,7 @@
 "stance_coverage": "s1",
 "n_turns": 63,
 "n_scored_turns": 48,
-"words": 3159
+"words": 3158
 },
 {
 "episode_id": "gr-sanleandro-3014_e3",
@@ -28881,7 +28881,7 @@
 "stance_coverage": "s1",
 "n_turns": 37,
 "n_scored_turns": 32,
-"words": 5480
+"words": 5477
 },
 {
 "episode_id": "0eZs580tCos_e2",
@@ -28989,7 +28989,7 @@
 "stance_coverage": "none",
 "n_turns": 18,
 "n_scored_turns": 0,
-"words": 1650
+"words": 1649
 },
 {
 "episode_id": "0eZs580tCos_e6",
@@ -29016,7 +29016,7 @@
 "stance_coverage": "none",
 "n_turns": 100,
 "n_scored_turns": 0,
-"words": 10881
+"words": 10880
 },
 {
 "episode_id": "0eZs580tCos_e7",
@@ -29097,7 +29097,7 @@
 "stance_coverage": "none",
 "n_turns": 24,
 "n_scored_turns": 0,
-"words": 2620
+"words": 2619
 },
 {
 "episode_id": "0eZs580tCos_m1",
@@ -30396,7 +30396,7 @@
 "stance_coverage": "s1",
 "n_turns": 45,
 "n_scored_turns": 28,
-"words": 3326
+"words": 3325
 },
 {
 "episode_id": "4ZGPf-k5Vqw_e3",
@@ -30504,7 +30504,7 @@
 "stance_coverage": "s1",
 "n_turns": 20,
 "n_scored_turns": 19,
-"words": 2508
+"words": 2507
 },
 {
 "episode_id": "4ZGPf-k5Vqw_e7",
@@ -30531,7 +30531,7 @@
 "stance_coverage": "s1",
 "n_turns": 32,
 "n_scored_turns": 24,
-"words": 1911
+"words": 1910
 },
 {
 "episode_id": "4ZGPf-k5Vqw_e8",
@@ -30612,7 +30612,7 @@
 "stance_coverage": "s1",
 "n_turns": 149,
 "n_scored_turns": 116,
-"words": 13307
+"words": 13301
 },
 {
 "episode_id": "4ZGPf-k5Vqw_e11",
@@ -30639,7 +30639,7 @@
 "stance_coverage": "s1",
 "n_turns": 182,
 "n_scored_turns": 148,
-"words": 15476
+"words": 15466
 },
 {
 "episode_id": "4ZGPf-k5Vqw_e12",
@@ -30666,7 +30666,7 @@
 "stance_coverage": "s1",
 "n_turns": 60,
 "n_scored_turns": 38,
-"words": 11013
+"words": 11012
 },
 {
 "episode_id": "4ZGPf-k5Vqw_e13",
@@ -30693,7 +30693,7 @@
 "stance_coverage": "s1",
 "n_turns": 46,
 "n_scored_turns": 39,
-"words": 4421
+"words": 4420
 },
 {
 "episode_id": "4ZGPf-k5Vqw_m1",
@@ -31050,7 +31050,7 @@
 "stance_coverage": "s1",
 "n_turns": 13,
 "n_scored_turns": 12,
-"words": 718
+"words": 717
 },
 {
 "episode_id": "5di-lBxQPMk_e3",
@@ -31104,7 +31104,7 @@
 "stance_coverage": "s1",
 "n_turns": 14,
 "n_scored_turns": 14,
-"words": 1324
+"words": 1323
 },
 {
 "episode_id": "5di-lBxQPMk_e5",
@@ -32187,7 +32187,7 @@
 "stance_coverage": "none",
 "n_turns": 19,
 "n_scored_turns": 0,
-"words": 569
+"words": 567
 },
 {
 "episode_id": "BG_HcK9lZ4Y_e2",
@@ -32214,7 +32214,7 @@
 "stance_coverage": "none",
 "n_turns": 51,
 "n_scored_turns": 0,
-"words": 3104
+"words": 3103
 },
 {
 "episode_id": "BG_HcK9lZ4Y_e3",
@@ -32241,7 +32241,7 @@
 "stance_coverage": "s1",
 "n_turns": 67,
 "n_scored_turns": 57,
-"words": 7321
+"words": 7320
 },
 {
 "episode_id": "BG_HcK9lZ4Y_e4",
@@ -33039,7 +33039,7 @@
 "stance_coverage": "none",
 "n_turns": 52,
 "n_scored_turns": 0,
-"words": 2132
+"words": 2131
 },
 {
 "episode_id": "EVC3qOFVGbI_e3",
@@ -33567,7 +33567,7 @@
 "stance_coverage": "s1",
 "n_turns": 61,
 "n_scored_turns": 46,
-"words": 4226
+"words": 4225
 },
 {
 "episode_id": "FWancoG0Fe8_e2",
@@ -33831,7 +33831,7 @@
 "stance_coverage": "none",
 "n_turns": 7,
 "n_scored_turns": 0,
-"words": 1053
+"words": 1052
 },
 {
 "episode_id": "HctI-UT0yew_e8",
@@ -34149,7 +34149,7 @@
 "stance_coverage": "none",
 "n_turns": 6,
 "n_scored_turns": 0,
-"words": 3346
+"words": 3345
 },
 {
 "episode_id": "IoPjXkgVLxY_e3",
@@ -34203,7 +34203,7 @@
 "stance_coverage": "none",
 "n_turns": 9,
 "n_scored_turns": 0,
-"words": 1807
+"words": 1806
 },
 {
 "episode_id": "IoPjXkgVLxY_e5",
@@ -34722,7 +34722,7 @@
 "stance_coverage": "s1",
 "n_turns": 8,
 "n_scored_turns": 7,
-"words": 418
+"words": 417
 },
 {
 "episode_id": "JrE255sNtfw_e6",
@@ -34803,7 +34803,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 7,
-"words": 589
+"words": 588
 },
 {
 "episode_id": "JrE255sNtfw_m1",
@@ -35160,7 +35160,7 @@
 "stance_coverage": "s1",
 "n_turns": 54,
 "n_scored_turns": 33,
-"words": 6573
+"words": 6572
 },
 {
 "episode_id": "PDXQUlc2uyQ_e2",
@@ -35214,7 +35214,7 @@
 "stance_coverage": "none",
 "n_turns": 17,
 "n_scored_turns": 0,
-"words": 2980
+"words": 2979
 },
 {
 "episode_id": "PDXQUlc2uyQ_e4",
@@ -35241,7 +35241,7 @@
 "stance_coverage": "none",
 "n_turns": 9,
 "n_scored_turns": 0,
-"words": 671
+"words": 670
 },
 {
 "episode_id": "PDXQUlc2uyQ_e5",
@@ -35370,7 +35370,7 @@
 "stance_coverage": "s1",
 "n_turns": 26,
 "n_scored_turns": 15,
-"words": 1793
+"words": 1792
 },
 {
 "episode_id": "RiyZrblHpg8_e5",
@@ -36321,7 +36321,7 @@
 "stance_coverage": "none",
 "n_turns": 68,
 "n_scored_turns": 0,
-"words": 8114
+"words": 8113
 },
 {
 "episode_id": "bO6F7ESU5CU_e3",
@@ -36759,7 +36759,7 @@
 "stance_coverage": "none",
 "n_turns": 21,
 "n_scored_turns": 0,
-"words": 2500
+"words": 2498
 },
 {
 "episode_id": "d_Fk7lTalxA_e4",
@@ -36786,7 +36786,7 @@
 "stance_coverage": "none",
 "n_turns": 7,
 "n_scored_turns": 0,
-"words": 1142
+"words": 1141
 },
 {
 "episode_id": "d_Fk7lTalxA_e5",
@@ -37782,7 +37782,7 @@
 "stance_coverage": "s1",
 "n_turns": 15,
 "n_scored_turns": 12,
-"words": 2198
+"words": 2197
 },
 {
 "episode_id": "hZ04_fO0htU_e7",
@@ -38895,7 +38895,7 @@
 "stance_coverage": "none",
 "n_turns": 35,
 "n_scored_turns": 0,
-"words": 3141
+"words": 3140
 },
 {
 "episode_id": "r05uLZd7W2Q_m2",
@@ -38970,7 +38970,7 @@
 "stance_coverage": "s1",
 "n_turns": 148,
 "n_scored_turns": 105,
-"words": 12026
+"words": 12024
 },
 {
 "episode_id": "rlx-x_uCE00_e2",
@@ -39576,7 +39576,7 @@
 "stance_coverage": "none",
 "n_turns": 53,
 "n_scored_turns": 0,
-"words": 7679
+"words": 7677
 },
 {
 "episode_id": "tL4EXHZgov4_e1",
@@ -39885,7 +39885,7 @@
 "stance_coverage": "none",
 "n_turns": 37,
 "n_scored_turns": 0,
-"words": 5607
+"words": 5606
 },
 {
 "episode_id": "uP8nKhcMMxI_e3",
@@ -40047,7 +40047,7 @@
 "stance_coverage": "none",
 "n_turns": 10,
 "n_scored_turns": 0,
-"words": 525
+"words": 524
 },
 {
 "episode_id": "uP8nKhcMMxI_e9",
@@ -40548,7 +40548,7 @@
 "stance_coverage": "none",
 "n_turns": 4,
 "n_scored_turns": 0,
-"words": 1786
+"words": 1783
 },
 {
 "episode_id": "Chj4lSP9je4_e2",
@@ -40575,7 +40575,7 @@
 "stance_coverage": "s1",
 "n_turns": 54,
 "n_scored_turns": 46,
-"words": 3741
+"words": 3740
 },
 {
 "episode_id": "Chj4lSP9je4_e3",
@@ -40629,7 +40629,7 @@
 "stance_coverage": "s1",
 "n_turns": 80,
 "n_scored_turns": 52,
-"words": 4974
+"words": 4973
 },
 {
 "episode_id": "Chj4lSP9je4_e5",
@@ -40854,7 +40854,7 @@
 "stance_coverage": "s1",
 "n_turns": 49,
 "n_scored_turns": 47,
-"words": 6015
+"words": 6013
 },
 {
 "episode_id": "JrE255sNtfw_e10",
@@ -41112,7 +41112,7 @@
 "stance_coverage": "none",
 "n_turns": 3,
 "n_scored_turns": 0,
-"words": 203
+"words": 202
 },
 {
 "episode_id": "PWfDq1v3WlU_m4",
@@ -41343,7 +41343,7 @@
 "stance_coverage": "none",
 "n_turns": 31,
 "n_scored_turns": 0,
-"words": 2550
+"words": 2547
 },
 {
 "episode_id": "7XKidLR3w5w_e2",
@@ -41469,7 +41469,7 @@
 "stance_coverage": "none",
 "n_turns": 39,
 "n_scored_turns": 0,
-"words": 2636
+"words": 2634
 },
 {
 "episode_id": "d29-b82BSHg_m4",
@@ -41520,7 +41520,7 @@
 "stance_coverage": "none",
 "n_turns": 29,
 "n_scored_turns": 0,
-"words": 570
+"words": 569
 },
 {
 "episode_id": "r05uLZd7W2Q_e6",
@@ -41649,7 +41649,7 @@
 "stance_coverage": "none",
 "n_turns": 11,
 "n_scored_turns": 0,
-"words": 570
+"words": 566
 },
 {
 "episode_id": "_cI9HxYYF6Q_m3",
@@ -42351,7 +42351,7 @@
 "stance_coverage": "none",
 "n_turns": 5,
 "n_scored_turns": 0,
-"words": 308
+"words": 306
 },
 {
 "episode_id": "gr-richmond-6006_e9",
@@ -42432,7 +42432,7 @@
 "stance_coverage": "none",
 "n_turns": 17,
 "n_scored_turns": 0,
-"words": 596
+"words": 595
 },
 {
 "episode_id": "gr-richmond-6006_e12",
@@ -43065,7 +43065,7 @@
 "stance_coverage": "none",
 "n_turns": 2,
 "n_scored_turns": 0,
-"words": 246
+"words": 245
 },
 {
 "episode_id": "sw-petalumaca-387386_m5",
@@ -44550,7 +44550,7 @@
 "stance_coverage": "s1",
 "n_turns": 32,
 "n_scored_turns": 29,
-"words": 4729
+"words": 4726
 },
 {
 "episode_id": "gr-napa-5713_e4",
@@ -44604,7 +44604,7 @@
 "stance_coverage": "s1",
 "n_turns": 37,
 "n_scored_turns": 34,
-"words": 4189
+"words": 4187
 },
 {
 "episode_id": "gr-napa-5713_e6",
@@ -44631,7 +44631,7 @@
 "stance_coverage": "s1",
 "n_turns": 58,
 "n_scored_turns": 27,
-"words": 8122
+"words": 8120
 },
 {
 "episode_id": "gr-napa-5713_e7",
@@ -45252,7 +45252,7 @@
 "stance_coverage": "s1",
 "n_turns": 13,
 "n_scored_turns": 11,
-"words": 636
+"words": 635
 },
 {
 "episode_id": "sw-petalumaca-361182_m5",
@@ -46362,7 +46362,7 @@
 "stance_coverage": "none",
 "n_turns": 16,
 "n_scored_turns": 0,
-"words": 1112
+"words": 1111
 },
 {
 "episode_id": "gr-richmond-6010_f5",
@@ -46524,7 +46524,7 @@
 "stance_coverage": "s1",
 "n_turns": 16,
 "n_scored_turns": 13,
-"words": 463
+"words": 462
 },
 {
 "episode_id": "gr-richmond-6010_fm1",
@@ -47874,7 +47874,7 @@
 "stance_coverage": "none",
 "n_turns": 98,
 "n_scored_turns": 0,
-"words": 10058
+"words": 10057
 },
 {
 "episode_id": "0enI1cmTA2w_e17",
@@ -48432,7 +48432,7 @@
 "stance_coverage": "none",
 "n_turns": 8,
 "n_scored_turns": 0,
-"words": 657
+"words": 656
 },
 {
 "episode_id": "9FM5406YagE_e13",
@@ -48843,7 +48843,7 @@
 "stance_coverage": "s1",
 "n_turns": 9,
 "n_scored_turns": 8,
-"words": 1320
+"words": 1319
 },
 {
 "episode_id": "BUybO1DfUTE_e11",
@@ -48951,7 +48951,7 @@
 "stance_coverage": "s1",
 "n_turns": 54,
 "n_scored_turns": 36,
-"words": 3610
+"words": 3609
 },
 {
 "episode_id": "BsKjJSdYDnE_e3",
@@ -49851,7 +49851,7 @@
 "stance_coverage": "none",
 "n_turns": 1,
 "n_scored_turns": 0,
-"words": 912
+"words": 911
 },
 {
 "episode_id": "GdHeZnb59iw_e18",
@@ -50058,7 +50058,7 @@
 "stance_coverage": "s1",
 "n_turns": 1,
 "n_scored_turns": 1,
-"words": 313
+"words": 312
 },
 {
 "episode_id": "JQHA3DvcqlA_e9",
@@ -51600,7 +51600,7 @@
 "stance_coverage": "s1",
 "n_turns": 50,
 "n_scored_turns": 30,
-"words": 2916
+"words": 2915
 },
 {
 "episode_id": "ZyoXmQYCV4o_e6",
@@ -51804,7 +51804,7 @@
 "stance_coverage": "s1",
 "n_turns": 120,
 "n_scored_turns": 92,
-"words": 8834
+"words": 8830
 },
 {
 "episode_id": "bZYmKjlkr9U_e17",
@@ -52194,7 +52194,7 @@
 "stance_coverage": "none",
 "n_turns": 22,
 "n_scored_turns": 0,
-"words": 4539
+"words": 4536
 },
 {
 "episode_id": "g7QbB6Axs4A_m2",
@@ -52422,7 +52422,7 @@
 "stance_coverage": "s1",
 "n_turns": 4,
 "n_scored_turns": 3,
-"words": 964
+"words": 963
 },
 {
 "episode_id": "gr-fremont-23_e5",
@@ -55599,7 +55599,7 @@
 "stance_coverage": "s1",
 "n_turns": 25,
 "n_scored_turns": 24,
-"words": 1191
+"words": 1188
 },
 {
 "episode_id": "gr-sanleandro-3039_e8",
@@ -56538,7 +56538,7 @@
 "stance_coverage": "s1",
 "n_turns": 6,
 "n_scored_turns": 2,
-"words": 660
+"words": 658
 },
 {
 "episode_id": "gr-sanleandro-3167_e6",
@@ -58188,7 +58188,7 @@
 "stance_coverage": "s1",
 "n_turns": 22,
 "n_scored_turns": 8,
-"words": 1274
+"words": 1273
 },
 {
 "episode_id": "gr-santaclara-2585_e4",
@@ -59454,7 +59454,7 @@
 "stance_coverage": "s1",
 "n_turns": 90,
 "n_scored_turns": 67,
-"words": 15943
+"words": 15939
 },
 {
 "episode_id": "r05uLZd7W2Q_e8",
@@ -60102,7 +60102,7 @@
 "stance_coverage": "s1",
 "n_turns": 18,
 "n_scored_turns": 13,
-"words": 2161
+"words": 2160
 },
 {
 "episode_id": "tMNMA-U1UYg_m2",
@@ -60675,7 +60675,7 @@
 "stance_coverage": "none",
 "n_turns": 2,
 "n_scored_turns": 0,
-"words": 477
+"words": 475
 },
 {
 "episode_id": "gr-hayward-2268_f2",
@@ -61389,7 +61389,7 @@
 "stance_coverage": "none",
 "n_turns": 20,
 "n_scored_turns": 0,
-"words": 933
+"words": 932
 },
 {
 "episode_id": "gr-hayward-2311_f3",
@@ -68775,7 +68775,7 @@
 "stance_coverage": "none",
 "n_turns": 4,
 "n_scored_turns": 0,
-"words": 345
+"words": 344
 },
 {
 "episode_id": "gr-richmond-5984_f2",
@@ -68802,7 +68802,7 @@
 "stance_coverage": "none",
 "n_turns": 13,
 "n_scored_turns": 0,
-"words": 514
+"words": 512
 },
 {
 "episode_id": "gr-richmond-5984_f3",
@@ -71763,7 +71763,7 @@
 "stance_coverage": "none",
 "n_turns": 7,
 "n_scored_turns": 0,
-"words": 302
+"words": 301
 },
 {
 "episode_id": "gr-richmond-6006_f10",
@@ -73905,7 +73905,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 7,
-"words": 325
+"words": 324
 },
 {
 "episode_id": "gr-napa-5713_f4",
@@ -75177,7 +75177,7 @@
 "stance_coverage": "none",
 "n_turns": 9,
 "n_scored_turns": 0,
-"words": 1370
+"words": 1369
 },
 {
 "episode_id": "gr-napa-5753_f6",
@@ -76251,7 +76251,7 @@
 "stance_coverage": "s1",
 "n_turns": 12,
 "n_scored_turns": 8,
-"words": 749
+"words": 748
 },
 {
 "episode_id": "gr-santaclara-2404_f6",
@@ -76839,7 +76839,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 3,
-"words": 290
+"words": 289
 },
 {
 "episode_id": "gr-santaclara-2412_f3",
@@ -80775,7 +80775,7 @@
 "stance_coverage": "s1",
 "n_turns": 17,
 "n_scored_turns": 12,
-"words": 437
+"words": 434
 },
 {
 "episode_id": "gr-santaclara-2482_f2",
@@ -83493,7 +83493,7 @@
 "stance_coverage": "s1",
 "n_turns": 18,
 "n_scored_turns": 16,
-"words": 783
+"words": 782
 },
 {
 "episode_id": "gr-santaclara-2517_f16",
@@ -83520,7 +83520,7 @@
 "stance_coverage": "s1",
 "n_turns": 17,
 "n_scored_turns": 12,
-"words": 3123
+"words": 3122
 },
 {
 "episode_id": "gr-santaclara-2517_fm1",
@@ -84987,7 +84987,7 @@
 "stance_coverage": "none",
 "n_turns": 12,
 "n_scored_turns": 0,
-"words": 459
+"words": 458
 },
 {
 "episode_id": "gr-santaclara-2556_f4",
@@ -89127,7 +89127,7 @@
 "stance_coverage": "none",
 "n_turns": 5,
 "n_scored_turns": 0,
-"words": 444
+"words": 443
 },
 {
 "episode_id": "gr-napa-5773_fm1",
@@ -90162,7 +90162,7 @@
 "stance_coverage": "s1",
 "n_turns": 3,
 "n_scored_turns": 3,
-"words": 839
+"words": 838
 },
 {
 "episode_id": "gr-napa-5798_f6",
@@ -90789,7 +90789,7 @@
 "stance_coverage": "s1",
 "n_turns": 10,
 "n_scored_turns": 4,
-"words": 1342
+"words": 1340
 },
 {
 "episode_id": "gr-napa-5805_f3",
@@ -95385,7 +95385,7 @@
 "stance_coverage": "none",
 "n_turns": 9,
 "n_scored_turns": 0,
-"words": 416
+"words": 415
 },
 {
 "episode_id": "gr-oakland-7576_fm1",
@@ -96480,7 +96480,7 @@
 "stance_coverage": "none",
 "n_turns": 42,
 "n_scored_turns": 0,
-"words": 2175
+"words": 2174
 },
 {
 "episode_id": "gr-richmond-6025_fm1",
@@ -96981,7 +96981,7 @@
 "stance_coverage": "none",
 "n_turns": 5,
 "n_scored_turns": 0,
-"words": 301
+"words": 300
 },
 {
 "episode_id": "gr-richmond-6028_fm1",
@@ -99711,7 +99711,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 7,
-"words": 535
+"words": 534
 },
 {
 "episode_id": "gr-sanleandro-3063_f2",
@@ -99738,7 +99738,7 @@
 "stance_coverage": "s1",
 "n_turns": 9,
 "n_scored_turns": 6,
-"words": 741
+"words": 740
 },
 {
 "episode_id": "gr-sanleandro-3063_fm1",
@@ -101403,7 +101403,7 @@
 "stance_coverage": "s1",
 "n_turns": 5,
 "n_scored_turns": 5,
-"words": 562
+"words": 561
 },
 {
 "episode_id": "gr-sanleandro-3167_f3",
@@ -102534,7 +102534,7 @@
 "stance_coverage": "none",
 "n_turns": 7,
 "n_scored_turns": 0,
-"words": 369
+"words": 368
 },
 {
 "episode_id": "gr-sanleandro-3195_f6",
@@ -109263,7 +109263,7 @@
 "stance_coverage": "none",
 "n_turns": 22,
 "n_scored_turns": 0,
-"words": 1609
+"words": 1607
 },
 {
 "episode_id": "gr-samtrans-1412_f2",
@@ -109344,7 +109344,7 @@
 "stance_coverage": "none",
 "n_turns": 62,
 "n_scored_turns": 0,
-"words": 5198
+"words": 5197
 },
 {
 "episode_id": "gr-samtrans-1412_fm1",
@@ -109743,7 +109743,7 @@
 "stance_coverage": "none",
 "n_turns": 9,
 "n_scored_turns": 0,
-"words": 434
+"words": 433
 },
 {
 "episode_id": "gr-samtrans-1421_f6",
@@ -109770,7 +109770,7 @@
 "stance_coverage": "none",
 "n_turns": 26,
 "n_scored_turns": 0,
-"words": 980
+"words": 979
 },
 {
 "episode_id": "gr-samtrans-1421_f7",
@@ -109824,7 +109824,7 @@
 "stance_coverage": "none",
 "n_turns": 5,
 "n_scored_turns": 0,
-"words": 412
+"words": 411
 },
 {
 "episode_id": "gr-samtrans-1421_f9",
@@ -109905,7 +109905,7 @@
 "stance_coverage": "none",
 "n_turns": 35,
 "n_scored_turns": 0,
-"words": 3014
+"words": 3011
 },
 {
 "episode_id": "gr-samtrans-1421_f12",
@@ -110349,7 +110349,7 @@
 "stance_coverage": "none",
 "n_turns": 8,
 "n_scored_turns": 0,
-"words": 814
+"words": 812
 },
 {
 "episode_id": "gr-samtrans-1434_f3",
@@ -110376,7 +110376,7 @@
 "stance_coverage": "none",
 "n_turns": 59,
 "n_scored_turns": 0,
-"words": 3401
+"words": 3397
 },
 {
 "episode_id": "gr-samtrans-1434_f4",
@@ -110403,7 +110403,7 @@
 "stance_coverage": "none",
 "n_turns": 94,
 "n_scored_turns": 0,
-"words": 14528
+"words": 14512
 },
 {
 "episode_id": "gr-samtrans-1434_fm1",
@@ -110601,7 +110601,7 @@
 "stance_coverage": "none",
 "n_turns": 20,
 "n_scored_turns": 0,
-"words": 1117
+"words": 1114
 },
 {
 "episode_id": "gr-samtrans-1443_f3",
@@ -110655,7 +110655,7 @@
 "stance_coverage": "none",
 "n_turns": 73,
 "n_scored_turns": 0,
-"words": 2546
+"words": 2545
 },
 {
 "episode_id": "gr-samtrans-1443_f5",
@@ -110682,7 +110682,7 @@
 "stance_coverage": "none",
 "n_turns": 70,
 "n_scored_turns": 0,
-"words": 6192
+"words": 6186
 },
 {
 "episode_id": "gr-samtrans-1443_fm1",
@@ -110976,7 +110976,7 @@
 "stance_coverage": "none",
 "n_turns": 4,
 "n_scored_turns": 0,
-"words": 1049
+"words": 1046
 },
 {
 "episode_id": "gr-samtrans-1453_f3",
@@ -111003,7 +111003,7 @@
 "stance_coverage": "none",
 "n_turns": 14,
 "n_scored_turns": 0,
-"words": 1703
+"words": 1701
 },
 {
 "episode_id": "gr-samtrans-1453_f4",
@@ -111030,7 +111030,7 @@
 "stance_coverage": "none",
 "n_turns": 10,
 "n_scored_turns": 0,
-"words": 492
+"words": 490
 },
 {
 "episode_id": "gr-samtrans-1453_f5",
@@ -111057,7 +111057,7 @@
 "stance_coverage": "none",
 "n_turns": 49,
 "n_scored_turns": 0,
-"words": 3410
+"words": 3405
 },
 {
 "episode_id": "gr-samtrans-1453_f6",
@@ -111111,7 +111111,7 @@
 "stance_coverage": "none",
 "n_turns": 5,
 "n_scored_turns": 0,
-"words": 388
+"words": 387
 },
 {
 "episode_id": "gr-samtrans-1453_f8",
@@ -111138,7 +111138,7 @@
 "stance_coverage": "s1",
 "n_turns": 48,
 "n_scored_turns": 36,
-"words": 7933
+"words": 7930
 },
 {
 "episode_id": "gr-samtrans-1453_fm1",
@@ -111357,7 +111357,7 @@
 "stance_coverage": "none",
 "n_turns": 11,
 "n_scored_turns": 0,
-"words": 382
+"words": 380
 },
 {
 "episode_id": "gr-samtrans-1467_f2",
@@ -111384,7 +111384,7 @@
 "stance_coverage": "none",
 "n_turns": 38,
 "n_scored_turns": 0,
-"words": 2014
+"words": 2013
 },
 {
 "episode_id": "gr-samtrans-1467_f3",
@@ -111411,7 +111411,7 @@
 "stance_coverage": "none",
 "n_turns": 12,
 "n_scored_turns": 0,
-"words": 1154
+"words": 1150
 },
 {
 "episode_id": "gr-samtrans-1467_f4",
@@ -111438,7 +111438,7 @@
 "stance_coverage": "none",
 "n_turns": 33,
 "n_scored_turns": 0,
-"words": 1696
+"words": 1695
 },
 {
 "episode_id": "gr-samtrans-1467_f5",
@@ -111537,7 +111537,7 @@
 "stance_coverage": "none",
 "n_turns": 25,
 "n_scored_turns": 0,
-"words": 1573
+"words": 1572
 },
 {
 "episode_id": "gr-samtrans-1467_f9",
@@ -111672,7 +111672,7 @@
 "stance_coverage": "none",
 "n_turns": 29,
 "n_scored_turns": 0,
-"words": 1904
+"words": 1903
 },
 {
 "episode_id": "gr-samtrans-1467_fm1",
@@ -112062,7 +112062,7 @@
 "stance_coverage": "none",
 "n_turns": 1,
 "n_scored_turns": 0,
-"words": 801
+"words": 800
 },
 {
 "episode_id": "gr-samtrans-1479_f3",
@@ -112116,7 +112116,7 @@
 "stance_coverage": "none",
 "n_turns": 39,
 "n_scored_turns": 0,
-"words": 2064
+"words": 2061
 },
 {
 "episode_id": "gr-samtrans-1479_f5",
@@ -112170,7 +112170,7 @@
 "stance_coverage": "s1",
 "n_turns": 88,
 "n_scored_turns": 57,
-"words": 9681
+"words": 9666
 },
 {
 "episode_id": "gr-samtrans-1479_fm1",
@@ -112443,7 +112443,7 @@
 "stance_coverage": "none",
 "n_turns": 36,
 "n_scored_turns": 0,
-"words": 3645
+"words": 3640
 },
 {
 "episode_id": "gr-samtrans-1489_f4",
@@ -112524,7 +112524,7 @@
 "stance_coverage": "none",
 "n_turns": 22,
 "n_scored_turns": 0,
-"words": 1121
+"words": 1118
 },
 {
 "episode_id": "gr-samtrans-1489_f7",
@@ -112551,7 +112551,7 @@
 "stance_coverage": "s1",
 "n_turns": 89,
 "n_scored_turns": 71,
-"words": 13794
+"words": 13789
 },
 {
 "episode_id": "gr-samtrans-1489_fm1",
@@ -112845,7 +112845,7 @@
 "stance_coverage": "none",
 "n_turns": 82,
 "n_scored_turns": 0,
-"words": 4586
+"words": 4585
 },
 {
 "episode_id": "gr-samtrans-1501_f3",
@@ -112899,7 +112899,7 @@
 "stance_coverage": "none",
 "n_turns": 245,
 "n_scored_turns": 0,
-"words": 17873
+"words": 17869
 },
 {
 "episode_id": "gr-samtrans-1501_fm1",
@@ -113142,7 +113142,7 @@
 "stance_coverage": "none",
 "n_turns": 25,
 "n_scored_turns": 0,
-"words": 3202
+"words": 3200
 },
 {
 "episode_id": "gr-samtrans-1511_f2",
@@ -113196,7 +113196,7 @@
 "stance_coverage": "none",
 "n_turns": 70,
 "n_scored_turns": 0,
-"words": 2810
+"words": 2809
 },
 {
 "episode_id": "gr-samtrans-1511_f4",
@@ -113250,7 +113250,7 @@
 "stance_coverage": "s1",
 "n_turns": 51,
 "n_scored_turns": 36,
-"words": 3400
+"words": 3399
 },
 {
 "episode_id": "gr-samtrans-1511_fm1",
@@ -113574,7 +113574,7 @@
 "stance_coverage": "none",
 "n_turns": 19,
 "n_scored_turns": 0,
-"words": 3788
+"words": 3786
 },
 {
 "episode_id": "gr-samtrans-1519_f5",
@@ -113601,7 +113601,7 @@
 "stance_coverage": "none",
 "n_turns": 11,
 "n_scored_turns": 0,
-"words": 814
+"words": 813
 },
 {
 "episode_id": "gr-samtrans-1519_f6",
@@ -113628,7 +113628,7 @@
 "stance_coverage": "none",
 "n_turns": 47,
 "n_scored_turns": 0,
-"words": 2644
+"words": 2642
 },
 {
 "episode_id": "gr-samtrans-1519_f7",
@@ -113655,7 +113655,7 @@
 "stance_coverage": "s1",
 "n_turns": 67,
 "n_scored_turns": 55,
-"words": 6337
+"words": 6334
 },
 {
 "episode_id": "gr-samtrans-1519_fm1",
@@ -113880,7 +113880,7 @@
 "stance_coverage": "none",
 "n_turns": 1,
 "n_scored_turns": 0,
-"words": 1409
+"words": 1408
 },
 {
 "episode_id": "gr-samtrans-1532_f4",
@@ -113907,7 +113907,7 @@
 "stance_coverage": "none",
 "n_turns": 52,
 "n_scored_turns": 0,
-"words": 1802
+"words": 1799
 },
 {
 "episode_id": "gr-samtrans-1532_f5",
@@ -113934,7 +113934,7 @@
 "stance_coverage": "none",
 "n_turns": 36,
 "n_scored_turns": 0,
-"words": 1851
+"words": 1850
 },
 {
 "episode_id": "gr-samtrans-1532_f6",
@@ -114180,7 +114180,7 @@
 "stance_coverage": "s1",
 "n_turns": 37,
 "n_scored_turns": 24,
-"words": 1264
+"words": 1263
 },
 {
 "episode_id": "gr-sausalito-1821_f2",
@@ -114450,7 +114450,7 @@
 "stance_coverage": "s1",
 "n_turns": 68,
 "n_scored_turns": 52,
-"words": 3954
+"words": 3952
 },
 {
 "episode_id": "gr-sausalito-1821_f12",
@@ -114531,7 +114531,7 @@
 "stance_coverage": "s1",
 "n_turns": 26,
 "n_scored_turns": 18,
-"words": 801
+"words": 800
 },
 {
 "episode_id": "gr-sausalito-1821_f15",
@@ -114585,7 +114585,7 @@
 "stance_coverage": "s1",
 "n_turns": 57,
 "n_scored_turns": 42,
-"words": 3131
+"words": 3128
 },
 {
 "episode_id": "gr-sausalito-1821_f17",
@@ -116613,7 +116613,7 @@
 "stance_coverage": "s1",
 "n_turns": 52,
 "n_scored_turns": 30,
-"words": 2334
+"words": 2333
 },
 {
 "episode_id": "gr-sausalito-1841_f3",
@@ -117072,7 +117072,7 @@
 "stance_coverage": "s1",
 "n_turns": 5,
 "n_scored_turns": 5,
-"words": 486
+"words": 485
 },
 {
 "episode_id": "gr-sausalito-1844_fm1",
@@ -117546,7 +117546,7 @@
 "stance_coverage": "s1",
 "n_turns": 18,
 "n_scored_turns": 14,
-"words": 780
+"words": 779
 },
 {
 "episode_id": "gr-sausalito-1847_fm1",
@@ -117816,7 +117816,7 @@
 "stance_coverage": "s1",
 "n_turns": 5,
 "n_scored_turns": 5,
-"words": 746
+"words": 745
 },
 {
 "episode_id": "gr-sausalito-1848_f3",
@@ -117843,7 +117843,7 @@
 "stance_coverage": "s1",
 "n_turns": 1,
 "n_scored_turns": 1,
-"words": 537
+"words": 536
 },
 {
 "episode_id": "gr-sausalito-1848_fm1",
@@ -120240,7 +120240,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 6,
-"words": 368
+"words": 367
 },
 {
 "episode_id": "sw-petalumaca-359732_f4",
@@ -120321,7 +120321,7 @@
 "stance_coverage": "s1",
 "n_turns": 7,
 "n_scored_turns": 7,
-"words": 418
+"words": 417
 },
 {
 "episode_id": "sw-petalumaca-359732_f7",
@@ -120399,7 +120399,7 @@
 "stance_coverage": "s1",
 "n_turns": 17,
 "n_scored_turns": 11,
-"words": 664
+"words": 663
 },
 {
 "episode_id": "sw-petalumaca-359732_f10",
@@ -120870,7 +120870,7 @@
 "stance_coverage": "s1",
 "n_turns": 5,
 "n_scored_turns": 5,
-"words": 343
+"words": 342
 },
 {
 "episode_id": "sw-petalumaca-361182_f4",
@@ -120924,7 +120924,7 @@
 "stance_coverage": "s1",
 "n_turns": 8,
 "n_scored_turns": 7,
-"words": 585
+"words": 584
 },
 {
 "episode_id": "sw-petalumaca-361182_f6",
@@ -121419,7 +121419,7 @@
 "stance_coverage": "s1",
 "n_turns": 4,
 "n_scored_turns": 3,
-"words": 705
+"words": 704
 },
 {
 "episode_id": "sw-petalumaca-364602_f2",

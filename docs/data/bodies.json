@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generated": "2026-10-25T10:36-07:00",
+  "generated": "2026-10-25T11:38-07:00",
   "exploratory": true,
   "redacted": true,
   "published": true,
@@ -9,13 +9,13 @@
   "text": {
    "episodes_with_text": 1841,
    "turns": 30880,
-   "words": 2467610,
+   "words": 2467139,
    "from_corpus": 1841,
    "gated_no_corpus_text": 0,
    "stance_turns_matched": 15961,
    "stance_matched_by_position": 183,
    "stance_turns_unmatched": 0,
-   "redaction": "redact-1.3: names, street addresses and contact details removed from every published turn (2045 replacements), before the keyword spans were computed"
+   "redaction": "redact-1.3: names, street addresses and contact details removed from every published turn (758 replacements), before the keyword spans were computed"
   },
   "qa": {
    "episode_OK": 1692,
@@ -158,20 +158,17 @@
    "redaction": {
     "version": "redact-1.3",
     "by_rule": {
-     "ci_given_pair": 307,
-     "ci_honorific": 884,
-     "ci_intro": 29,
-     "ci_name_is": 56,
-     "cue_honorific": 32,
-     "cue_speaker": 47,
+     "ci_name_is": 4,
+     "cue_honorific": 31,
+     "cue_speaker": 46,
      "cue_thank_you": 16,
-     "given_name": 203,
+     "given_name": 193,
      "heading_address": 204,
      "heading_honorific": 239,
-     "person": 28
+     "person": 25
     },
-    "total": 2045,
-    "words": 2441826,
+    "total": 758,
+    "words": 2440742,
     "rule": "names, street addresses and contact details removed from every published turn (owner, 2026-10-20 09:13; plan/DECISIONS.md #15)"
    }
   },
@@ -253,8 +250,8 @@
   },
   "episode_files": {
    "n": 27,
-   "bytes_total": 29330119,
-   "bytes_max": 3925393
+   "bytes_total": 29327116,
+   "bytes_max": 3925053
   }
  },
  "bodies": [
@@ -285,7 +282,7 @@
    "date_min": "2025-09-23",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/sanjose.json",
-   "text_bytes": 1222256
+   "text_bytes": 1222114
   },
   {
    "body": "sanrafael",
@@ -314,7 +311,7 @@
    "date_min": "2025-10-06",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/sanrafael.json",
-   "text_bytes": 229758
+   "text_bytes": 229748
   },
   {
    "body": "bart",
@@ -343,7 +340,7 @@
    "date_min": "2025-09-25",
    "date_max": "2026-09-10",
    "text_file": "data/episodes/bart.json",
-   "text_bytes": 3301863
+   "text_bytes": 3301799
   },
   {
    "body": "oakland",
@@ -374,7 +371,7 @@
    "date_min": "2025-10-07",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/oakland.json",
-   "text_bytes": 201888
+   "text_bytes": 201875
   },
   {
    "body": "sunnyvale",
@@ -403,7 +400,7 @@
    "date_min": "2025-09-30",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/sunnyvale.json",
-   "text_bytes": 544776
+   "text_bytes": 544717
   },
   {
    "body": "santarosa",
@@ -432,7 +429,7 @@
    "date_min": "2025-09-30",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/santarosa.json",
-   "text_bytes": 599236
+   "text_bytes": 599159
   },
   {
    "body": "healdsburg",
@@ -461,7 +458,7 @@
    "date_min": "2025-10-06",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/healdsburg.json",
-   "text_bytes": 128365
+   "text_bytes": 128336
   },
   {
    "body": "rohnertpark",
@@ -519,7 +516,7 @@
    "date_min": "2025-09-29",
    "date_max": "2026-09-14",
    "text_file": "data/episodes/paloalto.json",
-   "text_bytes": 677966
+   "text_bytes": 677946
   },
   {
    "body": "cupertino",
@@ -577,7 +574,7 @@
    "date_min": "2026-01-26",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/sanmateo.json",
-   "text_bytes": 453700
+   "text_bytes": 453684
   },
   {
    "body": "dalycity",
@@ -635,7 +632,7 @@
    "date_min": "2025-10-09",
    "date_max": "2026-09-10",
    "text_file": "data/episodes/concord.json",
-   "text_bytes": 170259
+   "text_bytes": 170242
   },
   {
    "body": "milpitas",
@@ -725,7 +722,7 @@
    "date_min": "2025-09-29",
    "date_max": "2026-09-14",
    "text_file": "data/episodes/petaluma.json",
-   "text_bytes": 2387573
+   "text_bytes": 2387234
   },
   {
    "body": "cotati",
@@ -783,7 +780,7 @@
    "date_min": "2025-10-02",
    "date_max": "2026-09-03",
    "text_file": "data/episodes/vta.json",
-   "text_bytes": 2017681
+   "text_bytes": 2017370
   },
   {
    "body": "sanfrancisco",
@@ -865,7 +862,7 @@
    "date_min": "2026-01-13",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/fremont.json",
-   "text_bytes": 700025
+   "text_bytes": 699994
   },
   {
    "body": "santaclara",
@@ -896,7 +893,7 @@
    "date_min": "2025-09-23",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/santaclara.json",
-   "text_bytes": 3925393
+   "text_bytes": 3925053
   },
   {
    "body": "alameda",
@@ -951,7 +948,7 @@
    "date_min": "2025-09-23",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/richmond.json",
-   "text_bytes": 1718999
+   "text_bytes": 1718865
   },
   {
    "body": "hayward",
@@ -983,7 +980,7 @@
    "date_min": "2025-09-23",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/hayward.json",
-   "text_bytes": 1190290
+   "text_bytes": 1190237
   },
   {
    "body": "sanleandro",
@@ -1014,7 +1011,7 @@
    "date_min": "2025-10-06",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/sanleandro.json",
-   "text_bytes": 2161208
+   "text_bytes": 2161091
   },
   {
    "body": "walnutcreek",
@@ -1069,7 +1066,7 @@
    "date_min": "2025-10-07",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/sausalito.json",
-   "text_bytes": 2391804
+   "text_bytes": 2391686
   },
   {
    "body": "napa",
@@ -1101,7 +1098,7 @@
    "date_min": "2025-09-23",
    "date_max": "2026-09-15",
    "text_file": "data/episodes/napa.json",
-   "text_bytes": 1304679
+   "text_bytes": 1304470
   },
   {
    "body": "samtrans",
@@ -1131,7 +1128,7 @@
    "date_min": "2025-10-08",
    "date_max": "2026-09-02",
    "text_file": "data/episodes/samtrans.json",
-   "text_bytes": 2179698
+   "text_bytes": 2178836
   },
   {
    "body": "pleasanton",
@@ -1189,7 +1186,7 @@
    "date_min": "2025-10-13",
    "date_max": "2026-09-14",
    "text_file": "data/episodes/livermore.json",
-   "text_bytes": 160014
+   "text_bytes": 160002
   },
   {
    "body": "vallejo",
@@ -1218,7 +1215,7 @@
    "date_min": "2025-09-23",
    "date_max": "2026-09-08",
    "text_file": "data/episodes/vallejo.json",
-   "text_bytes": 654149
+   "text_bytes": 654119
   },
   {
    "body": "sfmta",

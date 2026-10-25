@@ -82,7 +82,7 @@ flowchart TD
     E --> B[pipeline/gpu_batch.py propose / approve / launch<br/>≥ 15 episode-h, spend rails in pipeline/spend.py]
     B --> G[pipeline/gpu_job.py PIPELINE_VERSION 1.1.0<br/>WhisperX large-v3, condition_on_previous_text=False, batch 16, fp16<br/>pyannote speaker-diarization-community-1 · A40 SECURE $0.49/h]
     G --> Q[analysis/qa_transcripts.py · make qa<br/>a FAIL is never loaded]
-    Q --> RD[pipeline/redact.py run --all<br/>redact-1.1 · name / address / contact]
+    Q --> RD[pipeline/redact.py run --all<br/>redact-1.3 · name / address / contact]
     RD --> LD[analysis/load_episodes.py --transcripts output/redacted<br/>make load-episodes → corpus.sqlite]
     LD --> RL[pipeline/roles.py<br/>dais / staff / public from plan/role_cues.txt<br/>roles_cues_version on every file; roles_source db / computed]
     RL --> A0[analysis/a0_terms.py · facet_sweep.py · make a0-wide<br/>analysis/a1_sentiment.py · make a1-wide<br/>analysis/freq_trends.py · make trends · wave1_rates.py]
@@ -188,7 +188,11 @@ redactor now runs three case-insensitive name layers after the capitalised ones,
 case-insensitive as well, and both are a publication gate: zero cue leaks, street addresses
 and contacts over every published file. The hand calibration above has not been re-sampled
 since; treat the 90.0 % / 6.5 % split as a measurement of the capitalised layers, which the
-new layers do not change. Puck's 30-turn hand check is still required before anything goes
+new layers do not change. On 2026-10-25 the whole corpus was re-redacted at `redact-1.3`
+from the unredacted transcripts, so every one of the 1,841 loaded episodes is now at one
+version rather than 1,680 at `redact-1.2` and 161 at `redact-1.3`: 19,595 replacements over
+2,448,482 words, and the cue-anchored residual scan over the redacted tree falls from 58
+probable misses to 5 <!-- out/thtrans-rework2/a12-progress.md -->. Puck's 30-turn hand check is still required before anything goes
 live <!-- plan/SHOWCASE.md §3 -->.
 
 ## 5. Results

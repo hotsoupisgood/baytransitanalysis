@@ -47,7 +47,7 @@ flowchart TD
     E --> B[pipeline/gpu_batch.py propose / approve / launch<br/>≥ 15 episode-h, spend rails in pipeline/spend.py]
     B --> G[pipeline/gpu_job.py PIPELINE_VERSION 1.1.0<br/>WhisperX large-v3, condition_on_previous_text=False, batch 16, fp16<br/>pyannote speaker-diarization-community-1 · A40 SECURE $0.49/h]
     G --> Q[analysis/qa_transcripts.py · make qa<br/>a FAIL is never loaded]
-    Q --> RD[pipeline/redact.py run --all<br/>redact-1.1 · name / address / contact]
+    Q --> RD[pipeline/redact.py run --all<br/>redact-1.3 · name / address / contact]
     RD --> LD[analysis/load_episodes.py --transcripts output/redacted<br/>make load-episodes → corpus.sqlite]
     LD --> RL[pipeline/roles.py<br/>dais / staff / public from plan/role_cues.txt<br/>roles_cues_version on every file; roles_source db / computed]
     RL --> A0[analysis/a0_terms.py · facet_sweep.py · make a0-wide<br/>analysis/a1_sentiment.py · make a1-wide<br/>analysis/freq_trends.py · make trends · wave1_rates.py]
@@ -79,7 +79,7 @@ flowchart TD
 
 Legend: the production chart has only nodes that exist and run today, each with
 its script and instrument version (`CODEBOOK_VERSION`, `KEYWORDS_VERSION`,
-`PIPELINE_VERSION`, `redact-1.1`); the research chart also shows the full
+`PIPELINE_VERSION`, `redact-1.3`); the research chart also shows the full
 stance pass, the A1 Claude pass and the validation arms (`plan/RECALL-CHECK.md`,
 `plan/CODEBOOK-V2-PILOT*.md`), none of which is in the current phase. Nodes
 marked PRELIMINARY are landing while this was written and need re-checking.

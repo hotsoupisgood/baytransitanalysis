@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25T10:40-07:00",
+ "generated": "2026-10-25T11:48-07:00",
  "generated_by": "ytpt-site/export/export_flow.py",
  "meta_line": "34 bodies \u00b7 709 meetings \u00b7 4,959 located episodes over 5 routes \u00b7 302.3 audio hours transcribed \u00b7 15,961 turns scored \u00b7 $17.64 of GPU time, measured 2026-10-23",
  "lede": "Nine stages, in the order they ran. Each box says what was decided at that step; the dashed ones are the two places where something is judged rather than processed. Click a box for the detail and the files behind it.",
@@ -188,7 +188,7 @@
      "1,841"
     ]
    ],
-   "detail": "<p>Every transcript is checked against the captions for the same span, for coverage gaps, duplicated segments and diarization collapse. 1,692 episodes pass, 149 carry a warning and 0 fail. A failing transcript is never loaded: the row is requeued instead, which is the one loop in this chart.</p><p>Whole meetings need one special case. A long recording trips the repeated-phrase rule on runs of \u201cyou\u201d and \u201cThank you.\u201d across a recess, which is silence rather than a decoder loop, so those are re-gated with filler runs collapsed. A genuine coverage failure stays failed.</p><p>What came through the gate is 30,880 turns and 2,467,610 words of speech. Names are kept, by owner decision: these are public meetings and every turn on the dashboard links to the recording at its own timestamp.</p>",
+   "detail": "<p>Every transcript is checked against the captions for the same span, for coverage gaps, duplicated segments and diarization collapse. 1,692 episodes pass, 149 carry a warning and 0 fail. A failing transcript is never loaded: the row is requeued instead, which is the one loop in this chart.</p><p>Whole meetings need one special case. A long recording trips the repeated-phrase rule on runs of \u201cyou\u201d and \u201cThank you.\u201d across a recess, which is silence rather than a decoder loop, so those are re-gated with filler runs collapsed. A genuine coverage failure stays failed.</p><p>What came through the gate is 30,880 turns and 2,467,139 words of speech. Names are kept, by owner decision: these are public meetings and every turn on the dashboard links to the recording at its own timestamp.</p>",
    "docs": [
     "analysis/qa_transcripts.py",
     "docs/TESTING.md",

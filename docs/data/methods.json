@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25T17:46:16+00:00",
+ "generated": "2026-10-25T18:48:22+00:00",
  "generated_by": "ytpt-site/export/export_methods.py",
  "exploratory": "Exploratory analysis. Stance and tone were coded by a large language model and have not been validated against human coders. No human-coded reference set exists in this chain. Every recall, precision and agreement number on this page compares one large language model against another, or a model against itself. The owner's decision of 2026-10-18 keeps this project in an exploratory phase. No result on this page is confirmatory.",
  "locate": {
@@ -778,11 +778,11 @@
   },
   {
    "instrument": "Redaction",
-   "version": "redact-1.1",
+   "version": "redact-1.3",
    "model": "not applicable",
    "source": "pipeline/redact.py, name, address and contact: ran before the stance pass, and again on every turn and quote published on this site",
    "sha256": null,
-   "status": "applied to all published text (owner, 2026-10-20)"
+   "status": "every published turn and quote is at redact-1.3; the whole corpus was re-redacted at it on 2026-10-25"
   }
  ]
 }
