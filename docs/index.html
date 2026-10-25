@@ -79,13 +79,14 @@
   </div>
 
   <div class="herorest">
-  <!-- The goal block: two sentences on what the classification decides, the corpus
-       scope with its counts, then the one exploratory sentence (rule 12). All three
-       strings come out of panels.json, built in export_panels.py page_intro() from
-       data/bodies.json's own totals, so no count is typed into this file and the
-       scope line cannot drift from the map. -->
+  <!-- The goal block: the owner's own paragraph on what the project asks and what was
+       scored, then the corpus scope with its counts. Both strings come out of
+       panels.json, built in export_panels.py page_intro() from data/bodies.json's own
+       totals, so no count is typed into this file and the scope line cannot drift from
+       the map. The grey exploratory stamp that used to sit under this block is gone
+       (owner, 2026-10-24 18:47): his paragraph ends on the exploratory sentence, so
+       the status is stated once, here, in his words (rule 12). -->
   <div id="intro"><p class="sub">Loading…</p></div>
-  <p class="sub stamp" id="stamp"></p>
 
   <!-- The two links the owner asked for (08:45): a neutral explainer of the two
        labels, and one case of a Bay Area body stopping homes. Both were fetched and
@@ -211,17 +212,17 @@ Promise.all([
   const top = withHours.slice().sort((a,b) => b.hours_done - a.hours_done);
   const short = n => n.replace(/ City Council| Board.*| County.*/, "");
 
-  // The goal block under the TLDR: what the classification decides, then the corpus
-  // scope with its counts, then the one exploratory sentence. All three come out of
-  // panels.json, built in export_panels.py page_intro() from the corpus's own totals,
-  // so no count is a literal here. The second paragraph of findings that used to
-  // stand here is gone: it restated the Rates headline and the role block's two
-  // shares, which those panels say with their own numbers (owner, 2026-10-21 08:40,
-  // "look for redundancies across it"; rule 14).
+  // The goal block under the TLDR: the owner's paragraph on what the project asks,
+  // then the corpus scope with its counts. Both come out of panels.json, built in
+  // export_panels.py page_intro() from the corpus's own totals, so no count is a
+  // literal here. The second paragraph of findings that used to stand here is gone:
+  // it restated the Rates headline and the role block's two shares, which those
+  // panels say with their own numbers (owner, 2026-10-21 08:40, "look for
+  // redundancies across it"; rule 14). The grey exploratory stamp that followed is
+  // gone too (owner, 2026-10-24 18:47), his paragraph carrying that sentence now.
   if (panels && panels.intro) {
     d3.select("#intro").html(
       `<p class="intro">${panels.intro.goal}</p><p class="intro scope">${panels.intro.scope}</p>`);
-    d3.select("#stamp").text(panels.intro.note || "");
     // The YIMBY / NIMBY rule, under the two example comments where the labels first
     // appear (rule 3). It is the view's own threshold out of panels.json, which is
     // why it is rendered rather than typed into the markup above; the panel that

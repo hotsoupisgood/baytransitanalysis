@@ -240,8 +240,10 @@ p.intro {
 }
 p.intro + p.intro { margin-top: -0.25rem; }
 
-/* The one visible exploratory stamp, under the scope line (rule 12). */
-.stamp { margin: -0.25rem 0 1rem; max-width: var(--fig-max); font-weight: 600; }
+/* The grey exploratory stamp that used to sit under the scope line is gone (owner,
+   2026-10-24 18:47, "Remove the Exploratory Analysis grey subtitle"): the goal
+   paragraph he dictated ends on that sentence, so rule 12 is met in his own words
+   and this rule had no element left to style. */
 
 /* The owner's own sentences: the two links, and why it matters. Body size, same
    measure as the goal block, because they are the page's argument and not notes. */
