@@ -51,17 +51,18 @@
   <div class="hero">
   <ul class="tldr">
     <li>I collected a year of Bay Area council, county and transit board meetings, and transcribed the stretches about housing density or transit.</li>
-    <li>I had a large language model label each public speaker NIMBY, YIMBY or neither. I found more NIMBY speakers than YIMBY ones overall, though at most bodies the split is too close to call.</li>
+    <li>I had a large language model label each public speaker <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener">NIMBY</a>, meaning they opposed new housing nearby, <a href="https://en.wikipedia.org/wiki/YIMBY_movement" target="_blank" rel="noopener">YIMBY</a>, meaning they supported it, or neither. I found more NIMBY speakers than YIMBY ones overall, though at most bodies the split is too close to call.</li>
     <li>Public speakers also took a side more often than the officials running the meeting. The plots below carry the numbers, and every limitation is on the <a href="methods.html">Methods</a> page.</li>
   </ul>
 
-  <!-- The two labels, defined at the top with their links (owner, 2026-10-24 16:48:
-       "can we have definitions of the two at the top with links"). Both articles were
-       fetched and returned 200, and both carry the phrase quoted here. Rule 14: this
-       is the only place on the page that links them and the only place that gives the
-       labelling rule, so the goal paragraph below and the example cards no longer
-       repeat either. -->
-  <p class="deflines"><b>YIMBY</b>, <a href="https://en.wikipedia.org/wiki/YIMBY_movement" target="_blank" rel="noopener"><span class="quote">yes in my back yard</span></a>, supports new housing nearby. <b>NIMBY</b>, <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener"><span class="quote">not in my back yard</span></a>, opposes new housing or projects nearby. Here a speaker is YIMBY when their statements average +0.5 or higher in support of the housing proposal, and NIMBY at -0.5 or lower. The stance scale runs from -2, strongly opposed, to +2, strongly supportive.</p>
+  <!-- The separate definitions block that stood here was removed on 2026-10-24 17:05
+       (owner: "remove the yimby definition i don't like it . just have the definition
+       in the tldr"). The definition now lives in the second TLDR bullet above, in the
+       first person and without numbers like the rest of the TLDR, and that bullet is
+       the only place on the page that links the two Wikipedia articles (rule 14; both
+       were fetched again on 2026-10-24 and returned 200). The labelling rule with its
+       thresholds is not TLDR material, so it went back under the example comments,
+       where the labels first appear with a number beside them (#ex-def below). -->
 
   <!-- THE LEAD CHART: the TLDR's NIMBY bullet, drawn. Owner, 2026-10-24 16:43: "i
        want the initial take away to be most ly about nimby stuff", so the first screen
@@ -105,7 +106,10 @@
        Transcript text is data (AGENTS.md rule 5), so no word is changed and every cut
        is marked "…". The label rule under the heading is rendered from panels.json
        rather than typed here, so the ±0.5 threshold cannot drift from the view that
-       applies it. These two quotes are also the reason the per-speaker scatter's own
+       applies it. Owner, 2026-10-24 17:06: "in the yimby nimby examples remove the
+       subtext. too wordy", so each card keeps its quote, its label and one source
+       line of body and date; the stance scale and the speaker's own average came off
+       the cards, and the scale is still defined once under the heading. These two quotes are also the reason the per-speaker scatter's own
        examples strip is gone: it said the same thing a screen further down. -->
   <h2 id="examples">One comment against the housing item, one for it</h2>
   <div id="ex-def"></div>
@@ -113,12 +117,12 @@
     <div class="exq nimby">
       <h5>NIMBY (against the housing item)</h5>
       <blockquote class="quote">“Mayor and council members, reject the missing middle framework recommendation in the general plan for your review. San Jose residents do not want three-story apartment complexes by right in residential neighborhoods without parking. Smart growth means concentrating density along commercial corridors, transit hubs, not quiet residential streets. …”</blockquote>
-      <p class="qmeta">A member of the public, San José City Council, 2026-08-18. Every statement by this speaker was coded strongly opposed to the housing item. The stance scale runs from -2, strongly opposed, through 0, neutral, to +2, strongly supportive. This speaker's statements average -2.0 on it.</p>
+      <p class="qmeta">A member of the public, San José City Council, 2026-08-18.</p>
     </div>
     <div class="exq yimby">
       <h5>YIMBY (for it)</h5>
       <blockquote class="quote">“… I'm somebody who is very interested in housing in Fremont, and from what I can tell, this changing with the zoning does improve the ability for us to actually create more housing …”</blockquote>
-      <p class="qmeta">A member of the public, Fremont City Council, 2026-05-05. This speaker's statements average +1.0 on the same scale, where +1 is supportive. A supportive statement favours the item, perhaps with reservations or conditions.</p>
+      <p class="qmeta">A member of the public, Fremont City Council, 2026-05-05.</p>
     </div>
   </div>
   <!-- The note "Transcribed speech, quoted as it was transcribed. Names, home
@@ -222,10 +226,12 @@ Promise.all([
     // appear (rule 3). It is the view's own threshold out of panels.json, which is
     // why it is rendered rather than typed into the markup above; the panel that
     // used to carry it as its lede now renders its headline only (rule 14).
+    // Owner, 2026-10-24 17:05: the top definitions block is gone and the TLDR carries
+    // the plain-words definition, which leaves this as the one place on the page that
+    // gives the thresholds (rule 14).
     if (panels.nimby && panels.nimby.lede)
-      // Rule 14, owner 2026-10-24 16:48: the labelling rule is now one of the two
-      // definition lines under the TLDR, so this block no longer repeats it.
-      d3.select("#ex-def").remove();
+      d3.select("#ex-def").html(`<p class="lede">${esc(panels.nimby.lede)}</p>`);
+    else d3.select("#ex-def").remove();
     // The map's summary: two sentences with the counts the footer disclosure used to
     // carry, read from bodies.json so they cannot drift from the markers.
     if (top.length) {
