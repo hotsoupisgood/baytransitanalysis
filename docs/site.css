@@ -154,6 +154,14 @@ a[href]:visited { color: var(--navy); }
 /* The lead chart: its takeaway title, the chart, one sentence under it. The
    chart is drawn client-side from data/panels.json, so the title, the bars and
    the caption all come from the same row and cannot disagree. */
+/* The two labels, defined under the TLDR with their links (owner, 2026-10-24
+   16:48). One paragraph, muted, so it reads as a glossary line and not as a
+   finding. */
+.deflines {
+  margin: 0.35rem 0 0.75rem; font-size: 0.875rem; line-height: 1.5;
+  color: var(--muted); max-width: 42rem;
+}
+.deflines b { color: var(--ink); }
 .leadchart { margin: 0; padding: 0; }
 .leadchart h2 {
   border-top: 0; padding-top: 0; margin: 0 0 0.5rem;
@@ -189,8 +197,9 @@ rect.lead-bar.nstance { fill: var(--nstance); }
    and the scope the second, and the chart stands beside both. */
 @media (min-width: 52.0625rem) {
   .hero > ul.tldr   { grid-column: 1; grid-row: 1; }
-  .hero > .herorest { grid-column: 1; grid-row: 2; }
-  .hero > .leadchart { grid-column: 2; grid-row: 1 / span 2; }
+  .hero > .deflines { grid-column: 1; grid-row: 2; }
+  .hero > .herorest { grid-column: 1; grid-row: 3; }
+  .hero > .leadchart { grid-column: 2; grid-row: 1 / span 3; }
 }
 /* Phone: one column, and the chart comes straight after the TLDR. The goal, the
    scope and the exploratory sentence drop below it, and the two links and the
@@ -198,9 +207,15 @@ rect.lead-bar.nstance { fill: var(--nstance); }
    screen at full size rather than shrunk to fit above them. */
 @media (max-width: 52rem) {
   .hero { grid-template-columns: 1fr; gap: 0.5rem; display: flex; flex-direction: column; }
+  /* Phone: the chart comes straight after the TLDR and the two definitions sit
+     directly under it. On a 390 px screen the definitions are six lines, which is
+     the difference between the whole chart standing on the first screen and half of
+     it standing below the fold (owner, items 10, 17 and 18). On a desktop they keep
+     their place under the TLDR, beside the chart. */
   .hero > ul.tldr { order: 1; }
   .hero > .leadchart { order: 2; }
-  .hero > .herorest { order: 3; }
+  .hero > .deflines { order: 3; }
+  .hero > .herorest { order: 4; }
 }
 
 /* THE TLDR BLOCK, his blog pattern: a literal label, then 3 or 4 short bullets.

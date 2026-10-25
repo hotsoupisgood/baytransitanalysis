@@ -51,10 +51,17 @@
   <div class="hero">
   <ul class="tldr">
     <li>I collected a year of Bay Area council, county and transit board meetings, and transcribed the stretches about housing density or transit.</li>
-    <li>I had a large language model label each public speaker NIMBY, YIMBY or neither.</li>
-    <li>I found more NIMBY speakers than YIMBY ones overall, though at most bodies the split is too close to call.</li>
+    <li>I had a large language model label each public speaker NIMBY, YIMBY or neither. I found more NIMBY speakers than YIMBY ones overall, though at most bodies the split is too close to call.</li>
     <li>Public speakers also took a side more often than the officials running the meeting. The plots below carry the numbers, and every limitation is on the <a href="methods.html">Methods</a> page.</li>
   </ul>
+
+  <!-- The two labels, defined at the top with their links (owner, 2026-10-24 16:48:
+       "can we have definitions of the two at the top with links"). Both articles were
+       fetched and returned 200, and both carry the phrase quoted here. Rule 14: this
+       is the only place on the page that links them and the only place that gives the
+       labelling rule, so the goal paragraph below and the example cards no longer
+       repeat either. -->
+  <p class="deflines"><b>YIMBY</b>, <a href="https://en.wikipedia.org/wiki/YIMBY_movement" target="_blank" rel="noopener"><span class="quote">yes in my back yard</span></a>, supports new housing nearby. <b>NIMBY</b>, <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener"><span class="quote">not in my back yard</span></a>, opposes new housing or projects nearby. Here a speaker is YIMBY when their statements average +0.5 or higher in support of the housing proposal, and NIMBY at -0.5 or lower. The stance scale runs from -2, strongly opposed, to +2, strongly supportive.</p>
 
   <!-- THE LEAD CHART: the TLDR's NIMBY bullet, drawn. Owner, 2026-10-24 16:43: "i
        want the initial take away to be most ly about nimby stuff", so the first screen
@@ -82,7 +89,7 @@
   <!-- The two links the owner asked for (08:45): a neutral explainer of the two
        labels, and one case of a Bay Area body stopping homes. Both were fetched and
        checked for a 200 and for saying what the sentence claims. -->
-  <p class="said">NIMBY and YIMBY name the two sides of this argument: Wikipedia defines <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener">NIMBY</a> and <a href="https://en.wikipedia.org/wiki/YIMBY" target="_blank" rel="noopener">YIMBY</a>. These meetings decide real projects. <a href="https://sanjosespotlight.com/san-jose-residents-win-fight-to-stop-housing-project/" target="_blank" rel="noopener">San José Spotlight</a> reported that in June 2025 the San Jose City Council voted unanimously to deny 135 homes, after neighbors objected.</p>
+  <p class="said">These meetings decide real projects. <a href="https://sanjosespotlight.com/san-jose-residents-win-fight-to-stop-housing-project/" target="_blank" rel="noopener">San José Spotlight</a> reported that in June 2025 the San Jose City Council voted unanimously to deny 135 homes, after neighbors objected.</p>
 
   <!-- Why it matters: the owner's view, two sentences, each naming a cost and a harm
        (08:45: "be brief"). The cost claim carries its source. -->
@@ -216,7 +223,9 @@ Promise.all([
     // why it is rendered rather than typed into the markup above; the panel that
     // used to carry it as its lede now renders its headline only (rule 14).
     if (panels.nimby && panels.nimby.lede)
-      d3.select("#ex-def").html(`<p class="lede">${esc(panels.nimby.lede)}</p>`);
+      // Rule 14, owner 2026-10-24 16:48: the labelling rule is now one of the two
+      // definition lines under the TLDR, so this block no longer repeats it.
+      d3.select("#ex-def").remove();
     // The map's summary: two sentences with the counts the footer disclosure used to
     // carry, read from bodies.json so they cannot drift from the markers.
     if (top.length) {
@@ -302,18 +311,20 @@ Promise.all([
       return;
     }
     const per100 = v => Math.round(v);
+    // Owner, 2026-10-24 16:48: "is there a small yimby vs nimby plot we can do". Two
+    // bars, the two labels, and the speakers who were neither as one line of text
+    // under them rather than a third bar.
     const rows = [
-      { k: "nimby", label: "NIMBY: opposed the housing item", v: +m[2] },
-      { k: "yimby", label: "YIMBY: supported it", v: +m[1] },
-      { k: "nstance", label: "Neither, on the statements scored", v: +m[3] },
+      { k: "nimby", label: "NIMBY: against the housing proposal", v: +m[2] },
+      { k: "yimby", label: "YIMBY: for it", v: +m[1] },
     ];
-    drawBars(svgSel, rows, "public speakers of every 100, by label", v => `${per100(v)} of 100`);
+    drawBars(svgSel, rows, "public speakers of every 100", v => `${per100(v)} of 100`);
     d3.select("#lead-h").text(`Of every 100 public speakers, ${per100(rows[0].v)} were NIMBY `
       + `and ${per100(rows[1].v)} YIMBY`);
-    cap.text(`Every public speaker scored on a housing item${n ? `, ${n[1]} of them` : ""}, `
+    cap.text(`The other ${per100(+m[3])} of every 100 were neither. `
+      + `Every public speaker scored on a housing proposal${n ? `, ${n[1]} of them` : ""}, `
       + "each counted once at the meeting they spoke at.");
-    d3.select("#lead-def").text("A speaker is NIMBY when their statements averaged 0.5 or more "
-      + "against the item, and YIMBY when they averaged 0.5 or more for it.");
+    d3.select("#lead-def").remove();
     leadDrewSplit = true;
   }
   buildLeadSplit(panels && panels.nimby);
@@ -820,7 +831,7 @@ Promise.all([
       d3.select("#p-nimby").html(`${head(np, {h2: "nimby", defs: false})}${leadFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
-          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the item) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
+          <p class="numlede">${fi(nimbyPts.meta.n_points)} public speakers, one route at a time. Across: that speaker's mean stance score, from -2 (strongly opposed to the proposal) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
           <p class="sctl">Route <select id="nsc-route"></select>
             <span id="nsc-filter" class="note"></span></p>
           <svg id="nsc" role="img" aria-label="Public speaker clusters by mean stance and mean hostility, one dot each"></svg>
