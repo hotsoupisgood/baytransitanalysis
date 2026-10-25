@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-25T11:48-07:00",
+ "generated": "2026-10-25T16:31-07:00",
  "generated_by": "ytpt-site/export/export_flow.py",
- "meta_line": "34 bodies \u00b7 709 meetings \u00b7 4,959 located episodes over 5 routes \u00b7 302.3 audio hours transcribed \u00b7 15,961 turns scored \u00b7 $17.64 of GPU time, measured 2026-10-23",
+ "meta_line": "34 bodies \u00b7 709 meetings \u00b7 4,959 located episodes over 5 routes \u00b7 302.3 audio hours transcribed \u00b7 23,237 turns scored \u00b7 $17.64 of GPU time, measured 2026-10-23",
  "lede": "Nine stages, in the order they ran. Each box says what was decided at that step; the dashed ones are the two places where something is judged rather than processed. Click a box for the detail and the files behind it.",
  "key": [
   {
@@ -121,7 +121,7 @@
      "0.725"
     ]
    ],
-   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is a share of the reference's about-minutes: 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit, on the same share of about-minutes. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-20, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 815 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $60.09, measured 2026-10-24.</p>",
+   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is a share of the reference's about-minutes: 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit, on the same share of about-minutes. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-20, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 815 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $61.33, measured 2026-10-25.</p>",
    "docs": [
     "pipeline/classify.py",
     "scripts/fullasr.py",
@@ -201,16 +201,16 @@
    "title": "Turn-level stance coding, each turn read three times",
    "state": "done",
    "gate": true,
-   "badge": "15,961 TURNS \u00b7 \u03ba GATE UNPASSED",
+   "badge": "23,237 TURNS \u00b7 \u03ba GATE UNPASSED",
    "line": "Reliability was decided by reading every turn three times and keeping the median. That measures the instrument against itself, not against a human.",
    "nums": [
     [
      "turns scored",
-     "15,961"
+     "23,237"
     ],
     [
      "episodes",
-     "1,239"
+     "1,835"
     ],
     [
      "times read",
@@ -221,7 +221,7 @@
      "0.98"
     ]
    ],
-   "detail": "<p>Every turn of at least five words inside a located episode is coded for stance toward the agenda item. Stance runs on a scale from \u22122 for opposing it to +2 for supporting it. The same read scores hostility on a scale from 0 to 4, a frame set, a sub-topic and whether the speaker said who they are. The codebook is hashed into the prompt version recorded on every row, thinking is disabled, and each turn is read three times with the median kept and the spread stored. This is a census of the gated corpus, not a sample: 15,961 turns in 1,239 episodes.</p><p>The three readings agree at weighted \u03ba 0.980 / 0.982 / 0.979, one value per pair of readings. Weighted \u03ba runs from 0, the agreement chance would give, to 1, perfect agreement. The three readings are identical on 97.6 % of turns. That is the instrument agreeing with <i>itself</i>. <b>No human has coded any turn</b>, so the \u03ba \u2265 0.6 validity gate is unpassed and everything downstream of here is exploratory. That is the single most important sentence on this page.</p><p>Cost: $67.93, measured 2026-10-20 for the pass, $0.00426, measured 2026-10-20 per turn, read three times.</p>",
+   "detail": "<p>Every turn of at least five words inside a located episode is coded for stance toward the agenda item. Stance runs on a scale from \u22122 for opposing it to +2 for supporting it. The same read scores hostility on a scale from 0 to 4, a frame set, a sub-topic and whether the speaker said who they are. The codebook is hashed into the prompt version recorded on every row, thinking is disabled, and each turn is read three times with the median kept and the spread stored. This is a census of the gated corpus, not a sample: 2,003 turns in 942 episodes.</p><p>The three readings agree at weighted \u03ba 0.980 / 0.982 / 0.979, one value per pair of readings. Weighted \u03ba runs from 0, the agreement chance would give, to 1, perfect agreement. The three readings are identical on 97.6 % of turns. That is the instrument agreeing with <i>itself</i>. <b>No human has coded any turn</b>, so the \u03ba \u2265 0.6 validity gate is unpassed and everything downstream of here is exploratory. That is the single most important sentence on this page.</p><p>Cost: $96.60, measured 2026-10-25 for the pass, $0.00416, measured 2026-10-25 per turn, read three times.</p>",
    "docs": [
     "pipeline/stance.py",
     "plan/STANCE-CODEBOOK.md",
@@ -239,22 +239,22 @@
    "nums": [
     [
      "turns audited",
-     "15,961"
+     "23,237"
     ],
     [
      "informative turns",
-     "8,842"
+     "12,560"
     ],
     [
      "turns that disagree",
-     "655"
+     "913"
     ],
     [
      "no signal, share of all turns",
-     "45 %"
+     "46 %"
     ]
    ],
-   "detail": "<p>Roles start from cue phrases in the diarized transcript, \u201cmy name is, I live at\u201d against \u201cthe motion carries\u201d, never from names. That labeller assigns the wrong role often enough to matter: a council member who chairs an item can pick up a public cue, and a staff planner presenting a report matches neither cue set. So the role is re-decided from what the speaker says about who they are, and that overrides the cue.</p><p>Of 8,842 turns that say anything about the speaker, 655 disagree with the cue label (7.4 % of those turns); 44.6 % of all turns say nothing and keep the cue. The audit moves clusters <i>both</i> ways, so a shift in these numbers is a re-partition and not contamination removed.</p><p><b>This is an audit, not a gold set.</b> The self-identification is another model's output and no human has checked it, so the audited public bucket is still mixed at an unknown rate.</p>",
+   "detail": "<p>Roles start from cue phrases in the diarized transcript, \u201cmy name is, I live at\u201d against \u201cthe motion carries\u201d, never from names. That labeller assigns the wrong role often enough to matter: a council member who chairs an item can pick up a public cue, and a staff planner presenting a report matches neither cue set. So the role is re-decided from what the speaker says about who they are, and that overrides the cue.</p><p>Of 12,560 turns that say anything about the speaker, 913 disagree with the cue label (7.3 % of those turns); 45.9 % of all turns say nothing and keep the cue. The audit moves clusters <i>both</i> ways, so a shift in these numbers is a re-partition and not contamination removed.</p><p><b>This is an audit, not a gold set.</b> The self-identification is another model's output and no human has checked it, so the audited public bucket is still mixed at an unknown rate.</p>",
    "docs": [
     "pipeline/roles.py",
     "plan/ROLE-AUDIT-2026-10-18.md"
@@ -265,16 +265,16 @@
    "n": "8",
    "title": "Speaker clusters, and a label for each",
    "state": "done",
-   "badge": "2,509 CLUSTERS",
+   "badge": "3,151 CLUSTERS",
    "line": "A speaker is one diarized voice inside one meeting and nothing wider: clusters are never linked across meetings, by design.",
    "nums": [
     [
      "clusters",
-     "2,509"
+     "3,151"
     ],
     [
      "turns rolled up",
-     "15,961"
+     "23,237"
     ],
     [
      "threshold, \u22122 to +2",
@@ -282,7 +282,7 @@
     ],
     [
      "public clusters with a stance",
-     "525"
+     "617"
     ]
    ],
    "detail": "<p>The turn scores are rolled up per diarized voice per episode. A cluster is YIMBY if its mean stance is at or above +0.50, and NIMBY if at or below \u22120.50. Between the two it is neutral, which is half a codebook step either side. Housing, transit and mixed episodes all carry the label since the direction pass went in on 2026-10-24: the sign on each statement follows whether its proposal would add or restrict housing or transit, so the label is support for more of either.</p><p>A cluster is a voice in one meeting, not a person. There are no voice embeddings, no persistent speaker ids and no name extraction into a field, so a cluster label means nothing outside its own episode. The same person at two meetings is two clusters, and the analysis cannot tell. Most public clusters rest on a single scored turn, which is why the per-body intervals are wide and why one table and one figure exist per locate route, never pooled.</p>",
@@ -302,14 +302,14 @@
    "nums": [
     [
      "times the odds, public vs dais: took a side at all",
-     "8.57\u00d7"
+     "8.20\u00d7"
     ],
     [
      "times the odds, public vs dais: which side, given a side",
-     "1.64\u00d7"
+     "1.65\u00d7"
     ]
    ],
-   "detail": "<p>One row per scored turn. The fit is a mixed logistic regression that gives every stretch of meeting, every meeting and every body its own baseline. Speaker role, renter share, their interaction and the locate route are fixed terms. It is fitted twice on the same frame: did a turn take a side at all, and, among the turns that took one, which side.</p><p><b>Took a side at all</b>: 8.57\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 6.63 to 11.19). <b>Which side, given a side</b>: 1.64\u00d7 the odds of opposing more housing or transit rather than supporting it, for a public statement against a dais one (likely range 1.21 to 2.22).</p><p>A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.</p><p>The reason the model groups turns by meeting rather than by city is that the spread between bodies is zero once meeting is in it, because meeting is nested inside body and absorbs it entirely. Earlier fits grouped by body, which is the wrong level; they are kept in the repo and agree with this one to within a few thousandths of a log-odds. The role block on the dashboard reports this model and nothing else.</p>",
+   "detail": "<p>One row per scored turn. The fit is a mixed logistic regression that gives every stretch of meeting, every meeting and every body its own baseline. Speaker role, renter share, their interaction and the locate route are fixed terms. It is fitted twice on the same frame: did a turn take a side at all, and, among the turns that took one, which side.</p><p><b>Took a side at all</b>: 8.20\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 6.46 to 10.51). <b>Which side, given a side</b>: 1.65\u00d7 the odds of opposing more housing or transit rather than supporting it, for a public statement against a dais one (likely range 1.25 to 2.19).</p><p>A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.</p><p>The reason the model groups turns by meeting rather than by city is that the spread between bodies is zero once meeting is in it, because meeting is nested inside body and absorbs it entirely. Earlier fits grouped by body, which is the wrong level; they are kept in the repo and agree with this one to within a few thousandths of a log-odds. The role block on the dashboard reports this model and nothing else.</p>",
    "docs": [
     "plan/RENTER-SHARE-6-R.md",
     "plan/REGRESSION-REVIEW-2026-10-19.md"
@@ -340,25 +340,49 @@
    "what": "whole-meeting transcription without diarization, per audio-hour"
   },
   "stance": {
-   "usd": 67.932098,
-   "turns": 15961,
-   "calls": 47883,
-   "per_turn": 0.004256130442954702,
-   "as_of": "2026-10-20",
+   "usd": 96.602421,
+   "turns": 23237,
+   "calls": 69711,
+   "per_turn": 0.004157267332271808,
+   "as_of": "2026-10-25",
    "what": "stance coding, per turn at k = 3"
   },
+  "stance_audit": {
+   "usd": 6.333466,
+   "turns": 2003,
+   "calls": 2003,
+   "per_turn": 0.0031619900149775335,
+   "as_of": "2026-10-25",
+   "what": "a second model re-scoring a sample, to audit the stance pass"
+  },
   "direction": {
-   "usd": 9.976365,
-   "stretches": 1212,
-   "calls": 4881,
-   "per_stretch": 0.008231324257425742,
+   "usd": 16.598245,
+   "stretches": 1795,
+   "calls": 7611,
+   "per_stretch": 0.009246933147632311,
    "as_of": "2026-10-25",
    "what": "the proposal direction pass, per stretch at k = 3"
   },
+  "direction_audit": {
+   "usd": 2.204806,
+   "stretches": 300,
+   "calls": 300,
+   "per_stretch": 0.0073493533333333335,
+   "as_of": "2026-10-25",
+   "what": "a second model re-reading a sample, to audit the direction pass"
+  },
+  "label_audit": {
+   "usd": 1.232035,
+   "stretches": 135,
+   "calls": 200,
+   "per_stretch": 0.009126185185185185,
+   "as_of": "2026-10-25",
+   "what": "a model re-reading a sample of speaker labels, to audit the YIMBY and NIMBY labelling"
+  },
   "classifier": {
-   "usd": 60.093116,
-   "calls": 30648,
-   "as_of": "2026-10-24",
+   "usd": 61.326333,
+   "calls": 31063,
+   "as_of": "2026-10-25",
    "what": "the locate classifier, whole pass"
   },
   "runpod_total": {

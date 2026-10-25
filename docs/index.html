@@ -321,17 +321,22 @@ Promise.all([
   }
 
   // The first screen: of every 100 public speakers, how many were labelled each way.
-  // The three shares come out of the NIMBY panel's own first sentence, which is the
-  // only place they are published. Rule 16: the unit is speakers of every 100, said on
-  // the bars, in the axis title and in the heading, so no number stands bare.
+  // Rule 16: the unit is speakers of every 100, said on the bars, in the axis title
+  // and in the heading, so no number stands bare.
+  //
+  // The shares come from nimby.overall.split, which the exporter computes from the
+  // view's own rows. Until 2026-10-25 they were scraped back out of the panel's first
+  // headline with a regular expression; rewriting that sentence into "N of 100" for
+  // rule 6 then blanked this chart, because the pattern looked for percent signs. A
+  // number the page draws is read from a number, never from a sentence about it.
   function buildLeadSplit(np) {
     const cap = d3.select("#lead-cap"), svgSel = d3.select("#leadsvg");
-    const h = (np && np.headline && np.headline[0]) || "";
-    const m = /([\d.]+)\s*%\s*were YIMBY,\s*([\d.]+)\s*%\s*NIMBY and\s*([\d.]+)\s*%\s*neutral/.exec(h);
-    const n = /Of\s*([\d,]+)\s*public speakers/.exec(h);
-    if (!m) {
+    const sp = (np && np.overall && np.overall.split) || null;
+    const m = sp && [null, 100 * sp.YIMBY, 100 * sp.NIMBY, 100 * sp.neutral];
+    const n = sp && sp.n_public_clusters ? [null, sp.n_public_clusters.toLocaleString()] : null;
+    if (!m || [m[1], m[2], m[3]].some(v => typeof v !== "number" || !isFinite(v))) {
       svgSel.remove();
-      cap.html(`<span class="leadfail">This chart needs the three shares in <code>data/panels.json</code>, under <code>nimby.headline</code>. Run <code>export/export_panels.py</code> to rebuild it.</span>`);
+      cap.html(`<span class="leadfail">This chart needs the three public speaker shares, which the panels exporter publishes. Run it to rebuild this chart.</span>`);
       return;
     }
     const per100 = v => Math.round(v);
@@ -344,18 +349,17 @@ Promise.all([
     ];
     drawBars(svgSel, rows, "public speakers of every 100", v => `${per100(v)} of 100`);
     // Owner's honesty rule for this chart (item 17, 2026-10-24 16:43): the takeaway
-    // claims a direction only if the data holds it. After the direction correction
-    // the two labels are 5 of 100 apart on 227 speakers and 6 of the 7 body-and-route
-    // groups have a YIMBY-minus-NIMBY range that includes zero, so the title states
-    // the split and stops. The star count is the panel's own second headline, read
-    // from the same file rather than computed here.
+    // claims a direction only if the data holds it. The star count is the panel's own
+    // second headline, read from the same file rather than computed here.
     // Owner, 2026-10-24 19:27 (inbox 30): takeaways in the hypothesis-and-conclusion
-    // shape. Checked 2026-10-24 under the view's own rule (episode bootstrap, seed
-    // 20261018, 2,000 reps): YIMBY minus NIMBY over all 274 public speakers is +7.3 of
-    // 100 with a 90 % range of -4.3 to +19.7, so it is not significant. On the full
-    // statement set (2026-10-24 23:54, "Update") it is +0.2 of 100 over 525 speakers,
-    // 90 % range -11.6 to +13.5: still not significant, and the title is unchanged. The title states
-    // the conclusion and the two shares; since inbox 36 the caption carries the range.
+    // shape. Checked under the view's own rule (episode bootstrap, seed 20261018,
+    // 2,000 reps), YIMBY minus NIMBY over all public speakers has stayed inside zero
+    // at every frame this page has carried: +7.3 of 100 on 274 speakers (2026-10-24),
+    // +0.2 on 525 (the full statement set, 2026-10-24 23:54, "Update"), and +5.4 of
+    // 100 with a 90 % range of -6.8 to +17.3 on 617 after the transit census
+    // (2026-10-25). Not significant at any of them, so this title has never changed.
+    // The title states the conclusion and the two shares; since inbox 36 the caption
+    // carries the range.
     d3.select("#lead-h").text(`Public speakers showed no significant difference between YIMBY and NIMBY: `
       + `${per100(rows[1].v)} against ${per100(rows[0].v)} of 100`);
     // Inbox 36 (parent, 2026-10-24 19:45): the range behind that conclusion is shown,
