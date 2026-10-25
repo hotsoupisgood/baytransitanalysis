@@ -73,6 +73,12 @@
        Every number in it is substituted by export_methods.py from the runs' artefacts. -->
   <h2 id="models">5. The models behind the role results</h2>
   <div id="s-models"></div>
+  <!-- Added 2026-10-24 (owner, inbox 35: "do test of yimby nimby in offical vs public. redo
+       our regression too"). Both entries are written by export/export_panels.py into
+       data/panels.json (nimby.role_side.speakers and renter.refit) from
+       output/role_yimby_nimby/ and output/renter_share_direction_loose/, so no number is
+       typed into this file. -->
+  <div id="s-a4"></div>
 
   <h2 id="limitations">6. Limitations</h2>
   <div id="s-limitations"></div>
@@ -236,6 +242,14 @@ const verbatim = (label, b, extra = "") => `
     <div style="padding:8px 14px 0"><span class="hash">sha256 ${esc(b.sha256)}${b.source ? " · " + esc(b.source) : ""}</span></div>
     <pre class="verbatim">${esc(b.text)}</pre>
   </details>`;
+
+// Inbox 35, 2026-10-24: the speaker-label role test and the renter re-fit, read from
+// data/panels.json where export_panels.py wrote them.
+d3.json("data/panels.json").then(P => {
+  const B = [P.nimby && P.nimby.role_side && P.nimby.role_side.speakers, P.renter && P.renter.refit]
+    .filter(b => b && (b.methods || []).length);
+  d3.select("#s-a4").html(B.map(b => `<h3>${esc(b.methods_title)}</h3>${b.methods.map(t => `<p>${esc(t)}</p>`).join("")}`).join(""));
+}).catch(() => d3.select("#s-a4").html(""));
 
 d3.json("data/methods.json").then(M => {
   d3.select("#banner").html(esc(M.exploratory)

@@ -1,5 +1,5 @@
 {
-"generated": "2026-10-24T19:34-07:00",
+"generated": "2026-10-24T19:56-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
 "goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. A second pass recorded whether that proposal would add or restrict housing or transit. Each was scored three times and the median calculated. This is an exploratory analysis used to better understand the data and inspire future planned analysis.",
@@ -1148,6 +1148,16 @@
 },
 "nimby": {
 "title": "YIMBY / NIMBY",
+"lead_range": {
+"yimby_minus_nimby_per_100": 7.3,
+"lo90": -4.3,
+"hi90": 19.65,
+"level": 90,
+"reps": 2000,
+"seed": 20261018,
+"n_public": 274,
+"source": "output/role_yimby_nimby/summary.json"
+},
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "lede": "Each statement is scored from -2 to +2 for how far it supports more housing or transit, with the sign flipped on proposals that would restrict either. A speaker is YIMBY when their statements average +0.5 or higher, NIMBY at -0.5 or lower, and neutral between. A speaker here is one voice at one meeting.",
 "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
@@ -1225,7 +1235,48 @@
 "analysis/r/export_for_r.py",
 "analysis/r/turn_anyside.R",
 "analysis/r/turn_profile.R"
+],
+"speakers": {
+"title": "Officials were significantly more likely than public speakers to be YIMBY rather than NIMBY (73 vs 54 of 100 speakers who took a side).",
+"text": "Most officials took no side: 67 of 100, against 14 of 100 public speakers. Among those who took a side, 18 more officials than public speakers out of every 100 were YIMBY (likely range 9 to 27). An official had 2.14 times a public speaker's odds of being YIMBY rather than NIMBY (likely range 1.48 to 3.10). Both ranges are 95 % intervals.",
+"methods_title": "Officials were YIMBY rather than NIMBY more often than public speakers, 2.14 times the odds",
+"methods": [
+"Unit and counts. The unit is one voice at one stretch of meeting, labelled as the YIMBY and NIMBY panel labels it. That means the audited role, the looser direction rule, and housing and transit proposals both counted. A speaker is YIMBY at a mean corrected stance of +0.5 or higher and NIMBY at -0.5 or lower. Officials here are every speaker the role audit placed on the dais, which includes staff reports. Of 889 officials with a stance, 210 were YIMBY, 79 NIMBY and 600 neutral. Of 274 public speakers, 128 were YIMBY, 108 NIMBY and 38 neutral.",
+"The test. A mixed-effects logistic regression models YIMBY rather than NIMBY on role, for the speakers who took a side: 289 officials and 236 public speakers. The locate route is a fixed term and each body has its own baseline. It was fitted with lme4 (glmer, bobyqa) in R, with a 95 % profile-likelihood interval. Officials had 2.14 times the odds (likely range 1.48 to 3.10, Wald p = 0.000058, likelihood-ratio p = 0.000115). The body baseline came out at zero variance, a singular fit. A route baseline in place of the fixed term also came out at zero. So the data support neither term, and the estimate equals the plain logistic regression's. Among speakers who took a side, the YIMBY share differs by 18.4 of 100, with a likely range of 9.0 to 27.5. That range comes from 2,000 bootstrap draws that resample stretches of meeting inside each body and route, as the panel's own ranges do.",
+"What it rests on. 67 of 100 officials took no side, so the test compares the 33 of 100 who did. Their 289 labels come from 21 bodies, but 62 of 100 come from three: Santa Clara, Petaluma and Hayward. Without Santa Clara, the largest, the odds ratio is 2.22 (likely range 1.41 to 3.55). With a separate baseline per meeting added it is 2.46 (1.57 to 3.91). The difference points the same way inside 4 of the 4 routes. Its range excludes zero on its own only on the captions route. Code: analysis/role_yimby_nimby_test.py and analysis/r/role_yimby_nimby.R, outputs in output/role_yimby_nimby/. Spend on 2026-10-24: $0, since the test reuses the existing scores and ran on this project's own computer."
+],
+"per_100": {
+"public_YIMBY": 46.72,
+"public_NIMBY": 39.42,
+"public_neutral": 13.87,
+"dais_YIMBY": 23.62,
+"dais_NIMBY": 8.89,
+"dais_neutral": 67.49,
+"public_yimby_of_side": 54.24,
+"dais_yimby_of_side": 72.66
+},
+"difference_yimby_of_side": {
+"value": 18.43,
+"ci95": [
+8.97,
+27.48
 ]
+},
+"odds_ratio": 2.13806788,
+"or_ci95": [
+1.47848652,
+3.10369745
+],
+"side_takers": {
+"dais": 289,
+"public": 236
+},
+"sources": [
+"output/role_yimby_nimby/",
+"analysis/role_yimby_nimby_test.py",
+"analysis/r/role_yimby_nimby.R"
+]
+}
 },
 "role_audit": {
 "audit_version": "ra-1",
@@ -3419,8 +3470,100 @@
 "lede": "Renter share is the renter-occupied share of a body's occupied housing units, from the American Community Survey.",
 "headline": [
 "Renter share had no significant link to what was said at meetings.",
-"A staff member in a California county government suggested renter share as a main predictor, as a lead for future work. Each body's NIMBY share was regressed on renter share, with median household income and population density as covariates. No predictor was significant: every likely range is a 95 % interval, and all three include zero. Renter share also had no significant link to YIMBY share or to meeting time on housing density and transit."
+"A staff member in a California county government suggested renter share as a main predictor, as a lead for future work. Each body's share of public statements opposing more housing or transit was regressed on renter share, median household income and population density. No predictor was significant in the 17 body-and-route groups, with every likely range a 95 % interval. Every 10 more renter-occupied homes out of 100 went with 0.93 times the odds of an opposing statement (likely range 0.47 to 1.86). Renter share also had no significant link to YIMBY share or to meeting time on housing density and transit."
 ],
+"refit": {
+"title": "Renter share had no significant link to what was said at meetings.",
+"page_text": "A staff member in a California county government suggested renter share as a main predictor, as a lead for future work. Each body's share of public statements opposing more housing or transit was regressed on renter share, median household income and population density. No predictor was significant in the 17 body-and-route groups, with every likely range a 95 % interval. Every 10 more renter-occupied homes out of 100 went with 0.93 times the odds of an opposing statement (likely range 0.47 to 1.86). Renter share also had no significant link to YIMBY share or to meeting time on housing density and transit.",
+"methods_title": "Renter share still had no significant link to NIMBY share after the direction correction",
+"methods": [
+"The renter-share regression of 2026-10-18 was fit again on 2026-10-24 on the corrected scores. It used the same code, priors, sampler settings and seed (analysis/renter_share7_direction_models.py, calling the fitting functions of analysis/renter_share_models.py). A body on one route enters with 5 or more public statements carrying a stance. The outcome is how many of those statements opposed more housing or transit, a corrected stance of -0.5 or lower. It is a binomial count with a route term and an overdispersion term per group. Renter share, log median household income and log population density enter standardised, each with a Normal(0, 1) prior. Coefficients below are log-odds per standard deviation with 95 % posterior intervals.",
+"Before and after. Published: 20 groups, 18 bodies, 500 statements. Renter share -0.13 (-0.68 to +0.42), income +0.17 (-0.41 to +0.72), density -0.07 (-0.66 to +0.57). Corrected: 17 groups, 14 bodies, 337 statements. Renter share -0.07 (-0.66 to +0.54), with a 0.41 posterior probability above zero. Income -0.04 (-0.66 to +0.59), density -0.02 (-0.61 to +0.60). Largest R-hat 1.003, 0 divergent transitions, 17 of 17 groups inside the 90 % posterior predictive band. Without the correction, the same model on today's statements gives renter share -0.24 (-0.81 to +0.33) on 20 groups. So the change is partly the correction and partly the statements added since 2026-10-18.",
+"The other fits. YIMBY share on renter share alone: renter share -0.02 (-0.35 to +0.31), 17 groups. YIMBY share with the two covariates: renter share -0.04 (-0.40 to +0.33), 17 groups. Minutes on housing density and transit per meeting hour, complete-coverage groups: renter share +0.93 (-0.24 to +1.94), 12 groups. The same with partial-coverage groups added and flagged: renter share -0.10 (-0.52 to +0.31), 78 groups. Minutes on housing density alone, all groups: renter share -0.23 (-0.60 to +0.12), 39 groups. The meeting-time fits read the located topic minutes, which the correction does not touch; they moved because the coverage test was fixed on 2026-10-20. Sampling was rough in 4 fits, so their intervals are approximate. YIMBY share on renter share alone: R-hat 1.019, 0 divergent transitions. YIMBY share with the two covariates: R-hat 1.004, 5 divergent transitions. Minutes on housing density and transit per meeting hour, complete-coverage groups: R-hat 1.005, 54 divergent transitions. Minutes on housing density alone, all groups: R-hat 1.017, 0 divergent transitions. Outputs: output/renter_share_direction_loose/, with the published fit kept in output/renter_share/models/. Spend on 2026-10-24: $0, since the re-fit ran on this project's own computer."
+],
+"model": "NIMBY share ~ renter + log income + log density",
+"before": {
+"date": "2026-10-18",
+"n_cells": 20,
+"n_bodies": 18,
+"n_statements": 500,
+"coef": {
+"beta_renter": {
+"median": -0.12829545693724093,
+"ci95": [
+-0.6770211406971574,
+0.4166777602526931
+],
+"pr_gt_0": 0.32025
+},
+"beta_log_income": {
+"median": 0.16583720976812877,
+"ci95": [
+-0.41235017000136376,
+0.7176249417689231
+],
+"pr_gt_0": 0.726375
+},
+"beta_log_density": {
+"median": -0.06578331960086833,
+"ci95": [
+-0.6641339892956915,
+0.5686448641477884
+],
+"pr_gt_0": 0.41075
+}
+}
+},
+"after": {
+"date": "2026-10-24",
+"n_cells": 17,
+"n_bodies": 14,
+"n_statements": 337,
+"coef": {
+"beta_renter": {
+"median": -0.06536314597658804,
+"ci95": [
+-0.6619637504615492,
+0.5433690386520862
+],
+"pr_gt_0": 0.409
+},
+"beta_log_income": {
+"median": -0.03513068951442333,
+"ci95": [
+-0.655373701186981,
+0.5931947944533832
+],
+"pr_gt_0": 0.453375
+},
+"beta_log_density": {
+"median": -0.018753414772638595,
+"ci95": [
+-0.6054068377315415,
+0.5981502448740929
+],
+"pr_gt_0": 0.4765
+}
+},
+"diagnostics": {
+"max_r_hat": 1.002723293040438,
+"min_ess_bulk": 1565.8978739661043,
+"divergences": 0
+},
+"odds_ratio_per_10_renter": {
+"median": 0.9282807969558238,
+"ci95": [
+0.4706234145225117,
+1.8564531817117929
+]
+}
+},
+"sources": [
+"output/renter_share_direction_loose/",
+"analysis/renter_share7_direction_models.py",
+"analysis/renter_share7_before_after.py"
+]
+},
 "correlations": [
 {
 "route": "classifier",
@@ -4562,144 +4705,211 @@
 ],
 "model_table": [
 {
+"variant": "corrected_loose",
 "model": "NIMBY share ~ renter (route stratum)",
-"n_cells": 20.0,
-"beta_renter_median": -0.1713,
-"hdi90_lo": -0.5819,
-"hdi90_hi": 0.2407,
-"hdi95_lo": -0.6717,
-"hdi95_hi": 0.3202,
-"pr_gt_0": 0.237,
-"effect_per_10pt": -0.1916,
-"per10_lo90": -0.6511,
-"per10_hi90": 0.2694,
-"max_r_hat": 1.0017,
-"min_ess": 2433.0,
+"n_cells": 17.0,
+"n_turns": 337.0,
+"n_bodies": 14.0,
+"max_r_hat": 1.0044,
+"min_ess": 1003.0,
 "divergences": 0.0,
-"ppc_inside_90": "20/20",
-"ols_slope": -0.2713,
-"ols_lo95": -1.4239,
-"ols_hi95": 0.8813
+"ppc_inside_90": "17/17",
+"beta_renter_median": -0.0733,
+"beta_renter_lo95": -0.6009,
+"beta_renter_hi95": 0.5019,
+"beta_renter_pr_gt_0": 0.39,
+"beta_log_income_lo95": "",
+"beta_log_density_lo95": "",
+"beta_log_income_pr_gt_0": "",
+"beta_log_density_hi95": "",
+"beta_log_density_median": "",
+"beta_log_income_hi95": "",
+"beta_log_income_median": "",
+"beta_log_density_pr_gt_0": ""
 },
 {
+"variant": "corrected_loose",
+"model": "NIMBY share ~ renter + log income + log density",
+"n_cells": 17.0,
+"n_turns": 337.0,
+"n_bodies": 14.0,
+"max_r_hat": 1.0027,
+"min_ess": 1566.0,
+"divergences": 0.0,
+"ppc_inside_90": "17/17",
+"beta_renter_median": -0.0654,
+"beta_renter_lo95": -0.662,
+"beta_renter_hi95": 0.5434,
+"beta_renter_pr_gt_0": 0.409,
+"beta_log_income_lo95": -0.6554,
+"beta_log_density_lo95": -0.6054,
+"beta_log_income_pr_gt_0": 0.453,
+"beta_log_density_hi95": 0.5982,
+"beta_log_density_median": -0.0188,
+"beta_log_income_hi95": 0.5932,
+"beta_log_income_median": -0.0351,
+"beta_log_density_pr_gt_0": 0.476
+},
+{
+"variant": "corrected_loose",
+"model": "NIMBY share ~ renter (floor 10 turns)",
+"n_cells": 13.0,
+"n_turns": 310.0,
+"n_bodies": 10.0,
+"max_r_hat": 1.0027,
+"min_ess": 1140.0,
+"divergences": 0.0,
+"ppc_inside_90": "13/13",
+"beta_renter_median": -0.241,
+"beta_renter_lo95": -0.7493,
+"beta_renter_hi95": 0.3122,
+"beta_renter_pr_gt_0": 0.163,
+"beta_log_income_lo95": "",
+"beta_log_density_lo95": "",
+"beta_log_income_pr_gt_0": "",
+"beta_log_density_hi95": "",
+"beta_log_density_median": "",
+"beta_log_income_hi95": "",
+"beta_log_income_median": "",
+"beta_log_density_pr_gt_0": ""
+},
+{
+"variant": "corrected_loose",
+"model": "YIMBY share ~ renter (route stratum)",
+"n_cells": 17.0,
+"n_turns": 337.0,
+"n_bodies": 14.0,
+"max_r_hat": 1.0186,
+"min_ess": 236.0,
+"divergences": 0.0,
+"ppc_inside_90": "17/17",
+"beta_renter_median": -0.0156,
+"beta_renter_lo95": -0.3463,
+"beta_renter_hi95": 0.3137,
+"beta_renter_pr_gt_0": 0.462,
+"beta_log_income_lo95": "",
+"beta_log_density_lo95": "",
+"beta_log_income_pr_gt_0": "",
+"beta_log_density_hi95": "",
+"beta_log_density_median": "",
+"beta_log_income_hi95": "",
+"beta_log_income_median": "",
+"beta_log_density_pr_gt_0": ""
+},
+{
+"variant": "corrected_loose",
+"model": "YIMBY share ~ renter + log income + log density",
+"n_cells": 17.0,
+"n_turns": 337.0,
+"n_bodies": 14.0,
+"max_r_hat": 1.0039,
+"min_ess": 312.0,
+"divergences": 5.0,
+"ppc_inside_90": "17/17",
+"beta_renter_median": -0.0379,
+"beta_renter_lo95": -0.3992,
+"beta_renter_hi95": 0.3344,
+"beta_renter_pr_gt_0": 0.417,
+"beta_log_income_lo95": -0.4659,
+"beta_log_density_lo95": -0.3273,
+"beta_log_income_pr_gt_0": 0.387,
+"beta_log_density_hi95": 0.4718,
+"beta_log_density_median": 0.0745,
+"beta_log_income_hi95": 0.3675,
+"beta_log_income_median": -0.0575,
+"beta_log_density_pr_gt_0": 0.646
+},
+{
+"variant": "uncorrected_same_frame",
 "model": "NIMBY share ~ renter + log income + log density",
 "n_cells": 20.0,
-"beta_renter_median": -0.1283,
-"hdi90_lo": -0.5778,
-"hdi90_hi": 0.3215,
-"hdi95_lo": -0.677,
-"hdi95_hi": 0.4167,
-"pr_gt_0": 0.32,
-"effect_per_10pt": -0.1436,
-"per10_lo90": -0.6465,
-"per10_hi90": 0.3597,
-"max_r_hat": 1.0024,
-"min_ess": 2189.0,
+"n_turns": 549.0,
+"n_bodies": 17.0,
+"max_r_hat": 1.0014,
+"min_ess": 2260.0,
 "divergences": 0.0,
 "ppc_inside_90": "20/20",
-"ols_slope": -0.2713,
-"ols_lo95": -1.4239,
-"ols_hi95": 0.8813
+"beta_renter_median": -0.2438,
+"beta_renter_lo95": -0.8115,
+"beta_renter_hi95": 0.3309,
+"beta_renter_pr_gt_0": 0.19,
+"beta_log_income_lo95": -0.4421,
+"beta_log_density_lo95": -0.7078,
+"beta_log_income_pr_gt_0": 0.686,
+"beta_log_density_hi95": 0.5205,
+"beta_log_density_median": -0.0985,
+"beta_log_income_hi95": 0.6844,
+"beta_log_income_median": 0.1283,
+"beta_log_density_pr_gt_0": 0.376
 },
 {
-"model": "NIMBY share ~ renter (floor 10 turns)",
-"n_cells": 14.0,
-"beta_renter_median": -0.2616,
-"hdi90_lo": -0.6971,
-"hdi90_hi": 0.1641,
-"hdi95_lo": -0.8004,
-"hdi95_hi": 0.249,
-"pr_gt_0": 0.153,
-"effect_per_10pt": -0.2579,
-"per10_lo90": -0.6871,
-"per10_hi90": 0.1617,
-"max_r_hat": 1.0015,
-"min_ess": 2355.0,
-"divergences": 0.0,
-"ppc_inside_90": "14/14",
-"ols_slope": -0.4873,
-"ols_lo95": -1.6216,
-"ols_hi95": 0.647
-},
-{
-"model": "YIMBY share ~ renter (route stratum)",
-"n_cells": 20.0,
-"beta_renter_median": 0.2804,
-"hdi90_lo": -0.1027,
-"hdi90_hi": 0.6856,
-"hdi95_lo": -0.1808,
-"hdi95_hi": 0.769,
-"pr_gt_0": 0.893,
-"effect_per_10pt": 0.3138,
-"per10_lo90": -0.1149,
-"per10_hi90": 0.7672,
-"max_r_hat": 1.0012,
-"min_ess": 1843.0,
-"divergences": 0.0,
-"ppc_inside_90": "20/20",
-"ols_slope": 0.5142,
-"ols_lo95": -0.722,
-"ols_hi95": 1.7505
-},
-{
+"variant": "topic_minutes_today",
 "model": "topic minutes/h ~ renter (complete coverage)",
-"n_cells": 28.0,
-"beta_renter_median": 0.2312,
-"hdi90_lo": -0.4581,
-"hdi90_hi": 0.8749,
-"hdi95_lo": -0.601,
-"hdi95_hi": 1.0129,
-"pr_gt_0": 0.725,
-"effect_per_10pt": 1.3735,
-"per10_lo90": 0.5332,
-"per10_hi90": 3.3233,
-"max_r_hat": 1.0016,
-"min_ess": 2016.0,
-"divergences": 0.0,
-"ppc_inside_90": "28/28",
-"ols_slope": 4.9666,
-"ols_lo95": -30.3698,
-"ols_hi95": 40.3029
+"n_cells": 12.0,
+"n_turns": "",
+"n_bodies": 3.0,
+"max_r_hat": 1.0047,
+"min_ess": 913.0,
+"divergences": 54.0,
+"ppc_inside_90": "11/12",
+"beta_renter_median": 0.9339,
+"beta_renter_lo95": -0.2387,
+"beta_renter_hi95": 1.941,
+"beta_renter_pr_gt_0": 0.948,
+"beta_log_income_lo95": "",
+"beta_log_density_lo95": "",
+"beta_log_income_pr_gt_0": "",
+"beta_log_density_hi95": "",
+"beta_log_density_median": "",
+"beta_log_income_hi95": "",
+"beta_log_income_median": "",
+"beta_log_density_pr_gt_0": ""
 },
 {
+"variant": "topic_minutes_today",
 "model": "topic minutes/h ~ renter (+ partial, flagged)",
-"n_cells": 62.0,
-"beta_renter_median": -0.0614,
-"hdi90_lo": -0.4718,
-"hdi90_hi": 0.3323,
-"hdi95_lo": -0.5571,
-"hdi95_hi": 0.4071,
-"pr_gt_0": 0.402,
-"effect_per_10pt": 0.9301,
-"per10_lo90": 0.573,
-"per10_hi90": 1.4802,
-"max_r_hat": 1.0021,
-"min_ess": 2222.0,
+"n_cells": 78.0,
+"n_turns": "",
+"n_bodies": 25.0,
+"max_r_hat": 1.0016,
+"min_ess": 1187.0,
 "divergences": 0.0,
-"ppc_inside_90": "61/62",
-"ols_slope": -2.046,
-"ols_lo95": -20.9413,
-"ols_hi95": 16.8493
+"ppc_inside_90": "76/78",
+"beta_renter_median": -0.0955,
+"beta_renter_lo95": -0.5224,
+"beta_renter_hi95": 0.3136,
+"beta_renter_pr_gt_0": 0.322,
+"beta_log_income_lo95": "",
+"beta_log_density_lo95": "",
+"beta_log_income_pr_gt_0": "",
+"beta_log_density_hi95": "",
+"beta_log_density_median": "",
+"beta_log_income_hi95": "",
+"beta_log_income_median": "",
+"beta_log_density_pr_gt_0": ""
 },
 {
+"variant": "topic_minutes_today",
 "model": "density minutes/h ~ renter (all coverage)",
-"n_cells": 31.0,
-"beta_renter_median": -0.1165,
-"hdi90_lo": -0.4656,
-"hdi90_hi": 0.1949,
-"hdi95_lo": -0.5383,
-"hdi95_hi": 0.2636,
-"pr_gt_0": 0.266,
-"effect_per_10pt": 0.8715,
-"per10_lo90": 0.5772,
-"per10_hi90": 1.2587,
-"max_r_hat": 1.0213,
-"min_ess": 152.0,
-"divergences": 8.0,
-"ppc_inside_90": "29/31",
-"ols_slope": -14.9023,
-"ols_lo95": -39.1399,
-"ols_hi95": 9.3353
+"n_cells": 39.0,
+"n_turns": "",
+"n_bodies": 25.0,
+"max_r_hat": 1.017,
+"min_ess": 205.0,
+"divergences": 0.0,
+"ppc_inside_90": "38/39",
+"beta_renter_median": -0.2337,
+"beta_renter_lo95": -0.5963,
+"beta_renter_hi95": 0.1164,
+"beta_renter_pr_gt_0": 0.097,
+"beta_log_income_lo95": "",
+"beta_log_density_lo95": "",
+"beta_log_income_pr_gt_0": "",
+"beta_log_density_hi95": "",
+"beta_log_density_median": "",
+"beta_log_income_hi95": "",
+"beta_log_income_median": "",
+"beta_log_density_pr_gt_0": ""
 }
 ],
 "model": {
@@ -4710,1103 +4920,1625 @@
 "chains": 4,
 "floor_public_turns": 5,
 "route_reference": "classifier",
+"stance_prompt_version": "st-7161e26ad2/claude-sonnet-4-6",
+"direction": "loose overlay, families density/both/transit",
 "results": [
 {
 "label": "NIMBY share ~ renter (route stratum)",
-"n_cells": 20,
-"n_turns": 500,
+"n_cells": 17,
+"n_turns": 337,
 "routes": [
 "classifier",
 "agenda_index",
 "local_asr",
 "swagit_transcript"
 ],
-"renter_mean": 0.43471205000000007,
-"renter_sd": 0.08936622597126669,
+"renter_mean": 0.4261236470588235,
+"renter_sd": 0.08782888974654482,
 "bodies": [
 "agenda_index/hayward",
 "agenda_index/santaclara",
 "agenda_index/sausalito",
 "classifier/bart",
 "classifier/concord",
-"classifier/dalycity",
 "classifier/fremont",
 "classifier/losaltos",
 "classifier/napa",
-"classifier/oakland",
 "classifier/paloalto",
 "classifier/petaluma",
 "classifier/sanjose",
-"classifier/sanmateo",
 "classifier/sanrafael",
 "classifier/santaclara",
-"classifier/vallejo",
+"local_asr/hayward",
 "local_asr/richmond",
 "local_asr/sanleandro",
 "swagit_transcript/petaluma"
 ],
 "params": {
 "alpha": {
-"mean": -0.7298865329780955,
-"median": -0.7292570729329876,
-"sd": 0.2919470451179329,
+"mean": -0.6054448108250998,
+"median": -0.5962713648098787,
+"sd": 0.30774393389203447,
 "hdi90": [
--1.2221408445566637,
--0.2636745732891658
+-1.121387011751874,
+-0.1136889426670706
 ],
 "hdi95": [
--1.3249898932566297,
--0.17331322687019757
+-1.2266167107478916,
+-0.016720084734999502
 ],
-"pr_gt_0": 0.00575,
-"r_hat": 1.0004613810378429,
-"ess_bulk": 3306.8119224099605
+"pr_gt_0": 0.022,
+"r_hat": 1.000906419226826,
+"ess_bulk": 3122.590641740022
 },
 "beta_renter": {
-"mean": -0.17263165068829084,
-"median": -0.17126218409922883,
-"sd": 0.2504195243006074,
+"mean": -0.06551545944250961,
+"median": -0.07329074686593048,
+"sd": 0.27252887108804935,
 "hdi90": [
--0.5818786541329498,
-0.24074071149161325
+-0.5000097154749897,
+0.39339878318328236
 ],
 "hdi95": [
--0.6717257294504546,
-0.3201527181336431
+-0.6009389505253595,
+0.5019386614750102
 ],
-"pr_gt_0": 0.23725,
-"r_hat": 1.000231362044064,
-"ess_bulk": 4245.970714746668
+"pr_gt_0": 0.39,
+"r_hat": 1.000612156428821,
+"ess_bulk": 4565.300860223995
 },
 "sigma_cell": {
-"mean": 0.9613335393558098,
-"median": 0.936818764006572,
-"sd": 0.2579548897676964,
+"mean": 0.8423886872040395,
+"median": 0.8226411267659437,
+"sd": 0.29373649250715567,
 "hdi90": [
-0.5818754914972921,
-1.4200096404473395
+0.38864509983280554,
+1.3520235051296883
 ],
 "hdi95": [
-0.525951310765968,
-1.5375177617674283
+0.3011940861237915,
+1.464076598932845
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.0008165697235818,
-"ess_bulk": 2432.6397467807915
+"r_hat": 1.0044303944042452,
+"ess_bulk": 1002.9571057218006
 }
 },
 "diagnostics": {
-"max_r_hat": 1.001727387491563,
-"min_ess_bulk": 2432.6397467807915,
+"max_r_hat": 1.0044303944042452,
+"min_ess_bulk": 1002.9571057218006,
 "divergences": 0
 },
 "beta_per_10pt_renter": {
-"median": -0.19164083773023333,
+"median": -0.08344719724618145,
 "hdi90": [
--0.6511169603604356,
-0.26938668258075144
+-0.5692998248274681,
+0.4479150132929452
 ],
 "hdi95": [
--0.7516550264374261,
-0.35824800102510723
+-0.6842155835733998,
+0.5714960793919821
 ]
 },
 "ppc": {
-"cells_inside_90": 20,
-"cells": 20,
+"cells_inside_90": 17,
+"cells": 17,
 "per_cell": [
 {
 "cell": "agenda_index/hayward",
 "obs": 10,
-"N": 12,
+"N": 10,
 "rep_lo90": 5.0,
-"rep_hi90": 11.0
+"rep_hi90": 10.0
 },
 {
 "cell": "agenda_index/santaclara",
-"obs": 1,
-"N": 16,
-"rep_lo90": 0.0,
-"rep_hi90": 6.0
+"obs": 4,
+"N": 17,
+"rep_lo90": 1.0,
+"rep_hi90": 10.0
 },
 {
 "cell": "agenda_index/sausalito",
-"obs": 11,
-"N": 28,
+"obs": 21,
+"N": 50,
+"rep_lo90": 14.0,
+"rep_hi90": 29.0
+},
+{
+"cell": "classifier/bart",
+"obs": 1,
+"N": 10,
+"rep_lo90": 0.0,
+"rep_hi90": 5.0
+},
+{
+"cell": "classifier/concord",
+"obs": 3,
+"N": 6,
+"rep_lo90": 0.0,
+"rep_hi90": 5.0
+},
+{
+"cell": "classifier/fremont",
+"obs": 8,
+"N": 15,
+"rep_lo90": 3.0,
+"rep_hi90": 11.0
+},
+{
+"cell": "classifier/losaltos",
+"obs": 1,
+"N": 7,
+"rep_lo90": 0.0,
+"rep_hi90": 5.0
+},
+{
+"cell": "classifier/napa",
+"obs": 3,
+"N": 10,
+"rep_lo90": 1.0,
+"rep_hi90": 7.0
+},
+{
+"cell": "classifier/paloalto",
+"obs": 13,
+"N": 21,
 "rep_lo90": 6.0,
 "rep_hi90": 17.0
 },
 {
-"cell": "classifier/bart",
-"obs": 0,
-"N": 9,
-"rep_lo90": 0.0,
-"rep_hi90": 4.0
-},
-{
-"cell": "classifier/concord",
-"obs": 4,
-"N": 8,
-"rep_lo90": 1.0,
-"rep_hi90": 6.0
-},
-{
-"cell": "classifier/dalycity",
-"obs": 0,
-"N": 8,
-"rep_lo90": 0.0,
-"rep_hi90": 4.0
-},
-{
-"cell": "classifier/fremont",
-"obs": 3,
-"N": 7,
-"rep_lo90": 0.0,
-"rep_hi90": 5.0
-},
-{
-"cell": "classifier/losaltos",
-"obs": 7,
-"N": 17,
-"rep_lo90": 3.0,
-"rep_hi90": 12.0
-},
-{
-"cell": "classifier/napa",
-"obs": 1,
-"N": 7,
-"rep_lo90": 0.0,
-"rep_hi90": 4.0
-},
-{
-"cell": "classifier/oakland",
-"obs": 3,
-"N": 18,
-"rep_lo90": 0.0,
-"rep_hi90": 8.0
-},
-{
-"cell": "classifier/paloalto",
-"obs": 14,
-"N": 19,
-"rep_lo90": 7.0,
-"rep_hi90": 17.0
-},
-{
 "cell": "classifier/petaluma",
-"obs": 6,
-"N": 13,
-"rep_lo90": 2.0,
-"rep_hi90": 10.0
+"obs": 5,
+"N": 10,
+"rep_lo90": 1.0,
+"rep_hi90": 8.0
 },
 {
 "cell": "classifier/sanjose",
-"obs": 13,
-"N": 41,
-"rep_lo90": 7.0,
-"rep_hi90": 20.0
-},
-{
-"cell": "classifier/sanmateo",
-"obs": 6,
-"N": 20,
-"rep_lo90": 2.0,
-"rep_hi90": 11.0
+"obs": 12,
+"N": 27,
+"rep_lo90": 6.0,
+"rep_hi90": 17.0
 },
 {
 "cell": "classifier/sanrafael",
-"obs": 9,
-"N": 14,
-"rep_lo90": 4.0,
-"rep_hi90": 12.0
-},
-{
-"cell": "classifier/santaclara",
-"obs": 14,
-"N": 38,
-"rep_lo90": 7.0,
-"rep_hi90": 20.0
-},
-{
-"cell": "classifier/vallejo",
-"obs": 1,
-"N": 6,
+"obs": 0,
+"N": 7,
 "rep_lo90": 0.0,
 "rep_hi90": 4.0
 },
 {
+"cell": "classifier/santaclara",
+"obs": 15,
+"N": 45,
+"rep_lo90": 8.0,
+"rep_hi90": 22.0
+},
+{
+"cell": "local_asr/hayward",
+"obs": 5,
+"N": 15,
+"rep_lo90": 1.0,
+"rep_hi90": 9.0
+},
+{
 "cell": "local_asr/richmond",
-"obs": 8,
-"N": 20,
-"rep_lo90": 3.0,
-"rep_hi90": 13.0
+"obs": 5,
+"N": 13,
+"rep_lo90": 1.0,
+"rep_hi90": 9.0
 },
 {
 "cell": "local_asr/sanleandro",
-"obs": 77,
-"N": 179,
-"rep_lo90": 62.0,
-"rep_hi90": 92.0
+"obs": 1,
+"N": 7,
+"rep_lo90": 0.0,
+"rep_hi90": 4.0
 },
 {
 "cell": "swagit_transcript/petaluma",
-"obs": 3,
-"N": 20,
-"rep_lo90": 0.0,
-"rep_hi90": 8.0
+"obs": 16,
+"N": 67,
+"rep_lo90": 9.0,
+"rep_hi90": 25.0
 }
 ]
 },
 "ols_unweighted": {
-"slope": -0.2712830219532515,
-"intercept": 0.46353582948460026,
-"n": 20,
-"dof": 18,
-"se": 0.5880723635911859,
-"lo95": -1.4239048545919757,
-"hi95": 0.8813388106854728,
-"t": -0.4613089115370181
+"slope": 0.03953571709044352,
+"intercept": 0.34950123849245485,
+"n": 17,
+"dof": 15,
+"se": 0.6700579458612003,
+"lo95": -1.2737778567975089,
+"hi95": 1.352849290978396,
+"t": 0.059003429978924805
 },
 "ols_n_weighted": {
-"slope": -0.3508037424444755,
-"intercept": 0.5363294012257139,
-"n": 20,
-"dof": 18,
-"se": 0.48173798502218496,
-"lo95": -1.295010193087958,
-"hi95": 0.593402708199007,
-"t": -0.7282044458842504
+"slope": 0.07752107726142604,
+"intercept": 0.33097656700592726,
+"n": 17,
+"dof": 15,
+"se": 0.5273425025551587,
+"lo95": -0.9560702277466848,
+"hi95": 1.111112382269537,
+"t": 0.1470032794356786
 },
 "ols_with_controls": {
-"slope": -0.20022408949161433,
-"intercept": -0.927722360995586,
-"n": 20,
-"dof": 16,
-"se": 0.6548257429985604,
-"lo95": -1.4836825457687928,
-"hi95": 1.0832343667855642,
-"t": -0.30576697943296116
-}
+"slope": 0.07869736074508286,
+"intercept": -0.0034544320875487034,
+"n": 17,
+"dof": 13,
+"se": 0.756425670594194,
+"lo95": -1.4038969536195371,
+"hi95": 1.561291675109703,
+"t": 0.10403845850877039
+},
+"variant": "corrected_loose"
 },
 {
 "label": "NIMBY share ~ renter + log income + log density",
-"n_cells": 20,
-"n_turns": 500,
+"n_cells": 17,
+"n_turns": 337,
 "routes": [
 "classifier",
 "agenda_index",
 "local_asr",
 "swagit_transcript"
 ],
-"renter_mean": 0.43471205000000007,
-"renter_sd": 0.08936622597126669,
+"renter_mean": 0.4261236470588235,
+"renter_sd": 0.08782888974654482,
 "bodies": [
 "agenda_index/hayward",
 "agenda_index/santaclara",
 "agenda_index/sausalito",
 "classifier/bart",
 "classifier/concord",
-"classifier/dalycity",
 "classifier/fremont",
 "classifier/losaltos",
 "classifier/napa",
-"classifier/oakland",
 "classifier/paloalto",
 "classifier/petaluma",
 "classifier/sanjose",
-"classifier/sanmateo",
 "classifier/sanrafael",
 "classifier/santaclara",
-"classifier/vallejo",
+"local_asr/hayward",
 "local_asr/richmond",
 "local_asr/sanleandro",
 "swagit_transcript/petaluma"
 ],
 "params": {
 "alpha": {
-"mean": -0.7676961676769155,
-"median": -0.7565837866463035,
-"sd": 0.3075085361646247,
+"mean": -0.6087000804328441,
+"median": -0.6033580279529885,
+"sd": 0.33851093086041595,
 "hdi90": [
--1.281980298175851,
--0.279268877207971
+-1.170877812410096,
+-0.05243097023769823
 ],
 "hdi95": [
--1.3947542168511966,
--0.17226342678915063
+-1.2979094600615062,
+0.04538935133160939
 ],
-"pr_gt_0": 0.006125,
-"r_hat": 1.000216845415677,
-"ess_bulk": 3646.032328176873
+"pr_gt_0": 0.03575,
+"r_hat": 1.000868378471315,
+"ess_bulk": 3888.5800668588836
 },
 "beta_renter": {
-"mean": -0.12902944421466833,
-"median": -0.12829545693724093,
-"sd": 0.27566586924921693,
+"mean": -0.06230858778281228,
+"median": -0.06536314597658804,
+"sd": 0.30132465107410755,
 "hdi90": [
--0.57777976973982,
-0.3214704640250757
+-0.538367688517069,
+0.438098631633664
 ],
 "hdi95": [
--0.6770211406971574,
-0.4166777602526931
+-0.6619637504615492,
+0.5433690386520862
 ],
-"pr_gt_0": 0.32025,
-"r_hat": 1.000208998154833,
-"ess_bulk": 4671.8442148642025
+"pr_gt_0": 0.409,
+"r_hat": 1.0004913265635746,
+"ess_bulk": 4969.326295108338
 },
 "sigma_cell": {
-"mean": 1.0279523437687295,
-"median": 1.0044046649947485,
-"sd": 0.27097089796330115,
+"mean": 0.9563135278060149,
+"median": 0.9396743524734652,
+"sd": 0.2998206587238542,
 "hdi90": [
-0.6257946369806321,
-1.5086252801058662
+0.49846245247698445,
+1.4770267115413511
 ],
 "hdi95": [
-0.5585230396140306,
-1.611843924656397
+0.41555151546889346,
+1.6022135149740229
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.0014425039272585,
-"ess_bulk": 2188.655307688618
+"r_hat": 1.002723293040438,
+"ess_bulk": 1565.8978739661043
 },
 "beta_log_income": {
-"mean": 0.16412839444824576,
-"median": 0.16583720976812877,
-"sd": 0.2849708695674282,
+"mean": -0.03237796135560993,
+"median": -0.03513068951442333,
+"sd": 0.313634412504772,
 "hdi90": [
--0.30314393962794517,
-0.6271668943597671
+-0.5457821220912249,
+0.4766267303062451
 ],
 "hdi95": [
--0.41235017000136376,
-0.7176249417689231
+-0.655373701186981,
+0.5931947944533832
 ],
-"pr_gt_0": 0.726375,
-"r_hat": 0.9999378666006979,
-"ess_bulk": 4660.3594879029415
+"pr_gt_0": 0.453375,
+"r_hat": 1.0003359814441182,
+"ess_bulk": 5496.981691916029
 },
 "beta_log_density": {
-"mean": -0.06288396294692614,
-"median": -0.06578331960086833,
-"sd": 0.30888624964827516,
+"mean": -0.017528206965918093,
+"median": -0.018753414772638595,
+"sd": 0.3056119761413282,
 "hdi90": [
--0.5667638150118718,
-0.45176376821256525
+-0.5090510376118318,
+0.4883948908463747
 ],
 "hdi95": [
--0.6641339892956915,
-0.5686448641477884
+-0.6054068377315415,
+0.5981502448740929
 ],
-"pr_gt_0": 0.41075,
-"r_hat": 1.0013421704269836,
-"ess_bulk": 5798.86362928615
+"pr_gt_0": 0.4765,
+"r_hat": 1.0010767421960247,
+"ess_bulk": 5971.586363378429
 }
 },
 "diagnostics": {
-"max_r_hat": 1.002412914299968,
-"min_ess_bulk": 2188.655307688618,
+"max_r_hat": 1.002723293040438,
+"min_ess_bulk": 1565.8978739661043,
 "divergences": 0
 },
 "beta_per_10pt_renter": {
-"median": -0.14356145797014064,
+"median": -0.07442100903838356,
 "hdi90": [
--0.6465303457321669,
-0.35972254678007315
+-0.6129733508765529,
+0.49880925615469124
 ],
 "hdi95": [
--0.7575805438117477,
-0.46625865165959307
+-0.7536970493101228,
+0.6186677757400005
 ]
 },
 "ppc": {
-"cells_inside_90": 20,
-"cells": 20,
+"cells_inside_90": 17,
+"cells": 17,
 "per_cell": [
 {
 "cell": "agenda_index/hayward",
 "obs": 10,
-"N": 12,
+"N": 10,
 "rep_lo90": 5.0,
-"rep_hi90": 11.0
+"rep_hi90": 10.0
 },
 {
 "cell": "agenda_index/santaclara",
-"obs": 1,
-"N": 16,
-"rep_lo90": 0.0,
-"rep_hi90": 6.0
+"obs": 4,
+"N": 17,
+"rep_lo90": 1.0,
+"rep_hi90": 9.0
 },
 {
 "cell": "agenda_index/sausalito",
-"obs": 11,
-"N": 28,
-"rep_lo90": 5.0,
-"rep_hi90": 17.0
+"obs": 21,
+"N": 50,
+"rep_lo90": 14.0,
+"rep_hi90": 29.0
 },
 {
 "cell": "classifier/bart",
-"obs": 0,
-"N": 9,
+"obs": 1,
+"N": 10,
 "rep_lo90": 0.0,
-"rep_hi90": 4.0
+"rep_hi90": 5.0
 },
 {
 "cell": "classifier/concord",
-"obs": 4,
-"N": 8,
-"rep_lo90": 1.0,
-"rep_hi90": 6.0
-},
-{
-"cell": "classifier/dalycity",
-"obs": 0,
-"N": 8,
+"obs": 3,
+"N": 6,
 "rep_lo90": 0.0,
-"rep_hi90": 4.0
+"rep_hi90": 5.0
 },
 {
 "cell": "classifier/fremont",
-"obs": 3,
-"N": 7,
-"rep_lo90": 0.0,
-"rep_hi90": 6.0
+"obs": 8,
+"N": 15,
+"rep_lo90": 3.0,
+"rep_hi90": 11.0
 },
 {
 "cell": "classifier/losaltos",
-"obs": 7,
-"N": 17,
-"rep_lo90": 3.0,
-"rep_hi90": 12.0
-},
-{
-"cell": "classifier/napa",
 "obs": 1,
 "N": 7,
 "rep_lo90": 0.0,
 "rep_hi90": 5.0
 },
 {
-"cell": "classifier/oakland",
+"cell": "classifier/napa",
 "obs": 3,
-"N": 18,
+"N": 10,
 "rep_lo90": 0.0,
 "rep_hi90": 7.0
 },
 {
 "cell": "classifier/paloalto",
-"obs": 14,
-"N": 19,
-"rep_lo90": 8.0,
+"obs": 13,
+"N": 21,
+"rep_lo90": 7.0,
 "rep_hi90": 17.0
 },
 {
 "cell": "classifier/petaluma",
+"obs": 5,
+"N": 10,
+"rep_lo90": 1.0,
+"rep_hi90": 8.0
+},
+{
+"cell": "classifier/sanjose",
+"obs": 12,
+"N": 27,
+"rep_lo90": 6.0,
+"rep_hi90": 17.0
+},
+{
+"cell": "classifier/sanrafael",
+"obs": 0,
+"N": 7,
+"rep_lo90": 0.0,
+"rep_hi90": 4.0
+},
+{
+"cell": "classifier/santaclara",
+"obs": 15,
+"N": 45,
+"rep_lo90": 8.0,
+"rep_hi90": 22.0
+},
+{
+"cell": "local_asr/hayward",
+"obs": 5,
+"N": 15,
+"rep_lo90": 1.0,
+"rep_hi90": 9.0
+},
+{
+"cell": "local_asr/richmond",
+"obs": 5,
+"N": 13,
+"rep_lo90": 1.0,
+"rep_hi90": 9.0
+},
+{
+"cell": "local_asr/sanleandro",
+"obs": 1,
+"N": 7,
+"rep_lo90": 0.0,
+"rep_hi90": 4.0
+},
+{
+"cell": "swagit_transcript/petaluma",
+"obs": 16,
+"N": 67,
+"rep_lo90": 9.0,
+"rep_hi90": 25.0
+}
+]
+},
+"ols_unweighted": {
+"slope": 0.03953571709044352,
+"intercept": 0.34950123849245485,
+"n": 17,
+"dof": 15,
+"se": 0.6700579458612003,
+"lo95": -1.2737778567975089,
+"hi95": 1.352849290978396,
+"t": 0.059003429978924805
+},
+"ols_n_weighted": {
+"slope": 0.07752107726142604,
+"intercept": 0.33097656700592726,
+"n": 17,
+"dof": 15,
+"se": 0.5273425025551587,
+"lo95": -0.9560702277466848,
+"hi95": 1.111112382269537,
+"t": 0.1470032794356786
+},
+"ols_with_controls": {
+"slope": 0.07869736074508286,
+"intercept": -0.0034544320875487034,
+"n": 17,
+"dof": 13,
+"se": 0.756425670594194,
+"lo95": -1.4038969536195371,
+"hi95": 1.561291675109703,
+"t": 0.10403845850877039
+},
+"variant": "corrected_loose"
+},
+{
+"label": "NIMBY share ~ renter (floor 10 turns)",
+"n_cells": 13,
+"n_turns": 310,
+"routes": [
+"classifier",
+"agenda_index",
+"local_asr",
+"swagit_transcript"
+],
+"renter_mean": 0.44363584615384616,
+"renter_sd": 0.07197968442857935,
+"bodies": [
+"agenda_index/hayward",
+"agenda_index/santaclara",
+"agenda_index/sausalito",
+"classifier/bart",
+"classifier/fremont",
+"classifier/napa",
+"classifier/paloalto",
+"classifier/petaluma",
+"classifier/sanjose",
+"classifier/santaclara",
+"local_asr/hayward",
+"local_asr/richmond",
+"swagit_transcript/petaluma"
+],
+"params": {
+"alpha": {
+"mean": -0.38377609723358075,
+"median": -0.3769780914968559,
+"sd": 0.3127200184665121,
+"hdi90": [
+-0.9092463338952589,
+0.12498875452869142
+],
+"hdi95": [
+-1.0057216573569805,
+0.2195894830242116
+],
+"pr_gt_0": 0.10425,
+"r_hat": 1.0012454374953832,
+"ess_bulk": 3906.03428125634
+},
+"beta_renter": {
+"mean": -0.23880753617788794,
+"median": -0.24098849032736103,
+"sd": 0.26336208781037684,
+"hdi90": [
+-0.6703998508591423,
+0.20188094037650517
+],
+"hdi95": [
+-0.7492815964328764,
+0.3122186933896485
+],
+"pr_gt_0": 0.162875,
+"r_hat": 1.00055793140883,
+"ess_bulk": 4962.572006657625
+},
+"sigma_cell": {
+"mean": 0.7449925280044216,
+"median": 0.7220637983918796,
+"sd": 0.2996102822341949,
+"hdi90": [
+0.29102956716098133,
+1.2739752558840844
+],
+"hdi95": [
+0.2035258297764694,
+1.3980869758759757
+],
+"pr_gt_0": 1.0,
+"r_hat": 1.0026889471048759,
+"ess_bulk": 1139.8594902812279
+}
+},
+"diagnostics": {
+"max_r_hat": 1.0026889471048759,
+"min_ess_bulk": 1139.8594902812279,
+"divergences": 0
+},
+"beta_per_10pt_renter": {
+"median": -0.33480070417157476,
+"hdi90": [
+-0.9313737010396808,
+0.2804693323945011
+],
+"hdi95": [
+-1.0409626026859546,
+0.4337594640324415
+]
+},
+"ppc": {
+"cells_inside_90": 13,
+"cells": 13,
+"per_cell": [
+{
+"cell": "agenda_index/hayward",
+"obs": 10,
+"N": 10,
+"rep_lo90": 4.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "agenda_index/santaclara",
+"obs": 4,
+"N": 17,
+"rep_lo90": 1.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "agenda_index/sausalito",
+"obs": 21,
+"N": 50,
+"rep_lo90": 14.0,
+"rep_hi90": 30.0
+},
+{
+"cell": "classifier/bart",
+"obs": 1,
+"N": 10,
+"rep_lo90": 0.0,
+"rep_hi90": 6.0
+},
+{
+"cell": "classifier/fremont",
+"obs": 8,
+"N": 15,
+"rep_lo90": 3.0,
+"rep_hi90": 12.0
+},
+{
+"cell": "classifier/napa",
+"obs": 3,
+"N": 10,
+"rep_lo90": 1.0,
+"rep_hi90": 7.0
+},
+{
+"cell": "classifier/paloalto",
+"obs": 13,
+"N": 21,
+"rep_lo90": 6.0,
+"rep_hi90": 16.0
+},
+{
+"cell": "classifier/petaluma",
+"obs": 5,
+"N": 10,
+"rep_lo90": 2.0,
+"rep_hi90": 8.0
+},
+{
+"cell": "classifier/sanjose",
+"obs": 12,
+"N": 27,
+"rep_lo90": 6.0,
+"rep_hi90": 17.0
+},
+{
+"cell": "classifier/santaclara",
+"obs": 15,
+"N": 45,
+"rep_lo90": 8.0,
+"rep_hi90": 22.0
+},
+{
+"cell": "local_asr/hayward",
+"obs": 5,
+"N": 15,
+"rep_lo90": 2.0,
+"rep_hi90": 9.0
+},
+{
+"cell": "local_asr/richmond",
+"obs": 5,
+"N": 13,
+"rep_lo90": 1.0,
+"rep_hi90": 9.0
+},
+{
+"cell": "swagit_transcript/petaluma",
+"obs": 16,
+"N": 67,
+"rep_lo90": 9.0,
+"rep_hi90": 25.0
+}
+]
+},
+"ols_unweighted": {
+"slope": -0.5253567480340694,
+"intercept": 0.6516984343624014,
+"n": 13,
+"dof": 11,
+"se": 0.8826965655615076,
+"lo95": -2.2554420165346243,
+"hi95": 1.2047285204664853,
+"t": -0.595172529871435
+},
+"ols_n_weighted": {
+"slope": -0.053263788581382115,
+"intercept": 0.40433737296632516,
+"n": 13,
+"dof": 11,
+"se": 0.6220915884427203,
+"lo95": -1.2725633019291138,
+"hi95": 1.1660357247663498,
+"t": -0.08562049314107778
+},
+"ols_with_controls": {
+"slope": -1.1091548380134284,
+"intercept": -1.229330193630346,
+"n": 13,
+"dof": 9,
+"se": 1.1864899016236463,
+"lo95": -3.4346750451957755,
+"hi95": 1.2163653691689185,
+"t": -0.9348202934518118
+},
+"variant": "corrected_loose"
+},
+{
+"label": "YIMBY share ~ renter (route stratum)",
+"n_cells": 17,
+"n_turns": 337,
+"routes": [
+"classifier",
+"agenda_index",
+"local_asr",
+"swagit_transcript"
+],
+"renter_mean": 0.4261236470588235,
+"renter_sd": 0.08782888974654482,
+"bodies": [
+"agenda_index/hayward",
+"agenda_index/santaclara",
+"agenda_index/sausalito",
+"classifier/bart",
+"classifier/concord",
+"classifier/fremont",
+"classifier/losaltos",
+"classifier/napa",
+"classifier/paloalto",
+"classifier/petaluma",
+"classifier/sanjose",
+"classifier/sanrafael",
+"classifier/santaclara",
+"local_asr/hayward",
+"local_asr/richmond",
+"local_asr/sanleandro",
+"swagit_transcript/petaluma"
+],
+"params": {
+"alpha": {
+"mean": -0.22408233867734156,
+"median": -0.2259151471483049,
+"sd": 0.19757512468942187,
+"hdi90": [
+-0.537943649657011,
+0.1042775873395874
+],
+"hdi95": [
+-0.6018199274669741,
+0.17024283357948236
+],
+"pr_gt_0": 0.124,
+"r_hat": 1.0012967732070894,
+"ess_bulk": 4515.465008837419
+},
+"beta_renter": {
+"mean": -0.01660726978664171,
+"median": -0.015614167751647298,
+"sd": 0.1659683044258373,
+"hdi90": [
+-0.28679434564401596,
+0.2506820321166781
+],
+"hdi95": [
+-0.34625346410168095,
+0.3137173219935879
+],
+"pr_gt_0": 0.46175,
+"r_hat": 1.000953121869193,
+"ess_bulk": 4737.843339742559
+},
+"sigma_cell": {
+"mean": 0.31098816541287166,
+"median": 0.27153650056754974,
+"sd": 0.21120747567287154,
+"hdi90": [
+0.0490579455287173,
+0.7079278070302034
+],
+"hdi95": [
+0.036971054132960944,
+0.8219519161037805
+],
+"pr_gt_0": 1.0,
+"r_hat": 1.018641219369969,
+"ess_bulk": 236.1731201070196
+}
+},
+"diagnostics": {
+"max_r_hat": 1.018641219369969,
+"min_ess_bulk": 236.1731201070196,
+"divergences": 0
+},
+"beta_per_10pt_renter": {
+"median": -0.01777794048940663,
+"hdi90": [
+-0.3265375965375885,
+0.28542092794306323
+],
+"hdi95": [
+-0.39423641252997,
+0.3571914923425632
+]
+},
+"ppc": {
+"cells_inside_90": 17,
+"cells": 17,
+"per_cell": [
+{
+"cell": "agenda_index/hayward",
+"obs": 0,
+"N": 10,
+"rep_lo90": 0.0,
+"rep_hi90": 5.0
+},
+{
+"cell": "agenda_index/santaclara",
 "obs": 6,
+"N": 17,
+"rep_lo90": 2.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "agenda_index/sausalito",
+"obs": 19,
+"N": 50,
+"rep_lo90": 10.0,
+"rep_hi90": 25.0
+},
+{
+"cell": "classifier/bart",
+"obs": 6,
+"N": 10,
+"rep_lo90": 2.0,
+"rep_hi90": 8.0
+},
+{
+"cell": "classifier/concord",
+"obs": 3,
+"N": 6,
+"rep_lo90": 1.0,
+"rep_hi90": 5.0
+},
+{
+"cell": "classifier/fremont",
+"obs": 6,
+"N": 15,
+"rep_lo90": 3.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "classifier/losaltos",
+"obs": 4,
+"N": 7,
+"rep_lo90": 1.0,
+"rep_hi90": 6.0
+},
+{
+"cell": "classifier/napa",
+"obs": 4,
+"N": 10,
+"rep_lo90": 2.0,
+"rep_hi90": 7.0
+},
+{
+"cell": "classifier/paloalto",
+"obs": 6,
+"N": 21,
+"rep_lo90": 4.0,
+"rep_hi90": 13.0
+},
+{
+"cell": "classifier/petaluma",
+"obs": 4,
+"N": 10,
+"rep_lo90": 2.0,
+"rep_hi90": 7.0
+},
+{
+"cell": "classifier/sanjose",
+"obs": 11,
+"N": 27,
+"rep_lo90": 7.0,
+"rep_hi90": 17.0
+},
+{
+"cell": "classifier/sanrafael",
+"obs": 6,
+"N": 7,
+"rep_lo90": 1.0,
+"rep_hi90": 6.0
+},
+{
+"cell": "classifier/santaclara",
+"obs": 19,
+"N": 45,
+"rep_lo90": 12.0,
+"rep_hi90": 27.0
+},
+{
+"cell": "local_asr/hayward",
+"obs": 7,
+"N": 15,
+"rep_lo90": 3.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "local_asr/richmond",
+"obs": 5,
 "N": 13,
 "rep_lo90": 2.0,
 "rep_hi90": 9.0
 },
 {
-"cell": "classifier/sanjose",
-"obs": 13,
-"N": 41,
-"rep_lo90": 7.0,
-"rep_hi90": 20.0
-},
-{
-"cell": "classifier/sanmateo",
-"obs": 6,
-"N": 20,
-"rep_lo90": 2.0,
-"rep_hi90": 11.0
-},
-{
-"cell": "classifier/sanrafael",
-"obs": 9,
-"N": 14,
-"rep_lo90": 4.0,
-"rep_hi90": 12.0
-},
-{
-"cell": "classifier/santaclara",
-"obs": 14,
-"N": 38,
-"rep_lo90": 7.0,
-"rep_hi90": 21.0
-},
-{
-"cell": "classifier/vallejo",
-"obs": 1,
-"N": 6,
-"rep_lo90": 0.0,
-"rep_hi90": 4.0
-},
-{
-"cell": "local_asr/richmond",
-"obs": 8,
-"N": 20,
-"rep_lo90": 3.0,
-"rep_hi90": 13.0
-},
-{
 "cell": "local_asr/sanleandro",
-"obs": 77,
-"N": 179,
-"rep_lo90": 62.0,
-"rep_hi90": 92.0
-},
-{
-"cell": "swagit_transcript/petaluma",
-"obs": 3,
-"N": 20,
-"rep_lo90": 0.0,
-"rep_hi90": 8.0
-}
-]
-},
-"ols_unweighted": {
-"slope": -0.2712830219532515,
-"intercept": 0.46353582948460026,
-"n": 20,
-"dof": 18,
-"se": 0.5880723635911859,
-"lo95": -1.4239048545919757,
-"hi95": 0.8813388106854728,
-"t": -0.4613089115370181
-},
-"ols_n_weighted": {
-"slope": -0.3508037424444755,
-"intercept": 0.5363294012257139,
-"n": 20,
-"dof": 18,
-"se": 0.48173798502218496,
-"lo95": -1.295010193087958,
-"hi95": 0.593402708199007,
-"t": -0.7282044458842504
-},
-"ols_with_controls": {
-"slope": -0.20022408949161433,
-"intercept": -0.927722360995586,
-"n": 20,
-"dof": 16,
-"se": 0.6548257429985604,
-"lo95": -1.4836825457687928,
-"hi95": 1.0832343667855642,
-"t": -0.30576697943296116
-}
-},
-{
-"label": "NIMBY share ~ renter (floor 10 turns)",
-"n_cells": 14,
-"n_turns": 455,
-"routes": [
-"classifier",
-"agenda_index",
-"local_asr",
-"swagit_transcript"
-],
-"renter_mean": 0.44917607142857147,
-"renter_sd": 0.10145903704554458,
-"bodies": [
-"agenda_index/hayward",
-"agenda_index/santaclara",
-"agenda_index/sausalito",
-"classifier/losaltos",
-"classifier/oakland",
-"classifier/paloalto",
-"classifier/petaluma",
-"classifier/sanjose",
-"classifier/sanmateo",
-"classifier/sanrafael",
-"classifier/santaclara",
-"local_asr/richmond",
-"local_asr/sanleandro",
-"swagit_transcript/petaluma"
-],
-"params": {
-"alpha": {
-"mean": -0.4058714501213366,
-"median": -0.40982570451480704,
-"sd": 0.30520634426053245,
-"hdi90": [
--0.9062881921544594,
-0.09332412017778483
-],
-"hdi95": [
--1.0099984821688903,
-0.20682290766266836
-],
-"pr_gt_0": 0.08775,
-"r_hat": 1.0003811697526037,
-"ess_bulk": 3170.8560920445575
-},
-"beta_renter": {
-"mean": -0.26519484602258636,
-"median": -0.26162518929203893,
-"sd": 0.26455895070671537,
-"hdi90": [
--0.6971366044517241,
-0.16410446237032408
-],
-"hdi95": [
--0.8004390463149648,
-0.24901906529571372
-],
-"pr_gt_0": 0.152875,
-"r_hat": 1.00066779852793,
-"ess_bulk": 4304.593759305197
-},
-"sigma_cell": {
-"mean": 0.8290403006412742,
-"median": 0.8081089458724239,
-"sd": 0.2629311722547925,
-"hdi90": [
-0.4342401509699686,
-1.2828475972363247
-],
-"hdi95": [
-0.3609075413919278,
-1.3996574497522216
-],
-"pr_gt_0": 1.0,
-"r_hat": 1.0002891006324874,
-"ess_bulk": 2354.565809186825
-}
-},
-"diagnostics": {
-"max_r_hat": 1.001475873330881,
-"min_ess_bulk": 2354.565809186825,
-"divergences": 0
-},
-"beta_per_10pt_renter": {
-"median": -0.25786287442743655,
-"hdi90": [
--0.6871113946594841,
-0.16174454947434422
-],
-"hdi95": [
--0.7889282902967536,
-0.24543803346362336
-]
-},
-"ppc": {
-"cells_inside_90": 14,
-"cells": 14,
-"per_cell": [
-{
-"cell": "agenda_index/hayward",
-"obs": 10,
-"N": 12,
-"rep_lo90": 4.0,
-"rep_hi90": 11.0
-},
-{
-"cell": "agenda_index/santaclara",
-"obs": 1,
-"N": 16,
-"rep_lo90": 0.0,
-"rep_hi90": 6.0
-},
-{
-"cell": "agenda_index/sausalito",
-"obs": 11,
-"N": 28,
-"rep_lo90": 6.0,
-"rep_hi90": 17.0
-},
-{
-"cell": "classifier/losaltos",
-"obs": 7,
-"N": 17,
-"rep_lo90": 3.0,
-"rep_hi90": 12.0
-},
-{
-"cell": "classifier/oakland",
-"obs": 3,
-"N": 18,
-"rep_lo90": 1.0,
-"rep_hi90": 8.0
-},
-{
-"cell": "classifier/paloalto",
-"obs": 14,
-"N": 19,
-"rep_lo90": 7.0,
-"rep_hi90": 17.0
-},
-{
-"cell": "classifier/petaluma",
-"obs": 6,
-"N": 13,
-"rep_lo90": 2.0,
-"rep_hi90": 10.0
-},
-{
-"cell": "classifier/sanjose",
-"obs": 13,
-"N": 41,
-"rep_lo90": 7.0,
-"rep_hi90": 21.0
-},
-{
-"cell": "classifier/sanmateo",
-"obs": 6,
-"N": 20,
-"rep_lo90": 2.0,
-"rep_hi90": 11.0
-},
-{
-"cell": "classifier/sanrafael",
-"obs": 9,
-"N": 14,
-"rep_lo90": 4.0,
-"rep_hi90": 12.0
-},
-{
-"cell": "classifier/santaclara",
-"obs": 14,
-"N": 38,
-"rep_lo90": 7.0,
-"rep_hi90": 21.0
-},
-{
-"cell": "local_asr/richmond",
-"obs": 8,
-"N": 20,
-"rep_lo90": 3.0,
-"rep_hi90": 13.0
-},
-{
-"cell": "local_asr/sanleandro",
-"obs": 77,
-"N": 179,
-"rep_lo90": 62.0,
-"rep_hi90": 92.0
-},
-{
-"cell": "swagit_transcript/petaluma",
-"obs": 3,
-"N": 20,
-"rep_lo90": 1.0,
-"rep_hi90": 8.0
-}
-]
-},
-"ols_unweighted": {
-"slope": -0.4872707965571601,
-"intercept": 0.6241576235141949,
-"n": 14,
-"dof": 12,
-"se": 0.5787316473595998,
-"lo95": -1.6215848253819758,
-"hi95": 0.6470432322676556,
-"t": -0.8419632808751346
-},
-"ols_n_weighted": {
-"slope": -0.4351162430690096,
-"intercept": 0.5930157063793104,
-"n": 14,
-"dof": 12,
-"se": 0.5112763838995437,
-"lo95": -1.4372179555121152,
-"hi95": 0.5669854693740959,
-"t": -0.8510391967458873
-},
-"ols_with_controls": {
-"slope": 0.18952040090759142,
-"intercept": 3.859143191102472,
-"n": 14,
-"dof": 10,
-"se": 0.5371832519264256,
-"lo95": -0.8633587728682026,
-"hi95": 1.2423995746833856,
-"t": 0.35280400166598785
-}
-},
-{
-"label": "YIMBY share ~ renter (route stratum)",
-"n_cells": 20,
-"n_turns": 500,
-"routes": [
-"classifier",
-"agenda_index",
-"local_asr",
-"swagit_transcript"
-],
-"renter_mean": 0.43471205000000007,
-"renter_sd": 0.08936622597126669,
-"bodies": [
-"agenda_index/hayward",
-"agenda_index/santaclara",
-"agenda_index/sausalito",
-"classifier/bart",
-"classifier/concord",
-"classifier/dalycity",
-"classifier/fremont",
-"classifier/losaltos",
-"classifier/napa",
-"classifier/oakland",
-"classifier/paloalto",
-"classifier/petaluma",
-"classifier/sanjose",
-"classifier/sanmateo",
-"classifier/sanrafael",
-"classifier/santaclara",
-"classifier/vallejo",
-"local_asr/richmond",
-"local_asr/sanleandro",
-"swagit_transcript/petaluma"
-],
-"params": {
-"alpha": {
-"mean": -0.508168617422604,
-"median": -0.5023134893126522,
-"sd": 0.2753957411188677,
-"hdi90": [
--0.9726928762692234,
--0.06255476501540386
-],
-"hdi95": [
--1.0710216492248068,
-0.041448485084913396
-],
-"pr_gt_0": 0.03275,
-"r_hat": 1.0001805205542755,
-"ess_bulk": 3525.874525331786
-},
-"beta_renter": {
-"mean": 0.2851349492796971,
-"median": 0.28044029397690845,
-"sd": 0.2380166700573655,
-"hdi90": [
--0.10271690043095143,
-0.6856128520785345
-],
-"hdi95": [
--0.18076156133215698,
-0.7689889095494749
-],
-"pr_gt_0": 0.893,
-"r_hat": 1.0009591877038007,
-"ess_bulk": 4032.8234920190525
-},
-"sigma_cell": {
-"mean": 0.8908232028225695,
-"median": 0.8742989919381998,
-"sd": 0.27881727733731887,
-"hdi90": [
-0.4761569445686577,
-1.3836374891706038
-],
-"hdi95": [
-0.4029366886456778,
-1.5134698949599008
-],
-"pr_gt_0": 1.0,
-"r_hat": 1.00106024699166,
-"ess_bulk": 1842.90631721158
-}
-},
-"diagnostics": {
-"max_r_hat": 1.0011975881013813,
-"min_ess_bulk": 1842.90631721158,
-"divergences": 0
-},
-"beta_per_10pt_renter": {
-"median": 0.31381015694573083,
-"hdi90": [
--0.11493928418100291,
-0.7671945912754277
-],
-"hdi95": [
--0.2022705550867461,
-0.8604916468070641
-]
-},
-"ppc": {
-"cells_inside_90": 20,
-"cells": 20,
-"per_cell": [
-{
-"cell": "agenda_index/hayward",
-"obs": 0,
-"N": 12,
-"rep_lo90": 0.0,
-"rep_hi90": 4.0
-},
-{
-"cell": "agenda_index/santaclara",
-"obs": 7,
-"N": 16,
-"rep_lo90": 2.0,
-"rep_hi90": 11.0
-},
-{
-"cell": "agenda_index/sausalito",
-"obs": 10,
-"N": 28,
-"rep_lo90": 4.0,
-"rep_hi90": 15.0
-},
-{
-"cell": "classifier/bart",
-"obs": 3,
-"N": 9,
-"rep_lo90": 1.0,
-"rep_hi90": 6.0
-},
-{
-"cell": "classifier/concord",
-"obs": 4,
-"N": 8,
-"rep_lo90": 1.0,
-"rep_hi90": 6.0
-},
-{
-"cell": "classifier/dalycity",
-"obs": 8,
-"N": 8,
-"rep_lo90": 3.0,
-"rep_hi90": 8.0
-},
-{
-"cell": "classifier/fremont",
-"obs": 0,
-"N": 7,
-"rep_lo90": 0.0,
-"rep_hi90": 4.0
-},
-{
-"cell": "classifier/losaltos",
-"obs": 3,
-"N": 17,
-"rep_lo90": 0.0,
-"rep_hi90": 7.0
-},
-{
-"cell": "classifier/napa",
 "obs": 2,
 "N": 7,
 "rep_lo90": 0.0,
 "rep_hi90": 5.0
 },
 {
-"cell": "classifier/oakland",
-"obs": 14,
-"N": 18,
-"rep_lo90": 8.0,
-"rep_hi90": 17.0
+"cell": "swagit_transcript/petaluma",
+"obs": 37,
+"N": 67,
+"rep_lo90": 27.0,
+"rep_hi90": 46.0
+}
+]
+},
+"ols_unweighted": {
+"slope": -0.23194582617165488,
+"intercept": 0.5262547580361268,
+"n": 17,
+"dof": 15,
+"se": 0.496896849630423,
+"lo95": -1.205863651447284,
+"hi95": 0.7419719991039742,
+"t": -0.4667886832934627
+},
+"ols_n_weighted": {
+"slope": -0.3690737178154352,
+"intercept": 0.5921801765306158,
+"n": 17,
+"dof": 15,
+"se": 0.37499721445303075,
+"lo95": -1.1040682581433754,
+"hi95": 0.365920822512505,
+"t": -0.9842038916309404
+},
+"ols_with_controls": {
+"slope": -0.2577013161484688,
+"intercept": 0.7584721780594075,
+"n": 17,
+"dof": 13,
+"se": 0.5611142290416185,
+"lo95": -1.357485205070041,
+"hi95": 0.8420825727731033,
+"t": -0.45926712033059996
+},
+"variant": "corrected_loose"
 },
 {
-"cell": "classifier/paloalto",
-"obs": 5,
-"N": 19,
+"label": "YIMBY share ~ renter + log income + log density",
+"n_cells": 17,
+"n_turns": 337,
+"routes": [
+"classifier",
+"agenda_index",
+"local_asr",
+"swagit_transcript"
+],
+"renter_mean": 0.4261236470588235,
+"renter_sd": 0.08782888974654482,
+"bodies": [
+"agenda_index/hayward",
+"agenda_index/santaclara",
+"agenda_index/sausalito",
+"classifier/bart",
+"classifier/concord",
+"classifier/fremont",
+"classifier/losaltos",
+"classifier/napa",
+"classifier/paloalto",
+"classifier/petaluma",
+"classifier/sanjose",
+"classifier/sanrafael",
+"classifier/santaclara",
+"local_asr/hayward",
+"local_asr/richmond",
+"local_asr/sanleandro",
+"swagit_transcript/petaluma"
+],
+"params": {
+"alpha": {
+"mean": -0.1954359398034503,
+"median": -0.19741402647503292,
+"sd": 0.2195409514832135,
+"hdi90": [
+-0.5533538392521463,
+0.16717863031505042
+],
+"hdi95": [
+-0.615690507288079,
+0.24438099019230278
+],
+"pr_gt_0": 0.177875,
+"r_hat": 1.001236170388932,
+"ess_bulk": 3787.998136366239
+},
+"beta_renter": {
+"mean": -0.03624591052951058,
+"median": -0.037943328716047116,
+"sd": 0.18663661284409405,
+"hdi90": [
+-0.3365416526707029,
+0.26841207181788795
+],
+"hdi95": [
+-0.3992400321090975,
+0.3343693327248333
+],
+"pr_gt_0": 0.41675,
+"r_hat": 1.0007163554193932,
+"ess_bulk": 4021.7168989088277
+},
+"sigma_cell": {
+"mean": 0.3685184900510284,
+"median": 0.32941315394654647,
+"sd": 0.23840382453463901,
+"hdi90": [
+0.060916365143514936,
+0.8117833484014385
+],
+"hdi95": [
+0.04475098509925456,
+0.9146247878824589
+],
+"pr_gt_0": 1.0,
+"r_hat": 1.0039258038180596,
+"ess_bulk": 312.1364870452448
+},
+"beta_log_income": {
+"mean": -0.05599181838576265,
+"median": -0.05752674375067717,
+"sd": 0.2116563305231409,
+"hdi90": [
+-0.39776134828925563,
+0.2908446051735173
+],
+"hdi95": [
+-0.46591211485744105,
+0.3674930361560083
+],
+"pr_gt_0": 0.387125,
+"r_hat": 1.000298313968057,
+"ess_bulk": 4071.453224418345
+},
+"beta_log_density": {
+"mean": 0.07329677167251912,
+"median": 0.0744612700601941,
+"sd": 0.2044330373027967,
+"hdi90": [
+-0.2610710905734418,
+0.4024521321939145
+],
+"hdi95": [
+-0.3273203658281304,
+0.47182069577616104
+],
+"pr_gt_0": 0.64575,
+"r_hat": 1.000318577545916,
+"ess_bulk": 5056.149262204606
+}
+},
+"diagnostics": {
+"max_r_hat": 1.0039258038180596,
+"min_ess_bulk": 312.1364870452448,
+"divergences": 5
+},
+"beta_per_10pt_renter": {
+"median": -0.04320142133817626,
+"hdi90": [
+-0.38317876229779213,
+0.30560795268216095
+],
+"hdi95": [
+-0.45456572804371986,
+0.3807054076281175
+]
+},
+"ppc": {
+"cells_inside_90": 17,
+"cells": 17,
+"per_cell": [
+{
+"cell": "agenda_index/hayward",
+"obs": 0,
+"N": 10,
+"rep_lo90": 0.0,
+"rep_hi90": 6.0
+},
+{
+"cell": "agenda_index/santaclara",
+"obs": 6,
+"N": 17,
 "rep_lo90": 2.0,
 "rep_hi90": 10.0
 },
 {
-"cell": "classifier/petaluma",
+"cell": "agenda_index/sausalito",
+"obs": 19,
+"N": 50,
+"rep_lo90": 10.0,
+"rep_hi90": 25.0
+},
+{
+"cell": "classifier/bart",
 "obs": 6,
+"N": 10,
+"rep_lo90": 2.0,
+"rep_hi90": 8.0
+},
+{
+"cell": "classifier/concord",
+"obs": 3,
+"N": 6,
+"rep_lo90": 1.0,
+"rep_hi90": 5.0
+},
+{
+"cell": "classifier/fremont",
+"obs": 6,
+"N": 15,
+"rep_lo90": 3.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "classifier/losaltos",
+"obs": 4,
+"N": 7,
+"rep_lo90": 1.0,
+"rep_hi90": 6.0
+},
+{
+"cell": "classifier/napa",
+"obs": 4,
+"N": 10,
+"rep_lo90": 1.0,
+"rep_hi90": 8.0
+},
+{
+"cell": "classifier/paloalto",
+"obs": 6,
+"N": 21,
+"rep_lo90": 3.0,
+"rep_hi90": 13.0
+},
+{
+"cell": "classifier/petaluma",
+"obs": 4,
+"N": 10,
+"rep_lo90": 2.0,
+"rep_hi90": 8.0
+},
+{
+"cell": "classifier/sanjose",
+"obs": 11,
+"N": 27,
+"rep_lo90": 7.0,
+"rep_hi90": 17.0
+},
+{
+"cell": "classifier/sanrafael",
+"obs": 6,
+"N": 7,
+"rep_lo90": 1.0,
+"rep_hi90": 6.0
+},
+{
+"cell": "classifier/santaclara",
+"obs": 19,
+"N": 45,
+"rep_lo90": 12.0,
+"rep_hi90": 27.0
+},
+{
+"cell": "local_asr/hayward",
+"obs": 7,
+"N": 15,
+"rep_lo90": 2.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "local_asr/richmond",
+"obs": 5,
 "N": 13,
 "rep_lo90": 2.0,
 "rep_hi90": 9.0
 },
 {
-"cell": "classifier/sanjose",
-"obs": 16,
-"N": 41,
-"rep_lo90": 9.0,
-"rep_hi90": 23.0
-},
-{
-"cell": "classifier/sanmateo",
-"obs": 10,
-"N": 20,
-"rep_lo90": 5.0,
-"rep_hi90": 15.0
-},
-{
-"cell": "classifier/sanrafael",
-"obs": 4,
-"N": 14,
-"rep_lo90": 1.0,
-"rep_hi90": 8.0
-},
-{
-"cell": "classifier/santaclara",
-"obs": 11,
-"N": 38,
-"rep_lo90": 6.0,
-"rep_hi90": 19.0
-},
-{
-"cell": "classifier/vallejo",
-"obs": 0,
-"N": 6,
-"rep_lo90": 0.0,
-"rep_hi90": 3.0
-},
-{
-"cell": "local_asr/richmond",
-"obs": 10,
-"N": 20,
-"rep_lo90": 5.0,
-"rep_hi90": 15.0
-},
-{
 "cell": "local_asr/sanleandro",
-"obs": 71,
-"N": 179,
-"rep_lo90": 56.0,
-"rep_hi90": 87.0
+"obs": 2,
+"N": 7,
+"rep_lo90": 0.0,
+"rep_hi90": 5.0
 },
 {
 "cell": "swagit_transcript/petaluma",
-"obs": 13,
-"N": 20,
-"rep_lo90": 7.0,
-"rep_hi90": 17.0
+"obs": 37,
+"N": 67,
+"rep_lo90": 28.0,
+"rep_hi90": 46.0
 }
 ]
 },
 "ols_unweighted": {
-"slope": 0.5142395073417824,
-"intercept": 0.1566896453492351,
-"n": 20,
-"dof": 18,
-"se": 0.6307332846326746,
-"lo95": -0.72199773053826,
-"hi95": 1.7504767452218246,
-"t": 0.8153042179171887
+"slope": -0.23194582617165488,
+"intercept": 0.5262547580361268,
+"n": 17,
+"dof": 15,
+"se": 0.496896849630423,
+"lo95": -1.205863651447284,
+"hi95": 0.7419719991039742,
+"t": -0.4667886832934627
 },
 "ols_n_weighted": {
-"slope": 0.33476611316398214,
-"intercept": 0.24672604723299307,
-"n": 20,
-"dof": 18,
-"se": 0.47899787931885296,
-"lo95": -0.6040697303009697,
-"hi95": 1.2736019566289338,
-"t": 0.6988885078990913
+"slope": -0.3690737178154352,
+"intercept": 0.5921801765306158,
+"n": 17,
+"dof": 15,
+"se": 0.37499721445303075,
+"lo95": -1.1040682581433754,
+"hi95": 0.365920822512505,
+"t": -0.9842038916309404
 },
 "ols_with_controls": {
-"slope": 0.06693337953261656,
-"intercept": 2.298537478123518,
+"slope": -0.2577013161484688,
+"intercept": 0.7584721780594075,
+"n": 17,
+"dof": 13,
+"se": 0.5611142290416185,
+"lo95": -1.357485205070041,
+"hi95": 0.8420825727731033,
+"t": -0.45926712033059996
+},
+"variant": "corrected_loose"
+},
+{
+"label": "NIMBY share ~ renter + log income + log density",
+"n_cells": 20,
+"n_turns": 549,
+"routes": [
+"classifier",
+"agenda_index",
+"local_asr",
+"swagit_transcript"
+],
+"renter_mean": 0.4294449,
+"renter_sd": 0.090781935983928,
+"bodies": [
+"agenda_index/hayward",
+"agenda_index/napa",
+"agenda_index/santaclara",
+"agenda_index/sausalito",
+"classifier/concord",
+"classifier/dalycity",
+"classifier/fremont",
+"classifier/healdsburg",
+"classifier/losaltos",
+"classifier/napa",
+"classifier/oakland",
+"classifier/paloalto",
+"classifier/petaluma",
+"classifier/sanjose",
+"classifier/sanmateo",
+"classifier/sanrafael",
+"classifier/santaclara",
+"local_asr/richmond",
+"local_asr/sanleandro",
+"swagit_transcript/petaluma"
+],
+"params": {
+"alpha": {
+"mean": -0.36589577337858487,
+"median": -0.36831311413258494,
+"sd": 0.3006659987278878,
+"hdi90": [
+-0.8566096401219996,
+0.1322849061526179
+],
+"hdi95": [
+-0.9621850205160565,
+0.24702483393014404
+],
+"pr_gt_0": 0.11,
+"r_hat": 1.0008087460314594,
+"ess_bulk": 4249.816714759574
+},
+"beta_renter": {
+"mean": -0.24298525180789965,
+"median": -0.2437547110694953,
+"sd": 0.28670729151089797,
+"hdi90": [
+-0.7094305776324782,
+0.227346616495957
+],
+"hdi95": [
+-0.8115149845469762,
+0.330938871395151
+],
+"pr_gt_0": 0.18975,
+"r_hat": 1.0003165297680074,
+"ess_bulk": 4766.927220167154
+},
+"sigma_cell": {
+"mean": 1.0125622078983878,
+"median": 0.9910249520096458,
+"sd": 0.2767502844787877,
+"hdi90": [
+0.6029228257969009,
+1.5043054322269942
+],
+"hdi95": [
+0.5349555042103332,
+1.6271061399884257
+],
+"pr_gt_0": 1.0,
+"r_hat": 1.0000014120085257,
+"ess_bulk": 2259.6001356845436
+},
+"beta_log_income": {
+"mean": 0.12743114968713273,
+"median": 0.12832856015376026,
+"sd": 0.2825112013086009,
+"hdi90": [
+-0.3464144995492414,
+0.5862220481772675
+],
+"hdi95": [
+-0.44206091417799087,
+0.6843550679005506
+],
+"pr_gt_0": 0.685875,
+"r_hat": 1.000733127920976,
+"ess_bulk": 4861.938968424895
+},
+"beta_log_density": {
+"mean": -0.09505090955187728,
+"median": -0.09852602167969092,
+"sd": 0.31527369234876,
+"hdi90": [
+-0.6022758625006841,
+0.41853679703101737
+],
+"hdi95": [
+-0.7077827107917413,
+0.5205271886734111
+],
+"pr_gt_0": 0.37575,
+"r_hat": 1.000576861960745,
+"ess_bulk": 5606.974002009373
+}
+},
+"diagnostics": {
+"max_r_hat": 1.0013665123812683,
+"min_ess_bulk": 2259.6001356845436,
+"divergences": 0
+},
+"beta_per_10pt_renter": {
+"median": -0.26850574227966406,
+"hdi90": [
+-0.7814666760996103,
+0.2504315578114641
+],
+"hdi95": [
+-0.8939168081749728,
+0.3645426458560438
+]
+},
+"ppc": {
+"cells_inside_90": 20,
+"cells": 20,
+"per_cell": [
+{
+"cell": "agenda_index/hayward",
+"obs": 10,
+"N": 10,
+"rep_lo90": 5.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "agenda_index/napa",
+"obs": 1,
+"N": 5,
+"rep_lo90": 0.0,
+"rep_hi90": 4.0
+},
+{
+"cell": "agenda_index/santaclara",
+"obs": 3,
+"N": 25,
+"rep_lo90": 1.0,
+"rep_hi90": 9.0
+},
+{
+"cell": "agenda_index/sausalito",
+"obs": 12,
+"N": 30,
+"rep_lo90": 6.0,
+"rep_hi90": 18.0
+},
+{
+"cell": "classifier/concord",
+"obs": 5,
+"N": 23,
+"rep_lo90": 2.0,
+"rep_hi90": 11.0
+},
+{
+"cell": "classifier/dalycity",
+"obs": 0,
+"N": 8,
+"rep_lo90": 0.0,
+"rep_hi90": 4.0
+},
+{
+"cell": "classifier/fremont",
+"obs": 3,
+"N": 6,
+"rep_lo90": 1.0,
+"rep_hi90": 5.0
+},
+{
+"cell": "classifier/healdsburg",
+"obs": 5,
+"N": 6,
+"rep_lo90": 1.0,
+"rep_hi90": 6.0
+},
+{
+"cell": "classifier/losaltos",
+"obs": 7,
+"N": 11,
+"rep_lo90": 3.0,
+"rep_hi90": 10.0
+},
+{
+"cell": "classifier/napa",
+"obs": 4,
+"N": 11,
+"rep_lo90": 1.0,
+"rep_hi90": 8.0
+},
+{
+"cell": "classifier/oakland",
+"obs": 3,
+"N": 17,
+"rep_lo90": 0.0,
+"rep_hi90": 7.0
+},
+{
+"cell": "classifier/paloalto",
+"obs": 18,
+"N": 26,
+"rep_lo90": 11.0,
+"rep_hi90": 22.0
+},
+{
+"cell": "classifier/petaluma",
+"obs": 8,
+"N": 15,
+"rep_lo90": 3.0,
+"rep_hi90": 12.0
+},
+{
+"cell": "classifier/sanjose",
+"obs": 12,
+"N": 28,
+"rep_lo90": 6.0,
+"rep_hi90": 18.0
+},
+{
+"cell": "classifier/sanmateo",
+"obs": 7,
+"N": 21,
+"rep_lo90": 3.0,
+"rep_hi90": 12.0
+},
+{
+"cell": "classifier/sanrafael",
+"obs": 9,
+"N": 14,
+"rep_lo90": 4.0,
+"rep_hi90": 12.0
+},
+{
+"cell": "classifier/santaclara",
+"obs": 17,
+"N": 53,
+"rep_lo90": 10.0,
+"rep_hi90": 25.0
+},
+{
+"cell": "local_asr/richmond",
+"obs": 10,
+"N": 28,
+"rep_lo90": 5.0,
+"rep_hi90": 16.0
+},
+{
+"cell": "local_asr/sanleandro",
+"obs": 82,
+"N": 176,
+"rep_lo90": 67.0,
+"rep_hi90": 97.0
+},
+{
+"cell": "swagit_transcript/petaluma",
+"obs": 6,
+"N": 36,
+"rep_lo90": 2.0,
+"rep_hi90": 12.0
+}
+]
+},
+"ols_unweighted": {
+"slope": -0.5941559470282891,
+"intercept": 0.6745608156569253,
+"n": 20,
+"dof": 18,
+"se": 0.6213186213090699,
+"lo95": -1.8119404447940661,
+"hi95": 0.6236285507374879,
+"t": -0.9562822143917864
+},
+"ols_n_weighted": {
+"slope": -0.6100276125548818,
+"intercept": 0.6752725513229445,
+"n": 20,
+"dof": 18,
+"se": 0.5005452621076989,
+"lo95": -1.5910963262859716,
+"hi95": 0.37104110117620803,
+"t": -1.2187261747043094
+},
+"ols_with_controls": {
+"slope": -0.5258154522019838,
+"intercept": -0.40476753977753516,
 "n": 20,
 "dof": 16,
-"se": 0.6259935459997159,
-"lo95": -1.1600139706268267,
-"hi95": 1.2938807296920598,
-"t": 0.1069234338921554
-}
+"se": 0.7140631973674865,
+"lo95": -1.9253793190422572,
+"hi95": 0.8737484146382897,
+"t": -0.7363710300999834
+},
+"variant": "uncorrected_same_frame"
 },
 {
 "label": "topic minutes/h ~ renter (complete coverage)",
-"n_cells": 28,
-"n_bodies": 9,
+"n_cells": 12,
+"n_bodies": 3,
 "families": [
 "density",
 "transit"
@@ -5814,153 +6546,138 @@
 "routes": [
 "classifier",
 "agenda_index",
-"local_asr",
-"swagit_transcript"
+"fullasr",
+"local_asr"
 ],
-"renter_mean": 0.43555557142857143,
-"renter_sd": 0.07284810241936326,
+"renter_mean": 0.3884241666666666,
+"renter_sd": 0.0460582922769855,
 "cells": [
 "classifier/bart/density",
 "classifier/bart/transit",
-"classifier/fremont/density",
-"classifier/fremont/transit",
-"agenda_index/hayward/density",
-"agenda_index/hayward/transit",
-"classifier/hayward/density",
-"classifier/hayward/transit",
-"local_asr/hayward/density",
-"local_asr/hayward/transit",
 "agenda_index/napa/density",
 "agenda_index/napa/transit",
 "classifier/napa/density",
 "classifier/napa/transit",
-"classifier/petaluma/density",
-"classifier/petaluma/transit",
-"swagit_transcript/petaluma/density",
-"swagit_transcript/petaluma/transit",
-"local_asr/richmond/density",
-"local_asr/richmond/transit",
-"local_asr/sanleandro/density",
-"local_asr/sanleandro/transit",
-"agenda_index/santaclara/density",
-"agenda_index/santaclara/transit",
-"classifier/santaclara/density",
-"classifier/santaclara/transit",
+"fullasr/napa/density",
+"fullasr/napa/transit",
+"local_asr/napa/density",
+"local_asr/napa/transit",
 "classifier/vta/density",
 "classifier/vta/transit"
 ],
 "params": {
 "alpha": {
-"mean": 1.0498938983882262,
-"median": 1.0584119822234346,
-"sd": 0.4665947709185994,
+"mean": 1.4210824296480755,
+"median": 1.3917189243698562,
+"sd": 0.6628799504987691,
 "hdi90": [
-0.28313471750064667,
-1.7988077718641402
+0.3983149351581559,
+2.5548788189646747
 ],
 "hdi95": [
-0.11630619125785964,
-1.9378909207472788
+0.17995034460340167,
+2.7962697366217903
 ],
-"pr_gt_0": 0.984125,
-"r_hat": 1.0001710398068249,
-"ess_bulk": 2926.1322466901574
+"pr_gt_0": 0.987375,
+"r_hat": 1.0015683791646122,
+"ess_bulk": 2750.424325293439
 },
 "beta_renter": {
-"mean": 0.221909185660879,
-"median": 0.23120638654482772,
-"sd": 0.40547211928669424,
+"mean": 0.9182809771904188,
+"median": 0.9338694722139924,
+"sd": 0.5448255322621451,
 "hdi90": [
--0.4580915345209502,
-0.8748644631990586
+-0.019363985075696723,
+1.7725515816018955
 ],
 "hdi95": [
--0.6009744106041713,
-1.012862682707181
+-0.23869061057740398,
+1.9410313414181248
 ],
-"pr_gt_0": 0.72525,
-"r_hat": 1.0014908716551463,
-"ess_bulk": 3918.391158058121
+"pr_gt_0": 0.94775,
+"r_hat": 1.0003665135663997,
+"ess_bulk": 3217.384736412835
 },
 "sigma_b": {
-"mean": 1.0828979393405418,
-"median": 1.0484993157394626,
-"sd": 0.3786821680359419,
+"mean": 0.6538209553103463,
+"median": 0.5389478178803857,
+"sd": 0.4968075830782799,
 "hdi90": [
-0.5271689104350824,
-1.7546464626903917
+0.07548653111906409,
+1.6166510461466925
 ],
 "hdi95": [
-0.4267526653571821,
-1.9129522658093696
+0.0517838821130163,
+1.8724956286345404
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.0002064752238966,
-"ess_bulk": 2016.1840290710422
+"r_hat": 1.0046666010625245,
+"ess_bulk": 912.509457253215
 },
 "phi": {
-"mean": 1.6688411691679195,
-"median": 1.5893335682953145,
-"sd": 0.5617613127492919,
+"mean": 0.7612544175037086,
+"median": 0.7055919635722503,
+"sd": 0.30341026933999765,
 "hdi90": [
-0.8900898093519035,
-2.690288779503712
+0.3723669784315047,
+1.335966651417357
 ],
 "hdi95": [
-0.7992250248182654,
-2.9382319752677355
+0.3329986712383558,
+1.4866601055197266
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.00007360287706,
-"ess_bulk": 2837.957379391469
+"r_hat": 1.0004706374209598,
+"ess_bulk": 4413.513830688321
 }
 },
 "diagnostics": {
-"max_r_hat": 1.0015837724729122,
-"min_ess_bulk": 2016.1840290710422,
-"divergences": 0
+"max_r_hat": 1.0046666010625245,
+"min_ess_bulk": 912.509457253215,
+"divergences": 54
 },
 "rate_ratio_per_10pt_renter": {
-"median": 1.373526450678841,
+"median": 7.595694911286644,
 "hdi90": [
-0.5332147055564647,
-3.3232506376737487
+0.9588295244534497,
+46.92244502002024
 ],
 "hdi95": [
-0.43824848999841315,
-4.016360748958462
+0.5955702796599824,
+67.64632397468115
 ],
-"pr_gt_1": 0.72525
+"pr_gt_1": 0.94775
 },
 "ppc": {
-"cells_inside_90": 28,
-"cells": 28
+"cells_inside_90": 11,
+"cells": 12
 },
 "ols_unweighted": {
-"slope": 4.966564075509527,
-"intercept": 2.0276345079309737,
-"n": 28,
-"dof": 26,
-"se": 18.028755462651493,
-"lo95": -30.369796631287397,
-"hi95": 40.30292478230645,
-"t": 0.2754801398132167
+"slope": 153.194849439092,
+"intercept": -53.34606423949926,
+"n": 12,
+"dof": 10,
+"se": 47.77833375085923,
+"lo95": 59.54931528740791,
+"hi95": 246.84038359077607,
+"t": 3.2063665141176463
 },
 "ols_hours_weighted": {
-"slope": -0.303705862644556,
-"intercept": 3.4997771315098025,
-"n": 28,
-"dof": 26,
-"se": 12.069063449573818,
-"lo95": -23.95907022380924,
-"hi95": 23.351658498520127,
-"t": -0.025163995857133425
-}
+"slope": 150.80398351631754,
+"intercept": -52.51571223809337,
+"n": 12,
+"dof": 10,
+"se": 44.47788852485765,
+"lo95": 63.62732200759656,
+"hi95": 237.98064502503854,
+"t": 3.3905382768347185
+},
+"variant": "topic_minutes_today"
 },
 {
 "label": "topic minutes/h ~ renter (+ partial, flagged)",
-"n_cells": 62,
-"n_bodies": 26,
+"n_cells": 78,
+"n_bodies": 25,
 "families": [
 "density",
 "transit"
@@ -5968,11 +6685,12 @@
 "routes": [
 "classifier",
 "agenda_index",
+"fullasr",
 "local_asr",
 "swagit_transcript"
 ],
-"renter_mean": 0.4272215161290323,
-"renter_sd": 0.08472914140188932,
+"renter_mean": 0.42856535897435893,
+"renter_sd": 0.08562067853170818,
 "cells": [
 "classifier/bart/density",
 "classifier/bart/transit",
@@ -5984,10 +6702,14 @@
 "classifier/dalycity/transit",
 "classifier/fremont/density",
 "classifier/fremont/transit",
+"fullasr/fremont/density",
+"fullasr/fremont/transit",
 "agenda_index/hayward/density",
 "agenda_index/hayward/transit",
 "classifier/hayward/density",
 "classifier/hayward/transit",
+"fullasr/hayward/density",
+"fullasr/hayward/transit",
 "local_asr/hayward/density",
 "local_asr/hayward/transit",
 "classifier/healdsburg/density",
@@ -6002,22 +6724,32 @@
 "agenda_index/napa/transit",
 "classifier/napa/density",
 "classifier/napa/transit",
+"fullasr/napa/density",
+"fullasr/napa/transit",
+"local_asr/napa/density",
+"local_asr/napa/transit",
 "classifier/oakland/density",
 "classifier/oakland/transit",
+"fullasr/oakland/density",
+"fullasr/oakland/transit",
 "classifier/paloalto/density",
 "classifier/paloalto/transit",
 "classifier/petaluma/density",
 "classifier/petaluma/transit",
+"fullasr/petaluma/density",
+"fullasr/petaluma/transit",
 "swagit_transcript/petaluma/density",
 "swagit_transcript/petaluma/transit",
 "classifier/pleasanton/density",
 "classifier/pleasanton/transit",
+"fullasr/richmond/density",
+"fullasr/richmond/transit",
 "local_asr/richmond/density",
 "local_asr/richmond/transit",
-"classifier/rohnertpark/density",
-"classifier/rohnertpark/transit",
 "classifier/sanjose/density",
 "classifier/sanjose/transit",
+"fullasr/sanleandro/density",
+"fullasr/sanleandro/transit",
 "local_asr/sanleandro/density",
 "local_asr/sanleandro/transit",
 "classifier/sanmateo/density",
@@ -6028,6 +6760,8 @@
 "agenda_index/santaclara/transit",
 "classifier/santaclara/density",
 "classifier/santaclara/transit",
+"fullasr/santaclara/density",
+"fullasr/santaclara/transit",
 "classifier/santarosa/density",
 "classifier/santarosa/transit",
 "classifier/sunnyvale/density",
@@ -6039,151 +6773,155 @@
 ],
 "params": {
 "alpha": {
-"mean": 1.1816915442257088,
-"median": 1.1871095959270679,
-"sd": 0.40984152950807856,
+"mean": 1.8551852863021216,
+"median": 1.868046567429097,
+"sd": 0.4844322368912464,
 "hdi90": [
-0.5107417002700735,
-1.849071856704968
+1.0414879601291072,
+2.6295962191625155
 ],
 "hdi95": [
-0.3608668514373771,
-1.9967134300633156
+0.8907671797873572,
+2.76812222890032
 ],
-"pr_gt_0": 0.996875,
-"r_hat": 1.0003271711106467,
-"ess_bulk": 3435.483475617667
+"pr_gt_0": 0.99975,
+"r_hat": 1.0015535681879304,
+"ess_bulk": 2918.802338131656
 },
 "beta_renter": {
-"mean": -0.06226769866137967,
-"median": -0.06141780836572678,
-"sd": 0.2423616122321151,
+"mean": -0.09805731935513054,
+"median": -0.09554496388779021,
+"sd": 0.21467251485677308,
 "hdi90": [
--0.4717637396445065,
-0.3322990037351718
+-0.4478554489604806,
+0.2441456404616409
 ],
 "hdi95": [
--0.5571324641997765,
-0.4071444154456214
+-0.5224130069191861,
+0.3135713468920177
 ],
-"pr_gt_0": 0.402375,
-"r_hat": 1.000384731751378,
-"ess_bulk": 4934.307540036784
+"pr_gt_0": 0.3215,
+"r_hat": 1.000085089685282,
+"ess_bulk": 3072.546562907379
 },
 "sigma_b": {
-"mean": 1.0536057733116349,
-"median": 1.0458272853643706,
-"sd": 0.258051782622258,
+"mean": 0.8647170762306947,
+"median": 0.8628150923396023,
+"sd": 0.24217953357349045,
 "hdi90": [
-0.6395681860600257,
-1.486511998052805
+0.4693657823639296,
+1.2634951205704124
 ],
 "hdi95": [
-0.5608282634092467,
-1.5958836553683142
+0.3779853558408679,
+1.3670080069813566
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.0020731443653565,
-"ess_bulk": 2222.326086961928
+"r_hat": 1.0006298940822351,
+"ess_bulk": 1187.1054414907615
 },
 "phi": {
-"mean": 1.3419108875258048,
-"median": 1.307602742907807,
-"sd": 0.3383515440501972,
+"mean": 1.350565113606704,
+"median": 1.329155683782802,
+"sd": 0.27766898459452477,
 "hdi90": [
-0.8561868158486501,
-1.9493740241467354
+0.9271753208483529,
+1.8462021735848002
 ],
 "hdi95": [
-0.7857755772430988,
-2.106625013151397
+0.8621475214275212,
+1.9536610997261172
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.0003417922436475,
-"ess_bulk": 3203.8447454014595
+"r_hat": 1.0005531538534995,
+"ess_bulk": 2786.7928820762895
 },
 "beta_partial": {
-"mean": 0.1078861065011884,
-"median": 0.1047233320510432,
-"sd": 0.4615612909192824,
+"mean": -0.4347255486354958,
+"median": -0.43643350538169,
+"sd": 0.5005149254655822,
 "hdi90": [
--0.6663440512216131,
-0.8586258547301164
+-1.2470721237300486,
+0.38186561087032683
 ],
 "hdi95": [
--0.8062513063691363,
-1.0155329020994124
+-1.4185299564384828,
+0.5469575643587847
 ],
-"pr_gt_0": 0.594375,
-"r_hat": 1.0004626368474325,
-"ess_bulk": 4078.6804896654057
+"pr_gt_0": 0.186125,
+"r_hat": 1.001097177252926,
+"ess_bulk": 3301.3948350489172
 }
 },
 "diagnostics": {
-"max_r_hat": 1.0020731443653565,
-"min_ess_bulk": 2222.326086961928,
+"max_r_hat": 1.0015535681879304,
+"min_ess_bulk": 1187.1054414907615,
 "divergences": 0
 },
 "rate_ratio_per_10pt_renter": {
-"median": 0.9300776344015707,
+"median": 0.8944100043260419,
 "hdi90": [
-0.5730453521047099,
-1.4802185493938387
+0.592698607750346,
+1.329958829374017
 ],
 "hdi95": [
-0.5181216292889023,
-1.6169227190283604
+0.5432703757693025,
+1.4422915409704586
 ],
-"pr_gt_1": 0.402375
+"pr_gt_1": 0.3215
 },
 "ppc": {
-"cells_inside_90": 61,
-"cells": 62
+"cells_inside_90": 76,
+"cells": 78
 },
 "ols_unweighted": {
-"slope": -2.046004509798429,
-"intercept": 5.8096164846571074,
-"n": 62,
-"dof": 60,
-"se": 9.640472957149928,
-"lo95": -20.94133150581229,
-"hi95": 16.84932248621543,
-"t": -0.2122307192699498
+"slope": -4.249987711192552,
+"intercept": 6.393685893521077,
+"n": 78,
+"dof": 76,
+"se": 8.277334551469728,
+"lo95": -20.47356343207322,
+"hi95": 11.973588009688115,
+"t": -0.5134488264024464
 },
 "ols_hours_weighted": {
-"slope": -2.1897593952845744,
-"intercept": 4.716180162531121,
-"n": 62,
-"dof": 60,
-"se": 8.063147418800483,
-"lo95": -17.993528336133522,
-"hi95": 13.614009545564372,
-"t": -0.271576256956286
-}
+"slope": 1.71317439619652,
+"intercept": 2.6275741275408557,
+"n": 78,
+"dof": 76,
+"se": 7.454334244597186,
+"lo95": -12.897320723213966,
+"hi95": 16.323669515607005,
+"t": 0.22982258911159084
+},
+"variant": "topic_minutes_today"
 },
 {
 "label": "density minutes/h ~ renter (all coverage)",
-"n_cells": 31,
-"n_bodies": 26,
+"n_cells": 39,
+"n_bodies": 25,
 "families": [
 "density"
 ],
 "routes": [
 "classifier",
 "agenda_index",
+"fullasr",
 "local_asr",
 "swagit_transcript"
 ],
-"renter_mean": 0.4272215161290323,
-"renter_sd": 0.08472914140188931,
+"renter_mean": 0.42856535897435905,
+"renter_sd": 0.08562067853170818,
 "cells": [
 "classifier/bart/density",
 "classifier/concord/density",
 "classifier/cupertino/density",
 "classifier/dalycity/density",
 "classifier/fremont/density",
+"fullasr/fremont/density",
 "agenda_index/hayward/density",
 "classifier/hayward/density",
+"fullasr/hayward/density",
 "local_asr/hayward/density",
 "classifier/healdsburg/density",
 "classifier/livermore/density",
@@ -6191,19 +6929,25 @@
 "classifier/milpitas/density",
 "agenda_index/napa/density",
 "classifier/napa/density",
+"fullasr/napa/density",
+"local_asr/napa/density",
 "classifier/oakland/density",
+"fullasr/oakland/density",
 "classifier/paloalto/density",
 "classifier/petaluma/density",
+"fullasr/petaluma/density",
 "swagit_transcript/petaluma/density",
 "classifier/pleasanton/density",
+"fullasr/richmond/density",
 "local_asr/richmond/density",
-"classifier/rohnertpark/density",
 "classifier/sanjose/density",
+"fullasr/sanleandro/density",
 "local_asr/sanleandro/density",
 "classifier/sanmateo/density",
 "classifier/sanrafael/density",
 "agenda_index/santaclara/density",
 "classifier/santaclara/density",
+"fullasr/santaclara/density",
 "classifier/santarosa/density",
 "classifier/sunnyvale/density",
 "classifier/vallejo/density",
@@ -6211,127 +6955,128 @@
 ],
 "params": {
 "alpha": {
-"mean": 1.1709130153860055,
-"median": 1.1531326371560284,
-"sd": 0.38985170851846973,
+"mean": 1.4121669379582913,
+"median": 1.4057601059499263,
+"sd": 0.45982213591831045,
 "hdi90": [
-0.5667884308743919,
-1.8402809411057162
+0.6776752211894539,
+2.1793251341400457
 ],
 "hdi95": [
-0.4446356452453703,
-1.996912713549104
+0.5287891973260338,
+2.335365605664845
 ],
-"pr_gt_0": 0.999,
-"r_hat": 0.9998269408531014,
-"ess_bulk": 2662.240667193917
+"pr_gt_0": 0.998375,
+"r_hat": 1.0015208241982778,
+"ess_bulk": 3433.5151602906194
 },
 "beta_renter": {
-"mean": -0.12374506629270511,
-"median": -0.11651269034801909,
-"sd": 0.20254811199524023,
+"mean": -0.23428029034133435,
+"median": -0.23371233680060033,
+"sd": 0.1835318082446134,
 "hdi90": [
--0.46564335663826706,
-0.19493261063518735
+-0.5401211323912841,
+0.0575236063540531
 ],
 "hdi95": [
--0.5383389107426811,
-0.26360679559523903
+-0.59625278475109,
+0.11640574537745528
 ],
-"pr_gt_0": 0.266125,
-"r_hat": 1.000910516242279,
-"ess_bulk": 3740.018780560807
+"pr_gt_0": 0.096625,
+"r_hat": 1.0007112438877748,
+"ess_bulk": 3027.9632969383574
 },
 "sigma_b": {
-"mean": 0.46635844084318906,
-"median": 0.42095061310704074,
-"sd": 0.28988870475367573,
+"mean": 0.6193687130786085,
+"median": 0.6301621893583351,
+"sd": 0.2723838031678747,
 "hdi90": [
-0.0831023184127941,
-1.0019087442073682
+0.15190233381228063,
+1.0629303975605084
 ],
 "hdi95": [
-0.06434648668346361,
-1.1292426880451978
+0.08831849410567438,
+1.156592183234721
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.0213483871492606,
-"ess_bulk": 152.30366293582117
+"r_hat": 1.017021302059425,
+"ess_bulk": 204.7978081200559
 },
 "phi": {
-"mean": 1.3036542819490038,
-"median": 1.1792057535390914,
-"sd": 0.6003458812584915,
+"mean": 2.1345103422180065,
+"median": 1.9590446366575467,
+"sd": 0.8446789837401956,
 "hdi90": [
-0.7087150189759754,
-2.3304403786550756
+1.109251787147787,
+3.7761932577590085
 ],
 "hdi95": [
-0.6406037982297443,
-2.7936511431389364
+1.002277942604177,
+4.220039539761857
 ],
 "pr_gt_0": 1.0,
-"r_hat": 1.0048823578197115,
-"ess_bulk": 941.7834293445286
+"r_hat": 1.0070978814053204,
+"ess_bulk": 533.0701883781553
 },
 "beta_partial": {
-"mean": 0.8557304297139485,
-"median": 0.8766937544999146,
-"sd": 0.4460268343069245,
+"mean": 0.4628060743098971,
+"median": 0.4783744087625744,
+"sd": 0.46951716744252564,
 "hdi90": [
-0.09483787594478824,
-1.5763650427598817
+-0.330070508426745,
+1.219328845499619
 ],
 "hdi95": [
--0.08150757007611001,
-1.6825070133700353
+-0.4761716814710256,
+1.3432777511572997
 ],
-"pr_gt_0": 0.964625,
-"r_hat": 1.000283891433864,
-"ess_bulk": 2988.871547779348
+"pr_gt_0": 0.83125,
+"r_hat": 1.0009236650825328,
+"ess_bulk": 3603.780356333303
 }
 },
 "diagnostics": {
-"max_r_hat": 1.0213483871492606,
-"min_ess_bulk": 152.30366293582117,
-"divergences": 8
+"max_r_hat": 1.017021302059425,
+"min_ess_bulk": 204.7978081200559,
+"divergences": 0
 },
 "rate_ratio_per_10pt_renter": {
-"median": 0.8715239396214274,
+"median": 0.7611213363413978,
 "hdi90": [
-0.577199713670509,
-1.2586825814852984
+0.5321498157950076,
+1.0694925090912242
 ],
 "hdi95": [
-0.5297423524229924,
-1.3649489642664854
+0.49838183573389566,
+1.145630547168268
 ],
-"pr_gt_1": 0.266125
+"pr_gt_1": 0.096625
 },
 "ppc": {
-"cells_inside_90": 29,
-"cells": 31
+"cells_inside_90": 38,
+"cells": 39
 },
 "ols_unweighted": {
-"slope": -14.902325155177472,
-"intercept": 12.28856491003222,
-"n": 31,
-"dof": 29,
-"se": 12.366125414436688,
-"lo95": -39.139930967473376,
-"hi95": 9.335280657118435,
-"t": -1.2050925132766264
+"slope": -16.216892957853556,
+"intercept": 12.50457592440456,
+"n": 39,
+"dof": 37,
+"se": 10.99379186308215,
+"lo95": -37.76472500949457,
+"hi95": 5.330939093787457,
+"t": -1.475095504792201
 },
 "ols_hours_weighted": {
-"slope": -3.369348880290425,
-"intercept": 5.3156531257867385,
-"n": 31,
-"dof": 29,
-"se": 8.030449527962293,
-"lo95": -19.10902995509652,
-"hi95": 12.370332194515669,
-"t": -0.41957164023735405
-}
+"slope": -0.8617673832098696,
+"intercept": 3.8938606267250546,
+"n": 39,
+"dof": 37,
+"se": 7.684128738617094,
+"lo95": -15.922659710899374,
+"hi95": 14.199124944479635,
+"t": -0.1121490038134058
+},
+"variant": "topic_minutes_today"
 }
 ]
 },

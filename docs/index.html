@@ -343,12 +343,18 @@ Promise.all([
     // Owner, 2026-10-24 19:27 (inbox 30): takeaways in the hypothesis-and-conclusion
     // shape. Checked 2026-10-24 under the view's own rule (episode bootstrap, seed
     // 20261018, 2,000 reps): YIMBY minus NIMBY over all 274 public speakers is +7.3 of
-    // 100 with a 90 % range of -4.3 to +19.7, so it is not significant. That range is
-    // not published; the title states the conclusion and the two shares.
+    // 100 with a 90 % range of -4.3 to +19.7, so it is not significant. The title states
+    // the conclusion and the two shares; since inbox 36 the caption carries the range.
     d3.select("#lead-h").text(`Public speakers showed no significant difference between YIMBY and NIMBY: `
       + `${per100(rows[1].v)} against ${per100(rows[0].v)} of 100`);
+    // Inbox 36 (parent, 2026-10-24 19:45): the range behind that conclusion is shown,
+    // read from nimby.lead_range, which export_panels.py fills from
+    // output/role_yimby_nimby/summary.json. Nothing is computed here.
+    const lr = np.lead_range;
+    const sgn = v => (v > 0 ? "+" : "") + Math.round(v);
     cap.text(`The other ${per100(+m[3])} of every 100 were neither. `
       + `${n ? `${n[1]} public speakers, ` : ""}each counted once at the meeting they spoke at. `
+      + (lr ? `YIMBY minus NIMBY: ${sgn(lr.yimby_minus_nimby_per_100)} of 100 (likely range ${sgn(lr.lo90)} to ${sgn(lr.hi90)}, ${lr.level} % interval). ` : "")
       + "Significant, on this page, means the likely range of a difference excludes zero.");
     d3.select("#lead-def").remove();
     leadDrewSplit = true;
@@ -545,6 +551,10 @@ Promise.all([
   // sentence about which side each group took, its two odds ratios and the note on
   // what to quote. When the chart could not be drawn, the block carries all of it, as
   // it did before, and the page is still complete.
+  // Owner, 2026-10-24 19:31 (inbox 35): "do test of yimby nimby in offical vs public".
+  // The same comparison on the speaker labels closes the block: one takeaway heading and
+  // one short paragraph, both written by export_panels.py _speaker_role_test() from
+  // output/role_yimby_nimby/. Model, n and p-values are on Methods, section 5.
   // Owner, 2026-10-24 16:43: the took-a-side bars came off the first screen and stand
   // here, in the section that already carried this result in words. The block keeps the
   // sentence that says which side each group took and its two odds ratios; the sentence
@@ -561,6 +571,7 @@ Promise.all([
         <div><h5>${i + 1}. ${esc(s.name)}</h5><p>${esc(s.text)}</p></div>`).join("")}</div>
       ${rs.model_line ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
       ${rs.restated ? `<p class="sideres">${esc(rs.restated)}</p>` : ""}
+      ${rs.speakers ? `<div class="sidespk" id="side-speakers"><h5 style="margin:12px 0 4px">${esc(rs.speakers.title)}</h5><p>${esc(rs.speakers.text)}</p></div>` : ""}
       <p class="src-note">How this model was fitted: <a href="methods.html#models">Methods</a>.</p>
     </div>`;
 
