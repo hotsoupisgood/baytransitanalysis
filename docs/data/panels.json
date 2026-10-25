@@ -1,8 +1,8 @@
 {
-"generated": "2026-10-24T17:33-07:00",
+"generated": "2026-10-24T17:40-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
-"goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. The officials who ran the meeting are compared with the members of the public who spoke. For most proposals, support for the proposal means support for more housing or transit. Where a proposal restricts housing instead, such as rent rules, support for it is not support for more housing.",
+"goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed, and a second pass then recorded whether that proposal would add or restrict housing or transit, so a score against a moratorium counts as a score for more housing. Proposals about housing but not about building it, such as rent rules, are left out of that reading rather than counted with the sign they carry. The officials who ran the meeting are compared with the members of the public who spoke.",
 "scope": "15,961 statements were scored, from 692 meetings of 33 Bay Area bodies: city councils, county boards and transit boards. The window is one year and 2,285 hours of video. A statement is one speaker turn of at least 5 words, in an episode that passed the quality gate. Each was scored three times and the median was kept.",
 "note": "Exploratory analysis. Stance and tone were coded by a large language model and have not been validated against human coders.",
 "spend": {
