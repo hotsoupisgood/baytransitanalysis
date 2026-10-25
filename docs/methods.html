@@ -67,6 +67,11 @@
 
   <h2 id="speakers">4. Speaker labels: YIMBY / NIMBY</h2>
   <div id="s-speakers"></div>
+  <!-- Added 2026-10-24 (owner, WhatsApp 23:54, "Update"): the published view moved onto the
+       full statement set. Written by export/export_panels.py into data/panels.json
+       (nimby.fullset_note) from the two frame CSVs and the two view runs, so no number is
+       typed into this file. -->
+  <div id="s-fullset"></div>
 
   <!-- Added 2026-10-19 (owner): the statistical work behind the role results, as short
        entries complementing the dashboard's bullets rather than restating their tables.
@@ -249,7 +254,10 @@ d3.json("data/panels.json").then(P => {
   const B = [P.nimby && P.nimby.role_side && P.nimby.role_side.speakers, P.renter && P.renter.refit]
     .filter(b => b && (b.methods || []).length);
   d3.select("#s-a4").html(B.map(b => `<h3>${esc(b.methods_title)}</h3>${b.methods.map(t => `<p>${esc(t)}</p>`).join("")}`).join(""));
-}).catch(() => d3.select("#s-a4").html(""));
+  // 2026-10-24 23:54 ("Update"): the note on the move to the full statement set.
+  const FN = P.nimby && P.nimby.fullset_note;
+  d3.select("#s-fullset").html(FN ? `<h3>${esc(FN.title)}</h3>${FN.paragraphs.map(t => `<p>${esc(t)}</p>`).join("")}` : "");
+}).catch(() => { d3.select("#s-a4").html(""); d3.select("#s-fullset").html(""); });
 
 d3.json("data/methods.json").then(M => {
   d3.select("#banner").html(esc(M.exploratory)

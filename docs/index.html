@@ -343,7 +343,9 @@ Promise.all([
     // Owner, 2026-10-24 19:27 (inbox 30): takeaways in the hypothesis-and-conclusion
     // shape. Checked 2026-10-24 under the view's own rule (episode bootstrap, seed
     // 20261018, 2,000 reps): YIMBY minus NIMBY over all 274 public speakers is +7.3 of
-    // 100 with a 90 % range of -4.3 to +19.7, so it is not significant. The title states
+    // 100 with a 90 % range of -4.3 to +19.7, so it is not significant. On the full
+    // statement set (2026-10-24 23:54, "Update") it is +0.2 of 100 over 525 speakers,
+    // 90 % range -11.6 to +13.5: still not significant, and the title is unchanged. The title states
     // the conclusion and the two shares; since inbox 36 the caption carries the range.
     d3.select("#lead-h").text(`Public speakers showed no significant difference between YIMBY and NIMBY: `
       + `${per100(rows[1].v)} against ${per100(rows[0].v)} of 100`);
@@ -351,7 +353,8 @@ Promise.all([
     // read from nimby.lead_range, which export_panels.py fills from
     // output/role_yimby_nimby/summary.json. Nothing is computed here.
     const lr = np.lead_range;
-    const sgn = v => (v > 0 ? "+" : "") + Math.round(v);
+    // Round first, so a difference under half a speaker in 100 reads "0", not "+0".
+    const sgn = v => { const r = Math.round(v); return (r > 0 ? "+" : "") + r; };
     cap.text(`The other ${per100(+m[3])} of every 100 were neither. `
       + `${n ? `${n[1]} public speakers, ` : ""}each counted once at the meeting they spoke at. `
       + (lr ? `YIMBY minus NIMBY: ${sgn(lr.yimby_minus_nimby_per_100)} of 100 (likely range ${sgn(lr.lo90)} to ${sgn(lr.hi90)}, ${lr.level} % interval). ` : "")
