@@ -51,8 +51,8 @@
   <div class="hero">
   <ul class="tldr">
     <li>I collected a year of Bay Area council, county and transit board meetings, and transcribed the stretches about housing density or transit.</li>
-    <li>I had a large language model label each public speaker <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener">NIMBY</a>, meaning they opposed new housing nearby, <a href="https://en.wikipedia.org/wiki/YIMBY_movement" target="_blank" rel="noopener">YIMBY</a>, meaning they supported it, or neither. I found more NIMBY speakers than YIMBY ones overall, though at most bodies the split is too close to call.</li>
-    <li>Public speakers also took a side more often than the officials running the meeting. The plots below carry the numbers, and every limitation is on the <a href="methods.html">Methods</a> page.</li>
+    <li>I had a large language model label each public speaker <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener">NIMBY</a>, meaning against new housing or transit nearby, <a href="https://en.wikipedia.org/wiki/YIMBY_movement" target="_blank" rel="noopener">YIMBY</a>, meaning for it, or neither, after a second pass checked which way each proposal pointed.</li>
+    <li>Corrected that way the public split is too close to call, and so is almost every body, though public speakers still took a side more often than the officials. The plots below carry the numbers and every limitation is on the <a href="methods.html">Methods</a> page.</li>
   </ul>
 
   <!-- The separate definitions block that stood here was removed on 2026-10-24 17:05
@@ -111,16 +111,16 @@
        line of body and date; the stance scale and the speaker's own average came off
        the cards, and the scale is still defined once under the heading. These two quotes are also the reason the per-speaker scatter's own
        examples strip is gone: it said the same thing a screen further down. -->
-  <h2 id="examples">One comment against the housing item, one for it</h2>
+  <h2 id="examples">One comment against more housing, one for it</h2>
   <div id="ex-def"></div>
   <div class="excols">
     <div class="exq nimby">
-      <h5>NIMBY (against the housing item)</h5>
+      <h5>NIMBY (against more housing)</h5>
       <blockquote class="quote">“Mayor and council members, reject the missing middle framework recommendation in the general plan for your review. San Jose residents do not want three-story apartment complexes by right in residential neighborhoods without parking. Smart growth means concentrating density along commercial corridors, transit hubs, not quiet residential streets. …”</blockquote>
       <p class="qmeta">A member of the public, San José City Council, 2026-08-18.</p>
     </div>
     <div class="exq yimby">
-      <h5>YIMBY (for it)</h5>
+      <h5>YIMBY (for more of it)</h5>
       <blockquote class="quote">“… I'm somebody who is very interested in housing in Fremont, and from what I can tell, this changing with the zoning does improve the ability for us to actually create more housing …”</blockquote>
       <p class="qmeta">A member of the public, Fremont City Council, 2026-05-05.</p>
     </div>
@@ -321,15 +321,21 @@ Promise.all([
     // bars, the two labels, and the speakers who were neither as one line of text
     // under them rather than a third bar.
     const rows = [
-      { k: "nimby", label: "NIMBY: against the housing proposal", v: +m[2] },
-      { k: "yimby", label: "YIMBY: for it", v: +m[1] },
+      { k: "nimby", label: "NIMBY: against more housing or transit", v: +m[2] },
+      { k: "yimby", label: "YIMBY: for more of it", v: +m[1] },
     ];
     drawBars(svgSel, rows, "public speakers of every 100", v => `${per100(v)} of 100`);
-    d3.select("#lead-h").text(`Of every 100 public speakers, ${per100(rows[0].v)} were NIMBY `
-      + `and ${per100(rows[1].v)} YIMBY`);
+    // Owner's honesty rule for this chart (item 17, 2026-10-24 16:43): the takeaway
+    // claims a direction only if the data holds it. After the direction correction
+    // the two labels are 5 of 100 apart on 227 speakers and 6 of the 7 body-and-route
+    // groups have a YIMBY-minus-NIMBY range that includes zero, so the title states
+    // the split and stops. The star count is the panel's own second headline, read
+    // from the same file rather than computed here.
+    d3.select("#lead-h").text(`Public speakers split close to evenly: `
+      + `${per100(rows[1].v)} YIMBY and ${per100(rows[0].v)} NIMBY of every 100`);
     cap.text(`The other ${per100(+m[3])} of every 100 were neither. `
-      + `Every public speaker scored on a housing proposal${n ? `, ${n[1]} of them` : ""}, `
-      + "each counted once at the meeting they spoke at.");
+      + `${n ? `${n[1]} public speakers, ` : ""}each counted once at the meeting they spoke at. `
+      + "The gap between the two labels is smaller than the uncertainty at almost every body.");
     d3.select("#lead-def").remove();
     leadDrewSplit = true;
   }
