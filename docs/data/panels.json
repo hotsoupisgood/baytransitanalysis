@@ -1,9 +1,9 @@
 {
-"generated": "2026-10-24T19:09-07:00",
+"generated": "2026-10-24T19:34-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
 "goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. A second pass recorded whether that proposal would add or restrict housing or transit. Each was scored three times and the median calculated. This is an exploratory analysis used to better understand the data and inspire future planned analysis.",
-"scope": "15,961 statements were scored, from 692 meetings of 33 Bay Area bodies: city councils, county boards and transit boards. The window is one year and 2,285 hours of video. A statement is one speaker turn of at least 5 words, in an episode that passed the quality gate.",
+"scope": "Corpus: 692 meetings of 33 Bay Area bodies, 2,285 hours of video, and 15,961 scored statements, a statement being one speaker turn.",
 "note": "",
 "spend": {
 "usd": 155.64,
@@ -1153,12 +1153,12 @@
 "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
 "headline": [
 "Of 274 public speakers, 46.7 % were YIMBY, 39.4 % NIMBY and 13.9 % neutral.",
-"In 1 of the 8 body-and-route groups measured, the likely range on YIMBY minus NIMBY excludes zero. In the other 7 it does not."
+"Petaluma, on the transcript route, had significantly more YIMBY than NIMBY public speakers (58 against 29 of 100). In the other 7 groups the difference was not significant."
 ],
 "role_side": {
 "title": "Who takes a side",
-"headline": "Public speakers took a side on 81.4 % of the statements that carried a stance, against 32.3 % of dais statements. Of the statements that took a side, 52.0 % of public ones opposed more housing or transit, against 37.2 % of dais ones.",
-"model_line": "A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it. Staff speakers are excluded from this measure.",
+"headline": "Public speakers took a side on 81.4 % of the statements that carried a stance, against 32.3 % of dais statements. Public statements that took a side opposed more housing or transit significantly more often than dais ones: 52.0 % against 37.2 %.",
+"model_line": "A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.",
 "steps": [
 {
 "name": "Took a side at all",
@@ -1181,7 +1181,7 @@
 ]
 }
 ],
-"restated": "Quote 1.60\u00d7 for \u201cmore opposed\u201d. Step 1 measures whether a statement took a side at all, not which side.",
+"restated": "",
 "why": "Behind the two steps: 81.4 % of public turns take a side rather than scoring inside the neutral band, against 32.3 % of dais turns; of the turns that do take one, 52.0 % of public turns come out against more housing or transit against 37.2 % of dais ones. The two steps are separate fits on their own rows and do not multiply together. Almost all the dependence in this corpus is inside meetings rather than between bodies: on the second step the spread between stretches of meeting is 0.96 and between meetings 0.81 on the log-odds scale, while the spread between bodies is 0.00 once meeting is in the model. Which is why the model groups turns by meeting and not by city. Renter share does not move either step: its interval covers zero on both, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
 "table": [
 {
@@ -3379,6 +3379,7 @@
 }
 ],
 "figs": [
+"fig_public_yimby_nimby_all_groups_stars.png",
 "fig_public_yimby_nimby_classifier_stars.png",
 "fig_public_yimby_nimby_swagit_transcript_stars.png",
 "fig_public_yimby_nimby_agenda_index_stars.png",
@@ -3389,6 +3390,7 @@
 "fig_public_vs_dais_local_asr.png"
 ],
 "fig_titles": {
+"fig_public_yimby_nimby_all_groups_stars.png": "Only 1 of the 8 groups differed significantly: Petaluma, on the transcript route",
 "fig_public_yimby_nimby_classifier_stars.png": "How the public split, body by body: classifier route",
 "fig_public_yimby_nimby_swagit_transcript_stars.png": "How the public split, body by body: swagit_transcript route",
 "fig_public_yimby_nimby_agenda_index_stars.png": "How the public split, body by body: agenda_index route",
@@ -3399,6 +3401,7 @@
 "fig_public_vs_dais_local_asr.png": "The same split with the dais beside the public: local_asr route"
 },
 "fig_caps": {
+"fig_public_yimby_nimby_all_groups_stars.png": "Each pair of bars is one body on one route, with groups never pooled. A route is which transcript source a meeting came from: YouTube captions, a city transcript, a city agenda index, or audio transcribed for this project. Bars count N of 100 public speakers with a stance, and the lines show the likely range. A star marks a significant difference: the likely range, a 90 % interval, on YIMBY minus NIMBY excludes zero.",
 "fig_public_yimby_nimby_classifier_stars.png": "One bar per body on the classifier route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
 "fig_public_yimby_nimby_swagit_transcript_stars.png": "One bar per body on the swagit_transcript route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
 "fig_public_yimby_nimby_agenda_index_stars.png": "One bar per body on the agenda_index route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",
@@ -3415,8 +3418,8 @@
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "lede": "Renter share is the renter-occupied share of a body's occupied housing units, from the American Community Survey.",
 "headline": [
-"Renter share showed no clear link to what gets said at meetings.",
-"A staff member in a California county government suggested renter share as a main predictor, as a lead for future work. Each body's NIMBY share was regressed on renter share, with median household income and population density as covariates. No predictor showed a clear effect: every likely range is a 95 % interval, and all three include zero. Renter share also showed no clear link to YIMBY share or to meeting time on housing density and transit. With 18 bodies in the fit, a small real effect could still be missed."
+"Renter share had no significant link to what was said at meetings.",
+"A staff member in a California county government suggested renter share as a main predictor, as a lead for future work. Each body's NIMBY share was regressed on renter share, with median household income and population density as covariates. No predictor was significant: every likely range is a 95 % interval, and all three include zero. Renter share also had no significant link to YIMBY share or to meeting time on housing density and transit."
 ],
 "correlations": [
 {
@@ -6357,8 +6360,7 @@
 "lede": "",
 "headline": [
 "The two transit boards gave housing density and transit the most meeting time: BART 29.14 and VTA 27.00 minutes of each meeting-hour.",
-"Napa County gave them 1.78 to 2.48 minutes, depending on which route read the meeting.",
-"Only 3 bodies have every meeting read and a published video length, so only those 3 have a rate."
+"Napa County gave them 1.78 to 2.48 minutes, depending on which route read the meeting."
 ],
 "complete": [
 {

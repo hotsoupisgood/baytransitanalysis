@@ -52,7 +52,11 @@
   <ul class="tldr">
     <li>I collected a year of Bay Area council, county and transit board meetings, and transcribed the stretches about housing density or transit.</li>
     <li>I had a large language model label each public speaker <a href="https://en.wikipedia.org/wiki/NIMBY" target="_blank" rel="noopener">NIMBY</a>, meaning against new housing or transit nearby, <a href="https://en.wikipedia.org/wiki/YIMBY_movement" target="_blank" rel="noopener">YIMBY</a>, meaning for it, or neither, after a second pass checked which way each proposal pointed.</li>
-    <li>Corrected that way the public split is too close to call, and so is almost every body, though public speakers still took a side more often than the officials. The plots below carry the numbers and every limitation is on the <a href="methods.html">Methods</a> page.</li>
+    <!-- Owner, 2026-10-24 19:28 (inbox 32): "Corrected that way" dropped, the bullet
+         split into two conclusions in the hypothesis-and-conclusion shape of inbox 30. -->
+    <li>I found no significant difference between YIMBY and NIMBY among public speakers overall, and in almost every body.</li>
+    <li>I found that public speakers took a side significantly more often than officials.</li>
+    <li>The plots below carry the numbers, and every limitation is on the <a href="methods.html">Methods</a> page.</li>
   </ul>
 
   <!-- The separate definitions block that stood here was removed on 2026-10-24 17:05
@@ -157,7 +161,6 @@
   <div class="key">
     <span>circle area = hours of that body's meetings transcribed</span>
     <span>colour: <i class="ramp"></i> share of those hours on transit, through to share on housing density</span>
-    <span class="sw" style="--c:var(--pending)">dashed circle = nothing transcribed yet</span>
     <span>hover a circle, or tap it on a phone, for that body's counts</span>
   </div>
 
@@ -222,7 +225,10 @@ Promise.all([
   // gone too (owner, 2026-10-24 18:47), his paragraph carrying that sentence now.
   if (panels && panels.intro) {
     d3.select("#intro").html(
-      `<p class="intro">${panels.intro.goal}</p><p class="intro scope">${panels.intro.scope}</p>`);
+      `<p class="intro">${panels.intro.goal}</p>`);
+    // Owner, 2026-10-24 19:27 (inbox 31): the corpus paragraph is off the top of the
+    // page. Its counts stay visible as one short line in the footer (#asof below);
+    // the statement definition is on Methods only.
     // The YIMBY / NIMBY rule, under the two example comments where the labels first
     // appear (rule 3). It is the view's own threshold out of panels.json, which is
     // why it is rendered rather than typed into the markup above; the panel that
@@ -236,12 +242,13 @@ Promise.all([
     // The map's summary: two sentences with the counts the footer disclosure used to
     // carry, read from bodies.json so they cannot drift from the markers.
     if (top.length) {
-      d3.select("#map-h").text(`Only ${fi(withHours.length)} of the ${fi(bodies.length)} bodies have transcribed hours`);
+      // Owner, 2026-10-24 19:30 (inbox 33): say what was done, in third person since
+      // the TLDR is the only first-person place. The untranscribed bodies are off the map.
+      d3.select("#map-h").text(`${fi(withHours.length)} bodies from around the Bay were transcribed`);
       d3.select("#map-sum").text(`The transcribed hours are uneven: `
         + `${short(top[0].name)} has ${f1(top[0].hours_done)} hours of its meetings `
         + `transcribed and ${short(top[top.length - 1].name)} has `
-        + `${f1(top[top.length - 1].hours_done)} hours. The dashed circles have `
-        + `nothing transcribed yet.`);
+        + `${f1(top[top.length - 1].hours_done)} hours.`);
     }
     // Both halves are exported strings, not typed here: the spend total carries the
     // date its newest account was measured, which is not always the export date.
@@ -252,6 +259,7 @@ Promise.all([
     d3.select("#asof").html([
       asOf ? `Data as of ${esc(asOf)}.` : "",
       sp && sp.text ? `${esc(sp.text)}${sp.as_of && !same ? `, as of ${esc(sp.as_of)}` : ""}.` : "",
+      panels.intro.scope ? esc(panels.intro.scope) : "",
     ].filter(Boolean).join(" "));
   } else {
     d3.select("#intro").html(`<p class="note">The intro needs <code>data/panels.json</code>. Run <code>export/export_panels.py</code> to build it.</p>`);
@@ -332,11 +340,16 @@ Promise.all([
     // groups have a YIMBY-minus-NIMBY range that includes zero, so the title states
     // the split and stops. The star count is the panel's own second headline, read
     // from the same file rather than computed here.
-    d3.select("#lead-h").text(`Public speakers split close to evenly: `
-      + `${per100(rows[1].v)} YIMBY and ${per100(rows[0].v)} NIMBY of every 100`);
+    // Owner, 2026-10-24 19:27 (inbox 30): takeaways in the hypothesis-and-conclusion
+    // shape. Checked 2026-10-24 under the view's own rule (episode bootstrap, seed
+    // 20261018, 2,000 reps): YIMBY minus NIMBY over all 274 public speakers is +7.3 of
+    // 100 with a 90 % range of -4.3 to +19.7, so it is not significant. That range is
+    // not published; the title states the conclusion and the two shares.
+    d3.select("#lead-h").text(`Public speakers showed no significant difference between YIMBY and NIMBY: `
+      + `${per100(rows[1].v)} against ${per100(rows[0].v)} of 100`);
     cap.text(`The other ${per100(+m[3])} of every 100 were neither. `
       + `${n ? `${n[1]} public speakers, ` : ""}each counted once at the meeting they spoke at. `
-      + "The gap between the two labels is smaller than the uncertainty at almost every body.");
+      + "Significant, on this page, means the likely range of a difference excludes zero.");
     d3.select("#lead-def").remove();
     leadDrewSplit = true;
   }
@@ -360,7 +373,7 @@ Promise.all([
   const col = d3.scaleLinear([0, 0.5, 1], [cssVar("--transit"), "#9ca3af", cssVar("--density")]).interpolate(d3.interpolateLab).clamp(true);
   const colour = b => b.density_share == null ? "none" : col(b.density_share);
 
-  const nodes = bodies.map(b => { const [x,y] = proj([b.lon, b.lat]); return {b, x, y, x0:x, y0:y, r: Math.max(5, r(b.hours_done)) + 1.5}; });
+  const nodes = bodies.filter(b => b.hours_done > 0).map(b => { const [x,y] = proj([b.lon, b.lat]); return {b, x, y, x0:x, y0:y, r: Math.max(5, r(b.hours_done)) + 1.5}; });
   d3.forceSimulation(nodes).force("x", d3.forceX(d => d.x0).strength(.6)).force("y", d3.forceY(d => d.y0).strength(.6))
     .force("c", d3.forceCollide(d => d.r).iterations(3)).stop().tick(120);
 
@@ -371,7 +384,7 @@ Promise.all([
   // type is a word in the hover text instead.
   const g = svg.append("g");
   const mk = g.selectAll("g.mk").data(nodes.sort((a,b) => b.r - a.r)).join("g").attr("class","mk").attr("transform", d => `translate(${d.x},${d.y})`);
-  mk.append("circle").attr("class", d => "body" + (d.b.hours_done ? "" : " empty"))
+  mk.append("circle").attr("class", "body")
     .attr("r", d => Math.max(4.5, r(d.b.hours_done)))
     .attr("fill", d => colour(d.b));
   mk.filter(d => d.b.hours_done >= 2).append("text").attr("class","lbl").attr("text-anchor","middle").attr("dy", d => r(d.b.hours_done) + 11)
@@ -385,8 +398,7 @@ Promise.all([
   // Every number names what it counts (rule 16). Episode counts say "episodes": the
   // exported per-body counts are episodes, never statements.
   function tipHtml(b){
-    const share = b.density_share == null
-      ? "nothing transcribed yet, so no topic split"
+    const share = b.density_share == null ? ""
       : `${Math.round(b.density_share*100)}% of the transcribed hours were on housing density, ${Math.round((1-b.density_share)*100)}% on transit`;
     return `<b>${esc(b.name)}</b><br>`
       + `${esc(b.kind === "transit" ? "transit board" : b.kind)}, ${esc(b.county)} County, video on ${esc(b.platforms.join(" and ")) || "no known platform"}<br>`
@@ -548,7 +560,7 @@ Promise.all([
       <div class="sidesteps">${rs.steps.map((s, i) => `
         <div><h5>${i + 1}. ${esc(s.name)}</h5><p>${esc(s.text)}</p></div>`).join("")}</div>
       ${rs.model_line ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
-      <p class="sideres">${esc(rs.restated)}</p>
+      ${rs.restated ? `<p class="sideres">${esc(rs.restated)}</p>` : ""}
       <p class="src-note">How this model was fitted: <a href="methods.html#models">Methods</a>.</p>
     </div>`;
 
@@ -568,8 +580,8 @@ Promise.all([
       { k: "dais", label: "Officials running the meeting", v: +m[2] },
     ];
     drawBars(svgSel, rows, "% of that group's scored statements that took a side", v => `${f1(v)} %`);
-    d3.select("#side-h").text(`Public speakers took a side on ${f1(rows[0].v)} % of their scored `
-      + `statements, officials on ${f1(rows[1].v)} %`);
+    d3.select("#side-h").text(`Public speakers took a side significantly more often than officials: `
+      + `on ${f1(rows[0].v)} % of their scored statements, against ${f1(rows[1].v)} %`);
     cap.text("Each bar is one group's share of the statements that carried a stance score.");
     leadDrewShares = true;
   }

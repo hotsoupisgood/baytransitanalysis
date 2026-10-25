@@ -491,14 +491,10 @@ svg .muted { fill: var(--muted); font-size: 12px; }
 svg .code { font-size: 11px; fill: var(--muted); }
 .county { fill: var(--land); stroke: var(--border); stroke-width: 1; }
 /* One shape for every body, a circle (owner, 2026-10-21 10:06). The dashed ring for
-   "nothing transcribed yet" stays. `.body.selected` went with the detail panel: there
-   is no selected body any more, only a hovered or tapped one. */
+   untranscribed bodies is gone with those bodies (owner, 2026-10-24 19:30, inbox 33).
+   `.body.selected` went with the detail panel: there is no selected body any more,
+   only a hovered or tapped one. */
 .body { stroke: var(--panel); stroke-width: 1.2; cursor: pointer; }
-/* `fill: none` would leave the ring's interior out of hit testing, so the six
-   not-yet-transcribed bodies had no reachable hover; `pointer-events: all`
-   makes the whole disc a target while the ring stays hollow. */
-.body.empty { fill: none; stroke: var(--pending); stroke-dasharray: 2 2;
-  pointer-events: all; }
 svg .node .box { fill: var(--bg); stroke: var(--pending); stroke-width: 1.5; }
 svg .node.done .box { stroke: var(--ok); }
 svg .node.active .box { stroke: var(--accent); stroke-width: 2.5; }
