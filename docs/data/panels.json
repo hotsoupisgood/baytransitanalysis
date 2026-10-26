@@ -1,23 +1,23 @@
 {
-"generated": "2026-10-25T21:50-07:00",
+"generated": "2026-10-25T22:42-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
 "goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. A second pass recorded whether that proposal would add or restrict housing or transit. Each was scored three times and the median calculated. This is an exploratory analysis used to better understand the data and inspire future planned analysis.",
 "scope": "Discovered: 709 meetings of 34 Bay Area bodies, 2,412 hours of video. Transcribed and scored: 23,237 statements from 1,841 transcribed stretches, a statement being one speaker turn.",
 "note": "",
 "spend": {
-"usd": 201.94,
+"usd": 205.96,
 "as_of": "2026-10-25",
 "by_account": {
 "classifier": 61.33,
 "direction": 16.6,
 "direction_audit": 2.2,
 "label_audit": 1.23,
-"runpod_total": 17.64,
+"runpod_total": 17.89,
 "stance": 96.6,
-"stance_audit": 6.33
+"stance_audit": 10.11
 },
-"text": "Total spend to date $201.94, as of 2026-10-25: GPU transcription $17.64, stance coding $96.60, topic classifier $61.33, proposal direction $16.60, model audits $9.77, as of 2026-10-25"
+"text": "Total spend to date $205.96, as of 2026-10-25: GPU transcription $17.89, stance coding $96.60, topic classifier $61.33, proposal direction $16.60, model audits $13.54, as of 2026-10-25"
 },
 "as_of": "2026-10-25",
 "totals": {
@@ -1166,7 +1166,7 @@
 "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
 "headline": [
 "Public speakers showed no significant difference between YIMBY and NIMBY, with a likely range of -7 to +17 of 100 on YIMBY minus NIMBY. 47 of 100 public speakers were YIMBY, 41 of 100 NIMBY and 12 of 100 neutral, of 617 speakers with a stance.",
-"San Mateo had significantly more YIMBY than NIMBY speakers: 56 against 17 of 100. In the other 14 bodies the public speakers' two shares did not differ significantly."
+"San Mateo had significantly more YIMBY than NIMBY public speakers (56 against 17 of 100). In the other 14 bodies the difference was not significant."
 ],
 "role_side": {
 "title": "Who takes a side",
@@ -6227,7 +6227,7 @@
 "fig_public_vs_dais_agenda_index.png"
 ],
 "fig_titles": {
-"fig_public_yimby_nimby_all_bodies_stars_pooled.png": "Only 1 of the 15 bodies differed significantly: San Mateo",
+"fig_public_yimby_nimby_all_bodies_stars_pooled.png": "San Mateo had significantly more YIMBY than NIMBY public speakers (56 against 17 of 100)",
 "fig_public_vs_dais_pooled.png": "Officials had significantly more YIMBY than NIMBY speakers in 11 of the 24 bodies measured",
 "fig_public_yimby_nimby_all_groups_stars.png": "2 of the 18 groups differed significantly",
 "fig_public_yimby_nimby_classifier_stars.png": "How the public split, body by body: classifier route",
@@ -6242,7 +6242,7 @@
 "fig_public_vs_dais_agenda_index.png": "The same split with the dais beside the public: agenda_index route"
 },
 "fig_caps": {
-"fig_public_yimby_nimby_all_bodies_stars_pooled.png": "Each pair of bars is one body, with all of its routes combined. A route is the transcript source a meeting came from, and the table for each route on its own is on Methods. Bars count N of 100 public speakers with a stance, and the lines show the likely range, a 90 % interval. Each body shown has at least 10 public speakers with a stance. A star marks a body whose likely range on YIMBY minus NIMBY excludes zero.",
+"fig_public_yimby_nimby_all_bodies_stars_pooled.png": "Each pair of bars is one body, with all of its routes combined. A route is the transcript source a meeting came from, and the table for each route on its own is above. Bars count N of 100 public speakers with a stance, and the lines show the likely range, a 90 % interval. Each body shown has at least 10 public speakers with a stance. A star marks a body whose likely range on YIMBY minus NIMBY excludes zero.",
 "fig_public_vs_dais_pooled.png": "The same bodies with the officials drawn beside the public, sources combined. The dot is YIMBY minus NIMBY as N of 100 speakers with a stance, and the line is the likely range, a 90 % interval. The officials are mostly neutral, so this is the baseline the public split should be read against rather than against nothing.",
 "fig_public_yimby_nimby_all_groups_stars.png": "Each pair of bars is one body on one route, with groups never pooled. A route is the transcript source a meeting came from. The routes are YouTube captions, a city transcript, a city agenda index, audio transcribed for this project, and the full recording. The full recording route transcribed the whole meeting and found the topic without a keyword screen. Bars count N of 100 public speakers with a stance, and the lines show the likely range. A star marks a significant difference: the likely range, a 90 % interval, on YIMBY minus NIMBY excludes zero.",
 "fig_public_yimby_nimby_classifier_stars.png": "One bar per body on the classifier route: how its public speakers split. A star means the YIMBY minus NIMBY interval clears zero. Few do, which is the result.",

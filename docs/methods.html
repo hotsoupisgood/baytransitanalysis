@@ -274,12 +274,26 @@ d3.json("data/panels.json").then(P => {
   // with the per-source table the front page no longer carries.
   const PN = P.nimby && P.nimby.pooled_note;
   const cols = PN && PN.table && PN.table.length ? Object.keys(PN.table[0]) : [];
+  // 2026-10-25 22:24 (owner, "b"): the two pooled figures came off the front page,
+  // which now draws one row per body in the page itself, and are published here as
+  // the provenance under the per-route table. Their titles and captions are the ones
+  // export/export_panels.py writes into data/panels.json, so no text is typed here.
+  const PFIG = ["fig_public_yimby_nimby_all_bodies_stars_pooled.png",
+                "fig_public_vs_dais_pooled.png"];
+  const pfig = f => {
+    const t = ((P.nimby || {}).fig_titles || {})[f] || f;
+    const c = ((P.nimby || {}).fig_caps || {})[f] || "";
+    return `<div class="fig"><h4>${esc(t)}</h4>`
+      + `<img src="data/panels/${esc(f)}" alt="${esc(t)}" loading="lazy">`
+      + (c ? `<p class="note">${esc(c)}</p>` : "") + `</div>`;
+  };
   d3.select("#s-pooled").html(!PN ? "" : `<h3>${esc(PN.title)}</h3>`
     + PN.paragraphs.map(t => `<p>${esc(t)}</p>`).join("")
     + (cols.length ? `<div class="panel"><table>
         <thead><tr>${cols.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
         <tbody>${PN.table.map(r => `<tr>${cols.map(c => `<td>${esc(String(r[c]))}</td>`).join("")}</tr>`).join("")}</tbody>
-      </table></div>${PN.table_caption ? `<p class="note">${esc(PN.table_caption)}</p>` : ""}` : ""));
+      </table></div>${PN.table_caption ? `<p class="note">${esc(PN.table_caption)}</p>` : ""}` : "")
+    + PFIG.map(pfig).join(""));
 }).catch(() => { d3.select("#s-a4").html(""); d3.select("#s-fullset").html(""); d3.select("#s-pooled").html(""); });
 
 d3.json("data/methods.json").then(M => {

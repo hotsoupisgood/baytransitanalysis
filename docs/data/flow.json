@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-25T20:45-07:00",
+ "generated": "2026-10-25T22:42-07:00",
  "generated_by": "ytpt-site/export/export_flow.py",
- "meta_line": "34 bodies \u00b7 709 meetings \u00b7 4,959 located episodes over 5 routes \u00b7 302.3 audio hours transcribed \u00b7 23,237 turns scored \u00b7 $17.64 of GPU time, measured 2026-10-23",
+ "meta_line": "34 bodies \u00b7 709 meetings \u00b7 4,959 located episodes over 5 routes \u00b7 302.3 audio hours transcribed \u00b7 23,237 turns scored \u00b7 $17.89 of GPU time, measured 2026-10-25",
  "lede": "Nine stages, in the order they ran. Each box says what was decided at that step; the dashed ones are the two places where something is judged rather than processed. Click a box for the detail and the files behind it.",
  "key": [
   {
@@ -121,7 +121,7 @@
      "0.725"
     ]
    ],
-   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is a share of the reference's about-minutes: 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit, on the same share of about-minutes. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-20, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 815 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $61.33, measured 2026-10-25.</p>",
+   "detail": "<p><b>Route one, the cheap one.</b> Caption windows are scored against keyword lists, the candidates go to an LLM with a pinned codebook, and it decides whether each window is <i>about</i> housing density, <i>about</i> transit, both, a passing mention or nothing. Adjacent \u201cabout\u201d windows merge into an episode. Its measured recall is a share of the reference's about-minutes: 0.725 on any topic and 0.304 on transit. The leak is almost entirely the keyword screen in front of the model, not the model: fare becomes fair, ridership becomes wrership, YIMBY and rezoning drop out of the captions altogether.</p><p><b>Route two, the expensive one.</b> For the bodies whose audio is not on YouTube, every regular meeting is transcribed whole, undiarized, and then read on every 120-second window with <b>no keyword screen at all</b>. Recall there is 0.898 on any topic and 0.919 on transit, on the same share of about-minutes. Transcribing a meeting whole and undiarized is the cheap part of that, at $0.0093, measured 2026-10-19, which is why it was worth doing for half the corpus.</p><p>Route is kept as a stratum in every model and nothing is pooled across routes, because the routes that read the same body can disagree about it. 815 screened and 612 whole-meeting episodes are past the QA gate. The recall figures are measured against a reference the newer codebook itself partly defined, so they are a best case rather than an estimate.</p><p>The reading itself, every window either route sent to the model on both arms, comes to $61.33, measured 2026-10-25.</p>",
    "docs": [
     "pipeline/classify.py",
     "scripts/fullasr.py",
@@ -135,7 +135,7 @@
    "title": "GPU transcription with diarization",
    "state": "done",
    "gate": true,
-   "badge": "302.3 AUDIO HOURS \u00b7 23 BATCHES",
+   "badge": "302.3 AUDIO HOURS \u00b7 24 BATCHES",
    "line": "Nothing starts until the owner approves that batch: the estimate is written first, the pod only runs after a yes, and it is torn down after.",
    "nums": [
     [
@@ -148,14 +148,14 @@
     ],
     [
      "batches",
-     "23"
+     "24"
     ],
     [
-     "$ per audio hour, 2026-10-23",
+     "$ per audio hour, 2026-10-25",
      "$0.0218"
     ]
    ],
-   "detail": "<p>Clip audio is batched on the Mac with a cost estimate attached; the owner approves the batch; only then does a pod start. It runs WhisperX <code>large-v3</code> with <code>pyannote/speaker-diarization-community-1</code>, so the output is not just words but words attributed to separate voices. It uploads one JSON per episode and is torn down. An orphan-pod check pages the owner if anything is still billing with no batch running.</p><p>Measured rather than estimated: $0.0218, measured 2026-10-23 with diarization on, over 366.4 audio-hours in 23 finished batches, $7.97, measured 2026-10-23 in all. Every GPU pod this project has ever run comes to $17.64, measured 2026-10-23. Dropping diarization roughly halves the rate, to $0.0093, measured 2026-10-20, which is what the whole-meeting route in step 3 does.</p><p>The estimate is frozen onto the batch row when it is written, so a later measured throughput does not rewrite what was approved.</p>",
+   "detail": "<p>Clip audio is batched on the Mac with a cost estimate attached; the owner approves the batch; only then does a pod start. It runs WhisperX <code>large-v3</code> with <code>pyannote/speaker-diarization-community-1</code>, so the output is not just words but words attributed to separate voices. It uploads one JSON per episode and is torn down. An orphan-pod check pages the owner if anything is still billing with no batch running.</p><p>Measured rather than estimated: $0.0218, measured 2026-10-25 with diarization on, over 376.8 audio-hours in 24 finished batches, $8.22, measured 2026-10-25 in all. Every GPU pod this project has ever run comes to $17.89, measured 2026-10-25. Dropping diarization roughly halves the rate, to $0.0093, measured 2026-10-19, which is what the whole-meeting route in step 3 does.</p><p>The estimate is frozen onto the batch row when it is written, so a later measured throughput does not rewrite what was approved.</p>",
    "docs": [
     "pipeline/gpu_batch.py",
     "pipeline/spend.py",
@@ -320,11 +320,11 @@
  ],
  "money": {
   "gpu": {
-   "usd": 7.973199999999999,
-   "hours": 366.36899999999997,
-   "batches": 23,
-   "per_hour": 0.021762758311975085,
-   "as_of": "2026-10-23",
+   "usd": 8.2166,
+   "hours": 376.811,
+   "batches": 24,
+   "per_hour": 0.021805626693488248,
+   "as_of": "2026-10-25",
    "what": "transcription with diarization, per audio-hour"
   },
   "gpu_nodiar": {
@@ -332,7 +332,7 @@
    "hours": 889.2919999999999,
    "batches": 8,
    "per_hour": 0.009344624712692793,
-   "as_of": "2026-10-20",
+   "as_of": "2026-10-19",
    "what": "whole-meeting transcription without diarization, per audio-hour"
   },
   "stance": {
@@ -344,10 +344,10 @@
    "what": "stance coding, per turn at k = 3"
   },
   "stance_audit": {
-   "usd": 6.333466,
-   "turns": 2003,
-   "calls": 2003,
-   "per_turn": 0.0031619900149775335,
+   "usd": 10.107672,
+   "turns": 2431,
+   "calls": 3287,
+   "per_turn": 0.004157824763471822,
    "as_of": "2026-10-25",
    "what": "a second model re-scoring a sample, to audit the stance pass"
   },
@@ -382,8 +382,8 @@
    "what": "the locate classifier, whole pass"
   },
   "runpod_total": {
-   "usd": 17.6419,
-   "as_of": "2026-10-23",
+   "usd": 17.8854,
+   "as_of": "2026-10-25",
    "what": "every GPU pod this project has run"
   }
  }

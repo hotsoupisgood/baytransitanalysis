@@ -862,3 +862,56 @@ svg#nsc circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
   .appbar, .tip { display: none; }
   main { max-width: none; box-shadow: none; margin: 0; }
 }
+
+/* ── the body chart, one row per body ─────────────────────────────────────
+   Shipped 2026-10-25 under NET_CHART in index.html. One row per body: the
+   difference, YIMBY minus NIMBY, as a dot with its likely range against a zero
+   line, in place of an 864x2400 PNG of two bars per body. The 320-unit viewBox
+   and the 12 px text are the lead chart's, so the two charts set their labels at
+   the same rendered size (A17 §2.3). The chart has no heading of its own: the
+   panel's <h2> above it is its takeaway title. */
+.netfig { margin: 0.5rem 0 0; }
+/* 35rem is the 560-unit cap the draw clamps the viewBox to, so the chart never
+   paints wider than the frame it was laid out in. */
+svg#netsvg { display: block; width: 100%; height: auto; max-width: 35rem; }
+svg#netsvg .net-name { font-size: 12px; fill: var(--muted); }
+svg#netsvg .net-row.sig .net-name { fill: var(--ink); font-weight: 700; }
+svg#netsvg .net-val {
+  font-size: 12px; fill: var(--muted); font-variant-numeric: tabular-nums;
+}
+svg#netsvg .net-row.sig .net-val { fill: var(--ink); font-weight: 700; }
+svg#netsvg .net-ax { font-size: 12px; fill: var(--tick, var(--muted)); }
+/* 11 px here rendered at exactly 11 px, which is the floor A17 set rather than a
+   size with room in it. Everything the chart prints is 12 px. */
+svg#netsvg .net-end, svg#netsvg .net-colh { font-size: 12px; }
+/* Zero is the only reference a reader needs, so it is the only rule drawn: the
+   gridlines they would read a value off are replaced by the number on each row. */
+svg#netsvg .net-zero { stroke: var(--gray); stroke-width: 1; shape-rendering: crispEdges; }
+svg#netsvg .net-rng, svg#netsvg .net-cap { stroke: var(--gray); stroke-width: 1.5; }
+svg#netsvg .net-row.sig .net-rng, svg#netsvg .net-row.sig .net-cap { stroke: #555; }
+svg#netsvg .net-dot { stroke-width: 1.75; opacity: 0.75; }
+svg#netsvg .net-row.sig .net-dot { opacity: 1; }
+/* The hit target is the row, not the 9-unit dot: about 27 rendered px tall on a
+   390 px phone, which a thumb reaches. */
+svg#netsvg .net-hit { fill: transparent; cursor: pointer; }
+svg#netsvg .net-row:hover .net-hit, svg#netsvg .net-row:focus .net-hit { fill: var(--grid); }
+svg#netsvg .net-row:focus { outline: none; }
+svg#netsvg .net-row:focus .net-name { text-decoration: underline; }
+#net-tabs { display: flex; gap: 0.75rem; margin: 0.25rem 0 0.4rem; }
+/* .sctl button sets 0.8125rem, which is 13 px on a phone and under the 14 px
+   floor A17 set for text a reader reads on its own. The role token steps to
+   14 px below 52rem; naming the role is how that page keeps one size per role. */
+#net-tabs button {
+  border-bottom: 1px solid transparent; color: var(--muted);
+  font-size: var(--fs-cap);
+  /* The text alone made a 21 px box, under the 24 px a thumb needs. The padding is
+     on the button, so the tap target grows and the label does not move. */
+  min-height: 24px; padding: 0.125rem 0 0.1875rem;
+}
+#net-tabs button.on {
+  color: var(--ink); font-weight: 700; border-bottom-color: var(--ink);
+}
+.netfig .caption {
+  max-width: none; margin: 0.5rem 0 0;
+  font-size: var(--fs-cap); line-height: 1.45; color: #555;
+}

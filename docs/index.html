@@ -390,6 +390,214 @@ Promise.all([
   }
   buildLeadSplit(panels && panels.nimby);
 
+  // ── candidate: the body chart as one row per body (A19) ────────────────
+  // Owner, 2026-10-25 22:04: "the whole screen is taken up by the bar plot. can you
+  // review the ux of it", and 22:03: "petaluma looks kind of significant in the plot".
+  //
+  // The published figure is a PNG of 15 bodies with two bars each, 864x2400, which
+  // renders 1.18 screens tall on a 390 px phone and 2.44 screens on a 1280x800
+  // desktop. Both complaints come out of the same choice: it draws two shares, each
+  // with its own likely range, while the star marks a body whose range on the
+  // DIFFERENCE excludes zero. Petaluma's two bars stand well apart (54 against 35 of
+  // 100) and their ranges barely touch, so it reads as a finding; the range on the
+  // difference is -4 to +37 of 100 and includes zero.
+  //
+  // This draws the quantity the star is about. One row per body: the difference,
+  // YIMBY minus NIMBY, as one dot with its likely range against a zero line. A body
+  // whose range clears zero is filled and named in bold; every other body is hollow
+  // and grey, so a reader cannot read a result off a row that has none. Height falls
+  // to about half a phone screen for the 15 public bodies, and the numbers behind
+  // each row are in a hover that also opens on a tap.
+  //
+  // ON since 2026-10-25 (owner, WhatsApp 22:24, "b", choosing this over restyling the
+  // PNG): the panel draws these rows and no longer shows the 864x2400 image. The two
+  // pooled PNGs moved to Methods, under the per-route table, as provenance.
+  // ?netchart=0 draws the old PNG instead, for comparing the two.
+  const NET_CHART = true;
+  const netParam = new URLSearchParams(location.search).get("netchart");
+  const netChartOn = netParam === null ? NET_CHART : netParam !== "0";
+
+  const NET_BODY = {paloalto: "Palo Alto", sanjose: "San Jose", santaclara: "Santa Clara",
+    sanleandro: "San Leandro", sanmateo: "San Mateo", sanrafael: "San Rafael",
+    santarosa: "Santa Rosa", losaltos: "Los Altos", dalycity: "Daly City",
+    halfmoonbay: "Half Moon Bay", redwoodcity: "Redwood City", mountainview: "Mountain View",
+    walnutcreek: "Walnut Creek", unioncity: "Union City", samtrans: "SamTrans",
+    vta: "VTA", bart: "BART"};
+  const netName = b => NET_BODY[b] || String(b).replace(/\b\w/g, c => c.toUpperCase());
+  // `star` arrives from panels.json as the string "True" or "False".
+  const netStar = r => String(r.star).trim().toLowerCase() === "true";
+  const netSign = v => (Math.round(v) > 0 ? "+" : "") + Math.round(v);
+
+  // One row per body, sorted by the difference. Rows are 24 units, and the viewBox
+  // is as wide as the column the chart is given, between 320 and 560 units, so one
+  // unit is one rendered pixel and the 12 px set below is 12 px on the screen at
+  // every width. A17 §2.3: a chart drawn in a fixed frame and scaled to fit renders
+  // its labels at whatever size the scaling leaves, which is how three of this
+  // page's charts ended up with text under the floor on a phone.
+  function drawNetRows(svgSel, rows, role, W, D) {
+    // 26 units a row, so the hit target below is 26 rendered px: a touch target
+    // wants more than the 24 px a dot and its gap come to.
+    const RH = 26, TOP = 32, NAMEW = 92, VALW = 30;
+    const H = TOP + rows.length * RH + 40;
+    const x0 = NAMEW + 6, x1 = W - VALW - 6;
+    // D is the half-width of the scale, passed in from netDomain so that the public
+    // rows and the officials rows are drawn against the same axis and a reader can
+    // press the button and compare two pictures rather than two scales.
+    const x = d3.scaleLinear([-D, D], [x0, x1]);
+    const svg = svgSel.attr("viewBox", [0, 0, W, H]).attr("width", W).attr("height", H);
+    svg.selectAll("*").remove();
+
+    // Zero first, under every mark: it is the only reference a reader needs.
+    svg.append("line").attr("class", "net-zero")
+      .attr("x1", x(0)).attr("x2", x(0)).attr("y1", TOP - 12).attr("y2", TOP + rows.length * RH);
+
+    const g = svg.append("g").selectAll("g").data(rows).join("g")
+      .attr("class", d => "net-row" + (netStar(d) ? " sig" : ""))
+      .attr("transform", (d, i) => `translate(0,${TOP + i * RH})`)
+      .attr("tabindex", 0)
+      .attr("role", "img")
+      .attr("aria-label", d => netLabel(d, role));
+    // A hit target that is the whole row, not the 9-unit dot: on a phone the row is
+    // about 27 rendered px tall, which is a target a thumb reaches.
+    g.append("rect").attr("class", "net-hit").attr("x", 0).attr("y", 0)
+      .attr("width", W).attr("height", RH);
+    g.append("text").attr("class", "net-name").attr("x", 0).attr("y", RH / 2 + 1)
+      .attr("dy", "0.32em").text(d => netName(d.body));
+    g.append("line").attr("class", "net-rng")
+      .attr("x1", d => x(100 * d.net_lo90)).attr("x2", d => x(100 * d.net_hi90))
+      .attr("y1", RH / 2 + 1).attr("y2", RH / 2 + 1);
+    ["net_lo90", "net_hi90"].forEach(k => g.append("line").attr("class", "net-cap")
+      .attr("x1", d => x(100 * d[k])).attr("x2", d => x(100 * d[k]))
+      .attr("y1", RH / 2 - 2.5).attr("y2", RH / 2 + 4.5));
+    // One shape for every body (owner, 2026-10-21: "just use all the same shape").
+    // Filled means the likely range clears zero; hollow means it does not. Colour
+    // repeats which side of the line the dot is already on, so a reader who cannot
+    // tell the two hues apart loses nothing.
+    g.append("circle").attr("class", "net-dot")
+      .attr("cx", d => x(100 * d.net_yimby_minus_nimby)).attr("cy", RH / 2 + 1).attr("r", 4.5)
+      .attr("fill", d => netStar(d)
+        ? (d.net_yimby_minus_nimby >= 0 ? "var(--yimby)" : "var(--nimby)") : "var(--paper, #fff)")
+      .attr("stroke", d => d.net_yimby_minus_nimby >= 0 ? "var(--yimby)" : "var(--nimby)");
+    g.append("text").attr("class", "net-val").attr("x", W).attr("y", RH / 2 + 1)
+      .attr("dy", "0.32em").attr("text-anchor", "end")
+      .text(d => netSign(100 * d.net_yimby_minus_nimby));
+
+    // The axis. The two ends say which direction they are, so the sign on a value
+    // never has to be decoded (rule 16).
+    const base = TOP + rows.length * RH;
+    svg.append("g").selectAll("text").data([-D, 0, D]).join("text")
+      .attr("class", "net-ax").attr("x", d => x(d)).attr("y", base + 13)
+      .attr("text-anchor", (d, i) => i === 0 ? "start" : i === 1 ? "middle" : "end")
+      .text(d => netSign(d));
+    svg.append("text").attr("class", "net-ax net-end").attr("x", x0).attr("y", base + 25)
+      .text("more NIMBY");
+    svg.append("text").attr("class", "net-ax net-end").attr("x", x1).attr("y", base + 25)
+      .attr("text-anchor", "end").text("more YIMBY");
+    svg.append("text").attr("class", "net-ax").attr("x", 0).attr("y", base + 37)
+      .text(`YIMBY minus NIMBY, in ${role} of every 100`);
+    svg.append("text").attr("class", "net-ax net-colh").attr("x", W).attr("y", TOP - 16)
+      .attr("text-anchor", "end").text("difference");
+
+    // Hover, and a tap on a phone. The tooltip carries every number for the row,
+    // each with its unit; nothing on the page is reachable only through it, because
+    // the difference is printed on the row and the full table is on Methods.
+    g.on("pointerenter", function (ev, d) { showTip(ev, netTip(d, role)); })
+      .on("pointermove", function (ev, d) { showTip(ev, netTip(d, role)); })
+      .on("pointerleave", hideTip)
+      .on("focus", function (ev, d) {
+        const r = this.getBoundingClientRect();
+        showTip({clientX: r.left + 20, clientY: r.top}, netTip(d, role));
+      })
+      .on("blur", hideTip);
+  }
+
+  // One scale for both sets of rows, symmetric around zero, so a row's side of the
+  // line is the whole of its direction and the two halves cannot be read against each
+  // other. Rounded out to a multiple of 10 so the two ends are whole numbers.
+  const netDomain = rows => Math.ceil(Math.max(10, d3.max(rows, r => Math.max(
+    Math.abs(100 * r.net_lo90), Math.abs(100 * r.net_hi90)))) / 10) * 10;
+
+  const netLabel = (d, role) => `${netName(d.body)}: YIMBY minus NIMBY `
+    + `${netSign(100 * d.net_yimby_minus_nimby)} of 100 ${role}, likely range `
+    + `${netSign(100 * d.net_lo90)} to ${netSign(100 * d.net_hi90)}`
+    + (netStar(d) ? ", significant" : ", not significant");
+  const netTip = (d, role) => `<b>${esc(netName(d.body))}</b><br>`
+    + `YIMBY ${Math.round(100 * d.YIMBY_share)} of 100 against `
+    + `NIMBY ${Math.round(100 * d.NIMBY_share)} of 100<br>`
+    + `Difference ${netSign(100 * d.net_yimby_minus_nimby)} of 100, likely range `
+    + `${netSign(100 * d.net_lo90)} to ${netSign(100 * d.net_hi90)}<br>`
+    + `${fi(d.n_clusters)} ${esc(role)}, `
+    + (netStar(d) ? "a difference that clears zero" : "a range that includes zero");
+
+  // The panel's figure, under the flag. Public speakers are the page's subject and
+  // are shown first; the officials are one button away rather than 24 more rows.
+  function buildNetChart(np) {
+    const all = (np && np.by_body_pooled) || [];
+    const wrap = d3.select("#netfig");
+    if (!wrap.node()) return false;
+    const sets = {
+      public: {rows: all.filter(r => r.role === "public"), role: "public speakers"},
+      dais: {rows: all.filter(r => r.role === "dais"), role: "officials"},
+    };
+    if (!sets.public.rows.length) { wrap.remove(); return false; }
+    const svgSel = d3.select("#netsvg"), cap = d3.select("#net-cap");
+    // Both sets are measured on one axis, so the button changes the rows and never
+    // the scale.
+    const D = netDomain(all);
+    function show(which) {
+      const s = sets[which];
+      const nsig = s.rows.filter(netStar).length;
+      const sorted = s.rows.slice().sort((a, b) =>
+        b.net_yimby_minus_nimby - a.net_yimby_minus_nimby);
+      // The column the chart is given, so the viewBox is drawn at 1 unit to 1 pixel.
+      const avail = Math.round((wrap.node().getBoundingClientRect().width) || 320);
+      drawNetRows(svgSel, sorted, s.role, Math.max(320, Math.min(560, avail)), D);
+      svgSel.attr("aria-label", `YIMBY minus NIMBY by body, ${s.role}, `
+        + `one row each with its likely range`);
+      // The caption defines the drawing once and names nothing the heading above it
+      // already states (rule 14). The officials rows have no heading of their own, so
+      // their caption opens with their own conclusion, in the shape rule 15 asks for.
+      // Past two bodies the named group is the role itself and the conclusion is the
+      // count, which is how the published officials figure already reads: eleven
+      // bodies named in a row is a list, not a takeaway.
+      const top = sorted.filter(netStar);
+      const dir = r => r.net_yimby_minus_nimby >= 0 ? "YIMBY than NIMBY" : "NIMBY than YIMBY";
+      const lead = which === "public" ? "" : (!top.length
+        ? `No body had significantly more YIMBY than NIMBY ${s.role}. `
+        : top.length <= 2
+          ? `${top.map(r => netName(r.body)).join(" and ")} had significantly more `
+            + `${dir(top[0])} ${s.role}: `
+            + `${top.map(r => netSign(100 * r.net_yimby_minus_nimby) + " of 100").join(" and ")}. `
+          : `${s.role[0].toUpperCase() + s.role.slice(1)} had significantly more `
+            + `${dir(top[0])} in ${top.length} of the ${s.rows.length} bodies shown. `);
+      cap.text(lead
+        + `Each row is one body, with all of its transcript sources combined. `
+        + `The dot is YIMBY minus NIMBY in ${s.role} of every 100, and the line is the `
+        + `likely range, a 90 percent interval. A filled dot marks a range that clears `
+        + `zero, ${nsig} of the ${s.rows.length} bodies shown, and a hollow dot one that `
+        + `includes zero. `
+        + (which === "public" ? `The officials are one button away. `
+                              : `The public speakers are one button away. `)
+        + `Hover a row, or tap it on a phone, for the two shares and the number of `
+        + `${s.role === "officials" ? "officials" : "speakers"}.`);
+      d3.selectAll("#net-tabs button").classed("on", function () {
+        return this.dataset.set === which;
+      });
+    }
+    let cur = "public";
+    d3.selectAll("#net-tabs button").on("click", function () { show(cur = this.dataset.set); });
+    show(cur);
+    // The viewBox is the column width, so a resize has to redraw rather than
+    // scale: a scaled redraw is what put this page's other charts under the text
+    // floor on a phone.
+    let rt = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(rt);
+      rt = setTimeout(() => show(cur), 150);
+    });
+    return true;
+  }
+
   // ── map ────────────────────────────────────────────────────────────────
   const W = 640, H = 600;
   const svg = d3.select("#map").attr("viewBox", [0,0,W,H]).attr("width", W).attr("height", H);
@@ -599,6 +807,22 @@ Promise.all([
   const figTitle = (p, f) => (p.fig_titles || {})[f] || f.replace(/^fig_|\.png$/g,"").replace(/_/g," ");
   const figOne = (p, f) => `<div class="fig"><h4>${esc(figTitle(p, f))}</h4><img src="data/panels/${esc(f)}" alt="${esc(figTitle(p, f))}" loading="lazy"><p>${esc((p.fig_caps || {})[f] || "")}</p></div>`;
   const leadFig = p => p.figs && p.figs.length ? `<div class="pfigs">${figOne(p, p.figs[0])}</div>` : "";
+  // The body chart, shipped 2026-10-25 under NET_CHART. With the flag off this returns
+  // leadFig(p) and the panel is the published one; with it on, the 864x2400 PNG of 15
+  // bodies with two bars each is replaced by one row per body drawn in the page.
+  //
+  // It carries no title of its own. The panel's own <h2> stands directly above it and
+  // is already the takeaway with its numbers ("San Mateo had significantly more YIMBY
+  // than NIMBY public speakers (56 against 17 of 100)"), so a title here would print
+  // that finding a third time (rule 14). The heading also stays put when the Officials
+  // button is pressed, because it states the public result; which rows are drawn is
+  // said by the pressed button and by the caption under them.
+  const bodyFig = p => !netChartOn ? leadFig(p) : `
+    <div class="netfig" id="netfig">
+      <p class="sctl" id="net-tabs"><button type="button" data-set="public" class="on">Public speakers</button><button type="button" data-set="dais">Officials</button></p>
+      <svg id="netsvg" role="img"></svg>
+      <p class="caption" id="net-cap"></p>
+    </div>`;
   // A panel is now its takeaway <h2> in index.html, this summary paragraph of two or
   // three sentences with its numbers, its lead figure, and the Methods link (rule 8).
   // `lede` is the panel's definition line and renders only where that panel is the
@@ -989,7 +1213,7 @@ Promise.all([
       const np = leadDrewSplit && (p.headline || []).length > 1
         ? Object.assign({}, p, {headline: p.headline[1].split(/(?<=\.)\s+/)})
         : p;
-      d3.select("#p-nimby").html(`${head(np, {h2: "nimby", defs: false})}${leadFig(p)}
+      d3.select("#p-nimby").html(`${head(np, {h2: "nimby", defs: false})}${bodyFig(p)}
         ${nimbyPts ? `<div class="panel" id="nsc-panel">
           <h4 style="margin:0 0 2px">One dot, one speaker</h4>
           <p class="numlede">${fi(nimbyPts.meta.n_points_public)} public speakers, all of them at once. Across: that speaker's mean stance score, from -2 (strongly opposed to the proposal) to +2 (strongly supportive). Up: that speaker's mean hostility score, from 0 (civil) to 4 (personal attack). Dot size: how many words the speaker said. Hover a dot, or tap it on a phone, for that speaker's longest statement.</p>
@@ -1008,6 +1232,7 @@ Promise.all([
           <div class="qtip" id="nsc-tip" role="tooltip"></div>
         </div>` : `<p class="note">The per-speaker scatter needs <code>data/nimby_points.json</code>. Run <code>export/export_nimby_points.py</code> to build it.</p>`}
         ${roleSide(p.role_side)}${mlink(p)}`);
+      if (netChartOn) buildNetChart(p);
       buildSideBars(p.role_side);
       if (nimbyPts) buildScatter(nimbyPts);
     }
