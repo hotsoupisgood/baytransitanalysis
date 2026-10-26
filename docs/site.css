@@ -52,6 +52,36 @@
   --pilot: var(--dais);
   --chip: var(--warn-bg);
   --chipink: #5c4a00;
+
+  /* ── TYPE SCALE, one size per role (owner, 2026-10-25: "look at the site for
+     sizing and redo text for where it is not"). Before this pass the same role
+     was set at four different sizes: body prose rendered at 13, 14, 15 and 16 px
+     on one page, captions at 12, 12.8 and 13, and an h5 inside a panel fell
+     through to the browser's own 0.83em and arrived at 13.28 px. Each rule below
+     names the role rather than a number, so a role can only be one size.
+
+     The phone block further down raises the three small tokens, which is what
+     puts every floor in reach on a 390 px screen: body prose at 16 px or more,
+     captions and table cells at 14 px or more. The desktop values are the ones
+     the reference sites set and are unchanged. */
+  --fs-body: 1rem;        /* 16 px: prose a reader reads straight through */
+  --fs-sec: 0.9375rem;    /* 15 px: secondary prose, small headings, quotes */
+  --fs-cap: 0.8125rem;    /* 13 px: captions, notes, metadata, source lines */
+  --fs-tbl: 0.8125rem;    /* 13 px: table cells and headers */
+  --fs-micro: 0.75rem;    /* 12 px: pills, chips, hashes */
+}
+
+/* THE PHONE FLOORS. Below the card's two-column width the three small tokens
+   step up, so nothing a reader has to read lands under 14 px and no prose lands
+   under 16 px. Sizes are raised here rather than per rule, so a rule that was
+   consistent on a desktop cannot drift apart on a phone. */
+@media (max-width: 52rem) {
+  :root {
+    --fs-sec: 1rem;         /* 16 px */
+    --fs-cap: 0.875rem;     /* 14 px */
+    --fs-tbl: 0.875rem;     /* 14 px */
+    --fs-micro: 0.875rem;   /* 14 px */
+  }
 }
 
 * { box-sizing: border-box; }
@@ -79,6 +109,11 @@ main {
 p, li { line-height: 1.45; }
 p { margin: 0 0 0.625rem; }
 h1, h2, h3, p, ul, ol { max-width: var(--fig-max); }
+/* A repository path or a long command written as prose has no break opportunity
+   in it, so it pushed the page wider than the screen: on a 390 px phone the
+   Methods page scrolled to 583 px because of one file path in the pooling note.
+   Long words break rather than widen the page. */
+p, li, dd, dt, td, th, blockquote, h1, h2, h3, h4, h5 { overflow-wrap: break-word; }
 
 /* Typography scale, the car-vs-transit dashboard's, so the two pages set type
    the same way. The reference's own h2 is larger (hsereport sets 1.35rem), but
@@ -90,14 +125,18 @@ h2 {
   font-weight: 700; border-top: 1px solid var(--border); padding-top: 1.25rem;
   scroll-margin-top: 0.75rem;
 }
-h3 { font-size: 0.9375rem; margin: 1.5rem 0 0.35rem; font-weight: 700; }
-h4 { font-size: 0.9375rem; margin: 0 0 0.375rem; }
+h3 { font-size: var(--fs-sec); margin: 1.5rem 0 0.35rem; font-weight: 700; }
+h4 { font-size: var(--fs-sec); margin: 0 0 0.375rem; }
+/* h5 had no rule of its own, so every h5 on the page fell through to the
+   browser's 0.83em of whatever it sat in: 13.28 px inside a panel, which is
+   under the phone floor and smaller than the paragraph beneath it. */
+h5 { font-size: var(--fs-sec); line-height: 1.35; margin: 0 0 0.375rem; font-weight: 700; }
 
 a[href] { color: var(--accent); }
 a[href]:visited { color: var(--navy); }
 
-.sub { color: var(--muted); margin: 0 0 0.5rem; font-size: 0.9375rem; max-width: var(--fig-max); }
-.note { font-size: 0.8125rem; color: var(--muted); }
+.sub { color: var(--muted); margin: 0 0 0.5rem; font-size: var(--fs-sec); max-width: var(--fig-max); }
+.note { font-size: var(--fs-cap); color: var(--muted); }
 
 /* THIN APP BAR (reference rule 2): the site name at the left, the view links at
    the right, the active one the same hue darker. It carries no status pill: the
@@ -120,7 +159,7 @@ a[href]:visited { color: var(--navy); }
 .appbar a.name, .appbar a.name:visited { color: var(--white); text-decoration: none; }
 .appbar .tabs { margin-left: auto; display: flex; gap: 0.25rem; }
 .appbar .tabs a[href], .appbar .tabs a[href]:visited {
-  color: #bbb; text-decoration: none; font-size: 0.8125rem;
+  color: #bbb; text-decoration: none; font-size: var(--fs-cap);
   padding: 0.35rem 0.6rem; border-radius: 0.125rem;
 }
 .appbar .tabs a[href]:hover { color: var(--white); }
@@ -171,7 +210,15 @@ svg#leadsvg .lead-val, svg#sidesvg .lead-val {
   font-size: 12px; fill: var(--ink); font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
-svg#leadsvg .lead-ax, svg#sidesvg .lead-ax { font-size: 10.5px; fill: var(--tick, var(--muted)); }
+/* The pad behind the value, drawn by drawBars (index.html). The value reads
+   "41 of 100" rather than "41" since 2026-10-25, which is wide enough to reach the
+   gridlines behind it, and a gridline was being drawn through the space between
+   its words. */
+rect.lead-valbg { fill: var(--panel); }
+/* The axis numbers and the axis title: 10.5 px here was 10.5 px on screen, since
+   this chart's frame is its rendered width, and that is under the floor for text
+   a reader has to read. 12 px, which is what the category labels are set at. */
+svg#leadsvg .lead-ax, svg#sidesvg .lead-ax { font-size: 12px; fill: var(--tick, var(--muted)); }
 svg#leadsvg .lead-base, svg#sidesvg .lead-base { stroke: var(--gray); stroke-width: 1; shape-rendering: crispEdges; }
 svg#leadsvg .lead-grid, svg#sidesvg .lead-grid { stroke: var(--grid); stroke-width: 1; shape-rendering: crispEdges; }
 rect.lead-bar.public { fill: var(--public); }
@@ -179,16 +226,16 @@ rect.lead-bar.dais { fill: var(--dais); }
 rect.lead-bar.nimby { fill: var(--nimby); }
 rect.lead-bar.yimby { fill: var(--yimby); }
 rect.lead-bar.nstance { fill: var(--nstance); }
-.sideblock .sidehead { margin: 0.25rem 0 0.4rem; font-size: 0.9375rem; line-height: 1.35; }
-.sideblock .caption { max-width: none; margin: 0.45rem 0 0; font-size: 0.8rem; line-height: 1.45; color: #555; }
+.sideblock .sidehead { margin: 0.25rem 0 0.4rem; font-size: var(--fs-sec); line-height: 1.35; }
+.sideblock .caption { max-width: none; margin: 0.45rem 0 0; font-size: var(--fs-cap); line-height: 1.45; color: #555; }
 /* One sentence under every chart, the caption habit of his own dashboard
    (reference rule 5): what is drawn, then the size of the gap with its range. */
 .leadchart .caption, .leadchart .leaddef {
   max-width: none; margin: 0.45rem 0 0;
-  font-size: 0.8rem; line-height: 1.45; color: #555;
+  font-size: var(--fs-cap); line-height: 1.45; color: #555;
 }
 .leadchart .leaddef { margin-top: 0.5rem; color: var(--muted); }
-.leadchart .leadfail { font-size: 0.8125rem; color: var(--muted); margin: 0; }
+.leadchart .leadfail { font-size: var(--fs-cap); color: var(--muted); margin: 0; }
 /* Desktop placement: the TLDR fills the first row of the left column, the goal
    and the scope the second, and the chart stands beside both. */
 @media (min-width: 52.0625rem) {
@@ -227,7 +274,7 @@ ul.tldr {
   margin: 0.75rem 0 1.25rem;
   padding-left: 1.25rem;
   max-width: var(--fig-max);
-  font-size: 1rem;
+  font-size: var(--fs-body);
 }
 ul.tldr li { margin: 0.25rem 0; line-height: 1.45; }
 
@@ -235,7 +282,7 @@ ul.tldr li { margin: 0.25rem 0; line-height: 1.45; }
    scope with its counts. Full body size, because it is the first prose anyone
    reads. Numbers live here, not in the TLDR. */
 p.intro {
-  margin: 0.5rem 0 0.75rem; max-width: 76ch; font-size: 1rem; line-height: 1.45;
+  margin: 0.5rem 0 0.75rem; max-width: 76ch; font-size: var(--fs-body); line-height: 1.45;
   color: var(--ink);
 }
 p.intro + p.intro { margin-top: -0.25rem; }
@@ -247,24 +294,24 @@ p.intro + p.intro { margin-top: -0.25rem; }
 
 /* The owner's own sentences: the two links, and why it matters. Body size, same
    measure as the goal block, because they are the page's argument and not notes. */
-p.said { margin: 0.5rem 0 1rem; max-width: 76ch; font-size: 1rem; line-height: 1.5; }
+p.said { margin: 0.5rem 0 1rem; max-width: 76ch; font-size: var(--fs-body); line-height: 1.5; }
 
 /* THE TWO EXAMPLE COMMENTS, one NIMBY beside one YIMBY (owner, 2026-10-21 08:45).
    Side by side on a desktop and stacked on a phone, which .excols already does.
    The side is carried by the quote's own left rule and by the heading colour, so
    the two read as a pair rather than as two unrelated blockquotes. */
 .exq { margin: 0.25rem 0 0.75rem; }
-.exq h5 { margin: 0 0 0.375rem; font-size: 0.875rem; font-weight: 600; }
+.exq h5 { margin: 0 0 0.375rem; font-size: var(--fs-sec); font-weight: 600; }
 .exq.yimby h5 { color: var(--yimby); }
 .exq.nimby h5 { color: var(--nimby); }
 .exq blockquote.quote {
   margin: 0; padding: 0 0 0 0.75rem;
   border-left: 3px solid var(--border);
-  font-size: 0.9375rem; line-height: 1.5;
+  font-size: var(--fs-sec); line-height: 1.5;
 }
 .exq.yimby blockquote.quote { border-left-color: var(--yimby); }
 .exq.nimby blockquote.quote { border-left-color: var(--nimby); }
-.exq .qmeta { font-size: 0.8125rem; color: var(--muted); margin: 0.375rem 0 0; }
+.exq .qmeta { font-size: var(--fs-cap); color: var(--muted); margin: 0.375rem 0 0; }
 
 /* The data-as-of and total-spend line, now the page footer. Dated spend is visible
    by house rule, and it is support rather than a finding -- hence the muted .sub
@@ -273,7 +320,7 @@ p.said { margin: 0.5rem 0 1rem; max-width: 76ch; font-size: 1rem; line-height: 1
   margin: 1.5rem 0 0.5rem;
   padding-top: 0.5rem;
   border-top: 1px solid var(--border);
-  font-size: 0.875rem;
+  font-size: var(--fs-cap);
   max-width: var(--fig-max);
 }
 .asof:empty { display: none; }
@@ -281,10 +328,10 @@ p.said { margin: 0.5rem 0 1rem; max-width: 76ch; font-size: 1rem; line-height: 1
 /* A panel's opening: one or two short sentences, then an optional line of
    definition. This was a bulleted list under a literal "TLDR:" label until
    2026-10-21; the label was the thing that made every panel read the same. */
-.lede { font-size: 0.9375rem; color: var(--muted); margin: 0 0 0.625rem; max-width: 76ch; line-height: 1.45; }
+.lede { font-size: var(--fs-sec); color: var(--muted); margin: 0 0 0.625rem; max-width: 76ch; line-height: 1.45; }
 p.heads {
   margin: 0 0 0.875rem;
-  font-size: 1rem; max-width: var(--fig-max); line-height: 1.45;
+  font-size: var(--fs-body); max-width: var(--fig-max); line-height: 1.45;
 }
 
 /* Caveats: plain prose in the results body, his bolded run-in lead (§7), no box */
@@ -297,7 +344,7 @@ p.heads {
 .caveats p { font-size: 0.875rem; color: var(--ink); margin: 0.4375rem 0 0; max-width: 80ch; }
 .caveats table { margin-top: 0.5rem; }
 .pfigs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 1rem; margin: 0.75rem 0; }
-.src-note { font-size: 0.75rem; color: var(--muted); margin: 0.5rem 0 0; }
+.src-note { font-size: var(--fs-cap); color: var(--muted); margin: 0.5rem 0 0; }
 .pill.s1 { border-color: var(--dais); color: var(--dais); }
 
 /* Panels: a rule and whitespace, not a card */
@@ -311,10 +358,19 @@ p.heads {
 }
 .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 24rem); gap: 1rem; align-items: start; }
 @media (max-width: 50rem) { .wrap { grid-template-columns: 1fr; } }
+/* The Methods flowchart's row. The chart is 720 units wide and the card is 900:
+   there is no width left for a 24rem panel beside it, and while there was one the
+   chart was scaled to 406 px and its smallest labels rendered at 6.2 px. The step
+   panel sits under the chart instead, where it does not need to stick to the
+   scroll either. */
+.flowwrap { grid-template-columns: 1fr; }
+.flowwrap .detail { position: static; max-height: none; overflow: visible; }
+/* The phone hint under the flowchart. Hidden until the phone block turns it on. */
+.flowhint { display: none; }
 .detail { position: sticky; top: 0.75rem; max-height: calc(100vh - 1.5rem); overflow: auto; }
-.detail h3 { margin: 0 0 0.375rem; font-size: 0.9375rem; }
-.detail p { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.875rem; }
-.crumbs { font-size: 0.8125rem; color: var(--muted); margin: 0 0 0.5rem; }
+.detail h3 { margin: 0 0 0.375rem; font-size: var(--fs-sec); }
+.detail p { margin: 0 0 0.5rem; color: var(--muted); font-size: var(--fs-sec); }
+.crumbs { font-size: var(--fs-cap); color: var(--muted); margin: 0 0 0.5rem; }
 .crumbs a { color: var(--accent); cursor: pointer; }
 
 /* Code */
@@ -322,13 +378,13 @@ pre, code, .detail code, .hash, .files a, svg .code {
   font-family: var(--codefont);
 }
 code {
-  font-size: 0.8125rem;
+  font-size: var(--fs-cap);
   background: var(--pre-bg);
   padding: 0 3px;
   word-break: break-all;
 }
-.detail code { background: var(--pre-bg); padding: 1px 4px; font-size: 0.75rem; }
-.hash { font-size: 0.75rem; color: var(--muted); word-break: break-all; }
+.detail code { background: var(--pre-bg); padding: 1px 4px; font-size: var(--fs-cap); }
+.hash { font-size: var(--fs-micro); color: var(--muted); word-break: break-all; }
 details .verbatim {
   margin: 0;
   padding: 0.625rem 0.875rem 0.875rem;
@@ -339,7 +395,7 @@ details .verbatim {
 }
 
 /* Tables: his are plain, rules under rows only */
-table { border-collapse: collapse; width: 100%; font-size: 0.8125rem; margin: 1em 0; }
+table { border-collapse: collapse; width: 100%; font-size: var(--fs-tbl); margin: 1em 0; }
 th, td {
   text-align: left;
   padding: 0.3125rem 0.4375rem;
@@ -355,12 +411,12 @@ tr.row:hover td { background: var(--pre-bg); }
 tr.best td { background: var(--pre-bg); }
 tr.fam-head td {
   border-bottom: 0; padding-top: 0.75rem; color: var(--muted);
-  font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.6875rem;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--fs-micro);
 }
 
 /* Tags and pills, borrowed from his .post-tag */
 .pill {
-  display: inline-block; font-size: 0.6875rem; line-height: 1.8;
+  display: inline-block; font-size: var(--fs-micro); line-height: 1.8;
   padding: 0.0833em 0.3333em; margin: 0;
   border: 1px solid var(--gray); border-radius: 0.25em;
   color: var(--muted); white-space: nowrap; text-transform: uppercase;
@@ -376,12 +432,12 @@ tr.fam-head td {
 .pill.pilot { border-color: var(--pilot); color: var(--pilot); }
 .badge-row { display: flex; gap: 0.375rem; flex-wrap: wrap; margin: 0 0 0.5rem; }
 .chip {
-  display: inline-block; font-size: 0.6875rem; font-weight: 600;
+  display: inline-block; font-size: var(--fs-micro); font-weight: 600;
   padding: 0 6px; border-radius: 0.25em;
   background: var(--chip); color: var(--chipink); line-height: 1.5; vertical-align: baseline;
 }
 .role {
-  display: inline-block; font-size: 0.6875rem; font-weight: 600;
+  display: inline-block; font-size: var(--fs-micro); font-weight: 600;
   padding: 0.0833em 0.3333em; border-radius: 0.25em;
   color: var(--white); background: var(--unknown);
 }
@@ -397,7 +453,7 @@ tr.fam-head td {
 .selfid { display: inline-block; font-size: 0.625rem; color: var(--muted); font-style: italic; }
 
 .corrected {
-  display: inline-block; font-size: 0.6875rem; font-weight: 600; white-space: nowrap;
+  display: inline-block; font-size: var(--fs-micro); font-weight: 600; white-space: nowrap;
   padding: 0.0833em 0.3333em; border-radius: 0.25em;
   color: var(--muted); border: 1px solid var(--border);
 }
@@ -430,7 +486,7 @@ details.fold.more > summary {
   padding: 0.5rem 0; border-top: 1px solid var(--border);
 }
 /* The plain sentence that stands in for a collapsed table. */
-.numlede { font-size: 0.9375rem; max-width: 80ch; margin: 0.625rem 0 0.125rem; }
+.numlede { font-size: var(--fs-sec); max-width: 80ch; margin: 0.625rem 0 0.125rem; }
 /* Every table scrolls inside its own box instead of widening the page. */
 .tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
 
@@ -447,13 +503,13 @@ blockquote.leadturn p { margin: 0 0 0.375rem; }
 .loadfail {
   margin: 0.75rem 0; padding: 0.625rem 0.75rem; max-width: 80ch;
   border: 1px solid var(--border); border-left: 3px solid var(--crit);
-  font-size: 0.9375rem; color: var(--ink);
+  font-size: var(--fs-sec); color: var(--ink);
 }
 
 /* Key / legend */
 .key {
   display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
-  font-size: 0.75rem; color: var(--muted); margin: 0.375rem 0 0.875rem;
+  font-size: var(--fs-cap); color: var(--muted); margin: 0.375rem 0 0.875rem;
 }
 .key span.sw::before {
   content: ""; display: inline-block; width: 10px; height: 10px;
@@ -476,10 +532,10 @@ blockquote.leadturn p { margin: 0 0 0.375rem; }
   display: block; width: 100%; max-width: min(100%, var(--fig-max));
   height: auto; margin: 0 auto; background: var(--white);
 }
-.fig h4 { margin: 0 0 0.375rem; font-size: 0.9375rem; }
+.fig h4 { margin: 0 0 0.375rem; font-size: var(--fs-sec); }
 .fig p, .caption {
   display: block; max-width: min(100%, var(--fig-max)); margin: 0.5rem auto 0;
-  font-size: 0.8125rem; line-height: 1.45; color: var(--muted);
+  font-size: var(--fs-cap); line-height: 1.45; color: var(--muted);
 }
 #map, #flow, #chart svg { display: block; max-width: 100%; height: auto; }
 #chart { text-align: center; }
@@ -490,6 +546,27 @@ svg .lbl { font-size: 10.5px; fill: var(--muted); }
 svg .muted { fill: var(--muted); font-size: 12px; }
 svg .code { font-size: 11px; fill: var(--muted); }
 .county { fill: var(--land); stroke: var(--border); stroke-width: 1; }
+/* THE MAP ON A PHONE. The map is drawn in a 640-unit frame and shown 328 px
+   wide, so an 11 px label arrives at 5.6 px, and at that width the body names
+   also run into each other: "San Francisco" sat across "Sausalito", and
+   "SamTrans", "Palo Alto" and "Los Altos" overlapped in one knot. Below 50rem
+   the body names come off and the county names are set large enough in frame
+   units to land near 11 px on screen. Nothing is lost: a body's name, its type
+   and all of its counts are in the hover text, which opens on a tap, and the
+   legend under the map says so.
+   42rem is the width at which the map starts being scaled down: the card gives it
+   640 units of room at 672 px of viewport and less below that. Above it the map is
+   drawn at full size and its labels are already the size they are set at. */
+@media (max-width: 42rem) {
+  #map g.mklbl text.lbl { display: none; }
+  #map > g:not(.mklbl) > text.lbl { font-size: 22px; }
+}
+/* A label that would have been printed across one already placed is not drawn
+   (index.html, declutterLabels). */
+#map text.lbl[data-hidden] { display: none; }
+/* The names are drawn after the circles, so one that falls on a circle needs a
+   pad under it to stay readable. */
+#map text.lbl { paint-order: stroke; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }
 /* One shape for every body, a circle (owner, 2026-10-21 10:06). The dashed ring for
    untranscribed bodies is gone with those bodies (owner, 2026-10-24 19:30, inbox 33).
    `.body.selected` went with the detail panel: there is no selected body any more,
@@ -524,7 +601,7 @@ svg .elabel.gate { fill: var(--warn); }
   position: fixed; pointer-events: none; display: none; z-index: 9;
   background: var(--panel); color: var(--ink);
   border: 1px solid var(--border); border-radius: 3px;
-  padding: 0.375rem 0.5625rem; font-size: 0.75rem; white-space: nowrap;
+  padding: 0.375rem 0.5625rem; font-size: var(--fs-cap); white-space: nowrap;
   box-shadow: 0 1px 4px rgba(0,0,0,.12);
 }
 /* On a phone the map tooltip carries everything the old side panel showed
@@ -558,31 +635,31 @@ button.lnk {
 button.lnk:disabled { color: var(--pending); border-color: var(--lightgray); cursor: default; }
 
 /* Methods page furniture */
-.toc { font-size: 0.8125rem; color: var(--muted); margin: 0 0 1.125rem; }
+.toc { font-size: var(--fs-cap); color: var(--muted); margin: 0 0 1.125rem; }
 .toc a { color: var(--accent); }
 details { border: 1px solid var(--border); border-radius: 3px; margin: 0.5rem 0; background: var(--panel); }
-details > summary { cursor: pointer; padding: 0.5rem 0.75rem; font-size: 0.875rem; list-style: none; }
+details > summary { cursor: pointer; padding: 0.5rem 0.75rem; font-size: var(--fs-sec); list-style: none; }
 details > summary::-webkit-details-marker { display: none; }
 details > summary::before { content: "\25B8 "; color: var(--muted); }
 details[open] > summary::before { content: "\25BE "; }
 details > summary:hover { background: var(--pre-bg); }
-dl.kv, .methods dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 0.875rem; margin: 0.5rem 0; font-size: 0.875rem; }
+dl.kv, .methods dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 0.875rem; margin: 0.5rem 0; font-size: var(--fs-sec); }
 dl.kv dt, .methods dt { font-weight: 600; color: var(--ink); }
 dl.kv dd, .methods dd { margin: 0; color: var(--muted); }
-.caveat { border-left: 3px solid var(--gray); padding: 2px 0 2px 0.75rem; margin: 0.625rem 0; font-size: 0.875rem; }
+.caveat { border-left: 3px solid var(--gray); padding: 2px 0 2px 0.75rem; margin: 0.625rem 0; font-size: var(--fs-sec); }
 .caveat.crit { border-left-color: var(--crit); }
 .caveat b { display: block; color: var(--ink); }
-.lim { margin: 0.625rem 0; font-size: 0.875rem; }
+.lim { margin: 0.625rem 0; font-size: var(--fs-sec); }
 .lim b { color: var(--ink); }
 .files { list-style: none; padding: 0; margin: 0.375rem 0 0; }
 .files li { margin: 2px 0; }
-.files a { font-size: 0.75rem; color: var(--accent); text-decoration: none; }
+.files a { font-size: var(--fs-cap); color: var(--accent); text-decoration: none; }
 .files a:hover { text-decoration: underline; }
 .methods, .foot {
-  font-size: 0.75rem; color: var(--muted); margin-top: 1.75rem;
+  font-size: var(--fs-cap); color: var(--muted); margin-top: 1.75rem;
   border-top: 1px solid var(--lightgray); padding-top: 0.75rem;
 }
-.methods code, .foot code { font-size: 0.6875rem; }
+.methods code, .foot code { font-size: var(--fs-micro); }
 
 /* ── NIMBY/YIMBY scatter: one dot per public speaker cluster ──────────────
    The three label colours are the ones analysis/stance_s1_role_audit_view.py
@@ -594,7 +671,7 @@ dl.kv dd, .methods dd { margin: 0; color: var(--muted); }
   --nimby: #b5543a;
   --nstance: #898781;
 }
-.sctl { font-size: 0.875rem; margin: 0.375rem 0 0.5rem; }
+.sctl { font-size: var(--fs-sec); margin: 0.375rem 0 0.5rem; }
 .sctl select { font: inherit; font-size: 0.875rem; padding: 0.125rem 0.25rem; }
 .sctl button {
   font: inherit; font-size: 0.8125rem; color: var(--accent);
@@ -604,7 +681,10 @@ dl.kv dd, .methods dd { margin: 0; color: var(--muted); }
 svg#nsc { width: 100%; height: auto; max-width: var(--fig-max); display: block; }
 svg#nsc .thr { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
 svg#nsc .ax { stroke: var(--border); stroke-width: 1; }
-svg#nsc text { font-size: 10px; fill: var(--muted); }
+/* 10 px here rendered at 10.5 px on a 1280 desktop and 10.5 px on a 768 tablet,
+   where the chart is just under its "narrow" threshold and is drawn in a 640-unit
+   frame shown 674 px wide. 11 px clears the floor at every width. */
+svg#nsc text { font-size: 11px; fill: var(--muted); }
 /* Phone: the viewBox is the rendered width, so one unit is one CSS pixel and these
    are real sizes (readability review §7.5 -- 10px pre-scale arrived at 5px). */
 svg#nsc.narrow text { font-size: 12px; }
@@ -623,13 +703,36 @@ svg#nsc.narrow circle.pt { stroke-width: 1; }
   box-shadow: 0 2px 10px rgba(0,0,0,.14);
 }
 .qtip.pinned { pointer-events: auto; border-left-color: var(--accent); }
-/* With the card gone the tooltip is the only place the quote is shown, so it has
-   to hold a long one on a 390 px phone without running off the screen. */
-.qtip { max-height: calc(100vh - 1rem); overflow-y: auto; overscroll-behavior: contain; }
+/* THE QUOTE SCROLLS INSIDE THE POPOVER (owner, 2026-10-25 21:09: "can you make
+   the text scrollable when i click on the speaker dot"). The popover used to be
+   one scrolling box capped at the full viewport height: a speaker with several
+   long statements filled the screen top to bottom, and the source line a reader
+   needs, the body, the date and the "watch at" link, was pushed off the end of
+   the scroll. Now the box is a column of two parts. The quote is the only part
+   that scrolls, and the source line underneath it is pinned, so it is on screen
+   whatever the length of the quote.
+   The cap is half the viewport on a desktop and three fifths on a phone, where
+   there is less around the popover competing for the screen. `overscroll-behavior:
+   contain` keeps a touch drag inside the quote from scrolling the page under it
+   once the quote reaches its end. */
+.qtip {
+  flex-direction: column;
+  max-height: 50vh; overscroll-behavior: contain;
+}
+.qtip .qbody {
+  overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  min-height: 0; flex: 1 1 auto;
+}
+.qtip .qmeta { flex: 0 0 auto; }
+@media (max-width: 52rem) { .qtip { max-height: 60vh; } }
 .qtip.yimby { border-left-color: var(--yimby); }
 .qtip.nimby { border-left-color: var(--nimby); }
-.qtip blockquote { margin: 0 0 0.375rem; padding: 0; font-size: 0.9375rem; line-height: 1.4; }
-.qtip .qmeta { font-size: 0.75rem; color: var(--muted); margin: 0; line-height: 1.4; }
+.qtip blockquote { margin: 0 0 0.375rem; padding: 0; font-size: var(--fs-sec); line-height: 1.4; }
+.qtip .qmeta { font-size: var(--fs-cap); color: var(--muted); margin: 0; line-height: 1.4; }
+/* The scrolling quote gets a rule above the pinned source line, so the two parts
+   read as two parts and a quote that continues below the fold looks cut rather
+   than finished. */
+.qtip .qbody + .qmeta { border-top: 1px solid var(--border); padding-top: 0.375rem; margin-top: 0.125rem; }
 
 /* The role dot plot (owner, 2026-10-19): stance up the page, the two benches as
    the two halves of the frame. Same dot, same colours and the same tooltip as the
@@ -660,15 +763,15 @@ svg#rdp circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
    than loose prose because it is one argument in four parts and the parts have to
    stay together -- the headline number is misleading on its own. */
 .sideblock { margin-top: 1rem; }
-.sidelead { margin: 0 0 0.75rem; max-width: 80ch; font-size: 1rem; line-height: 1.45; }
+.sidelead { margin: 0 0 0.75rem; max-width: 80ch; font-size: var(--fs-body); line-height: 1.45; }
 .sidesteps {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 0.25rem 1.25rem;
 }
-.sidesteps h5 { margin: 0 0 0.25rem; font-size: 0.875rem; }
-.sidesteps p { margin: 0 0 0.625rem; font-size: 0.875rem; line-height: 1.45; }
+.sidesteps h5 { margin: 0 0 0.25rem; font-size: var(--fs-sec); }
+.sidesteps p { margin: 0 0 0.625rem; font-size: var(--fs-sec); line-height: 1.45; }
 .sideres, .sidewhy {
-  max-width: 80ch; font-size: 0.875rem; line-height: 1.45; margin: 0.5rem 0 0;
+  max-width: 80ch; font-size: var(--fs-sec); line-height: 1.45; margin: 0.5rem 0 0;
 }
 .sideres { padding-left: 0.6875rem; border-left: 3px solid var(--accent); }
 .sidewhy { color: var(--muted); }
@@ -676,7 +779,7 @@ svg#rdp circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
 /* The one-paragraph answer to "can the words tell the two benches apart", in the
    Stance panel body where numbers are allowed to live. */
 .rolepred {
-  max-width: 80ch; margin: 0 0 0.75rem; font-size: 0.9375rem; line-height: 1.45;
+  max-width: 80ch; margin: 0 0 0.75rem; font-size: var(--fs-sec); line-height: 1.45;
 }
 
 /* Topic time's own figure: horizontal bars, drawn client-side (review §7.4). */
@@ -689,7 +792,7 @@ svg#rtb line.g { stroke: var(--grid); stroke-width: 1; }
 svg#rtb line.ci { stroke: var(--darkgray); stroke-width: 1.25; stroke-opacity: 0.55; }
 svg#nsc circle.pt.dim { opacity: 0.1; }
 svg#nsc circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
-.skey { font-size: 0.8125rem; color: var(--muted); margin: 0.25rem 0 0; }
+.skey { font-size: var(--fs-cap); color: var(--muted); margin: 0.25rem 0 0; }
 .skey i { display: inline-block; width: 0.625rem; height: 0.625rem; border-radius: 50%; margin-right: 0.25rem; vertical-align: -0.0625rem; }
 
 /* The quote card under the scatter stood here. It is gone (owner, 2026-10-24
@@ -708,7 +811,7 @@ svg#nsc circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
 .qex.nimby blockquote { border-left-color: var(--nimby); }
 .qex .qmeta { font-size: 0.8125rem; color: var(--muted); margin: 0 0 0.25rem; }
 .excols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.25rem; }
-.excols h5 { margin: 0.625rem 0 0; font-size: 0.875rem; font-weight: 600; }
+.excols h5 { margin: 0.625rem 0 0; font-size: var(--fs-sec); font-weight: 600; }
 
 /* The card's own padding, his 1.75rem/2rem once there is room for it
    (reference rule 1). Below this the card keeps the phone padding set above. */
@@ -730,14 +833,28 @@ svg#nsc circle.pt.on { stroke: var(--darkgray); stroke-width: 1.5; }
   /* Phone: nothing may widen the page, and the head has to be short enough that
      the map is on the first screen (readability review §3.1). */
   h1 { font-size: 1.25rem; }
-  table { font-size: 0.75rem; }
+  /* The 12 px phone table rule is gone: --fs-tbl already steps up to 14 px here,
+     and a table that cannot fit the width scrolls inside its own box rather than
+     being set at a size a phone cannot read. */
   th, td { padding-right: 0.5em; }
+  /* Every table on a phone scrolls sideways inside its own box. Without this a
+     wide Methods table either widened the page or was shrunk until its cells were
+     11 px. */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* The Methods flowchart is drawn in a 720-unit frame. Shrunk to a 328 px phone
+     its labels arrive at 5 px, which is not readable at any size of type we could
+     set. It keeps its own width and scrolls sideways inside its panel instead, so
+     the text renders at the 11 to 20 px it is set at. */
+  #flow-svg { min-width: 720px; }
+  .flowhint { display: block; }
   .detail { position: static; max-height: none; overflow: visible; }
   /* Phone: the TLDR gives up its bottom margin and the lead chart its head margin,
      because those two gaps are the difference between the chart standing on the
      first screen and standing just under it (owner, 2026-10-21 10:04). */
   ul.tldr { margin-bottom: 0.25rem; }
-  .leadchart h2 { margin-bottom: 0.35rem; font-size: 0.9375rem; }
+  /* The lead chart's takeaway is a heading a reader reads first, so it keeps the
+     body size here rather than dropping under it. */
+  .leadchart h2 { margin-bottom: 0.35rem; font-size: var(--fs-body); }
   ul.tldr, ul.heads { padding-left: 1.125rem; }
   blockquote.leadturn { font-size: 1rem; }
 }

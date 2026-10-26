@@ -53,10 +53,18 @@
   <p class="sub" id="flow-lede">Loading…</p>
   <p class="sub" id="flow-meta"></p>
   <div class="key" id="flow-key"></div>
-  <div class="wrap">
+  <!-- The chart is drawn in a 720-unit frame. While it shared this row with the
+       24rem step panel it was given 406 px on a 1280 px desktop, and its smallest
+       labels arrived at 6 px on screen. The step panel now sits under it and the
+       chart takes the card's full width (site.css, .flowwrap). -->
+  <div class="wrap flowwrap">
     <div class="panel"><svg id="flow-svg"></svg></div>
     <div class="panel detail" id="flow-detail"><h3>Click a step</h3><p>What that step decided, and the files that do it, appear here.</p></div>
   </div>
+  <!-- Shown on a phone only (site.css): there the chart keeps its own width and
+       the box around it scrolls, rather than being shrunk until nothing in it can
+       be read. -->
+  <p class="note flowhint">The chart is wider than a phone screen. Drag it sideways to read the rest.</p>
   <p class="note" id="flow-money"></p>
 
   <h2 id="locate">2. Locate: the episode classifier</h2>
@@ -358,7 +366,8 @@ d3.json("data/methods.json").then(M => {
       <dt>Replicates</dt><dd>k = ${S.k}, median kept, spread recorded</dd>
     </dl>
     ${verbatim("The stance codebook", S.codebook, `the block below <code>--- CODEBOOK ---</code>`)}
-    <h3>The three replicate readings agree with each other, which measures the instrument against itself</h3>
+    <!-- A17, 2026-10-25: 96 characters wrapped to three lines on a phone. -->
+    <h3>The three replicate readings agree with each other, which measures the instrument's noise</h3>
     <div class="panel"><table>
       <thead><tr><th>subset</th><th class="num">turns scored</th><th class="num">stance κ<sub>w</sub>, one per replicate pair</th></tr></thead>
       <tbody>

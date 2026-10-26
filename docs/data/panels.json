@@ -1,5 +1,5 @@
 {
-"generated": "2026-10-25T20:42-07:00",
+"generated": "2026-10-25T21:50-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
 "goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. A second pass recorded whether that proposal would add or restrict housing or transit. Each was scored three times and the median calculated. This is an exploratory analysis used to better understand the data and inspire future planned analysis.",
@@ -1166,11 +1166,11 @@
 "corrected": "corrected 2026-10-18 after role audit; frame grown 2026-10-19 (S2)",
 "headline": [
 "Public speakers showed no significant difference between YIMBY and NIMBY, with a likely range of -7 to +17 of 100 on YIMBY minus NIMBY. 47 of 100 public speakers were YIMBY, 41 of 100 NIMBY and 12 of 100 neutral, of 617 speakers with a stance.",
-"San Mateo had significantly more YIMBY than NIMBY public speakers (56 against 17 of 100). In the other 14 bodies the difference was not significant."
+"San Mateo had significantly more YIMBY than NIMBY speakers: 56 against 17 of 100. In the other 14 bodies the public speakers' two shares did not differ significantly."
 ],
 "role_side": {
 "title": "Who takes a side",
-"headline": "Public speakers took a side on 81.3 % of the statements that carried a stance, against 34.7 % of dais statements.",
+"headline": "Public speakers took a side on 81 of 100 statements that carried a stance, against 35 of 100 dais statements.",
 "model_line": "A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.",
 "steps": [
 {
@@ -1185,7 +1185,7 @@
 }
 ],
 "restated": "",
-"why": "Behind the step: 81.3 % of public turns take a side rather than scoring inside the neutral band, against 34.7 % of dais turns. Renter share does not move this step: its interval covers zero, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
+"why": "Behind the step: 81 of 100 public turns take a side rather than scoring inside the neutral band, against 35 of 100 dais turns. Renter share does not move this step: its interval covers zero, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
 "table": [
 {
 "what": "Took a side at all, of every turn with a stance",
@@ -1214,9 +1214,9 @@
 "analysis/r/turn_profile.R"
 ],
 "speakers": {
-"title": "Officials were significantly more likely than public speakers to be YIMBY rather than NIMBY (73 vs 53 of 100 speakers who took a side).",
+"title": "Officials were significantly more YIMBY than public speakers: 73 against 53 of 100 who took a side.",
 "text": "Most officials took no side: 69 of 100, against 12 of 100 public speakers. Among those who took a side, 20 more officials than public speakers out of every 100 were YIMBY (likely range 11 to 28). An official had 2.30 times a public speaker's odds of being YIMBY rather than NIMBY (likely range 1.77 to 3.01). Both ranges are 95 % intervals.",
-"methods_title": "Officials were YIMBY rather than NIMBY more often than public speakers, 2.30 times the odds",
+"methods_title": "Officials were YIMBY rather than NIMBY more often: 2.30 times the odds",
 "methods": [
 "Unit and counts. The unit is one voice at one stretch of meeting, labelled as the YIMBY and NIMBY panel labels it. That means the audited role, the looser direction rule, and housing and transit proposals both counted. A speaker is YIMBY at a mean corrected stance of +0.5 or higher and NIMBY at -0.5 or lower. Officials here are every speaker the role audit placed on the dais, which includes staff reports. Of 1,906 officials with a stance, 427 were YIMBY, 160 NIMBY and 1,319 neutral. Of 617 public speakers, 287 were YIMBY, 254 NIMBY and 76 neutral.",
 "The test. A mixed-effects logistic regression models YIMBY rather than NIMBY on role, for the speakers who took a side: 587 officials and 541 public speakers. The locate route is a fixed term and each body has its own baseline. It was fitted with lme4 (glmer, bobyqa) in R, with a 95 % profile-likelihood interval. Officials had 2.30 times the odds (likely range 1.77 to 3.01, Wald p below 0.000001, likelihood-ratio p below 0.000001). The body baseline has a standard deviation of 0.40 on the log-odds scale. A route baseline in place of the fixed term came out at zero variance. The plain logistic regression, with no body baseline, gives 2.29 times the odds (1.79 to 2.95). Among speakers who took a side, the YIMBY share differs by 19.7 of 100, with a likely range of 10.8 to 28.1. That range comes from 2,000 bootstrap draws that resample stretches of meeting inside each body and route, as the panel's own ranges do.",
@@ -6258,7 +6258,7 @@
 },
 "methods_anchor": "speakers",
 "fullset_note": {
-"title": "The YIMBY and NIMBY view moved onto the full statement set on 2026-10-24, and its starred groups changed",
+"title": "The YIMBY and NIMBY view moved to the full statement set, and its starred groups changed",
 "paragraphs": [
 "On 2026-10-24, at the owner's request, the published YIMBY and NIMBY view moved from the frame of 2026-10-18 to the full statement set. The old frame held 9,358 statements. It left out 8,091 statements scored on 2026-10-19 and 20 and all 5,788 statements on the full recording route. The full set holds every scored statement, 23,237 in all. By route: 11,314 on the captions route, 5,788 on the full recording route, 2,792 on the own audio route, 2,153 on the agenda index route and 1,190 on the transcript route. After the direction pass's exclusions, 7,850 of them carry a speaker label, against 4,235 before.",
 "A route is which transcript source a meeting came from. The captions route uses YouTube captions. The transcript route uses a city's own transcript. The agenda index route cuts the meeting at the agenda item's time stamp. The own audio route is audio this project transcribed itself. The full recording route transcribed the whole meeting from its audio and checked every 2-minute window for the topic, with no keyword screen. Its statements came from housing stretches only until the 2026-10-25 census, which scored its transit stretches as well. From 2026-10-25 the public YIMBY and NIMBY chart combines a body's routes. The before-and-after below is per route, as it was written. The note on the combined view gives both.",
@@ -10846,8 +10846,8 @@
 "stamp": "Rates are a measurement, not a model estimate. Each likely range is a 95 % episode bootstrap.",
 "lede": "",
 "headline": [
-"Of the transit boards with a measurable rate, BART and VTA gave housing density and transit the most meeting time: 29.14 and 27.00 minutes of each meeting-hour.",
-"Napa County gave them 1.78 to 2.48 minutes, depending on which route read the meeting."
+"BART and VTA gave housing density and transit the most meeting time: 29.14 and 27.00 minutes per meeting-hour.",
+"They are the two transit boards among the 3 bodies with a rate that can be measured. Napa County gave the two topics 1.78 to 2.48 minutes of each meeting-hour, depending on which route read the meeting."
 ],
 "complete": [
 {

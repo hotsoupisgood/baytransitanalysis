@@ -170,7 +170,10 @@
   <div class="key">
     <span>circle area = hours of that body's meetings transcribed</span>
     <span>colour: <i class="ramp"></i> share of those hours on transit, through to share on housing density</span>
-    <span>hover a circle, or tap it on a phone, for that body's counts</span>
+    <!-- The hover text is the only place a body's name appears on a phone, where
+         the names printed under the circles were 5.6 px and overlapped each
+         other (site.css, the map on a phone), so the legend names it here. -->
+    <span>hover a circle, or tap it on a phone, for that body's name and counts</span>
   </div>
 
   <h2 id="rates">Topic time per meeting-hour</h2>
@@ -312,8 +315,16 @@ Promise.all([
       .attr("y1", 14).attr("y2", 14 + BH);
     g.append("rect").attr("class", d => `lead-bar ${d.k}`)
       .attr("x", 0).attr("y", 14).attr("height", BH).attr("width", d => x(d.v));
-    g.append("text").attr("class", "lead-val").attr("x", d => x(d.v) + 6)
+    const val = g.append("text").attr("class", "lead-val").attr("x", d => x(d.v) + 6)
       .attr("y", 14 + BH / 2).attr("dy", "0.35em").text(d => fmt(d.v));
+    // A white pad behind the value. Since 2026-10-25 the value reads "41 of 100"
+    // rather than "41", which is wide enough to reach the gridlines behind it, and
+    // a gridline was being drawn through the space between its words.
+    val.each(function () {
+      const bb = this.getBBox();
+      d3.select(this.parentNode).insert("rect", () => this).attr("class", "lead-valbg")
+        .attr("x", bb.x - 2).attr("y", bb.y).attr("width", bb.width + 4).attr("height", bb.height);
+    });
     svg.append("g").selectAll("text").data([0, 50, 100]).join("text")
       .attr("class", "lead-ax").attr("x", d => x(d)).attr("y", base + 14)
       .attr("text-anchor", (d, i) => i === 0 ? "start" : i === 1 ? "middle" : "end").text(d => d);
@@ -360,7 +371,9 @@ Promise.all([
     // (2026-10-25). Not significant at any of them, so this title has never changed.
     // The title states the conclusion and the two shares; since inbox 36 the caption
     // carries the range.
-    d3.select("#lead-h").text(`Public speakers showed no significant difference between YIMBY and NIMBY: `
+    // A17, 2026-10-25: the takeaway was 94 characters and wrapped to three lines on
+    // a 390 px phone. Same conclusion, same two numbers, two lines.
+    d3.select("#lead-h").text(`Public speakers were not significantly more YIMBY than NIMBY: `
       + `${per100(rows[1].v)} against ${per100(rows[0].v)} of 100`);
     // Inbox 36 (parent, 2026-10-24 19:45): the range behind that conclusion is shown,
     // read from nimby.lead_range, which export_panels.py fills from
@@ -386,8 +399,11 @@ Promise.all([
   svg.append("rect").attr("width", W).attr("height", H).attr("fill", "var(--water)").attr("rx", 8);
   svg.append("g").selectAll("path").data(counties.features).join("path").attr("class","county").attr("d", path)
     .on("mousemove", (ev,d) => showTip(ev, `<b>${d.properties.name} County</b>`)).on("mouseleave", hideTip);
+  // A county label counts as context, so it yields to a body label it would land
+  // on: the priority below is lower than any body's.
   svg.append("g").selectAll("text").data(counties.features).join("text").attr("class","lbl")
     .attr("transform", d => `translate(${path.centroid(d)})`).attr("text-anchor","middle").attr("dy", "0.35em").attr("opacity", .7)
+    .attr("data-pri", -1)
     .text(d => d.properties.name);
 
   const r = d3.scaleSqrt([0, d3.max(bodies, b => b.hours_done)], [0, 30]);
@@ -409,8 +425,63 @@ Promise.all([
   mk.append("circle").attr("class", "body")
     .attr("r", d => Math.max(4.5, r(d.b.hours_done)))
     .attr("fill", d => colour(d.b));
-  mk.filter(d => d.b.hours_done >= 2).append("text").attr("class","lbl").attr("text-anchor","middle").attr("dy", d => r(d.b.hours_done) + 11)
-    .style("pointer-events","none").text(d => short(d.b.name));
+  // The names are drawn in their own group, after every circle, rather than inside
+  // each marker's group. Inside the markers a name was painted in its own marker's
+  // turn, so a circle drawn later covered it: "Richmond", "San Leandro", "Fremont"
+  // and "SamTrans" were all cut in half by a neighbour's circle at 1280 px. Drawn
+  // last, with the white pad set on #map text.lbl in site.css, a name that falls on
+  // a circle is still read.
+  svg.append("g").attr("class", "mklbl").selectAll("text")
+    .data(nodes.filter(d => d.b.hours_done >= 2)).join("text")
+    .attr("class", "lbl").attr("text-anchor", "middle")
+    .attr("x", d => d.x).attr("y", d => d.y)
+    .attr("dy", d => r(d.b.hours_done) + 11)
+    .attr("data-pri", d => d.b.hours_done)
+    .style("pointer-events", "none").text(d => short(d.b.name));
+
+  // THE LABELS DID NOT AVOID EACH OTHER (A17, 2026-10-25, owner: "also review
+  // sizing of plots"). The force simulation keeps the circles apart and nothing
+  // kept their names apart, so nine pairs overlapped at every width: "San
+  // Francisco" was printed across "Sausalito", "Richmond" across "San Rafael",
+  // and "SamTrans", "Palo Alto" and "Los Altos" ran into each other in one knot.
+  // Each label goes down in turn, most transcribed hours first, and a label that
+  // would land on one already placed is not drawn. Nothing is lost: the circle
+  // stays, and the body's name and all of its counts are in the hover text, which
+  // the legend points at. The order is the data's own, so the same names are kept
+  // on every load.
+  // A county label is context and yields twice over: to a body label it would
+  // land on, and to any circle it would be printed across. On a phone, where the
+  // county names are set large enough in frame units to be readable on screen,
+  // "San Francisco" and "San Mateo" were otherwise drawn under the circles that
+  // sit on top of them and arrived as "San Franc" and "San Mate".
+  function declutterLabels() {
+    const all = Array.from(document.querySelectorAll("#map text.lbl"));
+    all.forEach(n => n.removeAttribute("data-hidden"));
+    const kept = [];
+    const overlaps = (a, b) => a.left < b.right && b.left < a.right
+                            && a.top < b.bottom && b.top < a.bottom;
+    const circles = Array.from(document.querySelectorAll("#map circle.body"))
+      .map(n => n.getBoundingClientRect()).filter(r => r.width);
+    all.map(n => ({ n, pri: +(n.getAttribute("data-pri") || 0) }))
+       .sort((a, b) => b.pri - a.pri)
+       .forEach(({ n, pri }) => {
+         const r = n.getBoundingClientRect();
+         if (!r.width) return;                        // hidden at this width
+         const box = { left: r.left - 1, right: r.right + 1, top: r.top, bottom: r.bottom };
+         if (kept.some(k => overlaps(k, box))
+             || (pri < 0 && circles.some(k => overlaps(k, box)))) {
+           n.setAttribute("data-hidden", ""); return;
+         }
+         kept.push(box);
+       });
+  }
+  declutterLabels();
+  // The phone rule hides the body names outright, so crossing that width changes
+  // which names are left to place.
+  let mapRT = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(mapRT); mapRT = setTimeout(declutterLabels, 150);
+  });
 
   // THE HOVER TEXT, now the only way into a body's numbers (owner: "keep info in the
   // hover"). It carries everything the detail panel used to show above its meeting
@@ -603,9 +674,19 @@ Promise.all([
   // The two shares live in exactly one place, the role_side headline the export writes
   // from the fit's own rows, and are read back out of it the same way the split chart
   // reads its three.
+  //
+  // Owner's rule 6, carried over from 2026-10-20: a share reads as "81 of 100", never
+  // "81.3 %". A15 and A16 both flagged that this block was the last place on the page
+  // still printing percent signs, and left it because the pattern the shares are read
+  // back with was written for them. The export now writes the sentence in whole
+  // statements of a hundred and this pattern reads that; the two have to move together
+  // or the chart silently blanks, which is what happened to the lead chart in October.
+  // The underlying values are untouched: 0.813 and 0.347 are rounded once, in the
+  // export, exactly as every other share on the page is.
   function buildSideBars(rs) {
     const cap = d3.select("#side-cap"), svgSel = d3.select("#sidesvg");
-    const m = /took a side on\s*([\d.]+)\s*%[^.]*?against\s*([\d.]+)\s*%/.exec((rs && rs.headline) || "");
+    const m = /took a side on\s*([\d.]+)\s*of\s*100[^.]*?against\s*([\d.]+)\s*of\s*100/
+      .exec((rs && rs.headline) || "");
     if (!m) {
       svgSel.remove();
       cap.html(`<span class="leadfail">These bars need the two shares in <code>data/panels.json</code>, under <code>nimby.role_side</code>. Run <code>export/export_panels.py</code> to rebuild them.</span>`);
@@ -615,9 +696,11 @@ Promise.all([
       { k: "public", label: "Members of the public", v: +m[1] },
       { k: "dais", label: "Officials running the meeting", v: +m[2] },
     ];
-    drawBars(svgSel, rows, "% of that group's scored statements that took a side", v => `${f1(v)} %`);
-    d3.select("#side-h").text(`Public speakers took a side significantly more often than officials: `
-      + `on ${f1(rows[0].v)} % of their scored statements, against ${f1(rows[1].v)} %`);
+    const per100 = v => Math.round(v);
+    drawBars(svgSel, rows, "scored statements of every 100 that took a side",
+      v => `${per100(v)} of 100`);
+    d3.select("#side-h").text(`Public speakers took a side significantly more often than `
+      + `officials: ${per100(rows[0].v)} against ${per100(rows[1].v)} of 100`);
     cap.text("Each bar is one group's share of the statements that carried a stance score.");
     leadDrewShares = true;
   }
@@ -739,25 +822,46 @@ Promise.all([
     const qtip = d3.select("#nsc-tip");
     let swallowClick = false, pinnedNode = null;
 
-    const tipHtml = (d, pin) => `<blockquote>“${esc(d.quote)}”</blockquote>
+    // Owner, 2026-10-25 21:09: "can you make the text scrollable when i click on
+    // the speaker dot." The quote sits in its own box, which is the only part of
+    // the popover that scrolls; the source line under it stays in place, so the
+    // body, the date and the "watch at" link are on screen however long the quote
+    // is. The box is capped at half the viewport on a desktop and three fifths on
+    // a phone, in site.css, so the popover always fits the screen it is on.
+    const tipHtml = (d, pin) => `<div class="qbody"><blockquote>“${esc(d.quote)}”</blockquote></div>
       <p class="qmeta">${meta1(d)}<br>${meta2(d)}${
-        pin ? `<br><b>pinned</b>. Click or tap the dot again to release.` : ""}</p>`;
+        pin ? `<br><b>pinned</b>. Click or tap outside it, or press Escape, to close.` : ""}</p>`;
 
     const placeTip = (cx, cy) => placeFloating(qtip, cx, cy);
     function showQtip(d, pin, cx, cy) {
+      // `flex`, not `block`: the popover is a column of the scrolling quote and
+      // the pinned source line, and only a flex column gives the quote the
+      // leftover height to scroll in.
       qtip.attr("class", `qtip ${d.label.toLowerCase()}${pin ? " pinned" : ""}`)
-        .style("display", "block").html(tipHtml(d, pin));
+        .style("display", "flex").html(tipHtml(d, pin));
+      // A new quote starts at its own beginning, not where the last one was left.
+      const body = qtip.node().querySelector(".qbody");
+      if (body) body.scrollTop = 0;
       placeTip(cx, cy);
     }
     function hideQtip() { qtip.style("display", "none"); }
     function pinTo(d, node) { pinned = d; pinnedNode = node; showQtip(d, true, ...dotCentre(node)); draw(); }
     function unpin() { pinned = null; pinnedNode = null; hideQtip(); draw(); }
-    // A tap anywhere that is not a dot and not the tooltip itself puts it away. The
-    // tooltip is excluded so the "watch at" link inside it stays reachable.
+    // A tap or click anywhere that is not a dot and not the popover itself puts it
+    // away. The popover is excluded so the "watch at" link inside it stays
+    // reachable and so a drag on the quote scrolls the quote.
+    //
+    // A17, 2026-10-25: this used to fire on a touch only, so a pinned popover on a
+    // desktop could be closed only by finding the same dot again and clicking it a
+    // second time. Found while testing the scrolling quote, which is the thing a
+    // reader now opens on purpose and has to be able to close. A mouse click
+    // outside closes it too, and so does Escape.
     document.addEventListener("pointerdown", ev => {
-      if (pinned && ev.pointerType !== "mouse"
-          && !ev.target.closest("#nsc circle.pt") && !ev.target.closest("#nsc-tip")) unpin();
+      if (pinned && !ev.target.closest("#nsc circle.pt") && !ev.target.closest("#nsc-tip")) unpin();
     }, true);
+    document.addEventListener("keydown", ev => {
+      if (pinned && ev.key === "Escape") unpin();
+    });
 
     function draw() {
       const rows = shown();
