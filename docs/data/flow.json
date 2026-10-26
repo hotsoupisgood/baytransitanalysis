@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25T16:31-07:00",
+ "generated": "2026-10-25T20:45-07:00",
  "generated_by": "ytpt-site/export/export_flow.py",
  "meta_line": "34 bodies \u00b7 709 meetings \u00b7 4,959 located episodes over 5 routes \u00b7 302.3 audio hours transcribed \u00b7 23,237 turns scored \u00b7 $17.64 of GPU time, measured 2026-10-23",
  "lede": "Nine stages, in the order they ran. Each box says what was decided at that step; the dashed ones are the two places where something is judged rather than processed. Click a box for the detail and the files behind it.",
@@ -297,19 +297,15 @@
    "n": "9",
    "title": "The nested mixed model",
    "state": "done",
-   "badge": "ONE MODEL, TWO STEPS",
-   "line": "The grouping was decided by the data: turns nest inside stretches of meeting inside meetings, and once that is modelled the body level is empty.",
+   "badge": "ONE MODEL",
+   "line": "The grouping was decided by the data: turns nest inside stretches of meeting, inside meetings, inside the bodies that held them.",
    "nums": [
     [
      "times the odds, public vs dais: took a side at all",
      "8.20\u00d7"
-    ],
-    [
-     "times the odds, public vs dais: which side, given a side",
-     "1.65\u00d7"
     ]
    ],
-   "detail": "<p>One row per scored turn. The fit is a mixed logistic regression that gives every stretch of meeting, every meeting and every body its own baseline. Speaker role, renter share, their interaction and the locate route are fixed terms. It is fitted twice on the same frame: did a turn take a side at all, and, among the turns that took one, which side.</p><p><b>Took a side at all</b>: 8.20\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 6.46 to 10.51). <b>Which side, given a side</b>: 1.65\u00d7 the odds of opposing more housing or transit rather than supporting it, for a public statement against a dais one (likely range 1.25 to 2.19).</p><p>A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.</p><p>The reason the model groups turns by meeting rather than by city is that the spread between bodies is zero once meeting is in it, because meeting is nested inside body and absorbs it entirely. Earlier fits grouped by body, which is the wrong level; they are kept in the repo and agree with this one to within a few thousandths of a log-odds. The role block on the dashboard reports this model and nothing else.</p>",
+   "detail": "<p>One row per scored turn. The fit is a mixed logistic regression that gives every stretch of meeting, every meeting and every body its own baseline. Speaker role, renter share, their interaction and the locate route are fixed terms. The outcome is whether a turn took a side at all rather than scoring inside the neutral band.</p><p><b>Took a side at all</b>: 8.20\u00d7 the odds of taking a side, for a public statement against a dais one (likely range 6.46 to 10.51).</p><p>A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.</p><p>The model groups turns by meeting rather than by city because meeting is nested inside body and absorbs most of the spread between bodies. Section 5 gives that spread at each level, for each step. Earlier fits grouped by body, which is the wrong level; they are kept in the repo and agree with this one to within a few thousandths of a log-odds. The role block on the dashboard reports this model and nothing else.</p>",
    "docs": [
     "plan/RENTER-SHARE-6-R.md",
     "plan/REGRESSION-REVIEW-2026-10-19.md"

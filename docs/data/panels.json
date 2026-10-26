@@ -1,5 +1,5 @@
 {
-"generated": "2026-10-25T16:37-07:00",
+"generated": "2026-10-25T20:42-07:00",
 "stamp": "EXPLORATORY. The stance \u03ba gate is not passed.",
 "intro": {
 "goal": "This project asks how people at Bay Area public meetings feel about housing density and transit. Each statement was scored from -2, strongly opposed, to +2, strongly supportive, toward the proposal being discussed. A second pass recorded whether that proposal would add or restrict housing or transit. Each was scored three times and the median calculated. This is an exploratory analysis used to better understand the data and inspire future planned analysis.",
@@ -1170,7 +1170,7 @@
 ],
 "role_side": {
 "title": "Who takes a side",
-"headline": "Public speakers took a side on 81.3 % of the statements that carried a stance, against 34.7 % of dais statements. Public statements that took a side opposed more housing or transit significantly more often than dais ones: 47.1 % against 33.7 %.",
+"headline": "Public speakers took a side on 81.3 % of the statements that carried a stance, against 34.7 % of dais statements.",
 "model_line": "A statement took a side when its corrected stance score was 0.5 or more away from neutral. The scale runs from -2 for opposing more housing or transit to +2 for supporting more of it.",
 "steps": [
 {
@@ -1182,20 +1182,10 @@
 1.86579901175955,
 2.35226878668706
 ]
-},
-{
-"name": "Which side, given a side",
-"text": "1.65\u00d7 the odds of opposing more housing or transit rather than supporting it, for a public statement against a dais one (likely range 1.25 to 2.19).",
-"odds_ratio": 1.653087783180938,
-"beta": 0.502644922801465,
-"ci95": [
-0.22713417351729,
-0.782220089334663
-]
 }
 ],
 "restated": "",
-"why": "Behind the two steps: 81.3 % of public turns take a side rather than scoring inside the neutral band, against 34.7 % of dais turns; of the turns that do take one, 47.1 % of public turns come out against more housing or transit against 33.7 % of dais ones. The two steps are separate fits on their own rows and do not multiply together. Almost all the dependence in this corpus is inside meetings rather than between bodies: on the second step the spread between stretches of meeting is 0.96 and between meetings 0.81 on the log-odds scale, while the spread between bodies is 0.00 once meeting is in the model. Which is why the model groups turns by meeting and not by city. Renter share does not move either step: its interval covers zero on both, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
+"why": "Behind the step: 81.3 % of public turns take a side rather than scoring inside the neutral band, against 34.7 % of dais turns. Renter share does not move this step: its interval covers zero, and so does its interaction with role. Staff speakers are dropped from these rows altogether, because they read reports rather than take positions, and a council member chairing an item is doing something other than taking one too, which is most of what the first step is measuring.",
 "table": [
 {
 "what": "Took a side at all, of every turn with a stance",
@@ -1212,26 +1202,10 @@
 "turns": 3853,
 "episodes": 531,
 "meetings": 146
-},
-{
-"what": "Against more housing or transit rather than for it, of the turns that took a side",
-"odds_ratio": 1.653087783180938,
-"or_ci95": [
-1.2549982441728245,
-2.1863207088059196
-],
-"delta": 0.502644922801465,
-"ci95": [
-0.22713417351729,
-0.782220089334663
-],
-"turns": 1699,
-"episodes": 438,
-"meetings": 134
 }
 ],
 "table_note": "Odds ratios are for a public turn against a dais one, with renter share, its interaction with role and the locate route also in the model, and with a baseline per body, per meeting and per stretch of meeting. Each likely range is a 95 % interval taken from the likelihood rather than from a standard error, which is why it is not symmetric around the estimate.",
-"limits": "The unit here is a scored turn, not a person, and both the stance score and the public/dais label are model output that no human has checked. The role label comes from what a speaker says about who they are. The first step is largely a measure of speech act rather than opinion: chairing, moving and reading a report are all neutral by construction, and they are things only the dais does. The second step's interval is slightly wider than the data require, because the optimiser stops just short of the likelihood's peak and the interval was taken at a loosened tolerance. And the permutation test once quoted for this gap has been withdrawn; the evidence here is this model and nothing else.",
+"limits": "The unit here is a scored turn, not a person, and both the stance score and the public/dais label are model output that no human has checked. The role label comes from what a speaker says about who they are. The first step is largely a measure of speech act rather than opinion: chairing, moving and reading a report are all neutral by construction, and they are things only the dais does. And the permutation test once quoted for this gap has been withdrawn; the evidence here is this model and nothing else.",
 "sources": [
 "output/renter_share_6_fullset_direction_loose/ (turn outcomes), output/renter_share_6/",
 "analysis/r/export_anyside.py",

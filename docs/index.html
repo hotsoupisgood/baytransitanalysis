@@ -547,7 +547,7 @@ Promise.all([
   };
   const mlink = p => `<p class="src-note">How this was measured, and how well: <a href="methods.html#${esc(p.methods_anchor)}">Methods</a>.</p>`;
 
-  // ── "Who takes a side": the role gap, in a headline and two steps ──
+  // ── "Who takes a side": the role gap, in a headline and the published steps ──
   // Owner, 2026-10-19: one model carries this result -- "lets keep that lme4
   // model then as the one we use in the dashboard. drop the others from the
   // final explanation but keep it in the repo." Both steps come out of that one
@@ -561,12 +561,20 @@ Promise.all([
   // sits and the limitations. All four are on Methods, section "The models behind
   // the role results", which reads the same fit; the two odds ratios a reader
   // would quote are the two step lines themselves.
-  // Rule 14, 2026-10-21: the lead chart on the first screen draws the two shares in
-  // this block's first sentence and prints the definition of "took a side" under
-  // itself. So when that chart was drawn, this block renders neither: it keeps the
-  // sentence about which side each group took, its two odds ratios and the note on
-  // what to quote. When the chart could not be drawn, the block carries all of it, as
-  // it did before, and the page is still complete.
+  // Rule 14, 2026-10-21: this block's bars draw the two shares in its first sentence,
+  // so the sentence itself is not printed again as prose. What the block prints is the
+  // odds ratio of each published step and the note on what "took a side" means. When
+  // the bars cannot be drawn, the caption says which key is missing and the page is
+  // still complete.
+  // Owner, 2026-10-25 20:36: "remove the other analysis about pro vs anti a resolution".
+  // Step two, which side a statement took given that it took one, is no longer exported
+  // into panels.json (export_panels.py PUBLISH_WHICH_SIDE). This function therefore draws
+  // whatever steps it is given and nothing more. With a single step there is no list to
+  // number and no second step to tell it from, so the step's own heading goes too: it is
+  // a label ("Took a side at all") where rule 15 asks a heading to be a takeaway, and the
+  // takeaway is already the h5 above the bars. The step keeps its sentence. With the lede
+  // sentence gone the empty paragraph goes as well. Nothing here names the step that was
+  // withdrawn, because rule 17 keeps what is not on the page off it.
   // Owner, 2026-10-24 19:31 (inbox 35): "do test of yimby nimby in offical vs public".
   // The same comparison on the speaker labels closes the block: one takeaway heading and
   // one short paragraph, both written by export_panels.py _speaker_role_test() from
@@ -582,9 +590,10 @@ Promise.all([
       <h5 class="sidehead" id="side-h"></h5>
       <svg id="sidesvg" role="img" aria-label="Share of scored statements that took a side on the agenda item, public speakers against the officials running the meeting"></svg>
       <p class="caption" id="side-cap"></p>
-      <p class="sidelead">${esc((rs.headline || "").split(/(?<=\.)\s+/).filter(s => !/took a side on/.test(s)).join(" "))}</p>
+      ${(lede => lede ? `<p class="sidelead">${esc(lede)}</p>` : "")(
+        (rs.headline || "").split(/(?<=\.)\s+/).filter(s => !/took a side on/.test(s)).join(" "))}
       <div class="sidesteps">${rs.steps.map((s, i) => `
-        <div><h5>${i + 1}. ${esc(s.name)}</h5><p>${esc(s.text)}</p></div>`).join("")}</div>
+        <div>${rs.steps.length > 1 ? `<h5>${i + 1}. ${esc(s.name)}</h5>` : ""}<p>${esc(s.text)}</p></div>`).join("")}</div>
       ${rs.model_line ? `<p class="sidemodel note">${esc(rs.model_line)}</p>` : ""}
       ${rs.restated ? `<p class="sideres">${esc(rs.restated)}</p>` : ""}
       ${rs.speakers ? `<div class="sidespk" id="side-speakers"><h5 style="margin:12px 0 4px">${esc(rs.speakers.title)}</h5><p>${esc(rs.speakers.text)}</p></div>` : ""}
